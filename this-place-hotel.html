@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>This Place Hotel — L'Atelier</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#E8920A;--gold-h:#C87808;--gold-l:#FFF4DC;--gold-m:#FFD080;--cream:#FFFBF2;--cream2:#FFF5DC;--ink:#1C1200;--muted:#9A7A40;--surface:#FFFFFF;--border:rgba(232,146,10,.22);--borders:rgba(232,146,10,.5);--green:#1A8A5A;--green-bg:#E8F7EF;--shadow:0 4px 24px rgba(232,146,10,.13);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--ink);font-family:'Space Mono',monospace;min-height:100vh;}
+header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(232,146,10,.08);}
+.header-logo{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.8rem;color:var(--gold);cursor:pointer;text-decoration:none;transition:color .2s;}
+.header-logo:hover{color:var(--gold-h);}
+.back-btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold-l);border:1.5px solid var(--borders);color:var(--gold);font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;cursor:pointer;border-radius:6px;font-weight:700;transition:background .2s;text-decoration:none;}
+.back-btn:hover{background:var(--gold-m);}
+main{max-width:900px;margin:0 auto;padding:3rem 2rem;}
+.page-back{margin-bottom:2rem;}
+.morceau-header{margin-bottom:2.5rem;}
+.morceau-artist{font-size:.65rem;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.4rem;}
+.morceau-title{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:3.5rem;color:var(--gold);line-height:1;margin-bottom:.5rem;}
+.morceau-divider{height:3px;width:80px;background:var(--gold-m);border-radius:2px;}
+.blocks{display:flex;flex-direction:column;gap:1.5rem;}
+.block{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;transition:box-shadow .2s;}
+.block:hover{box-shadow:var(--shadow);}
+.block-header{padding:12px 18px;background:var(--gold-l);border-bottom:1px solid var(--border);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;align-items:center;justify-content:space-between;}
+.block-header-left{display:flex;align-items:center;gap:8px;}
+.block-icon{font-size:1rem;}
+.block-body{padding:20px;}
+.yt-embed{width:100%;aspect-ratio:16/9;border:none;display:block;border-radius:8px;}
+.audio-player{width:100%;height:40px;accent-color:var(--gold);margin-top:4px;}
+.audio-dl{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;background:var(--gold-l);border:1.5px solid var(--borders);padding:5px 12px;border-radius:4px;font-weight:700;transition:background .2s;}
+.audio-dl:hover{background:var(--gold-m);}
+.btn-partition{width:100%;background:var(--gold);color:#fff;border:none;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.2rem;padding:1rem;cursor:pointer;transition:background .2s,transform .1s;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:12px;}
+.btn-partition:hover{background:var(--gold-h);}
+.btn-partition:active{transform:scale(.98);}
+.btn-partition-sub{font-family:'Space Mono',monospace;font-size:.6rem;font-style:normal;letter-spacing:.08em;opacity:.8;}
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(28,18,0,.65);align-items:center;justify-content:center;padding:1rem;}
+.modal-overlay.open{display:flex;animation:overlayIn .2s ease;}
+@keyframes overlayIn{from{opacity:0;}to{opacity:1;}}
+.modal-box{background:var(--surface);border-radius:12px;width:100%;max-width:860px;max-height:92vh;display:flex;flex-direction:column;box-shadow:0 16px 60px rgba(28,18,0,.3);animation:modalIn .25s ease;}
+@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(12px);}to{opacity:1;transform:none;}}
+.modal-header{padding:14px 18px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--gold-l);border-radius:12px 12px 0 0;flex-shrink:0;}
+.modal-title{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.2rem;color:var(--gold);}
+.modal-close{background:var(--gold);color:#fff;border:none;width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;flex-shrink:0;}
+.modal-close:hover{background:var(--gold-h);transform:scale(1.1);}
+.modal-body{flex:1;overflow:hidden;border-radius:0 0 12px 12px;position:relative;min-height:60vh;}
+.modal-iframe{width:100%;height:100%;border:none;display:block;min-height:60vh;}
+.modal-fallback{display:none;padding:2.5rem;text-align:center;flex-direction:column;align-items:center;gap:1rem;}
+.modal-fallback.visible{display:flex;}
+.modal-fallback p{font-size:.82rem;color:var(--muted);line-height:1.8;}
+.btn-ext{display:inline-block;background:var(--gold);color:#fff;border:none;padding:.75rem 1.75rem;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1rem;border-radius:6px;cursor:pointer;text-decoration:none;transition:background .2s;}
+.btn-ext:hover{background:var(--gold-h);}
+/* no-content blocks */
+.no-content{padding:1.5rem;text-align:center;color:var(--muted);font-size:.75rem;letter-spacing:.08em;}
+/* MOBILE */
+@media(max-width:640px){
+  header{padding:0 1rem;}
+  .header-logo{font-size:1.4rem;}
+  main{padding:2rem 1rem;}
+  .morceau-title{font-size:2.5rem;}
+  .modal-box{max-height:95vh;}
+  .modal-iframe{min-height:50vh;}
+  .block-body{padding:14px;}
+}
+</style>
+</head>
+<body>
+<script>
+(function(){
+  if(sessionStorage.getItem('atelier-auth')!=='1'){
+    window.location.replace('index.html');
+  }
+})();
+</script>
+
+
+<header>
+  <a class="header-logo" href="index.html">L'Atelier</a>
+  <a class="back-btn" href="index.html">← Accueil</a>
+</header>
+
+<main>
+  <div class="morceau-header">
+    <div class="morceau-artist">The Jacksons</div>
+    <h1 class="morceau-title">This Place Hotel</h1>
+    <div class="morceau-divider"></div>
+  </div>
+
+  <div class="blocks">
+    <div class="block">
+      <div class="block-header"><div class="block-header-left"><span class="block-icon">▶</span> Vidéo YouTube</div></div>
+      <div class="block-body">
+        <iframe class="yt-embed" src="https://www.youtube-nocookie.com/embed/-wHW3zsRK04?rel=0&modestbranding=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- MODAL PDF -->
+<div class="modal-overlay" id="pdf-modal" onclick="handleOverlay(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Partition</div>
+      <button class="modal-close" onclick="closePDF()" title="Fermer ❌">✕</button>
+    </div>
+    <div class="modal-body">
+      <iframe class="modal-iframe" id="modal-iframe" src="" title="Partition PDF"></iframe>
+      <div class="modal-fallback" id="modal-fallback">
+        <p>Ce PDF ne peut pas s'afficher directement.<br>Clique ci-dessous pour l'ouvrir dans un nouvel onglet.</p>
+        <a class="btn-ext" id="modal-ext" href="#" target="_blank">Ouvrir le PDF ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openPDF(url,title,dl){
+  document.getElementById('modal-title').textContent=title;
+  document.getElementById('modal-iframe').src=url;
+  document.getElementById('modal-ext').href=dl||url;
+  document.getElementById('modal-fallback').classList.remove('visible');
+  document.getElementById('modal-iframe').style.display='block';
+  document.getElementById('pdf-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+  const iframe=document.getElementById('modal-iframe');
+  const t=setTimeout(()=>{try{if(!iframe.contentDocument||!iframe.contentDocument.body||iframe.contentDocument.body.innerHTML===''){showFallback();}}catch(e){}},5000);
+  iframe.onload=()=>clearTimeout(t);
+  iframe.onerror=()=>{clearTimeout(t);showFallback();};
+}
+function showFallback(){document.getElementById('modal-iframe').style.display='none';document.getElementById('modal-fallback').classList.add('visible');}
+function closePDF(){document.getElementById('pdf-modal').classList.remove('open');document.getElementById('modal-iframe').src='';document.getElementById('modal-iframe').style.display='block';document.body.style.overflow='';}
+function handleOverlay(e){if(e.target===document.getElementById('pdf-modal'))closePDF();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDF();});
+</script>
+</body>
+</html>
