@@ -1,5 +1,30 @@
 <!DOCTYPE html>
 <html lang="fr">
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║               AVIS IMPORTANT — DROITS D'AUTEUR                  ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║  Ce site est un espace strictement privé, réservé aux membres   ║
+  ║  du groupe L'Atelier.                                           ║
+  ║                                                                  ║
+  ║  Les contenus présents (extraits audio, vidéos, partitions)     ║
+  ║  sont utilisés dans un cadre exclusivement privé et pédagogique,║
+  ║  conformément à l'exception d'usage privé prévue par le Code    ║
+  ║  de la propriété intellectuelle (art. L122-5 CPI).              ║
+  ║                                                                  ║
+  ║  Toute diffusion, reproduction ou partage en dehors de ce       ║
+  ║  cercle privé est strictement interdite.                        ║
+  ║                                                                  ║
+  ║  Les droits restent la propriété exclusive de leurs auteurs     ║
+  ║  et ayants droit respectifs.                                    ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║  CADRE D'UTILISATION :                                          ║
+  ║  Ces contenus s'inscrivent dans le cadre des ateliers musicaux  ║
+  ║  du Conservatoire de Chelles. Usage limité à l'apprentissage    ║
+  ║  et à la préparation des répétitions au sein de cet             ║
+  ║  établissement.                                                 ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -165,5 +190,17 @@ function closePDF(){document.getElementById('pdf-modal').classList.remove('open'
 function handleOverlay(e){if(e.target===document.getElementById('pdf-modal'))closePDF();}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDF();});
 </script>
+
+  <footer style="max-width:900px;margin:3rem auto 0;padding:1.5rem 2rem 3rem;border-top:1px solid var(--border);">
+    <p style="font-size:.6rem;color:var(--muted);line-height:1.9;letter-spacing:.04em;">
+      <strong style="color:var(--gold);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;">Avis droits d'auteur</strong><br>
+      Ce site est un espace strictement privé, réservé aux membres du groupe L'Atelier.<br>
+      Les contenus présents (extraits audio, vidéos, partitions) sont utilisés dans un cadre exclusivement privé et pédagogique, conformément à l'exception d'usage privé prévue par le Code de la propriété intellectuelle (art. L122-5 CPI).<br>
+      Toute diffusion, reproduction ou partage en dehors de ce cercle privé est strictement interdite.<br>
+      Les droits restent la propriété exclusive de leurs auteurs et ayants droit respectifs.<br><br>
+      <strong style="color:var(--gold);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;">Cadre d'utilisation</strong><br>
+      Les contenus partagés sur ce site s'inscrivent exclusivement dans le cadre des ateliers musicaux du Conservatoire de Chelles. Leur utilisation est limitée à l'apprentissage, au travail de répétition et à la préparation des séances au sein de cet établissement. Toute utilisation en dehors de ce cadre institutionnel est interdite.
+    </p>
+  </footer>
 </body>
 </html>
