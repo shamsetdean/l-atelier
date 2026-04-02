@@ -151,7 +151,6 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
       <ul class="header-nav">
         <li><button class="active" onclick="showSection('morceaux',this)">Morceaux</button></li>
         <li><button onclick="showSection('planning',this)">Planning</button></li>
-        <li><button onclick="showSection('audio',this)">Audio</button></li>
         <li><button onclick="showSection('videos',this)">Vidéos</button></li>
       </ul>
     </nav>
@@ -206,6 +205,7 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
             <div class="morceau-name">Still a Friend of Mine</div>
             <div class="morceau-chips">
               <span class="chip chip-video">▶ Vidéo</span>
+              <span class="chip chip-audio">♪ Audio</span>
               <span class="chip chip-pdf">PDF</span>
             </div>
           </div>
@@ -251,6 +251,7 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
             <div class="morceau-name">This Place Hotel</div>
             <div class="morceau-chips">
               <span class="chip chip-video">▶ Vidéo</span>
+              <span class="chip chip-audio">♪ Audio</span>
             </div>
           </div>
         </a>
@@ -281,28 +282,26 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
       </div>
     </section>
 
-    <!-- AUDIO -->
-    <section id="audio" class="section">
-      <h1 class="section-title">Audio</h1>
-      <p class="section-desc">Enregistrements de répétitions</p>
-      <div class="audio-list">
-        <div class="audio-row">
-          <div class="audio-top">
-            <div><div class="audio-name">Justin Timberlake — Atelier Funk 2025</div><div class="audio-meta">MP3 · Dropbox</div></div>
-            <a class="audio-link" href="https://www.dropbox.com/scl/fi/f33f5tvvqbllbaoybedds/Justin-Timberlake-Atelier-Funk-2025-PBO.mp3?rlkey=8s2ig5u5jt1j5ygguhxy1ilzv&st=1i8b99pv&dl=0" target="_blank">Télécharger ↓</a>
-          </div>
-          <audio class="audio-player" controls preload="none">
-            <source src="https://www.dropbox.com/scl/fi/f33f5tvvqbllbaoybedds/Justin-Timberlake-Atelier-Funk-2025-PBO.mp3?rlkey=8s2ig5u5jt1j5ygguhxy1ilzv&st=1i8b99pv&raw=1" type="audio/mpeg">
-          </audio>
-        </div>
-      </div>
-    </section>
-
     <!-- VIDEOS -->
     <section id="videos" class="section">
       <h1 class="section-title">Vidéos</h1>
       <p class="section-desc">Références &amp; lives</p>
-      <div class="videos-sub">Références YouTube</div>
+      <div class="videos-sub">Lives — L'Atelier</div>
+      <div class="videos-grid">
+        <div class="video-card">
+          <video class="video-native" controls preload="none">
+            <source src="https://www.dropbox.com/scl/fi/93mt8e36zv24agyisneqj/ae8c3b56-692e-4795-9318-697efeec674c.MP4?rlkey=0huavlqdd1256gark1xjq9s05&raw=1" type="video/mp4">
+          </video>
+          <div class="video-info"><div class="video-title">Live — L'Atelier #1</div><span class="video-tag" style="color:#0A5A35;background:var(--green-bg);">Live</span></div>
+        </div>
+        <div class="video-card">
+          <video class="video-native" controls preload="none">
+            <source src="https://www.dropbox.com/scl/fi/cp63o33qednwlc4f6kdj6/9d213374-893f-4e80-946e-237d6b55f31d.MP4?rlkey=qqx6hnocmf759n980noacnvi8&raw=1" type="video/mp4">
+          </video>
+          <div class="video-info"><div class="video-title">Live — L'Atelier #2</div><span class="video-tag" style="color:#0A5A35;background:var(--green-bg);">Live</span></div>
+        </div>
+      </div>
+      <div class="videos-sub" style="margin-top:2.5rem;">Références YouTube</div>
       <div class="videos-grid">
         <div class="video-card">
           <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/uoAzWUHCRpU?rel=0&modestbranding=1" title="Worth It" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
@@ -325,21 +324,6 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
           <div class="video-info"><div class="video-title">This Place Hotel</div><span class="video-tag" style="color:#7A4800;background:var(--gold-m);">Référence</span></div>
         </div>
       </div>
-      <div class="videos-sub" style="margin-top:2.5rem;">Lives — L'Atelier</div>
-      <div class="videos-grid">
-        <div class="video-card">
-          <video class="video-native" controls preload="none">
-            <source src="https://www.dropbox.com/scl/fi/93mt8e36zv24agyisneqj/ae8c3b56-692e-4795-9318-697efeec674c.MP4?rlkey=0huavlqdd1256gark1xjq9s05&raw=1" type="video/mp4">
-          </video>
-          <div class="video-info"><div class="video-title">Live — L'Atelier #1</div><span class="video-tag" style="color:#0A5A35;background:var(--green-bg);">Live</span></div>
-        </div>
-        <div class="video-card">
-          <video class="video-native" controls preload="none">
-            <source src="https://www.dropbox.com/scl/fi/cp63o33qednwlc4f6kdj6/9d213374-893f-4e80-946e-237d6b55f31d.MP4?rlkey=qqx6hnocmf759n980noacnvi8&raw=1" type="video/mp4">
-          </video>
-          <div class="video-info"><div class="video-title">Live — L'Atelier #2</div><span class="video-tag" style="color:#0A5A35;background:var(--green-bg);">Live</span></div>
-        </div>
-      </div>
     </section>
 
   </main>
@@ -347,7 +331,6 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
   <nav class="mobile-nav">
     <button class="active" onclick="showSection('morceaux',this)">Morceaux</button>
     <button onclick="showSection('planning',this)">Planning</button>
-    <button onclick="showSection('audio',this)">Audio</button>
     <button onclick="showSection('videos',this)">Vidéos</button>
   </nav>
 </div>
