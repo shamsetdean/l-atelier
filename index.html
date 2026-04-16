@@ -175,12 +175,15 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
 
 <div id="login-screen">
   <div class="login-deco">L'A</div>
+  <div style="position:absolute;top:1.2rem;right:1.5rem;z-index:10;">
+    <button class="lang-btn" id="lang-toggle-login" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
+  </div>
   <div class="login-box">
     <div class="login-logo">L'Atelier</div>
-    <div class="login-sub">Espace membres · Accès privé</div>
-    <label class="login-label" for="pwd">Mot de passe</label>
+    <div class="login-sub" data-fr="Espace membres · Accès privé" data-es="Espacio miembros · Acceso privado">Espace membres · Accès privé</div>
+    <label class="login-label" for="pwd" data-fr="Mot de passe" data-es="Contraseña">Mot de passe</label>
     <input class="login-input" type="password" id="pwd" autocomplete="current-password" placeholder="••••••••">
-    <button class="login-btn" onclick="checkPassword()">Entrer</button>
+    <button class="login-btn" onclick="checkPassword()" data-fr="Entrer" data-es="Entrar">Entrer</button>
     <div class="login-error" id="login-error"></div>
   </div>
 </div>
@@ -436,8 +439,8 @@ function showSection(id,btn){
 /* ── TRADUCTION ── */
 function toggleLang(){
   currentLang=(currentLang==='fr')?'es':'fr';
-  const btn=document.getElementById('lang-toggle');
-  btn.textContent=(currentLang==='fr')?'ES':'FR';
+  const label=(currentLang==='fr')?'ES':'FR';
+  ['lang-toggle','lang-toggle-login'].forEach(id=>{const b=document.getElementById(id);if(b)b.textContent=label;});
   // Traduire uniquement les éléments sans enfants [data-fr] (feuilles texte)
   document.querySelectorAll('[data-fr]').forEach(el=>{
     const hasTranslatableChild=el.querySelector('[data-fr]');
