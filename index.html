@@ -70,6 +70,8 @@ header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:0
 .header-nav button{background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;padding:.5rem .9rem;cursor:pointer;transition:color .2s;border-bottom:3px solid transparent;margin-bottom:-2px;}
 .header-nav button:hover{color:var(--ink);}
 .header-nav button.active{color:var(--gold);border-bottom-color:var(--gold);}
+.lang-btn{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;padding:.4rem .8rem;cursor:pointer;transition:all .2s;border-radius:4px;}
+.lang-btn:hover{color:var(--ink);border-color:var(--gold);}
 .logout-btn{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;padding:.4rem .8rem;cursor:pointer;transition:all .2s;border-radius:4px;}
 .logout-btn:hover{color:var(--ink);border-color:var(--gold);}
 
@@ -138,13 +140,27 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
 .video-title{font-size:.78rem;color:var(--ink);margin-bottom:6px;font-weight:700;}
 .video-tag{display:inline-block;font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:20px;font-weight:700;}
 
+/* MODALE PDF */
+.pdf-overlay{position:fixed;inset:0;background:rgba(28,18,0,.7);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.pdf-overlay.open{display:flex;}
+.pdf-modal{background:var(--surface);border:2px solid var(--borders);border-radius:12px;width:92vw;max-width:900px;height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 16px 60px rgba(28,18,0,.4);}
+.pdf-modal-header{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:2px solid var(--gold-m);flex-shrink:0;}
+.pdf-modal-title{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.1rem;color:var(--gold);}
+.pdf-modal-close{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.7rem;padding:.35rem .75rem;cursor:pointer;border-radius:4px;transition:all .2s;}
+.pdf-modal-close:hover{color:var(--ink);border-color:var(--gold);}
+.pdf-modal-body{flex:1;overflow:hidden;position:relative;}
+.pdf-modal-body iframe{width:100%;height:100%;border:none;display:block;}
+.pdf-modal-actions{padding:10px 18px;border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0;}
+.pdf-open-btn{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;background:var(--gold-l);border:1.5px solid var(--borders);padding:6px 14px;border-radius:4px;font-weight:700;transition:background .2s;}
+.pdf-open-btn:hover{background:var(--gold-m);}
+
 /* MOBILE */
 @media(max-width:640px){
   .header-nav{display:none;}
   .mobile-nav{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:2px solid var(--gold-m);display:flex;z-index:200;box-shadow:0 -4px 16px rgba(232,146,10,.1);}
-  .mobile-nav button{flex:1;background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;padding:.7rem .2rem;cursor:pointer;border-top:3px solid transparent;}
+  .mobile-nav button{flex:1;background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:1rem .5rem;cursor:pointer;border-top:3px solid transparent;min-height:62px;display:flex;align-items:center;justify-content:center;}
   .mobile-nav button.active{color:var(--gold);border-top-color:var(--gold);}
-  main{padding:2rem 1rem 5rem;}
+  main{padding:2rem 1rem 6rem;}
   .event-row{grid-template-columns:70px 1fr;}
   .event-badge{display:none;}
   .videos-grid{grid-template-columns:1fr;}
@@ -174,25 +190,28 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
     <span class="header-logo" onclick="showSection('morceaux',document.querySelector('.header-nav button'))" title="Accueil">L'Atelier</span>
     <nav>
       <ul class="header-nav">
-        <li><button class="active" onclick="showSection('morceaux',this)">Morceaux</button></li>
-        <li><button onclick="showSection('planning',this)">Planning</button></li>
-        <li><button onclick="showSection('videos',this)">Vidéos</button></li>
+        <li><button class="active" onclick="showSection('morceaux',this)"><span data-fr="Morceaux" data-es="Canciones">Morceaux</span></button></li>
+        <li><button onclick="showSection('planning',this)"><span data-fr="Planning" data-es="Agenda">Planning</span></button></li>
+        <li><button onclick="showSection('videos',this)"><span data-fr="Vidéos" data-es="Vídeos">Vidéos</span></button></li>
       </ul>
     </nav>
-    <button class="logout-btn" onclick="logout()">Déconnexion</button>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="lang-btn" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
+      <button class="logout-btn" onclick="logout()" data-fr="Déconnexion" data-es="Salir">Déconnexion</button>
+    </div>
   </header>
 
   <main>
 
     <!-- MORCEAUX -->
     <section id="morceaux" class="section active">
-      <h1 class="section-title">Morceaux</h1>
-      <p class="section-desc">Cliquer pour ouvrir la page complète</p>
+      <h1 class="section-title"><span data-fr="Morceaux" data-es="Canciones">Morceaux</span></h1>
+      <p class="section-desc"><span data-fr="Cliquer sur PDF pour ouvrir la partition complète" data-es="Haz clic en PDF para abrir la partitura completa">Cliquer sur PDF pour ouvrir la partition complète</span></p>
       <div class="morceaux-grid">
 
-        <a class="morceau-card" href="worth-it.html">
+        <div class="morceau-card" style="cursor:default;">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFF4DC,#FFE8A0);">
-            <div class="morceau-thumb-play"></div>
+            <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
             <div class="morceau-thumb-title">Worth It</div>
           </div>
           <div class="morceau-info">
@@ -200,15 +219,14 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
             <div class="morceau-name">Worth It</div>
             <div class="morceau-chips">
               <span class="chip chip-video">▶ Vidéo</span>
-              <span class="chip chip-audio">♪ Audio</span>
-              <span class="chip chip-pdf">PDF</span>
+              <span class="chip chip-pdf" style="cursor:pointer;" onclick="openPDF('Worth It — Lyrics','https://www.dropbox.com/scl/fi/7pa5sc9mz2vfwwt1gzfl4/WORTH-IT-LYRICS.pdf?rlkey=z3nsc1dcskxvuox5kkq406msl&raw=1')">PDF</span>
             </div>
           </div>
-        </a>
+        </div>
 
-        <a class="morceau-card" href="easy-lover.html">
+        <div class="morceau-card" style="cursor:default;">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#E8F7EF,#C0EDDA);">
-            <div class="morceau-thumb-play"></div>
+            <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
             <div class="morceau-thumb-title">Easy Lover</div>
           </div>
           <div class="morceau-info">
@@ -218,11 +236,11 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
               <span class="chip chip-video">▶ Vidéo</span>
             </div>
           </div>
-        </a>
+        </div>
 
-        <a class="morceau-card" href="still-a-friend.html">
+        <div class="morceau-card" style="cursor:default;">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#EEF0FF,#D0D4FF);">
-            <div class="morceau-thumb-play"></div>
+            <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
             <div class="morceau-thumb-title">Still a Friend of Mine</div>
           </div>
           <div class="morceau-info">
@@ -230,15 +248,14 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
             <div class="morceau-name">Still a Friend of Mine</div>
             <div class="morceau-chips">
               <span class="chip chip-video">▶ Vidéo</span>
-              <span class="chip chip-audio">♪ Audio</span>
-              <span class="chip chip-pdf">PDF</span>
+              <span class="chip chip-pdf" style="cursor:pointer;" onclick="openPDF('Still a Friend of Mine — Lyrics','https://www.dropbox.com/scl/fi/z33jb8fblyyiuw2hqcyrk/STILL-A-FRIEND-OF-MINE-LYRICS.pdf?rlkey=wi1dnr5rb4bryyijntjemyuqd&raw=1')">PDF</span>
             </div>
           </div>
-        </a>
+        </div>
 
-        <a class="morceau-card" href="medley-jt.html">
+        <div class="morceau-card" style="cursor:default;">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFF0E0,#FFD4A0);">
-            <div class="morceau-thumb-play"></div>
+            <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
             <div class="morceau-thumb-title">Medley Justin Timberlake</div>
           </div>
           <div class="morceau-info">
@@ -246,29 +263,28 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
             <div class="morceau-name">Medley Justin Timberlake</div>
             <div class="morceau-chips">
               <span class="chip chip-video">▶ Vidéo</span>
-              <span class="chip chip-audio">♪ Audio</span>
-              <span class="chip chip-pdf">PDF</span>
+              <span class="chip chip-pdf" style="cursor:pointer;" onclick="openPDF('Medley Justin Timberlake — Lyrics','https://www.dropbox.com/scl/fi/ms8fjaecmpzl1voxiakyz/MEDLEY-JUSTIN-TIMBERLAKE-V2-Lyrics.pdf?rlkey=5yuvr7y9chdcgpzra8xmyv4l2&raw=1')">PDF</span>
             </div>
           </div>
-        </a>
+        </div>
 
-        <a class="morceau-card" href="medley-chaka.html">
+        <div class="morceau-card" style="cursor:default;">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFE8F0,#FFB8D0);">
-            <div class="morceau-thumb-play"></div>
+            <div class="morceau-thumb-play" style="cursor:default;opacity:.4;"></div>
             <div class="morceau-thumb-title">Medley Chaka Khan</div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">Chaka Khan</div>
             <div class="morceau-name">Medley Chaka Khan</div>
             <div class="morceau-chips">
-              <span class="chip chip-pdf">PDF</span>
+              <span class="chip chip-pdf" style="opacity:.5;font-style:italic;">PDF à venir</span>
             </div>
           </div>
-        </a>
+        </div>
 
-        <a class="morceau-card" href="this-place-hotel.html">
+        <div class="morceau-card" style="cursor:default;">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#F0F8FF,#C8E4FF);">
-            <div class="morceau-thumb-play"></div>
+            <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
             <div class="morceau-thumb-title">This Place Hotel</div>
           </div>
           <div class="morceau-info">
@@ -276,28 +292,32 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
             <div class="morceau-name">This Place Hotel</div>
             <div class="morceau-chips">
               <span class="chip chip-video">▶ Vidéo</span>
-              <span class="chip chip-audio">♪ Audio</span>
             </div>
           </div>
-        </a>
+        </div>
 
       </div>
     </section>
 
     <!-- PLANNING -->
     <section id="planning" class="section">
-      <h1 class="section-title">Planning</h1>
-      <p class="section-desc">Répétitions &amp; concerts</p>
+      <h1 class="section-title"><span data-fr="Planning" data-es="Agenda">Planning</span></h1>
+      <p class="section-desc"><span data-fr="Répétitions &amp; concerts" data-es="Ensayos &amp; conciertos">Répétitions &amp; concerts</span></p>
       <div class="planning-list">
+        <div class="event-row repetition" style="border-left-color:#B06020;background:linear-gradient(90deg,#FFF0E0 0%,var(--surface) 40%);">
+          <div><div class="event-date" style="color:#B06020;">7</div><div class="event-month">Mai 2026</div></div>
+          <div><div class="event-name"><span data-fr="Prochaine répétition" data-es="Próximo ensayo">Prochaine répétition</span></div><div class="event-lieu">Salle A2 · Conservatoire de Chelles · 19h30 – 21h00</div></div>
+          <span class="event-badge option"><span data-fr="À confirmer — Cédric" data-es="Por confirmar — Cédric">À confirmer — Cédric</span></span>
+        </div>
         <div class="event-row concert">
-          <div><div class="event-date">26</div><div class="event-month">Juin 2025</div></div>
-          <div><div class="event-name">Concert</div><div class="event-lieu">Lieu à confirmer</div></div>
+          <div><div class="event-date">20</div><div class="event-month">Mai 2026</div></div>
+          <div><div class="event-name">Concert</div><div class="event-lieu">Auditorium de Chelles</div></div>
           <span class="event-badge concert">Concert ✓</span>
         </div>
-        <div class="event-row option">
-          <div><div class="event-date">20</div><div class="event-month">Mai 2025</div></div>
-          <div><div class="event-name">Concert (en option)</div><div class="event-lieu">Lieu à confirmer</div></div>
-          <span class="event-badge option">En option</span>
+        <div class="event-row concert">
+          <div><div class="event-date">26</div><div class="event-month">Juin 2026</div></div>
+          <div><div class="event-name">Concert</div><div class="event-lieu">Lieu à confirmer</div></div>
+          <span class="event-badge concert">Concert ✓</span>
         </div>
         <div class="event-row repetition">
           <div><div class="event-date">Jeu.</div><div class="event-month">Hebdomadaire</div></div>
@@ -309,9 +329,9 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
 
     <!-- VIDEOS -->
     <section id="videos" class="section">
-      <h1 class="section-title">Vidéos</h1>
-      <p class="section-desc">Références &amp; lives</p>
-      <div class="videos-sub">Lives — L'Atelier</div>
+      <h1 class="section-title"><span data-fr="Vidéos" data-es="Vídeos">Vidéos</span></h1>
+      <p class="section-desc"><span data-fr="Références &amp; lives" data-es="Referencias &amp; directos">Références &amp; lives</span></p>
+      <div class="videos-sub"><span data-fr="Lives — L'Atelier" data-es="Directos — L'Atelier">Lives — L'Atelier</span></div>
       <div class="videos-grid">
         <div class="video-card">
           <video class="video-native" controls preload="none">
@@ -326,7 +346,7 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
           <div class="video-info"><div class="video-title">Live — L'Atelier #2</div><span class="video-tag" style="color:#0A5A35;background:var(--green-bg);">Live</span></div>
         </div>
       </div>
-      <div class="videos-sub" style="margin-top:2.5rem;">Références YouTube</div>
+      <div class="videos-sub" style="margin-top:2.5rem;"><span data-fr="Références YouTube" data-es="Referencias YouTube">Références YouTube</span></div>
       <div class="videos-grid">
         <div class="video-card">
           <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/uoAzWUHCRpU?rel=0&modestbranding=1" title="Worth It" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
@@ -353,37 +373,96 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
 
   </main>
 
+<!-- MODALE PDF -->
+<div class="pdf-overlay" id="pdf-overlay" onclick="closePDF(event)">
+  <div class="pdf-modal">
+    <div class="pdf-modal-header">
+      <span class="pdf-modal-title" id="pdf-modal-title">Partition</span>
+      <button class="pdf-modal-close" onclick="closePDFBtn()">✕ Fermer</button>
+    </div>
+    <div class="pdf-modal-body">
+      <iframe id="pdf-frame" src="" title="Partition PDF"></iframe>
+    </div>
+
+  </div>
+</div>
+
   <footer style="max-width:1100px;margin:3rem auto 0;padding:1.5rem 2rem 3rem;border-top:1px solid var(--border);">
     <p style="font-size:.6rem;color:var(--muted);line-height:1.9;letter-spacing:.04em;">
-      <strong style="color:var(--gold);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;">Avis droits d'auteur</strong><br>
-      Ce site est un espace strictement privé, réservé aux membres du groupe L'Atelier.<br>
-      Les contenus présents (extraits audio, vidéos, partitions) sont utilisés dans un cadre exclusivement privé et pédagogique, conformément à l'exception d'usage privé prévue par le Code de la propriété intellectuelle (art. L122-5 CPI).<br>
-      Toute diffusion, reproduction ou partage en dehors de ce cercle privé est strictement interdite.<br>
-      Les droits restent la propriété exclusive de leurs auteurs et ayants droit respectifs.<br><br>
-      <strong style="color:var(--gold);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;">Cadre d'utilisation</strong><br>
-      Les contenus partagés sur ce site s'inscrivent exclusivement dans le cadre des ateliers musicaux du Conservatoire de Chelles. Leur utilisation est limitée à l'apprentissage, au travail de répétition et à la préparation des séances au sein de cet établissement. Toute utilisation en dehors de ce cadre institutionnel est interdite.<br><br>
-      <strong style="color:var(--gold);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;">Statut des enregistrements</strong><br>
-      <span style="color:var(--green);">✅</span> Les enregistrements audio sont ceux de nos propres répétitions — les membres du groupe en sont les interprètes.<br>
-      <span style="color:var(--gold);">⚠️</span> Les œuvres interprétées sont protégées — leur utilisation s'inscrit dans le cadre de la licence SACEM du Conservatoire de Chelles couvrant l'enseignement musical.<br>
-      <span style="color:var(--green);">✅</span> Le partage est strictement limité aux membres de l'atelier dans un cadre pédagogique interne.<br>
-      <span style="color:#D03030;">❌</span> Aucune diffusion publique des répétitions n'est effectuée ni autorisée. Ce site est protégé par mot de passe et réservé aux seuls membres du groupe.
+      <strong style="color:var(--gold);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;" data-fr="Avis droits d'auteur" data-es="Aviso de derechos de autor">Avis droits d'auteur</strong><br>
+      <span data-fr="Ce site est un espace strictement privé, réservé aux membres du groupe L'Atelier." data-es="Este sitio es un espacio estrictamente privado, reservado a los miembros del grupo L'Atelier.">Ce site est un espace strictement privé, réservé aux membres du groupe L'Atelier.</span><br>
+      <span data-fr="Les contenus présents (extraits audio, vidéos, partitions) sont utilisés dans un cadre exclusivement privé et pédagogique, conformément à l'exception d'usage privé prévue par le Code de la propriété intellectuelle (art. L122-5 CPI)." data-es="Los contenidos presentes (extractos de audio, vídeos, partituras) se utilizan en un marco exclusivamente privado y pedagógico, conforme a la excepción de uso privado prevista por el Código de la propiedad intelectual francés (art. L122-5 CPI).">Les contenus présents (extraits audio, vidéos, partitions) sont utilisés dans un cadre exclusivement privé et pédagogique, conformément à l'exception d'usage privé prévue par le Code de la propriété intellectuelle (art. L122-5 CPI).</span><br>
+      <span data-fr="Toute diffusion, reproduction ou partage en dehors de ce cercle privé est strictement interdite." data-es="Toda difusión, reproducción o compartición fuera de este círculo privado está estrictamente prohibida.">Toute diffusion, reproduction ou partage en dehors de ce cercle privé est strictement interdite.</span><br>
+      <span data-fr="Les droits restent la propriété exclusive de leurs auteurs et ayants droit respectifs." data-es="Los derechos siguen siendo propiedad exclusiva de sus autores y titulares de derechos respectivos.">Les droits restent la propriété exclusive de leurs auteurs et ayants droit respectifs.</span><br><br>
+      <strong style="color:var(--gold);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;" data-fr="Cadre d'utilisation" data-es="Marco de utilización">Cadre d'utilisation</strong><br>
+      <span data-fr="Les contenus partagés sur ce site s'inscrivent exclusivement dans le cadre des ateliers musicaux du Conservatoire de Chelles. Leur utilisation est limitée à l'apprentissage, au travail de répétition et à la préparation des séances au sein de cet établissement. Toute utilisation en dehors de ce cadre institutionnel est interdite." data-es="Los contenidos compartidos en este sitio se inscriben exclusivamente en el marco de los talleres musicales del Conservatorio de Chelles. Su utilización se limita al aprendizaje, al trabajo de ensayo y a la preparación de las sesiones en dicho centro. Todo uso fuera de este marco institucional está prohibido.">Les contenus partagés sur ce site s'inscrivent exclusivement dans le cadre des ateliers musicaux du Conservatoire de Chelles. Leur utilisation est limitée à l'apprentissage, au travail de répétition et à la préparation des séances au sein de cet établissement. Toute utilisation en dehors de ce cadre institutionnel est interdite.</span><br><br>
+      <strong style="color:var(--gold);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;" data-fr="Statut des enregistrements" data-es="Estado de las grabaciones">Statut des enregistrements</strong><br>
+      <span style="color:var(--green);font-weight:700;">+</span> <span data-fr="Les enregistrements audio sont ceux de nos propres répétitions — les membres du groupe en sont les interprètes." data-es="Las grabaciones de audio son las de nuestros propios ensayos — los miembros del grupo son sus intérpretes.">Les enregistrements audio sont ceux de nos propres répétitions — les membres du groupe en sont les interprètes.</span><br>
+      <span style="color:var(--gold);font-weight:700;">!</span> <span data-fr="Les œuvres interprétées sont protégées — leur utilisation s'inscrit dans le cadre de la licence SACEM du Conservatoire de Chelles couvrant l'enseignement musical." data-es="Las obras interpretadas están protegidas — su utilización se inscribe en el marco de la licencia SACEM del Conservatorio de Chelles relativa a la enseñanza musical.">Les œuvres interprétées sont protégées — leur utilisation s'inscrit dans le cadre de la licence SACEM du Conservatoire de Chelles couvrant l'enseignement musical.</span><br>
+      <span style="color:var(--green);font-weight:700;">+</span> <span data-fr="Le partage est strictement limité aux membres de l'atelier dans un cadre pédagogique interne." data-es="El intercambio está estrictamente limitado a los miembros del taller en un marco pedagógico interno.">Le partage est strictement limité aux membres de l'atelier dans un cadre pédagogique interne.</span><br>
+      <span style="color:#D03030;font-weight:700;">x</span> <span data-fr="Aucune diffusion publique des répétitions n'est effectuée ni autorisée. Ce site est protégé par mot de passe et réservé aux seuls membres du groupe." data-es="Ninguna difusión pública de los ensayos se realiza ni está autorizada. Este sitio está protegido por contraseña y reservado exclusivamente a los miembros del grupo.">Aucune diffusion publique des répétitions n'est effectuée ni autorisée. Ce site est protégé par mot de passe et réservé aux seuls membres du groupe.</span>
     </p>
   </footer>
 
   <nav class="mobile-nav">
-    <button class="active" onclick="showSection('morceaux',this)">Morceaux</button>
-    <button onclick="showSection('planning',this)">Planning</button>
-    <button onclick="showSection('videos',this)">Vidéos</button>
+    <button class="active" onclick="showSection('morceaux',this)"><span class="nav-label" data-fr="Morceaux" data-es="Canciones">Morceaux</span></button>
+    <button onclick="showSection('planning',this)"><span class="nav-label" data-fr="Planning" data-es="Agenda">Planning</span></button>
+    <button onclick="showSection('videos',this)"><span class="nav-label" data-fr="Vidéos" data-es="Vídeos">Vidéos</span></button>
   </nav>
 </div>
 
 <script>
 const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
+let currentLang='fr';
+
 async function sha256(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}
 async function checkPassword(){const v=document.getElementById('pwd').value;if(!v)return;const h=await sha256(v);if(h===PASSWORD_HASH){sessionStorage.setItem('atelier-auth','1');document.getElementById('login-screen').style.display='none';document.getElementById('app').style.display='block';}else{document.getElementById('login-error').textContent='Mot de passe incorrect.';document.getElementById('pwd').value='';setTimeout(()=>document.getElementById('login-error').textContent='',3000);}}
 function logout(){sessionStorage.removeItem('atelier-auth');document.getElementById('app').style.display='none';document.getElementById('login-screen').style.display='flex';document.getElementById('pwd').value='';}
 document.getElementById('pwd').addEventListener('keydown',e=>{if(e.key==='Enter')checkPassword();});
-function showSection(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');const lbl=btn.textContent;document.querySelectorAll('.header-nav button,.mobile-nav button').forEach(b=>b.classList.toggle('active',b.textContent===lbl));window.scrollTo({top:0,behavior:'smooth'});}
+
+function showSection(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const lbl=btn.querySelector('span[data-fr]')||btn.querySelector('.nav-label')||btn;
+  const labelText=(currentLang==='fr')?(lbl.dataset&&lbl.dataset.fr)||lbl.textContent:(lbl.dataset&&lbl.dataset.es)||lbl.textContent;
+  document.querySelectorAll('.header-nav button,.mobile-nav button').forEach(b=>{
+    const s=b.querySelector('span[data-fr]')||b.querySelector('.nav-label');
+    const t=(currentLang==='fr')?(s&&s.dataset.fr)||b.textContent:(s&&s.dataset.es)||b.textContent;
+    b.classList.toggle('active',t.trim()===labelText.trim()||b===btn);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── TRADUCTION ── */
+function toggleLang(){
+  currentLang=(currentLang==='fr')?'es':'fr';
+  const btn=document.getElementById('lang-toggle');
+  btn.textContent=(currentLang==='fr')?'ES':'FR';
+  // Traduire uniquement les éléments sans enfants [data-fr] (feuilles texte)
+  document.querySelectorAll('[data-fr]').forEach(el=>{
+    const hasTranslatableChild=el.querySelector('[data-fr]');
+    if(!hasTranslatableChild){
+      el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;
+    }
+  });
+}
+
+/* ── MODALE PDF ── */
+function openPDF(titre,rawUrl){
+  const viewerUrl='https://docs.google.com/viewer?url='+encodeURIComponent(rawUrl)+'&embedded=true';
+  document.getElementById('pdf-modal-title').textContent=titre;
+  document.getElementById('pdf-frame').src=viewerUrl;
+  document.getElementById('pdf-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePDF(e){if(e.target===document.getElementById('pdf-overlay'))closePDFBtn();}
+function closePDFBtn(){
+  document.getElementById('pdf-overlay').classList.remove('open');
+  document.getElementById('pdf-frame').src='';
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDFBtn();});
+
 if(sessionStorage.getItem('atelier-auth')==='1'){document.getElementById('login-screen').style.display='none';document.getElementById('app').style.display='block';}
 </script>
 </body>
