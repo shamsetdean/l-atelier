@@ -252,7 +252,7 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
             <div class="morceau-artist">RAYE</div>
             <div class="morceau-name">Worth It</div>
             <div class="morceau-chips">
-              <span class="chip chip-video">▶ Vidéo</span>
+              <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=uoAzWUHCRpU','_blank')">▶ Vidéo</span>
               <span class="chip chip-pdf" style="cursor:pointer;" onclick="openPDF('Worth It — Lyrics','https://www.dropbox.com/scl/fi/7pa5sc9mz2vfwwt1gzfl4/WORTH-IT-LYRICS.pdf?rlkey=z3nsc1dcskxvuox5kkq406msl&raw=1')">PDF</span>
             </div>
           </div>
@@ -267,7 +267,7 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
             <div class="morceau-artist">Phil Collins / Philip Bailey</div>
             <div class="morceau-name">Easy Lover</div>
             <div class="morceau-chips">
-              <span class="chip chip-video">▶ Vidéo</span>
+              <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=H0o6kAixIqE','_blank')">▶ Vidéo</span>
             </div>
           </div>
         </div>
@@ -281,7 +281,7 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
             <div class="morceau-artist">Incognito</div>
             <div class="morceau-name">Still a Friend of Mine</div>
             <div class="morceau-chips">
-              <span class="chip chip-video">▶ Vidéo</span>
+              <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=-syIJvQAW8Q','_blank')">▶ Vidéo</span>
               <span class="chip chip-pdf" style="cursor:pointer;" onclick="openPDF('Still a Friend of Mine — Lyrics','https://www.dropbox.com/scl/fi/z33jb8fblyyiuw2hqcyrk/STILL-A-FRIEND-OF-MINE-LYRICS.pdf?rlkey=wi1dnr5rb4bryyijntjemyuqd&raw=1')">PDF</span>
             </div>
           </div>
@@ -296,7 +296,7 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
             <div class="morceau-artist">Justin Timberlake</div>
             <div class="morceau-name">Medley Justin Timberlake</div>
             <div class="morceau-chips">
-              <span class="chip chip-video">▶ Vidéo</span>
+              <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=cMIJsoaxRjk','_blank')">▶ Vidéo</span>
               <span class="chip chip-pdf" style="cursor:pointer;" onclick="openPDF('Medley Justin Timberlake — Lyrics','https://www.dropbox.com/scl/fi/ms8fjaecmpzl1voxiakyz/MEDLEY-JUSTIN-TIMBERLAKE-V2-Lyrics.pdf?rlkey=5yuvr7y9chdcgpzra8xmyv4l2&raw=1')">PDF</span>
             </div>
           </div>
@@ -325,7 +325,7 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
             <div class="morceau-artist">The Jacksons</div>
             <div class="morceau-name">This Place Hotel</div>
             <div class="morceau-chips">
-              <span class="chip chip-video">▶ Vidéo</span>
+              <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=-wHW3zsRK04','_blank')">▶ Vidéo</span>
             </div>
           </div>
         </div>
@@ -343,10 +343,21 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
           <div><div class="event-name"><span data-fr="Prochaine répétition" data-es="Próximo ensayo">Prochaine répétition</span></div><div class="event-lieu">Salle A2 · Conservatoire de Chelles · 19h30 – 21h00</div></div>
           <span class="event-badge option"><span data-fr="À confirmer — Cédric" data-es="Por confirmar — Cédric">À confirmer — Cédric</span></span>
         </div>
-        <div class="event-row concert">
-          <div><div class="event-date">20</div><div class="event-month">Mai 2026</div></div>
-          <div><div class="event-name">Concert</div><div class="event-lieu">Auditorium de Chelles</div></div>
-          <span class="event-badge concert">Concert ✓</span>
+        <div class="event-row concert" style="display:block;padding:14px 18px;">
+          <div style="display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:1rem;">
+            <div><div class="event-date">20</div><div class="event-month">Mai 2026</div></div>
+            <div>
+              <div class="event-name"><span data-fr="Concert" data-es="Concierto">Concert</span></div>
+              <div class="event-lieu">Auditorium de Chelles</div>
+            </div>
+            <span class="event-badge concert">Concert ✓</span>
+          </div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
+            <span style="font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;" data-fr="Setlist :" data-es="Lista de canciones :">Setlist :</span>
+            <span class="chip" style="background:linear-gradient(135deg,#FFF4DC,#FFE8A0);color:#7A4800;">Worth It</span>
+            <span class="chip" style="background:linear-gradient(135deg,#E8F7EF,#C0EDDA);color:#0A5A35;">Easy Lover</span>
+            <span class="chip" style="background:linear-gradient(135deg,#EEF0FF,#D0D4FF);color:#3040A0;">Still a Friend of Mine</span>
+          </div>
         </div>
         <div class="event-row concert">
           <div><div class="event-date">26</div><div class="event-month">Juin 2026</div></div>
