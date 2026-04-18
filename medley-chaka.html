@@ -136,6 +136,59 @@ main{max-width:900px;margin:0 auto;padding:3rem 2rem;}
   .header-logo{font-size:1.15rem;}
   .btn-partition{font-size:.95rem;}
 }
+/* ═══ LECTEUR AUDIO PREMIUM ═══ */
+.apl{background:var(--cream2);border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:12px;}
+.apl-top{display:flex;align-items:center;gap:10px;}
+.apl-play{flex-shrink:0;width:48px;height:48px;border-radius:50%;background:var(--gold);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,transform .1s;}
+.apl-play:hover{background:var(--gold-h);}
+.apl-play:active{transform:scale(.94);}
+.apl-play svg{width:22px;height:22px;}
+.apl-play .icon-pause{display:none;}
+.apl.is-playing .apl-play .icon-play{display:none;}
+.apl.is-playing .apl-play .icon-pause{display:block;}
+.apl-skip{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:var(--surface);color:var(--gold);border:1.5px solid var(--borders);cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:.52rem;font-weight:700;letter-spacing:0;transition:background .15s,transform .1s;position:relative;padding:0;}
+.apl-skip:hover{background:var(--gold-l);}
+.apl-skip:active{transform:scale(.92);}
+.apl-skip svg{width:18px;height:18px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
+.apl-skip .apl-skip-num{position:relative;z-index:1;font-size:.5rem;margin-top:1px;}
+.apl-times{margin-left:auto;font-family:'Space Mono',monospace;font-size:.68rem;color:var(--muted);letter-spacing:.05em;white-space:nowrap;flex-shrink:0;}
+.apl-times b{color:var(--ink);font-weight:700;}
+.apl-progress{width:100%;height:22px;display:flex;align-items:center;cursor:pointer;position:relative;touch-action:none;}
+.apl-progress-track{width:100%;height:4px;background:var(--gold-m);border-radius:2px;position:relative;overflow:hidden;transition:height .15s;}
+.apl-progress:hover .apl-progress-track,.apl-progress.is-seeking .apl-progress-track{height:6px;}
+.apl-progress-buffer{position:absolute;top:0;left:0;height:100%;background:rgba(232,146,10,.25);border-radius:2px;width:0;pointer-events:none;}
+.apl-progress-fill{position:absolute;top:0;left:0;height:100%;background:var(--gold);border-radius:2px;width:0;pointer-events:none;}
+.apl-progress-thumb{position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:var(--gold);border:2px solid var(--surface);border-radius:50%;box-shadow:0 2px 6px rgba(232,146,10,.4);opacity:0;transition:opacity .15s;pointer-events:none;}
+.apl-progress:hover .apl-progress-thumb,.apl-progress.is-seeking .apl-progress-thumb{opacity:1;}
+.apl-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.apl-speed{display:flex;gap:4px;background:var(--surface);border:1.5px solid var(--border);border-radius:6px;padding:3px;}
+.apl-speed-btn{background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:.6rem;font-weight:700;padding:5px 9px;cursor:pointer;border-radius:4px;transition:all .15s;min-width:36px;}
+.apl-speed-btn:hover{color:var(--ink);}
+.apl-speed-btn.active{background:var(--gold);color:#fff;}
+.apl-dl{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;background:var(--surface);border:1.5px solid var(--border);padding:7px 12px;border-radius:4px;font-weight:700;transition:all .15s;display:inline-flex;align-items:center;gap:4px;min-height:32px;}
+.apl-dl:hover{background:var(--gold-l);border-color:var(--borders);}
+.apl-loading{display:none;font-size:.6rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-style:italic;}
+.apl.is-loading .apl-loading{display:inline;}
+.apl.is-loading .apl-play{opacity:.5;pointer-events:none;}
+.apl-error{display:none;color:#D03030;font-size:.65rem;padding:8px;background:#fdeaea;border-radius:4px;}
+.apl.has-error .apl-error{display:block;}
+.apl.has-error .apl-top,.apl.has-error .apl-progress,.apl.has-error .apl-bottom{opacity:.3;pointer-events:none;}
+
+@media(max-width:640px){
+  .apl{padding:12px 14px;gap:10px;}
+  .apl-play{width:44px;height:44px;}
+  .apl-skip{width:38px;height:38px;}
+  .apl-skip .apl-skip-num{font-size:.48rem;}
+  .apl-times{font-size:.62rem;}
+  .apl-speed-btn{padding:6px 10px;min-height:36px;font-size:.58rem;}
+  .apl-dl{min-height:36px;padding:8px 12px;}
+}
+@media(max-width:380px){
+  .apl-top{gap:8px;}
+  .apl-skip{width:36px;height:36px;}
+  .apl-times{font-size:.58rem;}
+}
+
 </style>
 </head>
 <body>
@@ -239,5 +292,106 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDF();});
       Les contenus partagés sur ce site s'inscrivent exclusivement dans le cadre des ateliers musicaux du Conservatoire de Chelles. Leur utilisation est limitée à l'apprentissage, au travail de répétition et à la préparation des séances au sein de cet établissement. Toute utilisation en dehors de ce cadre institutionnel est interdite.
     </p>
   </footer>
+<script>
+/* ═══ LECTEUR AUDIO PREMIUM — init ═══ */
+(function(){
+  function fmtTime(s){
+    if(!isFinite(s)||s<0) s=0;
+    const m=Math.floor(s/60), sec=Math.floor(s%60);
+    return m+':'+(sec<10?'0':'')+sec;
+  }
+
+  function initPlayer(root){
+    const audio = root.querySelector('audio');
+    if(!audio) return;
+    const playBtn = root.querySelector('.apl-play');
+    const rewBtn = root.querySelector('.apl-skip[data-skip="-10"]');
+    const fwdBtn = root.querySelector('.apl-skip[data-skip="10"]');
+    const prog = root.querySelector('.apl-progress');
+    const fill = root.querySelector('.apl-progress-fill');
+    const buffer = root.querySelector('.apl-progress-buffer');
+    const thumb = root.querySelector('.apl-progress-thumb');
+    const cur = root.querySelector('.apl-cur');
+    const dur = root.querySelector('.apl-dur');
+    const speedBtns = root.querySelectorAll('.apl-speed-btn');
+    const errorBox = root.querySelector('.apl-error');
+
+    /* PLAY / PAUSE */
+    playBtn.addEventListener('click', ()=>{
+      if(audio.paused) audio.play().catch(err=>{
+        console.error(err);
+        root.classList.add('has-error');
+        errorBox.textContent = 'Impossible de lire le fichier.';
+      });
+      else audio.pause();
+    });
+    audio.addEventListener('play', ()=>root.classList.add('is-playing'));
+    audio.addEventListener('pause', ()=>root.classList.remove('is-playing'));
+    audio.addEventListener('ended', ()=>root.classList.remove('is-playing'));
+
+    /* LOADING */
+    audio.addEventListener('waiting', ()=>root.classList.add('is-loading'));
+    audio.addEventListener('canplay', ()=>root.classList.remove('is-loading'));
+    audio.addEventListener('playing', ()=>root.classList.remove('is-loading'));
+    audio.addEventListener('error', ()=>{
+      root.classList.add('has-error');
+      errorBox.textContent = 'Erreur de chargement du fichier audio.';
+    });
+
+    /* SKIP 10s */
+    if(rewBtn) rewBtn.addEventListener('click', ()=>{ audio.currentTime = Math.max(0, audio.currentTime - 10); });
+    if(fwdBtn) fwdBtn.addEventListener('click', ()=>{ audio.currentTime = Math.min(audio.duration||Infinity, audio.currentTime + 10); });
+
+    /* TIME UPDATE */
+    audio.addEventListener('loadedmetadata', ()=>{
+      dur.textContent = fmtTime(audio.duration);
+    });
+    audio.addEventListener('timeupdate', ()=>{
+      if(!isSeeking){
+        const pct = audio.duration ? (audio.currentTime / audio.duration * 100) : 0;
+        fill.style.width = pct + '%';
+        thumb.style.left = pct + '%';
+      }
+      cur.textContent = fmtTime(audio.currentTime);
+    });
+    audio.addEventListener('progress', ()=>{
+      if(audio.buffered.length > 0 && audio.duration){
+        const end = audio.buffered.end(audio.buffered.length - 1);
+        buffer.style.width = (end / audio.duration * 100) + '%';
+      }
+    });
+
+    /* SEEK (clic + drag sur progress bar) */
+    let isSeeking = false;
+    function seekFromEvent(e){
+      const rect = prog.getBoundingClientRect();
+      const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+      const pct = Math.max(0, Math.min(1, x / rect.width));
+      fill.style.width = (pct*100) + '%';
+      thumb.style.left = (pct*100) + '%';
+      if(audio.duration) audio.currentTime = pct * audio.duration;
+    }
+    prog.addEventListener('mousedown', e=>{ isSeeking = true; prog.classList.add('is-seeking'); seekFromEvent(e); });
+    document.addEventListener('mousemove', e=>{ if(isSeeking) seekFromEvent(e); });
+    document.addEventListener('mouseup', ()=>{ if(isSeeking){ isSeeking = false; prog.classList.remove('is-seeking'); } });
+    prog.addEventListener('touchstart', e=>{ isSeeking = true; prog.classList.add('is-seeking'); seekFromEvent(e); }, {passive:true});
+    prog.addEventListener('touchmove', e=>{ if(isSeeking) seekFromEvent(e); }, {passive:true});
+    prog.addEventListener('touchend', ()=>{ if(isSeeking){ isSeeking = false; prog.classList.remove('is-seeking'); } });
+    prog.addEventListener('click', seekFromEvent);
+
+    /* VITESSE */
+    speedBtns.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const rate = parseFloat(btn.dataset.speed);
+        audio.playbackRate = rate;
+        speedBtns.forEach(b=>b.classList.toggle('active', b===btn));
+      });
+    });
+  }
+
+  document.querySelectorAll('.apl').forEach(initPlayer);
+})();
+
+</script>
 </body>
 </html>
