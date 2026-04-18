@@ -190,6 +190,27 @@ main{max-width:900px;margin:0 auto;padding:3rem 2rem;}
   .apl-times{font-size:.58rem;}
 }
 
+
+/* Loop & A-B */
+.apl-loop{display:flex;gap:4px;align-items:center;}
+.apl-loop-btn{background:var(--surface);border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.58rem;font-weight:700;padding:6px 10px;cursor:pointer;border-radius:4px;transition:all .15s;min-height:32px;display:inline-flex;align-items:center;gap:4px;letter-spacing:.05em;}
+.apl-loop-btn:hover{color:var(--ink);border-color:var(--borders);}
+.apl-loop-btn.active{background:var(--gold);color:#fff;border-color:var(--gold);}
+.apl-loop-btn svg{width:12px;height:12px;}
+.apl-loop-clear{background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:.75rem;cursor:pointer;padding:4px 6px;line-height:1;transition:color .15s;}
+.apl-loop-clear:hover{color:#D03030;}
+.apl-loop-clear[hidden]{display:none;}
+/* Marqueurs A et B sur la progress bar */
+.apl-progress-marker{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--gold-h);z-index:3;display:none;}
+.apl-progress-marker.visible{display:block;}
+.apl-progress-marker::after{content:attr(data-label);position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold-h);color:#fff;font-size:.5rem;font-weight:700;padding:1px 4px;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:0;}
+.apl-progress-loop-zone{position:absolute;top:0;bottom:0;background:rgba(232,146,10,.2);z-index:2;display:none;pointer-events:none;}
+.apl-progress-loop-zone.visible{display:block;}
+@media(max-width:640px){
+  .apl-loop-btn{padding:7px 10px;min-height:36px;font-size:.56rem;}
+  .apl-loop-clear{font-size:.85rem;padding:6px 8px;}
+}
+
 </style>
 </head>
 <body>
@@ -247,11 +268,24 @@ main{max-width:900px;margin:0 auto;padding:3rem 2rem;}
   <div class="apl-progress" role="slider" tabindex="0" aria-label="Position de lecture">
     <div class="apl-progress-track">
       <div class="apl-progress-buffer"></div>
+      <div class="apl-progress-loop-zone"></div>
       <div class="apl-progress-fill"></div>
+      <div class="apl-progress-marker" data-label="A"></div>
+      <div class="apl-progress-marker" data-label="B"></div>
       <div class="apl-progress-thumb"></div>
     </div>
   </div>
   <div class="apl-bottom">
+    <div class="apl-loop">
+      <button class="apl-loop-btn apl-loop-toggle" aria-label="Lecture en boucle" aria-pressed="false" title="Rejouer en boucle" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        <span>Loop</span>
+      </button>
+      <button class="apl-loop-btn apl-ab-btn" aria-label="Point de boucle A / B" title="Définir point A puis B" type="button">
+        <span class="apl-ab-label">A–B</span>
+      </button>
+      <button class="apl-loop-clear" aria-label="Effacer les points A / B" title="Effacer A / B" type="button" hidden>✕</button>
+    </div>
     <div class="apl-speed" role="group" aria-label="Vitesse de lecture">
       <button class="apl-speed-btn" data-speed="0.75" type="button">0.75×</button>
       <button class="apl-speed-btn active" data-speed="1" type="button">1×</button>
@@ -342,7 +376,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDF();});
     </p>
   </footer>
 <script>
-/* ═══ LECTEUR AUDIO PREMIUM — init ═══ */
+/* ═══ LECTEUR AUDIO PREMIUM — init (v2 : loop + A-B) ═══ */
 (function(){
   function fmtTime(s){
     if(!isFinite(s)||s<0) s=0;
@@ -364,6 +398,15 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDF();});
     const dur = root.querySelector('.apl-dur');
     const speedBtns = root.querySelectorAll('.apl-speed-btn');
     const errorBox = root.querySelector('.apl-error');
+    const loopBtn = root.querySelector('.apl-loop-toggle');
+    const abBtn = root.querySelector('.apl-ab-btn');
+    const markerA = root.querySelector('.apl-progress-marker[data-label="A"]');
+    const markerB = root.querySelector('.apl-progress-marker[data-label="B"]');
+    const loopZone = root.querySelector('.apl-progress-loop-zone');
+    const abClear = root.querySelector('.apl-loop-clear');
+
+    /* État A-B */
+    let pointA = null, pointB = null;
 
     /* PLAY / PAUSE */
     playBtn.addEventListener('click', ()=>{
@@ -391,11 +434,15 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDF();});
     if(rewBtn) rewBtn.addEventListener('click', ()=>{ audio.currentTime = Math.max(0, audio.currentTime - 10); });
     if(fwdBtn) fwdBtn.addEventListener('click', ()=>{ audio.currentTime = Math.min(audio.duration||Infinity, audio.currentTime + 10); });
 
-    /* TIME UPDATE */
+    /* TIME UPDATE + LOGIQUE A-B */
     audio.addEventListener('loadedmetadata', ()=>{
       dur.textContent = fmtTime(audio.duration);
     });
     audio.addEventListener('timeupdate', ()=>{
+      /* Boucle A-B : si on a dépassé B, on revient à A */
+      if(pointA !== null && pointB !== null && audio.currentTime >= pointB){
+        audio.currentTime = pointA;
+      }
       if(!isSeeking){
         const pct = audio.duration ? (audio.currentTime / audio.duration * 100) : 0;
         fill.style.width = pct + '%';
@@ -410,7 +457,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDF();});
       }
     });
 
-    /* SEEK (clic + drag sur progress bar) */
+    /* SEEK */
     let isSeeking = false;
     function seekFromEvent(e){
       const rect = prog.getBoundingClientRect();
@@ -436,6 +483,83 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDF();});
         speedBtns.forEach(b=>b.classList.toggle('active', b===btn));
       });
     });
+
+    /* BOUCLE ENTIÈRE */
+    if(loopBtn){
+      loopBtn.addEventListener('click', ()=>{
+        audio.loop = !audio.loop;
+        loopBtn.classList.toggle('active', audio.loop);
+        loopBtn.setAttribute('aria-pressed', audio.loop);
+      });
+    }
+
+    /* POINT A-B
+     * 1er clic : pose A (position actuelle, marqueur A visible)
+     * 2e clic : pose B (si > A, active la boucle A-B, affiche zone)
+     * 3e clic : reset A-B
+     * Le bouton "✕" efface en un clic à tout moment. */
+    function updateABDisplay(){
+      if(!audio.duration){ return; }
+      if(pointA !== null){
+        markerA.style.left = (pointA / audio.duration * 100) + '%';
+        markerA.classList.add('visible');
+      } else {
+        markerA.classList.remove('visible');
+      }
+      if(pointB !== null){
+        markerB.style.left = (pointB / audio.duration * 100) + '%';
+        markerB.classList.add('visible');
+      } else {
+        markerB.classList.remove('visible');
+      }
+      if(pointA !== null && pointB !== null){
+        const aPct = pointA / audio.duration * 100;
+        const bPct = pointB / audio.duration * 100;
+        loopZone.style.left = aPct + '%';
+        loopZone.style.width = (bPct - aPct) + '%';
+        loopZone.classList.add('visible');
+        abBtn.classList.add('active');
+        abClear.hidden = false;
+        abBtn.querySelector('.apl-ab-label').textContent = 'A–B';
+      } else if(pointA !== null){
+        loopZone.classList.remove('visible');
+        abBtn.classList.add('active');
+        abClear.hidden = false;
+        abBtn.querySelector('.apl-ab-label').textContent = 'A · …';
+      } else {
+        loopZone.classList.remove('visible');
+        abBtn.classList.remove('active');
+        abClear.hidden = true;
+        abBtn.querySelector('.apl-ab-label').textContent = 'A–B';
+      }
+    }
+
+    if(abBtn){
+      abBtn.addEventListener('click', ()=>{
+        if(pointA === null){
+          pointA = audio.currentTime;
+        } else if(pointB === null){
+          if(audio.currentTime <= pointA + 0.5){
+            /* B trop proche ou avant A → on ignore et on garde A */
+            return;
+          }
+          pointB = audio.currentTime;
+        } else {
+          /* reset */
+          pointA = null;
+          pointB = null;
+        }
+        updateABDisplay();
+      });
+    }
+    if(abClear){
+      abClear.addEventListener('click', ()=>{
+        pointA = null;
+        pointB = null;
+        updateABDisplay();
+      });
+    }
+    audio.addEventListener('loadedmetadata', updateABDisplay);
   }
 
   document.querySelectorAll('.apl').forEach(initPlayer);
