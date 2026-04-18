@@ -188,7 +188,38 @@ main{max-width:900px;margin:0 auto;padding:3rem 2rem;}
 </div>
 
 <script>
+/* Détection mobile (écran étroit OU pointeur tactile primaire) */
+function isMobileDevice(){
+  return window.matchMedia('(max-width:860px)').matches
+      || window.matchMedia('(pointer:coarse) and (hover:none)').matches;
+}
+
+/* Normalise une URL Dropbox pour affichage natif du PDF dans le navigateur :
+   - supprime ?dl=0 (forcerait le téléchargement)
+   - supprime &raw=1 (redirection vers un flux brut parfois mal géré sur mobile)
+   - ajoute ?dl=0 si absent pour garder Dropbox content, mais on passe par raw=1 seulement pour les desktop iframes
+   Pour ouverture en nouvel onglet : on veut "dl.dropboxusercontent.com" ou "raw=1"
+   -> raw=1 fonctionne parfaitement sur Safari iOS / Chrome Android pour affichage PDF */
+function toDropboxInline(url){
+  if(!url) return url;
+  // On garde raw=1 : c'est ce qui déclenche l'affichage PDF inline par Dropbox
+  // si l'URL a déjà raw=1 : inchangée
+  if(url.includes('raw=1')) return url;
+  // sinon on l'ajoute / remplace dl=0
+  if(url.match(/[?&]dl=\d/)) return url.replace(/([?&])dl=\d/,'$1raw=1');
+  return url + (url.includes('?') ? '&' : '?') + 'raw=1';
+}
+
 function openPDF(url,title,dl){
+  /* MOBILE → nouvel onglet direct, pas de modale */
+  if(isMobileDevice()){
+    const pdfUrl = toDropboxInline(url);
+    const win = window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+    /* fallback si popup bloquée */
+    if(!win){ window.location.href = pdfUrl; }
+    return;
+  }
+  /* DESKTOP → modale iframe comme avant */
   document.getElementById('modal-title').textContent=title;
   document.getElementById('modal-iframe').src=url;
   document.getElementById('modal-ext').href=dl||url;
