@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partition — L'Atelier</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#E8920A;--gold-h:#C87808;--gold-l:#FFF4DC;--gold-m:#FFD080;--cream:#FFFBF2;--ink:#1C1200;--muted:#9A7A40;--surface:#FFFFFF;--border:rgba(232,146,10,.22);--borders:rgba(232,146,10,.5);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--cream);color:var(--ink);font-family:'Space Mono',monospace;display:flex;flex-direction:column;}
+
+/* HEADER fixe en haut */
+header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:0 1rem;padding-top:env(safe-area-inset-top);display:flex;align-items:center;gap:.75rem;min-height:calc(54px + env(safe-area-inset-top));flex-shrink:0;box-shadow:0 2px 12px rgba(232,146,10,.1);z-index:10;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:#fff;border:none;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:10px 14px;cursor:pointer;border-radius:6px;font-weight:700;text-decoration:none;transition:background .15s;min-height:40px;}
+.back-btn:hover,.back-btn:active{background:var(--gold-h);}
+.back-btn svg{flex-shrink:0;}
+.page-title{flex:1;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1rem;color:var(--gold);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ext-btn{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;cursor:pointer;border-radius:6px;transition:all .15s;text-decoration:none;white-space:nowrap;min-height:40px;display:inline-flex;align-items:center;}
+.ext-btn:hover{border-color:var(--gold);color:var(--ink);}
+
+/* PDF plein écran en dessous */
+.pdf-wrap{flex:1;position:relative;background:#2a2a2a;overflow:hidden;}
+.pdf-frame{width:100%;height:100%;border:none;display:block;background:#2a2a2a;}
+
+/* État de chargement */
+.loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;color:var(--muted);background:var(--cream);z-index:1;pointer-events:none;transition:opacity .3s;}
+.loader.hidden{opacity:0;}
+.loader-spinner{width:40px;height:40px;border:3px solid var(--gold-m);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loader-text{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:1.1rem;}
+
+/* Fallback si l'embed ne charge pas */
+.fallback{display:none;position:absolute;inset:0;background:var(--cream);padding:2rem;text-align:center;align-items:center;justify-content:center;flex-direction:column;gap:1.25rem;z-index:2;}
+.fallback.visible{display:flex;}
+.fallback h2{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:1.5rem;}
+.fallback p{font-size:.8rem;line-height:1.7;color:var(--ink);max-width:420px;}
+.fallback .btn-open{display:inline-block;background:var(--gold);color:#fff;text-decoration:none;padding:.9rem 2rem;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.05rem;border-radius:8px;transition:background .2s;}
+.fallback .btn-open:hover{background:var(--gold-h);}
+
+/* MOBILE */
+@media(max-width:640px){
+  header{gap:.5rem;padding:0 .75rem;padding-top:env(safe-area-inset-top);}
+  .back-btn{padding:10px 12px;font-size:.62rem;}
+  .back-btn .back-label-full{display:none;}
+  .page-title{font-size:.85rem;}
+  .ext-btn{font-size:.55rem;padding:8px 10px;}
+  .ext-btn .ext-label-full{display:none;}
+}
+</style>
+</head>
+<body>
+
+<script>
+/* ═══ AUTH GUARD ═══ */
+if(sessionStorage.getItem('atelier-auth')!=='1'){
+  window.location.replace('index.html');
+}
+</script>
+
+<header>
+  <a class="back-btn" href="#" id="back-btn" aria-label="Retour">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    <span class="back-label-full">Retour</span>
+  </a>
+  <div class="page-title" id="page-title">Partition</div>
+  <a class="ext-btn" id="ext-btn" href="#" target="_blank" rel="noopener" aria-label="Ouvrir dans un nouvel onglet">
+    <span class="ext-label-full">Ouvrir ↗</span>
+    <span style="display:none;" class="ext-label-short">↗</span>
+  </a>
+</header>
+
+<div class="pdf-wrap">
+  <div class="loader" id="loader">
+    <div class="loader-spinner"></div>
+    <div class="loader-text">Chargement…</div>
+  </div>
+  <iframe class="pdf-frame" id="pdf-frame" title="Partition PDF"></iframe>
+  <div class="fallback" id="fallback">
+    <h2>Affichage non disponible</h2>
+    <p>Ton navigateur ne peut pas afficher ce PDF directement ici. Clique ci-dessous pour l'ouvrir.</p>
+    <a class="btn-open" id="fallback-open" href="#" target="_blank" rel="noopener">Ouvrir le PDF ↗</a>
+  </div>
+</div>
+
+<script>
+/* ═══ LECTURE DES PARAMÈTRES URL ═══ */
+const params = new URLSearchParams(window.location.search);
+const pdfUrl = params.get('url');
+const pdfTitle = params.get('title') || 'Partition';
+const pdfDl = params.get('dl') || pdfUrl;
+const fromPage = params.get('from') || 'index.html';
+
+/* Garde-fou : URL valide ? */
+if(!pdfUrl || !/^https?:\/\//.test(pdfUrl)){
+  window.location.replace(fromPage);
+}
+
+/* Normalise pour affichage inline */
+function toInlineDropbox(url){
+  if(!url) return url;
+  if(url.includes('raw=1')) return url;
+  if(url.match(/[?&]dl=\d/)) return url.replace(/([?&])dl=\d/,'$1raw=1');
+  return url + (url.includes('?') ? '&' : '?') + 'raw=1';
+}
+
+/* Applique titre + liens */
+document.getElementById('page-title').textContent = pdfTitle;
+document.getElementById('back-btn').href = fromPage;
+document.getElementById('ext-btn').href = pdfDl;
+document.getElementById('fallback-open').href = pdfDl;
+document.title = pdfTitle + " — L'Atelier";
+
+/* Charge l'iframe */
+const iframe = document.getElementById('pdf-frame');
+const loader = document.getElementById('loader');
+const fallback = document.getElementById('fallback');
+const inlineUrl = toInlineDropbox(pdfUrl);
+
+iframe.src = inlineUrl;
+
+/* Timeout fallback : si rien ne s'affiche après 8s, propose ouverture externe */
+const timeout = setTimeout(()=>{
+  try{
+    if(!iframe.contentDocument || !iframe.contentDocument.body || iframe.contentDocument.body.innerHTML === ''){
+      showFallback();
+    }
+  }catch(e){
+    /* cross-origin : on ne peut pas savoir, on laisse l'iframe */
+  }
+  loader.classList.add('hidden');
+}, 8000);
+
+iframe.addEventListener('load', ()=>{
+  clearTimeout(timeout);
+  setTimeout(()=>loader.classList.add('hidden'), 400);
+});
+
+iframe.addEventListener('error', ()=>{
+  clearTimeout(timeout);
+  showFallback();
+});
+
+function showFallback(){
+  iframe.style.display = 'none';
+  loader.classList.add('hidden');
+  fallback.classList.add('visible');
+}
+
+/* Gestion du bouton retour physique / swipe back :
+   On est dans le même onglet, donc history.back() fonctionne naturellement.
+   Le lien <a href="fromPage"> est le fallback si pas d'historique. */
+document.getElementById('back-btn').addEventListener('click', (e)=>{
+  if(window.history.length > 1){
+    e.preventDefault();
+    window.history.back();
+  }
+});
+</script>
+
+</body>
+</html>

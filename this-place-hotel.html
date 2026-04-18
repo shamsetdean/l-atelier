@@ -204,29 +204,16 @@ function isMobileDevice(){
       || window.matchMedia('(pointer:coarse) and (hover:none)').matches;
 }
 
-/* Normalise une URL Dropbox pour affichage natif du PDF dans le navigateur :
-   - supprime ?dl=0 (forcerait le téléchargement)
-   - supprime &raw=1 (redirection vers un flux brut parfois mal géré sur mobile)
-   - ajoute ?dl=0 si absent pour garder Dropbox content, mais on passe par raw=1 seulement pour les desktop iframes
-   Pour ouverture en nouvel onglet : on veut "dl.dropboxusercontent.com" ou "raw=1"
-   -> raw=1 fonctionne parfaitement sur Safari iOS / Chrome Android pour affichage PDF */
-function toDropboxInline(url){
-  if(!url) return url;
-  // On garde raw=1 : c'est ce qui déclenche l'affichage PDF inline par Dropbox
-  // si l'URL a déjà raw=1 : inchangée
-  if(url.includes('raw=1')) return url;
-  // sinon on l'ajoute / remplace dl=0
-  if(url.match(/[?&]dl=\d/)) return url.replace(/([?&])dl=\d/,'$1raw=1');
-  return url + (url.includes('?') ? '&' : '?') + 'raw=1';
-}
-
 function openPDF(url,title,dl){
-  /* MOBILE → nouvel onglet direct, pas de modale */
+  /* MOBILE → page dédiée plein écran avec bouton retour, dans le même onglet */
   if(isMobileDevice()){
-    const pdfUrl = toDropboxInline(url);
-    const win = window.open(pdfUrl, '_blank', 'noopener,noreferrer');
-    /* fallback si popup bloquée */
-    if(!win){ window.location.href = pdfUrl; }
+    const params = new URLSearchParams({
+      url: url,
+      title: title || 'Partition',
+      dl: dl || url,
+      from: window.location.pathname.split('/').pop() || 'index.html'
+    });
+    window.location.href = 'pdf-view.html?' + params.toString();
     return;
   }
   /* DESKTOP → modale iframe comme avant */
