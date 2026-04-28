@@ -30,7 +30,6 @@
   ║  établissement.                                                 ║
   ╚══════════════════════════════════════════════════════════════════╝
 -->
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -100,9 +99,6 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
 .morceaux-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
 .morceau-card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .15s,border-color .2s;text-decoration:none;display:block;color:inherit;}
 .morceau-card:hover{box-shadow:var(--shadow);transform:translateY(-4px);border-color:var(--gold);}
-a.morceau-card{text-decoration:none;color:inherit;}
-a.morceau-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
-.morceau-card .morceau-thumb-play{cursor:pointer;}
 .morceau-thumb{width:100%;aspect-ratio:16/9;background:var(--gold-l);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
 .morceau-thumb-play{width:56px;height:56px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s;}
 .morceau-card:hover .morceau-thumb-play{transform:scale(1.1);}
@@ -185,80 +181,6 @@ a.morceau-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
   .morceaux-grid{grid-template-columns:1fr;}
 }
 @media(min-width:641px){.mobile-nav{display:none;}}
-/* ═══ LECTEUR AUDIO PREMIUM ═══ */
-.apl{background:var(--cream2);border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:12px;}
-.apl-top{display:flex;align-items:center;gap:10px;}
-.apl-play{flex-shrink:0;width:48px;height:48px;border-radius:50%;background:var(--gold);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,transform .1s;}
-.apl-play:hover{background:var(--gold-h);}
-.apl-play:active{transform:scale(.94);}
-.apl-play svg{width:22px;height:22px;}
-.apl-play .icon-pause{display:none;}
-.apl.is-playing .apl-play .icon-play{display:none;}
-.apl.is-playing .apl-play .icon-pause{display:block;}
-.apl-skip{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:var(--surface);color:var(--gold);border:1.5px solid var(--borders);cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:.52rem;font-weight:700;letter-spacing:0;transition:background .15s,transform .1s;position:relative;padding:0;}
-.apl-skip:hover{background:var(--gold-l);}
-.apl-skip:active{transform:scale(.92);}
-.apl-skip svg{width:18px;height:18px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
-.apl-skip .apl-skip-num{position:relative;z-index:1;font-size:.5rem;margin-top:1px;}
-.apl-times{margin-left:auto;font-family:'Space Mono',monospace;font-size:.68rem;color:var(--muted);letter-spacing:.05em;white-space:nowrap;flex-shrink:0;}
-.apl-times b{color:var(--ink);font-weight:700;}
-.apl-progress{width:100%;height:22px;display:flex;align-items:center;cursor:pointer;position:relative;touch-action:none;}
-.apl-progress-track{width:100%;height:4px;background:var(--gold-m);border-radius:2px;position:relative;overflow:hidden;transition:height .15s;}
-.apl-progress:hover .apl-progress-track,.apl-progress.is-seeking .apl-progress-track{height:6px;}
-.apl-progress-buffer{position:absolute;top:0;left:0;height:100%;background:rgba(232,146,10,.25);border-radius:2px;width:0;pointer-events:none;}
-.apl-progress-fill{position:absolute;top:0;left:0;height:100%;background:var(--gold);border-radius:2px;width:0;pointer-events:none;}
-.apl-progress-thumb{position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:var(--gold);border:2px solid var(--surface);border-radius:50%;box-shadow:0 2px 6px rgba(232,146,10,.4);opacity:0;transition:opacity .15s;pointer-events:none;}
-.apl-progress:hover .apl-progress-thumb,.apl-progress.is-seeking .apl-progress-thumb{opacity:1;}
-.apl-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-.apl-speed{display:flex;gap:4px;background:var(--surface);border:1.5px solid var(--border);border-radius:6px;padding:3px;}
-.apl-speed-btn{background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:.6rem;font-weight:700;padding:5px 9px;cursor:pointer;border-radius:4px;transition:all .15s;min-width:36px;}
-.apl-speed-btn:hover{color:var(--ink);}
-.apl-speed-btn.active{background:var(--gold);color:#fff;}
-.apl-dl{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;background:var(--surface);border:1.5px solid var(--border);padding:7px 12px;border-radius:4px;font-weight:700;transition:all .15s;display:inline-flex;align-items:center;gap:4px;min-height:32px;}
-.apl-dl:hover{background:var(--gold-l);border-color:var(--borders);}
-.apl-loading{display:none;font-size:.6rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-style:italic;}
-.apl.is-loading .apl-loading{display:inline;}
-.apl.is-loading .apl-play{opacity:.5;pointer-events:none;}
-.apl-error{display:none;color:#D03030;font-size:.65rem;padding:8px;background:#fdeaea;border-radius:4px;}
-.apl.has-error .apl-error{display:block;}
-.apl.has-error .apl-top,.apl.has-error .apl-progress,.apl.has-error .apl-bottom{opacity:.3;pointer-events:none;}
-
-@media(max-width:640px){
-  .apl{padding:12px 14px;gap:10px;}
-  .apl-play{width:44px;height:44px;}
-  .apl-skip{width:38px;height:38px;}
-  .apl-skip .apl-skip-num{font-size:.48rem;}
-  .apl-times{font-size:.62rem;}
-  .apl-speed-btn{padding:6px 10px;min-height:36px;font-size:.58rem;}
-  .apl-dl{min-height:36px;padding:8px 12px;}
-}
-@media(max-width:380px){
-  .apl-top{gap:8px;}
-  .apl-skip{width:36px;height:36px;}
-  .apl-times{font-size:.58rem;}
-}
-
-
-/* Loop & A-B */
-.apl-loop{display:flex;gap:4px;align-items:center;}
-.apl-loop-btn{background:var(--surface);border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.58rem;font-weight:700;padding:6px 10px;cursor:pointer;border-radius:4px;transition:all .15s;min-height:32px;display:inline-flex;align-items:center;gap:4px;letter-spacing:.05em;}
-.apl-loop-btn:hover{color:var(--ink);border-color:var(--borders);}
-.apl-loop-btn.active{background:var(--gold);color:#fff;border-color:var(--gold);}
-.apl-loop-btn svg{width:12px;height:12px;}
-.apl-loop-clear{background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:.75rem;cursor:pointer;padding:4px 6px;line-height:1;transition:color .15s;}
-.apl-loop-clear:hover{color:#D03030;}
-.apl-loop-clear[hidden]{display:none;}
-/* Marqueurs A et B sur la progress bar */
-.apl-progress-marker{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--gold-h);z-index:3;display:none;}
-.apl-progress-marker.visible{display:block;}
-.apl-progress-marker::after{content:attr(data-label);position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold-h);color:#fff;font-size:.5rem;font-weight:700;padding:1px 4px;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:0;}
-.apl-progress-loop-zone{position:absolute;top:0;bottom:0;background:rgba(232,146,10,.2);z-index:2;display:none;pointer-events:none;}
-.apl-progress-loop-zone.visible{display:block;}
-@media(max-width:640px){
-  .apl-loop-btn{padding:7px 10px;min-height:36px;font-size:.56rem;}
-  .apl-loop-clear{font-size:.85rem;padding:6px 8px;}
-}
-
 </style>
 </head>
 <body>
@@ -283,7 +205,7 @@ a.morceau-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
 
     <label class="login-label" for="pwd" data-fr="Mot de passe" data-es="Contraseña">Mot de passe</label>
     <input class="login-input" type="password" id="pwd" autocomplete="current-password" placeholder="••••••••">
-    <button class="login-btn" onclick="checkPassword()" data-fr="PEPOUZE" data-es="PEPOUZE">PEPOUZE</button>
+    <button class="login-btn" onclick="checkPassword()" data-fr="Entrer" data-es="Entrar">Entrer</button>
     <div class="login-error" id="login-error"></div>
 
     <!-- Bannière d'enregistrement biométrique (affichée après connexion par mdp si WebAuthn dispo) -->
@@ -321,96 +243,92 @@ a.morceau-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
       <p class="section-desc"><span data-fr="Cliquer sur PDF pour ouvrir la partition complète" data-es="Haz clic en PDF para abrir la partitura completa">Cliquer sur PDF pour ouvrir la partition complète</span></p>
       <div class="morceaux-grid">
 
-        <a class="morceau-card" href="worth-it.html">
+        <div class="morceau-card" style="cursor:default;">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFF4DC,#FFE8A0);">
-            <div class="morceau-thumb-play"></div>
+            <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
             <div class="morceau-thumb-title">Worth It</div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">RAYE</div>
             <div class="morceau-name">Worth It</div>
             <div class="morceau-chips">
-              <span class="chip chip-video">Vidéo</span>
-              <span class="chip chip-audio">Audio</span>
-              <span class="chip chip-pdf">PDF</span>
+              <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=uoAzWUHCRpU','_blank')">Vidéo</span>
+              <span class="chip chip-pdf" style="cursor:pointer;" onclick="openPDF('Worth It — Lyrics','https://www.dropbox.com/scl/fi/7pa5sc9mz2vfwwt1gzfl4/WORTH-IT-LYRICS.pdf?rlkey=z3nsc1dcskxvuox5kkq406msl&raw=1')">PDF</span>
             </div>
           </div>
-        </a>
+        </div>
 
-        <a class="morceau-card" href="easy-lover.html">
+        <div class="morceau-card" style="cursor:default;">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#E8F7EF,#C0EDDA);">
-            <div class="morceau-thumb-play"></div>
+            <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
             <div class="morceau-thumb-title">Easy Lover</div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">Phil Collins / Philip Bailey</div>
             <div class="morceau-name">Easy Lover</div>
             <div class="morceau-chips">
-              <span class="chip chip-video">Vidéo</span>
+              <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=H0o6kAixIqE','_blank')">Vidéo</span>
             </div>
           </div>
-        </a>
+        </div>
 
-        <a class="morceau-card" href="still-a-friend.html">
+        <div class="morceau-card" style="cursor:default;">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#EEF0FF,#D0D4FF);">
-            <div class="morceau-thumb-play"></div>
+            <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
             <div class="morceau-thumb-title">Still a Friend of Mine</div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">Incognito</div>
             <div class="morceau-name">Still a Friend of Mine</div>
             <div class="morceau-chips">
-              <span class="chip chip-video">Vidéo</span>
-              <span class="chip chip-audio">Audio</span>
-              <span class="chip chip-pdf">PDF</span>
+              <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=-syIJvQAW8Q','_blank')">Vidéo</span>
+              <span class="chip chip-pdf" style="cursor:pointer;" onclick="openPDF('Still a Friend of Mine — Lyrics','https://www.dropbox.com/scl/fi/z33jb8fblyyiuw2hqcyrk/STILL-A-FRIEND-OF-MINE-LYRICS.pdf?rlkey=wi1dnr5rb4bryyijntjemyuqd&raw=1')">PDF</span>
             </div>
           </div>
-        </a>
+        </div>
 
-        <a class="morceau-card" href="medley-jt.html">
+        <div class="morceau-card" style="cursor:default;">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFF0E0,#FFD4A0);">
-            <div class="morceau-thumb-play"></div>
+            <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
             <div class="morceau-thumb-title">Medley Justin Timberlake</div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">Justin Timberlake</div>
             <div class="morceau-name">Medley Justin Timberlake</div>
             <div class="morceau-chips">
-              <span class="chip chip-video">Vidéo</span>
-              <span class="chip chip-audio">Audio</span>
-              <span class="chip chip-pdf">PDF</span>
+              <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=cMIJsoaxRjk','_blank')">Vidéo</span>
+              <span class="chip chip-pdf" style="cursor:pointer;" onclick="openPDF('Medley Justin Timberlake — Lyrics','https://www.dropbox.com/scl/fi/ms8fjaecmpzl1voxiakyz/MEDLEY-JUSTIN-TIMBERLAKE-V2-Lyrics.pdf?rlkey=5yuvr7y9chdcgpzra8xmyv4l2&raw=1')">PDF</span>
             </div>
           </div>
-        </a>
+        </div>
 
-        <a class="morceau-card" href="medley-chaka.html">
+        <div class="morceau-card" style="cursor:default;">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFE8F0,#FFB8D0);">
-            <div class="morceau-thumb-play"></div>
+            <div class="morceau-thumb-play" style="cursor:default;opacity:.4;"></div>
             <div class="morceau-thumb-title">Medley Chaka Khan</div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">Chaka Khan</div>
             <div class="morceau-name">Medley Chaka Khan</div>
             <div class="morceau-chips">
-              <span class="chip chip-pdf">PDF</span>
+              <span class="chip chip-pdf" style="opacity:.5;font-style:italic;">PDF à venir</span>
             </div>
           </div>
-        </a>
+        </div>
 
-        <a class="morceau-card" href="this-place-hotel.html">
+        <div class="morceau-card" style="cursor:default;">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#F0F8FF,#C8E4FF);">
-            <div class="morceau-thumb-play"></div>
+            <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
             <div class="morceau-thumb-title">This Place Hotel</div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">The Jacksons</div>
             <div class="morceau-name">This Place Hotel</div>
             <div class="morceau-chips">
-              <span class="chip chip-video">Vidéo</span>
-              <span class="chip chip-audio">Audio</span>
+              <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=-wHW3zsRK04','_blank')">Vidéo</span>
             </div>
           </div>
-        </a>
+        </div>
 
       </div>
     </section>
@@ -420,17 +338,17 @@ a.morceau-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
       <h1 class="section-title"><span data-fr="Planning" data-es="Agenda">Planning</span></h1>
       <p class="section-desc"><span data-fr="Répétitions &amp; concerts" data-es="Ensayos &amp; conciertos">Répétitions &amp; concerts</span></p>
       <div class="planning-list">
-        <div class="event-row concert">
-          <div><div class="event-date">26</div><div class="event-month">Juin 2026</div></div>
-          <div><div class="event-name">Concert</div><div class="event-lieu">Lieu à confirmer</div></div>
-          <span class="event-badge concert">Concert</span>
+        <div class="event-row repetition" style="border-left-color:#B06020;background:linear-gradient(90deg,#FFF0E0 0%,var(--surface) 40%);">
+          <div><div class="event-date" style="color:#B06020;">7</div><div class="event-month">Mai 2026</div></div>
+          <div><div class="event-name"><span data-fr="Prochaine répétition" data-es="Próximo ensayo">Prochaine répétition</span></div><div class="event-lieu">Salle A2 · Conservatoire de Chelles · 19h30 – 21h00</div></div>
+          <span class="event-badge option"><span data-fr="À confirmer — Cédric" data-es="Por confirmar — Cédric">À confirmer — Cédric</span></span>
         </div>
         <div class="event-row concert" style="display:block;padding:14px 18px;">
           <div style="display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:1rem;">
             <div><div class="event-date">20</div><div class="event-month">Mai 2026</div></div>
             <div>
               <div class="event-name"><span data-fr="Concert" data-es="Concierto">Concert</span></div>
-              <div class="event-lieu">Auditorium de Chelles</div>
+              <div class="event-lieu">Auditorium de Chelles · 19h00 – 20h00</div>
             </div>
             <span class="event-badge concert">Concert</span>
           </div>
@@ -441,78 +359,17 @@ a.morceau-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
             <span class="chip" style="background:linear-gradient(135deg,#EEF0FF,#D0D4FF);color:#3040A0;">Still a Friend of Mine</span>
           </div>
         </div>
-        <div class="event-row repetition" style="border-left-color:#B06020;background:linear-gradient(90deg,#FFF0E0 0%,var(--surface) 40%);">
-          <div><div class="event-date" style="color:#B06020;">7</div><div class="event-month">Mai 2026</div></div>
-          <div><div class="event-name"><span data-fr="Prochaine répétition" data-es="Próximo ensayo">Prochaine répétition</span></div><div class="event-lieu">Salle A2 · Conservatoire de Chelles · 19h30 – 21h00</div></div>
-          <span class="event-badge option"><span data-fr="À confirmer — Cédric" data-es="Por confirmar — Cédric">À confirmer — Cédric</span></span>
-        </div>
-        <div class="event-row repetition past-event" style="display:block;padding:14px 18px;opacity:.92;">
-          <div style="display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:1rem;">
-            <div><div class="event-date" style="color:var(--green);">17</div><div class="event-month">Avril 2026</div></div>
-            <div>
-              <div class="event-name"><span data-fr="Répétition complète" data-es="Ensayo completo">Répétition complète</span></div>
-              <div class="event-lieu">Conservatoire Jacques Higelin</div>
-            </div>
-            <span class="event-badge repetition">Atelier</span>
-          </div>
-          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">
-            <div class="apl">
-              <audio preload="metadata" style="display:none;">
-                <source src="https://www.dropbox.com/scl/fi/xgwtzm7gjhsq9bdu4d24l/Conservatoire-Jacques-Higelin-repetition-complete-17-avril.m4a?rlkey=8ru3kee21lnf6we4o02x6zr0r&raw=1" type="audio/mp4">
-              </audio>
-              <div class="apl-top">
-                <button class="apl-play" aria-label="Lecture / Pause" type="button">
-                  <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8V4z"/></svg>
-                  <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="4" width="5" height="16" rx="1"/><rect x="14" y="4" width="5" height="16" rx="1"/></svg>
-                </button>
-                <button class="apl-skip" data-skip="-10" aria-label="Reculer 10 secondes" type="button">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 2a10 10 0 1 0 8 4"/><polyline points="20 2 20 7 15 7"/></svg>
-                  <span class="apl-skip-num">10</span>
-                </button>
-                <button class="apl-skip" data-skip="10" aria-label="Avancer 10 secondes" type="button">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 2a10 10 0 1 1 -8 4"/><polyline points="4 2 4 7 9 7"/></svg>
-                  <span class="apl-skip-num">10</span>
-                </button>
-                <div class="apl-times"><b class="apl-cur">0:00</b> / <span class="apl-dur">—:—</span> <span class="apl-loading">· chargement…</span></div>
-              </div>
-              <div class="apl-progress" role="slider" tabindex="0" aria-label="Position de lecture">
-                <div class="apl-progress-track">
-                  <div class="apl-progress-buffer"></div>
-                  <div class="apl-progress-loop-zone"></div>
-                  <div class="apl-progress-fill"></div>
-                  <div class="apl-progress-marker" data-label="A"></div>
-                  <div class="apl-progress-marker" data-label="B"></div>
-                  <div class="apl-progress-thumb"></div>
-                </div>
-              </div>
-              <div class="apl-bottom">
-                <div class="apl-loop">
-                  <button class="apl-loop-btn apl-loop-toggle" aria-label="Lecture en boucle" aria-pressed="false" title="Rejouer en boucle" type="button">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-                    <span>Loop</span>
-                  </button>
-                  <button class="apl-loop-btn apl-ab-btn" aria-label="Point de boucle A / B" title="Définir point A puis B" type="button">
-                    <span class="apl-ab-label">A–B</span>
-                  </button>
-                  <button class="apl-loop-clear" aria-label="Effacer les points A / B" title="Effacer A / B" type="button" hidden>✕</button>
-                </div>
-                <div class="apl-speed" role="group" aria-label="Vitesse de lecture">
-                  <button class="apl-speed-btn" data-speed="0.75" type="button">0.75×</button>
-                  <button class="apl-speed-btn active" data-speed="1" type="button">1×</button>
-                  <button class="apl-speed-btn" data-speed="1.25" type="button">1.25×</button>
-                </div>
-                <a class="apl-dl" href="https://www.dropbox.com/scl/fi/xgwtzm7gjhsq9bdu4d24l/Conservatoire-Jacques-Higelin-repetition-complete-17-avril.m4a?rlkey=8ru3kee21lnf6we4o02x6zr0r&st=596gyj75&dl=0" target="_blank" rel="noopener" aria-label="Télécharger">↓ Télécharger</a>
-              </div>
-              <div class="apl-error" role="alert"></div>
-            </div>
-          </div>
+        <div class="event-row concert">
+          <div><div class="event-date">26</div><div class="event-month">Juin 2026</div></div>
+          <div><div class="event-name">Concert</div><div class="event-lieu">Lieu à confirmer</div></div>
+          <span class="event-badge concert">Concert</span>
         </div>
         <div class="event-row repetition">
           <div><div class="event-date">Jeu.</div><div class="event-month">Hebdomadaire</div></div>
           <div><div class="event-name">Répétition</div><div class="event-lieu">Salle A2 · Conservatoire de Chelles · 19h30 – 21h00</div></div>
           <span class="event-badge repetition">Répétition</span>
         </div>
-            </div>
+      </div>
     </section>
 
     <!-- VIDEOS -->
@@ -763,197 +620,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDFBtn();});
 /* ── INIT ── */
 if(sessionStorage.getItem('atelier-auth')==='1'){openApp();}
 else{showBioButton();}
-</script>
-<script>
-/* ═══ LECTEUR AUDIO PREMIUM — init (v2 : loop + A-B) ═══ */
-(function(){
-  function fmtTime(s){
-    if(!isFinite(s)||s<0) s=0;
-    const m=Math.floor(s/60), sec=Math.floor(s%60);
-    return m+':'+(sec<10?'0':'')+sec;
-  }
-
-  function initPlayer(root){
-    const audio = root.querySelector('audio');
-    if(!audio) return;
-    const playBtn = root.querySelector('.apl-play');
-    const rewBtn = root.querySelector('.apl-skip[data-skip="-10"]');
-    const fwdBtn = root.querySelector('.apl-skip[data-skip="10"]');
-    const prog = root.querySelector('.apl-progress');
-    const fill = root.querySelector('.apl-progress-fill');
-    const buffer = root.querySelector('.apl-progress-buffer');
-    const thumb = root.querySelector('.apl-progress-thumb');
-    const cur = root.querySelector('.apl-cur');
-    const dur = root.querySelector('.apl-dur');
-    const speedBtns = root.querySelectorAll('.apl-speed-btn');
-    const errorBox = root.querySelector('.apl-error');
-    const loopBtn = root.querySelector('.apl-loop-toggle');
-    const abBtn = root.querySelector('.apl-ab-btn');
-    const markerA = root.querySelector('.apl-progress-marker[data-label="A"]');
-    const markerB = root.querySelector('.apl-progress-marker[data-label="B"]');
-    const loopZone = root.querySelector('.apl-progress-loop-zone');
-    const abClear = root.querySelector('.apl-loop-clear');
-
-    /* État A-B */
-    let pointA = null, pointB = null;
-
-    /* PLAY / PAUSE */
-    playBtn.addEventListener('click', ()=>{
-      if(audio.paused) audio.play().catch(err=>{
-        console.error(err);
-        root.classList.add('has-error');
-        errorBox.textContent = 'Impossible de lire le fichier.';
-      });
-      else audio.pause();
-    });
-    audio.addEventListener('play', ()=>root.classList.add('is-playing'));
-    audio.addEventListener('pause', ()=>root.classList.remove('is-playing'));
-    audio.addEventListener('ended', ()=>root.classList.remove('is-playing'));
-
-    /* LOADING */
-    audio.addEventListener('waiting', ()=>root.classList.add('is-loading'));
-    audio.addEventListener('canplay', ()=>root.classList.remove('is-loading'));
-    audio.addEventListener('playing', ()=>root.classList.remove('is-loading'));
-    audio.addEventListener('error', ()=>{
-      root.classList.add('has-error');
-      errorBox.textContent = 'Erreur de chargement du fichier audio.';
-    });
-
-    /* SKIP 10s */
-    if(rewBtn) rewBtn.addEventListener('click', ()=>{ audio.currentTime = Math.max(0, audio.currentTime - 10); });
-    if(fwdBtn) fwdBtn.addEventListener('click', ()=>{ audio.currentTime = Math.min(audio.duration||Infinity, audio.currentTime + 10); });
-
-    /* TIME UPDATE + LOGIQUE A-B */
-    audio.addEventListener('loadedmetadata', ()=>{
-      dur.textContent = fmtTime(audio.duration);
-    });
-    audio.addEventListener('timeupdate', ()=>{
-      /* Boucle A-B : si on a dépassé B, on revient à A */
-      if(pointA !== null && pointB !== null && audio.currentTime >= pointB){
-        audio.currentTime = pointA;
-      }
-      if(!isSeeking){
-        const pct = audio.duration ? (audio.currentTime / audio.duration * 100) : 0;
-        fill.style.width = pct + '%';
-        thumb.style.left = pct + '%';
-      }
-      cur.textContent = fmtTime(audio.currentTime);
-    });
-    audio.addEventListener('progress', ()=>{
-      if(audio.buffered.length > 0 && audio.duration){
-        const end = audio.buffered.end(audio.buffered.length - 1);
-        buffer.style.width = (end / audio.duration * 100) + '%';
-      }
-    });
-
-    /* SEEK */
-    let isSeeking = false;
-    function seekFromEvent(e){
-      const rect = prog.getBoundingClientRect();
-      const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-      const pct = Math.max(0, Math.min(1, x / rect.width));
-      fill.style.width = (pct*100) + '%';
-      thumb.style.left = (pct*100) + '%';
-      if(audio.duration) audio.currentTime = pct * audio.duration;
-    }
-    prog.addEventListener('mousedown', e=>{ isSeeking = true; prog.classList.add('is-seeking'); seekFromEvent(e); });
-    document.addEventListener('mousemove', e=>{ if(isSeeking) seekFromEvent(e); });
-    document.addEventListener('mouseup', ()=>{ if(isSeeking){ isSeeking = false; prog.classList.remove('is-seeking'); } });
-    prog.addEventListener('touchstart', e=>{ isSeeking = true; prog.classList.add('is-seeking'); seekFromEvent(e); }, {passive:true});
-    prog.addEventListener('touchmove', e=>{ if(isSeeking) seekFromEvent(e); }, {passive:true});
-    prog.addEventListener('touchend', ()=>{ if(isSeeking){ isSeeking = false; prog.classList.remove('is-seeking'); } });
-    prog.addEventListener('click', seekFromEvent);
-
-    /* VITESSE */
-    speedBtns.forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const rate = parseFloat(btn.dataset.speed);
-        audio.playbackRate = rate;
-        speedBtns.forEach(b=>b.classList.toggle('active', b===btn));
-      });
-    });
-
-    /* BOUCLE ENTIÈRE */
-    if(loopBtn){
-      loopBtn.addEventListener('click', ()=>{
-        audio.loop = !audio.loop;
-        loopBtn.classList.toggle('active', audio.loop);
-        loopBtn.setAttribute('aria-pressed', audio.loop);
-      });
-    }
-
-    /* POINT A-B
-     * 1er clic : pose A (position actuelle, marqueur A visible)
-     * 2e clic : pose B (si > A, active la boucle A-B, affiche zone)
-     * 3e clic : reset A-B
-     * Le bouton "✕" efface en un clic à tout moment. */
-    function updateABDisplay(){
-      if(!audio.duration){ return; }
-      if(pointA !== null){
-        markerA.style.left = (pointA / audio.duration * 100) + '%';
-        markerA.classList.add('visible');
-      } else {
-        markerA.classList.remove('visible');
-      }
-      if(pointB !== null){
-        markerB.style.left = (pointB / audio.duration * 100) + '%';
-        markerB.classList.add('visible');
-      } else {
-        markerB.classList.remove('visible');
-      }
-      if(pointA !== null && pointB !== null){
-        const aPct = pointA / audio.duration * 100;
-        const bPct = pointB / audio.duration * 100;
-        loopZone.style.left = aPct + '%';
-        loopZone.style.width = (bPct - aPct) + '%';
-        loopZone.classList.add('visible');
-        abBtn.classList.add('active');
-        abClear.hidden = false;
-        abBtn.querySelector('.apl-ab-label').textContent = 'A–B';
-      } else if(pointA !== null){
-        loopZone.classList.remove('visible');
-        abBtn.classList.add('active');
-        abClear.hidden = false;
-        abBtn.querySelector('.apl-ab-label').textContent = 'A · …';
-      } else {
-        loopZone.classList.remove('visible');
-        abBtn.classList.remove('active');
-        abClear.hidden = true;
-        abBtn.querySelector('.apl-ab-label').textContent = 'A–B';
-      }
-    }
-
-    if(abBtn){
-      abBtn.addEventListener('click', ()=>{
-        if(pointA === null){
-          pointA = audio.currentTime;
-        } else if(pointB === null){
-          if(audio.currentTime <= pointA + 0.5){
-            /* B trop proche ou avant A → on ignore et on garde A */
-            return;
-          }
-          pointB = audio.currentTime;
-        } else {
-          /* reset */
-          pointA = null;
-          pointB = null;
-        }
-        updateABDisplay();
-      });
-    }
-    if(abClear){
-      abClear.addEventListener('click', ()=>{
-        pointA = null;
-        pointB = null;
-        updateABDisplay();
-      });
-    }
-    audio.addEventListener('loadedmetadata', updateABDisplay);
-  }
-
-  document.querySelectorAll('.apl').forEach(initPlayer);
-})();
-
 </script>
 </body>
 </html>
