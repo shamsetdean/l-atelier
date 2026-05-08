@@ -244,8 +244,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import { getDatabase, ref, set, onValue, remove, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 /* ========================================================
-   IMPORTANT : utilise la MÊME config que sondages.html
-   pour n'avoir qu'un seul projet Firebase à gérer.
+   À REMPLACER par la config de TON projet Firebase Atelier
+   Région : europe-west1 (Belgique) pour conformité RGPD
    ======================================================== */
 const firebaseConfig = {
   apiKey: "REMPLACER_API_KEY",
@@ -272,9 +272,11 @@ try {
     document.getElementById('firebase-status').innerHTML = `
       <div class="firebase-error">
         <strong>Configuration Firebase requise</strong>
-        Utilise la même config que dans <code>sondages.html</code> (lignes ~190-200) et colle-la ici.<br>
-        Vérifie que la base est bien en région <code>europe-west1</code> (Belgique) pour la conformité RGPD.<br>
-        Ajoute aussi cette règle aux règles Realtime Database : <code>"profils": {".read": true, ".write": true}</code>
+        Pour activer les profils, tu dois :<br>
+        1. Créer un projet sur <a href="https://console.firebase.google.com" target="_blank" style="color:var(--gold);">console.firebase.google.com</a><br>
+        2. Activer Realtime Database en région <code>europe-west1</code> (Belgique)<br>
+        3. Coller la config dans le bloc <code>firebaseConfig</code> de ce fichier (ligne ~190)<br>
+        4. Définir les règles : <code>{"profils": {".read": true, ".write": true}}</code>
       </div>`;
   } else {
     document.getElementById('firebase-status').innerHTML = `
