@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta name="theme-color" content="#FFF8E7">
+<title>Setlist — Concert 20 mai 2026 — L'Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFF8E7;
+  --surface:#FFFCF2;
+  --ink:#1C1200;
+  --muted:#8B7355;
+  --border:#E8DCC0;
+  --gold:#B8860B;
+  --gold-l:#FFF4DC;
+  --gold-m:#E5C987;
+  --green:#5C8A3A;
+  --borders:#D4AF37;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--ink);font-family:'Space Mono',monospace;line-height:1.6;-webkit-font-smoothing:antialiased;}
+
+/* ── HEADER (écran uniquement) ── */
+header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;position:sticky;top:0;z-index:100;}
+.header-logo{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.4rem;color:var(--gold);}
+.header-actions{display:flex;gap:8px;align-items:center;}
+.btn-back,.btn-print{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;padding:.5rem 1rem;cursor:pointer;border-radius:4px;text-transform:uppercase;transition:all .2s;text-decoration:none;display:inline-block;font-weight:700;}
+.btn-back:hover,.btn-print:hover{color:var(--ink);border-color:var(--gold);}
+.btn-back{color:var(--gold);border-color:var(--gold);}
+.btn-print{background:var(--gold);color:#FFF;border-color:var(--gold);}
+.btn-print:hover{background:#9A6F09;color:#FFF;border-color:#9A6F09;}
+
+/* ── PAGE CONTAINER (style A4 noir/or pour impression) ── */
+.setlist-page{
+  max-width:780px;
+  margin:2rem auto;
+  background:#1C1200;
+  color:#F5E8C8;
+  border-radius:8px;
+  padding:3.5rem 3rem;
+  box-shadow:0 12px 50px rgba(28,18,0,.3);
+  position:relative;
+  overflow:hidden;
+}
+.setlist-page::before{
+  content:"";position:absolute;top:-100px;right:-100px;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(212,175,55,.12) 0%,transparent 60%);
+  border-radius:50%;
+  pointer-events:none;
+}
+.setlist-page::after{
+  content:"";position:absolute;bottom:-100px;left:-100px;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(212,175,55,.08) 0%,transparent 60%);
+  border-radius:50%;
+  pointer-events:none;
+}
+
+/* ── EN-TÊTE SETLIST ── */
+.setlist-brand{font-family:'Playfair Display',serif;font-style:italic;font-size:1.6rem;color:#D4AF37;text-align:center;letter-spacing:.04em;margin-bottom:.3rem;position:relative;z-index:1;}
+.setlist-divider{width:80px;height:1px;background:#D4AF37;margin:1rem auto 1.5rem;position:relative;z-index:1;}
+.setlist-event-meta{font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:#D4AF37;text-align:center;margin-bottom:.6rem;position:relative;z-index:1;}
+.setlist-title{font-family:'Playfair Display',serif;font-size:2.6rem;color:#F5E8C8;text-align:center;line-height:1.2;margin-bottom:.5rem;position:relative;z-index:1;}
+.setlist-venue{font-size:.85rem;color:#D4AF37;text-align:center;letter-spacing:.05em;margin-bottom:.4rem;position:relative;z-index:1;}
+.setlist-time{font-size:.75rem;color:#A89169;text-align:center;letter-spacing:.05em;position:relative;z-index:1;}
+
+/* ── ORNEMENT ── */
+.ornament{display:flex;align-items:center;justify-content:center;gap:1rem;margin:2.5rem 0 2rem;position:relative;z-index:1;}
+.ornament-line{flex:1;max-width:120px;height:1px;background:#D4AF37;}
+.ornament-mark{font-family:'Playfair Display',serif;font-style:italic;color:#D4AF37;font-size:1.2rem;}
+
+/* ── MORCEAUX SETLIST ── */
+.setlist-songs{position:relative;z-index:1;}
+.song-block{margin-bottom:2rem;padding-bottom:1.8rem;border-bottom:1px solid rgba(212,175,55,.2);}
+.song-block:last-child{border-bottom:none;margin-bottom:.5rem;}
+.song-header{display:grid;grid-template-columns:60px 1fr auto;gap:1rem;align-items:center;margin-bottom:.8rem;}
+.song-number{font-family:'Playfair Display',serif;font-style:italic;font-size:2.4rem;color:#D4AF37;line-height:1;}
+.song-info{}
+.song-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:#F5E8C8;margin-bottom:.2rem;}
+.song-artist{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#A89169;}
+.song-musical{display:flex;flex-direction:column;gap:.3rem;text-align:right;}
+.song-musical-item{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.05em;color:#D4AF37;font-weight:700;}
+.song-presentation{margin-top:.8rem;padding-left:75px;font-size:.78rem;line-height:1.7;color:#D4C9A8;font-style:italic;}
+.song-presentation::before{content:"❝ ";color:#D4AF37;font-family:'Playfair Display',serif;font-size:1rem;}
+.song-presentation::after{content:" ❞";color:#D4AF37;font-family:'Playfair Display',serif;font-size:1rem;}
+.song-duration{margin-top:.6rem;padding-left:75px;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:#A89169;font-weight:700;}
+
+/* ── PIED DE PAGE SETLIST ── */
+.setlist-footer{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(212,175,55,.3);text-align:center;position:relative;z-index:1;}
+.setlist-total{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:#D4AF37;margin-bottom:.3rem;}
+.setlist-tagline{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:#A89169;}
+
+/* ── INFOS LOGISTIQUES (n'apparaissent pas à l'impression) ── */
+.logistics{
+  max-width:780px;
+  margin:2rem auto;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-left:4px solid var(--gold);
+  border-radius:0 8px 8px 0;
+  padding:1.5rem 2rem;
+}
+.logistics h2{font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--gold);margin-bottom:1rem;}
+.logistics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;}
+.logistics-item{font-size:.85rem;}
+.logistics-item strong{display:block;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem;font-weight:700;}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+  header{padding:.8rem 1rem;}
+  .header-logo{font-size:1.1rem;}
+  .btn-back,.btn-print{font-size:.55rem;padding:.4rem .7rem;}
+  .setlist-page{margin:1rem;padding:2rem 1.4rem;}
+  .setlist-title{font-size:1.8rem;}
+  .setlist-brand{font-size:1.3rem;}
+  .song-header{grid-template-columns:45px 1fr;gap:.8rem;}
+  .song-number{font-size:1.8rem;}
+  .song-title{font-size:1.2rem;}
+  .song-musical{grid-column:1/3;flex-direction:row;gap:1rem;text-align:left;margin-top:.5rem;flex-wrap:wrap;}
+  .song-presentation{padding-left:0;font-size:.75rem;margin-top:.6rem;}
+  .song-duration{padding-left:0;}
+  .logistics{margin:1rem;padding:1.2rem 1.4rem;}
+  .logistics-grid{grid-template-columns:1fr;}
+}
+
+/* ── PRINT A4 ── */
+@media print{
+  @page{size:A4;margin:1cm;}
+  body{background:#FFF;}
+  header,.logistics,.btn-back,.btn-print{display:none !important;}
+  .setlist-page{
+    margin:0;
+    padding:1.8cm 1.5cm;
+    background:#1C1200 !important;
+    color:#F5E8C8 !important;
+    box-shadow:none;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+    border-radius:0;
+    page-break-inside:avoid;
+  }
+  .setlist-title{font-size:2.2rem;}
+  .setlist-brand{font-size:1.4rem;}
+  .song-block{margin-bottom:1.5rem;padding-bottom:1.4rem;}
+  .song-title{font-size:1.3rem;}
+  .song-presentation{font-size:.75rem;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="header-logo">L'Atelier · Setlist</span>
+  <div class="header-actions">
+    <a class="btn-back" href="index.html">← Accueil</a>
+    <button class="btn-print" onclick="window.print()">Imprimer (A4)</button>
+  </div>
+</header>
+
+<div class="setlist-page">
+  <div class="setlist-brand">L'Atelier</div>
+  <div class="setlist-divider"></div>
+  <div class="setlist-event-meta">Concert · 20 mai 2026</div>
+  <h1 class="setlist-title">Soirée Funk &amp; Soul</h1>
+  <div class="setlist-venue">Auditorium de Chelles</div>
+  <div class="setlist-time">19h00 — 20h00</div>
+
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <span class="ornament-mark">§</span>
+    <div class="ornament-line"></div>
+  </div>
+
+  <div class="setlist-songs">
+
+    <!-- 1. Still a Friend of Mine -->
+    <div class="song-block">
+      <div class="song-header">
+        <div class="song-number">I</div>
+        <div class="song-info">
+          <div class="song-title">Still a Friend of Mine</div>
+          <div class="song-artist">Incognito · 1993</div>
+        </div>
+        <div class="song-musical">
+          <span class="song-musical-item">87 BPM</span>
+          <span class="song-musical-item">La majeur</span>
+        </div>
+      </div>
+      <div class="song-presentation">Pour ouvrir cette soirée, un standard de l'acid jazz britannique. Incognito, depuis Londres, signe ici un groove soyeux qui invite à la complicité. Une déclaration d'amitié musicale — la nôtre, et celle qu'on espère partager avec vous ce soir.</div>
+      <div class="song-duration">≈ 5 min 30 · ouverture en douceur</div>
+    </div>
+
+    <!-- 2. Easy Lover -->
+    <div class="song-block">
+      <div class="song-header">
+        <div class="song-number">II</div>
+        <div class="song-info">
+          <div class="song-title">Easy Lover</div>
+          <div class="song-artist">Phil Collins &amp; Philip Bailey · 1984</div>
+        </div>
+        <div class="song-musical">
+          <span class="song-musical-item">128 BPM</span>
+          <span class="song-musical-item">Ré♭ majeur</span>
+        </div>
+      </div>
+      <div class="song-presentation">On change de tempo. Quand le batteur de Genesis rencontre la voix d'Earth, Wind &amp; Fire, ça donne un classique imparable. Une mise en garde dansante contre les amours faciles — préparez-vous à taper du pied.</div>
+      <div class="song-duration">≈ 5 min · montée en énergie</div>
+    </div>
+
+    <!-- 3. Worth It -->
+    <div class="song-block">
+      <div class="song-header">
+        <div class="song-number">III</div>
+        <div class="song-info">
+          <div class="song-title">Worth It</div>
+          <div class="song-artist">RAYE · 2023</div>
+        </div>
+        <div class="song-musical">
+          <span class="song-musical-item">110 BPM</span>
+          <span class="song-musical-item">La♭ majeur</span>
+        </div>
+      </div>
+      <div class="song-presentation">Pour conclure, un titre contemporain. RAYE, voix londonienne d'une nouvelle génération soul, livre une ballade puissante sur l'effort qui paie. Notre clin d'œil à ce soir : oui, ça en valait la peine.</div>
+      <div class="song-duration">≈ 4 min · final intense</div>
+    </div>
+
+  </div>
+
+  <div class="setlist-footer">
+    <div class="setlist-total">≈ 15 minutes de musique</div>
+    <div class="setlist-tagline">— Merci à vous —</div>
+  </div>
+</div>
+
+<!-- INFOS LOGISTIQUES (n'apparaissent pas à l'impression) -->
+<div class="logistics">
+  <h2>Repères logistiques</h2>
+  <div class="logistics-grid">
+    <div class="logistics-item">
+      <strong>Heure d'arrivée</strong>
+      Sur place 18h00 pour la balance et l'installation.
+    </div>
+    <div class="logistics-item">
+      <strong>Tenue</strong>
+      Ensemble sobre, accent or ou doré bienvenu. À confirmer en répétition.
+    </div>
+    <div class="logistics-item">
+      <strong>Présentation au public</strong>
+      Mots d'accueil entre les morceaux — à répartir lors de la dernière répétition.
+    </div>
+    <div class="logistics-item">
+      <strong>Matériel</strong>
+      Sono fournie par l'Auditorium. Apporter ses instruments, partitions et câbles personnels.
+    </div>
+  </div>
+</div>
+
+<!-- AUTH -->
+<script>
+const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
+if(sessionStorage.getItem('atelier-auth')!=='1'){
+  // si pas authentifié, on redirige vers l'accueil pour le login
+  window.location.href = 'index.html';
+}
+</script>
+
+</body>
+</html>

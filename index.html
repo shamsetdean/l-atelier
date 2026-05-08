@@ -104,10 +104,14 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
 .morceau-card:hover .morceau-thumb-play{transform:scale(1.1);}
 .morceau-thumb-play::after{content:'';width:0;height:0;border-top:14px solid transparent;border-bottom:14px solid transparent;border-left:20px solid #fff;margin-left:4px;}
 .morceau-thumb-title{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(28,18,0,.6));color:#fff;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1rem;padding:.75rem 1rem;}
-.morceau-info{padding:14px 16px;}
+.morceau-info{padding:14px 16px;position:relative;}
 .morceau-artist{font-size:.62rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;}
 .morceau-name{font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.morceau-musical{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.morceau-musical span{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.05em;color:var(--gold);background:var(--gold-l);border:1px solid var(--gold-m);padding:2px 8px;border-radius:3px;font-weight:700;}
 .morceau-chips{display:flex;gap:6px;flex-wrap:wrap;}
+.tag-nouveau{position:absolute;top:8px;right:8px;background:#C03030;color:#FFF;font-size:.55rem;letter-spacing:.12em;padding:3px 8px;border-radius:3px;font-weight:700;text-transform:uppercase;z-index:2;box-shadow:0 2px 6px rgba(192,48,48,.3);}
+.morceau-thumb{position:relative;}
 .chip{font-size:.57rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:20px;font-weight:700;}
 .chip-video{background:var(--gold-l);color:#7A4800;}
 .chip-audio{background:var(--green-bg);color:#0A5A35;border:1px solid rgba(26,138,90,.25);}
@@ -152,6 +156,28 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
 .video-title{font-size:.78rem;color:var(--ink);margin-bottom:6px;font-weight:700;}
 .video-tag{display:inline-block;font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:20px;font-weight:700;}
 
+/* COMPTEUR CONCERT */
+.concert-countdown{background:linear-gradient(135deg,#1C1200 0%,#3D2914 100%);color:#FFF8E7;border-radius:14px;padding:1.5rem 2rem;margin-bottom:2.5rem;display:grid;grid-template-columns:1fr auto 1fr;gap:1.5rem;align-items:center;box-shadow:0 8px 28px rgba(28,18,0,.25);position:relative;overflow:hidden;}
+.concert-countdown::before{content:"";position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(212,175,55,.15) 0%,transparent 70%);border-radius:50%;transform:translate(40%,-40%);}
+.cc-left{position:relative;z-index:1;}
+.cc-label{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-m);font-weight:700;margin-bottom:.4rem;}
+.cc-title{font-family:'Playfair Display',serif;font-style:italic;font-size:1.4rem;color:#FFF8E7;margin-bottom:.2rem;}
+.cc-date{font-size:.75rem;color:#D4AF37;letter-spacing:.05em;}
+.cc-center{position:relative;z-index:1;text-align:center;border-left:1px solid rgba(212,175,55,.3);border-right:1px solid rgba(212,175,55,.3);padding:.5rem 1.5rem;}
+.cc-jminus{font-family:'Playfair Display',serif;font-weight:700;font-size:3rem;color:#D4AF37;line-height:1;}
+.cc-jminus-label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-m);margin-top:.3rem;}
+.cc-right{display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;position:relative;z-index:1;}
+.cc-btn{padding:.65rem 1.2rem;font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;cursor:pointer;border-radius:6px;text-decoration:none;display:inline-block;text-align:center;transition:all .2s;border:1.5px solid transparent;white-space:nowrap;}
+.cc-btn-primary{background:#D4AF37;color:#1C1200;border-color:#D4AF37;}
+.cc-btn-primary:hover{background:#E5C987;}
+.cc-btn-secondary{background:transparent;color:#D4AF37;border-color:#D4AF37;}
+.cc-btn-secondary:hover{background:rgba(212,175,55,.15);}
+.concert-countdown.j-zero{background:linear-gradient(135deg,#7A4800 0%,#B8860B 100%);}
+.concert-countdown.j-zero .cc-jminus{color:#FFF8E7;}
+.concert-countdown.j-zero .cc-label{color:#FFE8A0;}
+.concert-countdown.passed{opacity:.6;}
+.concert-countdown.passed .cc-jminus{font-size:1.3rem;font-style:italic;}
+
 /* MODALE PDF */
 .pdf-overlay{position:fixed;inset:0;background:rgba(28,18,0,.7);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
 .pdf-overlay.open{display:flex;}
@@ -179,6 +205,11 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
   header{padding:0 1rem;}
   .logout-btn{font-size:.55rem;padding:.3rem .5rem;}
   .morceaux-grid{grid-template-columns:1fr;}
+  .concert-countdown{grid-template-columns:1fr;text-align:center;padding:1.4rem 1.2rem;gap:1.2rem;}
+  .cc-center{border-left:none;border-right:none;border-top:1px solid rgba(212,175,55,.3);border-bottom:1px solid rgba(212,175,55,.3);padding:1rem 0;}
+  .cc-right{align-items:stretch;}
+  .cc-btn{width:100%;}
+  .cc-jminus{font-size:2.4rem;}
 }
 @media(min-width:641px){.mobile-nav{display:none;}}
 </style>
@@ -238,13 +269,30 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
 
   <main>
 
+    <!-- COMPTEUR CONCERT -->
+    <div class="concert-countdown" id="concert-countdown">
+      <div class="cc-left">
+        <div class="cc-label" data-fr="Prochain concert" data-es="Próximo concierto">Prochain concert</div>
+        <div class="cc-title">Auditorium de Chelles</div>
+        <div class="cc-date">20 mai 2026 · 19h00 – 20h00</div>
+      </div>
+      <div class="cc-center">
+        <div class="cc-jminus" id="cc-jminus">J-?</div>
+        <div class="cc-jminus-label" id="cc-jminus-label" data-fr="jours" data-es="días">jours</div>
+      </div>
+      <div class="cc-right">
+        <a href="setlist.html" class="cc-btn cc-btn-primary"><span data-fr="Voir la setlist" data-es="Ver el setlist">Voir la setlist</span> →</a>
+        <button class="cc-btn cc-btn-secondary" onclick="downloadConcertICS()"><span data-fr="Ajouter au calendrier" data-es="Añadir al calendario">Ajouter au calendrier</span></button>
+      </div>
+    </div>
+
     <!-- MORCEAUX -->
     <section id="morceaux" class="section active">
       <h1 class="section-title"><span data-fr="Morceaux" data-es="Canciones">Morceaux</span></h1>
       <p class="section-desc"><span data-fr="Cliquer sur PDF pour ouvrir la partition complète" data-es="Haz clic en PDF para abrir la partitura completa">Cliquer sur PDF pour ouvrir la partition complète</span></p>
       <div class="morceaux-grid">
 
-        <div class="morceau-card" style="cursor:default;">
+        <div class="morceau-card" style="cursor:default;" data-added="2026-04-01">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFF4DC,#FFE8A0);">
             <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
             <div class="morceau-thumb-title">Worth It</div>
@@ -252,6 +300,10 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
           <div class="morceau-info">
             <div class="morceau-artist">RAYE</div>
             <div class="morceau-name">Worth It</div>
+            <div class="morceau-musical">
+              <span title="Tempo">110 BPM</span>
+              <span title="Tonalité">La♭ majeur</span>
+            </div>
             <div class="morceau-chips">
               <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=uoAzWUHCRpU','_blank')">Vidéo</span>
               <span class="chip chip-pdf" style="cursor:pointer;" onclick="openPDF('Worth It — Lyrics','https://www.dropbox.com/scl/fi/7pa5sc9mz2vfwwt1gzfl4/WORTH-IT-LYRICS.pdf?rlkey=z3nsc1dcskxvuox5kkq406msl&raw=1')">PDF</span>
@@ -259,7 +311,7 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
           </div>
         </div>
 
-        <div class="morceau-card" style="cursor:default;">
+        <div class="morceau-card" style="cursor:default;" data-added="2026-03-15">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#E8F7EF,#C0EDDA);">
             <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
             <div class="morceau-thumb-title">Easy Lover</div>
@@ -267,13 +319,17 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
           <div class="morceau-info">
             <div class="morceau-artist">Phil Collins / Philip Bailey</div>
             <div class="morceau-name">Easy Lover</div>
+            <div class="morceau-musical">
+              <span title="Tempo">128 BPM</span>
+              <span title="Tonalité">Ré♭ majeur</span>
+            </div>
             <div class="morceau-chips">
               <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=H0o6kAixIqE','_blank')">Vidéo</span>
             </div>
           </div>
         </div>
 
-        <div class="morceau-card" style="cursor:default;">
+        <div class="morceau-card" style="cursor:default;" data-added="2026-03-15">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#EEF0FF,#D0D4FF);">
             <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
             <div class="morceau-thumb-title">Still a Friend of Mine</div>
@@ -281,6 +337,10 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
           <div class="morceau-info">
             <div class="morceau-artist">Incognito</div>
             <div class="morceau-name">Still a Friend of Mine</div>
+            <div class="morceau-musical">
+              <span title="Tempo">87 BPM</span>
+              <span title="Tonalité">La majeur</span>
+            </div>
             <div class="morceau-chips">
               <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=-syIJvQAW8Q','_blank')">Vidéo</span>
               <span class="chip chip-pdf" style="cursor:pointer;" onclick="openPDF('Still a Friend of Mine — Lyrics','https://www.dropbox.com/scl/fi/z33jb8fblyyiuw2hqcyrk/STILL-A-FRIEND-OF-MINE-LYRICS.pdf?rlkey=wi1dnr5rb4bryyijntjemyuqd&raw=1')">PDF</span>
@@ -288,7 +348,7 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
           </div>
         </div>
 
-        <div class="morceau-card" style="cursor:default;">
+        <div class="morceau-card" style="cursor:default;" data-added="2026-03-20">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFF0E0,#FFD4A0);">
             <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
             <div class="morceau-thumb-title">Medley Justin Timberlake</div>
@@ -296,6 +356,10 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
           <div class="morceau-info">
             <div class="morceau-artist">Justin Timberlake</div>
             <div class="morceau-name">Medley Justin Timberlake</div>
+            <div class="morceau-musical">
+              <span title="Tempo">~ 105 BPM</span>
+              <span title="Tonalité">Mi mineur</span>
+            </div>
             <div class="morceau-chips">
               <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=cMIJsoaxRjk','_blank')">Vidéo</span>
               <span class="chip chip-pdf" style="cursor:pointer;" onclick="openPDF('Medley Justin Timberlake — Lyrics','https://www.dropbox.com/scl/fi/ms8fjaecmpzl1voxiakyz/MEDLEY-JUSTIN-TIMBERLAKE-V2-Lyrics.pdf?rlkey=5yuvr7y9chdcgpzra8xmyv4l2&raw=1')">PDF</span>
@@ -303,7 +367,7 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
           </div>
         </div>
 
-        <div class="morceau-card" style="cursor:default;">
+        <div class="morceau-card" style="cursor:default;" data-added="2026-04-20">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFE8F0,#FFB8D0);">
             <div class="morceau-thumb-play" style="cursor:default;opacity:.4;"></div>
             <div class="morceau-thumb-title">Medley Chaka Khan</div>
@@ -311,13 +375,17 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
           <div class="morceau-info">
             <div class="morceau-artist">Chaka Khan</div>
             <div class="morceau-name">Medley Chaka Khan</div>
+            <div class="morceau-musical">
+              <span title="Tempo">~ 120 BPM</span>
+              <span title="Tonalité">Sol mineur</span>
+            </div>
             <div class="morceau-chips">
               <span class="chip chip-pdf" style="opacity:.5;font-style:italic;">PDF à venir</span>
             </div>
           </div>
         </div>
 
-        <div class="morceau-card" style="cursor:default;">
+        <div class="morceau-card" style="cursor:default;" data-added="2026-05-04">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#F0F8FF,#C8E4FF);">
             <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
             <div class="morceau-thumb-title">This Place Hotel</div>
@@ -325,6 +393,10 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
           <div class="morceau-info">
             <div class="morceau-artist">The Jacksons</div>
             <div class="morceau-name">This Place Hotel</div>
+            <div class="morceau-musical">
+              <span title="Tempo">120 BPM</span>
+              <span title="Tonalité">Sol mineur</span>
+            </div>
             <div class="morceau-chips">
               <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=-wHW3zsRK04','_blank')">Vidéo</span>
             </div>
@@ -390,9 +462,13 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
           </div>
           <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
             <span style="font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;" data-fr="Setlist :" data-es="Lista de canciones :">Setlist :</span>
-            <span class="chip" style="background:linear-gradient(135deg,#FFF4DC,#FFE8A0);color:#7A4800;">Worth It</span>
-            <span class="chip" style="background:linear-gradient(135deg,#E8F7EF,#C0EDDA);color:#0A5A35;">Easy Lover</span>
             <span class="chip" style="background:linear-gradient(135deg,#EEF0FF,#D0D4FF);color:#3040A0;">Still a Friend of Mine</span>
+            <span class="chip" style="background:linear-gradient(135deg,#E8F7EF,#C0EDDA);color:#0A5A35;">Easy Lover</span>
+            <span class="chip" style="background:linear-gradient(135deg,#FFF4DC,#FFE8A0);color:#7A4800;">Worth It</span>
+          </div>
+          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+            <a href="setlist.html" style="font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;font-weight:700;padding:.45rem .9rem;border:1.5px solid var(--gold);border-radius:4px;transition:all .2s;" onmouseover="this.style.background='var(--gold-l)'" onmouseout="this.style.background='transparent'"><span data-fr="Voir le détail →" data-es="Ver detalles →">Voir le détail →</span></a>
+            <button onclick="downloadConcertICS()" style="font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:none;border:1.5px solid var(--border);border-radius:4px;font-family:'Space Mono',monospace;font-weight:700;padding:.45rem .9rem;cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--ink)';" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)';"><span data-fr="Ajouter au calendrier" data-es="Añadir al calendario">Ajouter au calendrier</span></button>
           </div>
         </div>
         <div class="event-row concert">
@@ -514,6 +590,7 @@ function openApp(){
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app').style.display='block';
   document.getElementById('bio-register-banner').style.display='none';
+  if(typeof postLoginInit === 'function') postLoginInit();
 }
 function showLoginScreen(){
   document.getElementById('app').style.display='none';
@@ -622,6 +699,8 @@ function toggleLang(){
     const hasTranslatableChild=el.querySelector('[data-fr]');
     if(!hasTranslatableChild){el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;}
   });
+  if(typeof updateCountdown === 'function') updateCountdown();
+  if(typeof tagNouveauxMorceaux === 'function') tagNouveauxMorceaux();
 }
 
 /* ── NAVIGATION ── */
@@ -654,7 +733,108 @@ function closePDFBtn(){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDFBtn();});
 
+/* ── COMPTEUR CONCERT 20 mai 2026 ── */
+function updateCountdown(){
+  const concertDate = new Date('2026-05-20T19:00:00+02:00');
+  const now = new Date();
+  const diff = concertDate - now;
+  const dayMs = 1000 * 60 * 60 * 24;
+  const days = Math.ceil(diff / dayMs);
+  const block = document.getElementById('concert-countdown');
+  const jminus = document.getElementById('cc-jminus');
+  const lbl = document.getElementById('cc-jminus-label');
+  if(!block || !jminus) return;
+  block.classList.remove('j-zero','passed');
+  if(diff < -dayMs){
+    block.classList.add('passed');
+    jminus.textContent = (currentLang === 'es') ? 'Pasado' : 'Passé';
+    lbl.style.display = 'none';
+  } else if(days <= 0){
+    block.classList.add('j-zero');
+    jminus.textContent = "C'est aujourd'hui";
+    jminus.style.fontSize = '1.4rem';
+    jminus.style.fontFamily = "'Playfair Display',serif";
+    jminus.style.fontStyle = 'italic';
+    lbl.style.display = 'none';
+  } else {
+    jminus.textContent = 'J-' + days;
+    jminus.style.fontSize = '';
+    lbl.style.display = '';
+    if(currentLang === 'es') lbl.textContent = days > 1 ? 'días' : 'día';
+    else lbl.textContent = days > 1 ? 'jours' : 'jour';
+  }
+}
+
+/* ── EXPORT ICS POUR CALENDRIER ── */
+function downloadConcertICS(){
+  const dtStart = '20260520T170000Z'; // 19h Paris = 17h UTC (CEST = UTC+2)
+  const dtEnd   = '20260520T180000Z'; // 20h Paris = 18h UTC
+  const now = new Date();
+  const dtStamp = now.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    "PRODID:-//L'Atelier//Concert//FR",
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    'UID:atelier-concert-20mai2026@latelier',
+    'DTSTAMP:' + dtStamp,
+    'DTSTART:' + dtStart,
+    'DTEND:' + dtEnd,
+    "SUMMARY:Concert L'Atelier — Auditorium de Chelles",
+    'LOCATION:Auditorium de Chelles\\, Chelles\\, France',
+    "DESCRIPTION:Concert de L'Atelier (Conservatoire de Chelles).\\nSetlist: Still a Friend of Mine \\, Easy Lover \\, Worth It.",
+    'STATUS:CONFIRMED',
+    'BEGIN:VALARM',
+    'ACTION:DISPLAY',
+    "DESCRIPTION:Concert de L'Atelier dans 1 heure",
+    'TRIGGER:-PT1H',
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+  const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'concert-latelier-20mai2026.ics';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+/* ── TAG "NOUVEAU" AUTOMATIQUE (5 jours) ── */
+function tagNouveauxMorceaux(){
+  const seuil = 5; // jours
+  const now = new Date();
+  document.querySelectorAll('.morceau-card[data-added]').forEach(card => {
+    const addedStr = card.dataset.added;
+    if(!addedStr) return;
+    const added = new Date(addedStr);
+    const diff = (now - added) / (1000 * 60 * 60 * 24);
+    // Retire les anciens tags pour permettre la mise à jour de langue
+    card.querySelectorAll('.tag-nouveau').forEach(t => t.remove());
+    if(diff >= 0 && diff <= seuil){
+      const thumb = card.querySelector('.morceau-thumb');
+      if(thumb){
+        const tag = document.createElement('div');
+        tag.className = 'tag-nouveau';
+        tag.textContent = (currentLang === 'es') ? 'Nuevo' : 'Nouveau';
+        thumb.appendChild(tag);
+      }
+    }
+  });
+}
+
 /* ── INIT ── */
+function postLoginInit(){
+  updateCountdown();
+  tagNouveauxMorceaux();
+  setInterval(updateCountdown, 1000 * 60 * 60); // refresh chaque heure
+}
+
 if(sessionStorage.getItem('atelier-auth')==='1'){openApp();}
 else{showBioButton();}
 </script>
