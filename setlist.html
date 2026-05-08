@@ -128,27 +128,57 @@ header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:1
   .logistics-grid{grid-template-columns:1fr;}
 }
 
-/* ── PRINT A4 ── */
+/* ── PRINT A4 — DOIT TENIR SUR UNE SEULE PAGE ── */
 @media print{
-  @page{size:A4;margin:1cm;}
-  body{background:#FFF;}
+  @page{size:A4 portrait;margin:0.8cm;}
+  html,body{background:#FFF !important;height:auto;overflow:hidden;}
   header,.logistics,.btn-back,.btn-print{display:none !important;}
+
   .setlist-page{
-    margin:0;
-    padding:1.8cm 1.5cm;
+    margin:0 !important;
+    padding:1cm 1.4cm !important;
     background:#1C1200 !important;
     color:#F5E8C8 !important;
-    box-shadow:none;
-    -webkit-print-color-adjust:exact;
-    print-color-adjust:exact;
-    border-radius:0;
-    page-break-inside:avoid;
+    box-shadow:none !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+    border-radius:0 !important;
+    page-break-inside:avoid !important;
+    page-break-after:avoid !important;
+    max-width:100% !important;
+    width:100% !important;
+    height:auto !important;
+    box-sizing:border-box;
   }
-  .setlist-title{font-size:2.2rem;}
-  .setlist-brand{font-size:1.4rem;}
-  .song-block{margin-bottom:1.5rem;padding-bottom:1.4rem;}
-  .song-title{font-size:1.3rem;}
-  .song-presentation{font-size:.75rem;}
+
+  /* En-tête compacté */
+  .setlist-brand{font-size:1.15rem !important;margin-bottom:.15rem !important;}
+  .setlist-divider{margin:.5rem auto .7rem !important;}
+  .setlist-event-meta{font-size:.55rem !important;margin-bottom:.3rem !important;}
+  .setlist-title{font-size:1.6rem !important;margin-bottom:.25rem !important;line-height:1.15 !important;}
+  .setlist-venue{font-size:.7rem !important;margin-bottom:.15rem !important;}
+  .setlist-time{font-size:.62rem !important;}
+
+  .ornament{margin:1rem 0 .8rem !important;}
+
+  /* Chaque morceau plus compact */
+  .song-block{margin-bottom:.9rem !important;padding-bottom:.7rem !important;page-break-inside:avoid !important;}
+  .song-block:last-child{margin-bottom:0 !important;padding-bottom:0 !important;}
+  .song-header{grid-template-columns:50px 1fr auto !important;gap:.7rem !important;margin-bottom:.4rem !important;align-items:center !important;}
+  .song-number{font-size:1.7rem !important;}
+  .song-title{font-size:1.05rem !important;margin-bottom:.1rem !important;}
+  .song-artist{font-size:.55rem !important;}
+  .song-musical-item{font-size:.55rem !important;}
+  .song-presentation{padding-left:60px !important;font-size:.65rem !important;line-height:1.45 !important;margin-top:.35rem !important;}
+  .song-duration{padding-left:60px !important;font-size:.52rem !important;margin-top:.3rem !important;}
+
+  /* Pied de page */
+  .setlist-footer{margin-top:1rem !important;padding-top:.8rem !important;}
+  .setlist-total{font-size:.85rem !important;margin-bottom:.2rem !important;}
+  .setlist-tagline{font-size:.55rem !important;}
+
+  /* Forcer 1 page : interdit le débordement */
+  .setlist-page > *{page-break-inside:avoid !important;}
 }
 </style>
 </head>
@@ -243,11 +273,11 @@ header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:1
   <div class="logistics-grid">
     <div class="logistics-item">
       <strong>Heure d'arrivée</strong>
-      Sur place 18h00 pour la balance et l'installation.
+      À voir lors de la prochaine répétition.
     </div>
     <div class="logistics-item">
       <strong>Tenue</strong>
-      Ensemble sobre, accent or ou doré bienvenu. À confirmer en répétition.
+      À voir lors de la prochaine répétition.
     </div>
     <div class="logistics-item">
       <strong>Présentation au public</strong>
