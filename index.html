@@ -572,7 +572,21 @@ const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdd
 const RP_ID=location.hostname||'localhost';
 const RP_NAME="L'Atelier";
 const USER_ID=new Uint8Array([76,65,84,69,76,73,69,82]); // "LATELIER"
-let currentLang='fr';
+let currentLang=localStorage.getItem('atelier-lang')||'fr';
+
+/* ── DEBUG : capture toute erreur JS et l'affiche en haut de page ── */
+window.addEventListener('error', e => {
+  try {
+    let box = document.getElementById('js-error-box');
+    if(!box){
+      box = document.createElement('div');
+      box.id = 'js-error-box';
+      box.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#C03030;color:#FFF;padding:10px 14px;font-family:monospace;font-size:11px;z-index:9999;line-height:1.4;border-bottom:2px solid #FFF;';
+      document.body.insertBefore(box, document.body.firstChild);
+    }
+    box.innerHTML += '<div>⚠ ' + (e.message||'erreur') + ' — ' + (e.filename||'').split('/').pop() + ':' + (e.lineno||'?') + '</div>';
+  } catch(_){}
+});
 
 /* ── UTILS ── */
 async function sha256(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}
@@ -588,6 +602,15 @@ function openApp(){
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app').style.display='block';
   document.getElementById('bio-register-banner').style.display='none';
+  // Filet de sécurité : forcer la section morceaux active au chargement
+  try {
+    const morceaux = document.getElementById('morceaux');
+    if(morceaux && !morceaux.classList.contains('active')){
+      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+      morceaux.classList.add('active');
+    }
+  } catch(e){}
+  if(typeof applyLang === 'function') applyLang();
   if(typeof postLoginInit === 'function') postLoginInit();
 }
 function showLoginScreen(){
@@ -689,14 +712,19 @@ function showBioButton(force=false){
 }
 
 /* ── TRADUCTION ── */
-function toggleLang(){
-  currentLang=(currentLang==='fr')?'es':'fr';
+function applyLang(){
   const label=(currentLang==='fr')?'ES':'FR';
   ['lang-toggle','lang-toggle-login'].forEach(id=>{const b=document.getElementById(id);if(b)b.textContent=label;});
   document.querySelectorAll('[data-fr]').forEach(el=>{
     const hasTranslatableChild=el.querySelector('[data-fr]');
     if(!hasTranslatableChild){el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;}
   });
+  document.documentElement.lang=currentLang;
+}
+function toggleLang(){
+  currentLang=(currentLang==='fr')?'es':'fr';
+  localStorage.setItem('atelier-lang',currentLang);
+  applyLang();
   if(typeof updateCountdown === 'function') updateCountdown();
   if(typeof tagNouveauxMorceaux === 'function') tagNouveauxMorceaux();
 }
@@ -734,19 +762,19 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDFBtn();});
 
 /* ── COMPTEUR CONCERT 20 mai 2026 ── */
 function updateCountdown(){
+  const block = document.getElementById('concert-countdown');
+  const jminus = document.getElementById('cc-jminus');
+  const lbl = document.getElementById('cc-jminus-label');
+  if(!block || !jminus || !lbl) return; // sortie silencieuse si éléments absents
   const concertDate = new Date('2026-05-20T19:00:00+02:00');
   const now = new Date();
   const diff = concertDate - now;
   const dayMs = 1000 * 60 * 60 * 24;
   const days = Math.ceil(diff / dayMs);
-  const block = document.getElementById('concert-countdown');
-  const jminus = document.getElementById('cc-jminus');
-  const lbl = document.getElementById('cc-jminus-label');
-  if(!block || !jminus) return;
   block.classList.remove('j-zero','passed');
   if(diff < -dayMs){
     block.classList.add('passed');
-    jminus.textContent = (currentLang === 'es') ? 'Pasado' : 'Passé';
+    jminus.textContent = (typeof currentLang!=='undefined' && currentLang === 'es') ? 'Pasado' : 'Passé';
     lbl.style.display = 'none';
   } else if(days <= 0){
     block.classList.add('j-zero');
@@ -759,7 +787,8 @@ function updateCountdown(){
     jminus.textContent = 'J-' + days;
     jminus.style.fontSize = '';
     lbl.style.display = '';
-    if(currentLang === 'es') lbl.textContent = days > 1 ? 'días' : 'día';
+    const isEs = (typeof currentLang!=='undefined' && currentLang === 'es');
+    if(isEs) lbl.textContent = days > 1 ? 'días' : 'día';
     else lbl.textContent = days > 1 ? 'jours' : 'jour';
   }
 }
@@ -829,9 +858,9 @@ function tagNouveauxMorceaux(){
 
 /* ── INIT ── */
 function postLoginInit(){
-  updateCountdown();
-  tagNouveauxMorceaux();
-  setInterval(updateCountdown, 1000 * 60 * 60); // refresh chaque heure
+  try { updateCountdown(); } catch(e){ console.error('updateCountdown error:', e); }
+  try { tagNouveauxMorceaux(); } catch(e){ console.error('tagNouveauxMorceaux error:', e); }
+  try { setInterval(updateCountdown, 1000 * 60 * 60); } catch(e){}
 }
 
 if(sessionStorage.getItem('atelier-auth')==='1'){openApp();}

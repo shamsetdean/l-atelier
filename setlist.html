@@ -28,8 +28,8 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Space Mono',monospa
 header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;position:sticky;top:0;z-index:100;}
 .header-logo{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.4rem;color:var(--gold);}
 .header-actions{display:flex;gap:8px;align-items:center;}
-.btn-back,.btn-print{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;padding:.5rem 1rem;cursor:pointer;border-radius:4px;text-transform:uppercase;transition:all .2s;text-decoration:none;display:inline-block;font-weight:700;}
-.btn-back:hover,.btn-print:hover{color:var(--ink);border-color:var(--gold);}
+.btn-back,.btn-print,.btn-lang{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;padding:.5rem 1rem;cursor:pointer;border-radius:4px;text-transform:uppercase;transition:all .2s;text-decoration:none;display:inline-block;font-weight:700;}
+.btn-back:hover,.btn-print:hover,.btn-lang:hover{color:var(--ink);border-color:var(--gold);}
 .btn-back{color:var(--gold);border-color:var(--gold);}
 .btn-print{background:var(--gold);color:#FFF;border-color:var(--gold);}
 .btn-print:hover{background:#9A6F09;color:#FFF;border-color:#9A6F09;}
@@ -185,18 +185,19 @@ header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:1
 <body>
 
 <header>
-  <span class="header-logo">L'Atelier · Setlist</span>
+  <span class="header-logo">L'Atelier · <span data-fr="Setlist" data-es="Repertorio">Setlist</span></span>
   <div class="header-actions">
-    <a class="btn-back" href="index.html">← Accueil</a>
-    <button class="btn-print" onclick="window.print()">Imprimer (A4)</button>
+    <a class="btn-back" href="index.html"><span data-fr="← Accueil" data-es="← Inicio">← Accueil</span></a>
+    <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
+    <button class="btn-print" onclick="window.print()"><span data-fr="Imprimer (A4)" data-es="Imprimir (A4)">Imprimer (A4)</span></button>
   </div>
 </header>
 
 <div class="setlist-page">
   <div class="setlist-brand">L'Atelier</div>
   <div class="setlist-divider"></div>
-  <div class="setlist-event-meta">Concert · 20 mai 2026</div>
-  <h1 class="setlist-title">Soirée Funk &amp; Soul</h1>
+  <div class="setlist-event-meta"><span data-fr="Concert · 20 mai 2026" data-es="Concierto · 20 de mayo 2026">Concert · 20 mai 2026</span></div>
+  <h1 class="setlist-title"><span data-fr="Soirée Funk &amp; Soul" data-es="Velada Funk &amp; Soul">Soirée Funk &amp; Soul</span></h1>
   <div class="setlist-venue">Auditorium de Chelles</div>
   <div class="setlist-time">19h00 — 20h00</div>
 
@@ -218,11 +219,11 @@ header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:1
         </div>
         <div class="song-musical">
           <span class="song-musical-item">87 BPM</span>
-          <span class="song-musical-item">La majeur</span>
+          <span class="song-musical-item"><span data-fr="La majeur" data-es="La mayor">La majeur</span></span>
         </div>
       </div>
-      <div class="song-presentation">Pour ouvrir cette soirée, un standard de l'acid jazz britannique. Incognito, depuis Londres, signe ici un groove soyeux qui invite à la complicité. Une déclaration d'amitié musicale — la nôtre, et celle qu'on espère partager avec vous ce soir.</div>
-      <div class="song-duration">≈ 5 min 30 · ouverture en douceur</div>
+      <div class="song-presentation"><span data-fr="Pour ouvrir cette soirée, un standard de l'acid jazz britannique. Incognito, depuis Londres, signe ici un groove soyeux qui invite à la complicité. Une déclaration d'amitié musicale — la nôtre, et celle qu'on espère partager avec vous ce soir." data-es="Para abrir esta velada, un clásico del acid jazz británico. Incognito, desde Londres, firma aquí un groove sedoso que invita a la complicidad. Una declaración de amistad musical — la nuestra, y la que esperamos compartir con ustedes esta noche.">Pour ouvrir cette soirée, un standard de l'acid jazz britannique. Incognito, depuis Londres, signe ici un groove soyeux qui invite à la complicité. Une déclaration d'amitié musicale — la nôtre, et celle qu'on espère partager avec vous ce soir.</span></div>
+      <div class="song-duration"><span data-fr="≈ 5 min 30 · ouverture en douceur" data-es="≈ 5 min 30 · apertura suave">≈ 5 min 30 · ouverture en douceur</span></div>
     </div>
 
     <!-- 2. Easy Lover -->
@@ -235,11 +236,11 @@ header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:1
         </div>
         <div class="song-musical">
           <span class="song-musical-item">128 BPM</span>
-          <span class="song-musical-item">Ré♭ majeur</span>
+          <span class="song-musical-item"><span data-fr="Ré♭ majeur" data-es="Re♭ mayor">Ré♭ majeur</span></span>
         </div>
       </div>
-      <div class="song-presentation">On change de tempo. Quand le batteur de Genesis rencontre la voix d'Earth, Wind &amp; Fire, ça donne un classique imparable. Une mise en garde dansante contre les amours faciles — préparez-vous à taper du pied.</div>
-      <div class="song-duration">≈ 5 min · montée en énergie</div>
+      <div class="song-presentation"><span data-fr="On change de tempo. Quand le batteur de Genesis rencontre la voix d'Earth, Wind &amp; Fire, ça donne un classique imparable. Une mise en garde dansante contre les amours faciles — préparez-vous à taper du pied." data-es="Cambiamos de tempo. Cuando el batería de Genesis se encuentra con la voz de Earth, Wind &amp; Fire, sale un clásico imparable. Una advertencia bailable contra los amores fáciles — preparen los pies.">On change de tempo. Quand le batteur de Genesis rencontre la voix d'Earth, Wind &amp; Fire, ça donne un classique imparable. Une mise en garde dansante contre les amours faciles — préparez-vous à taper du pied.</span></div>
+      <div class="song-duration"><span data-fr="≈ 5 min · montée en énergie" data-es="≈ 5 min · subida de energía">≈ 5 min · montée en énergie</span></div>
     </div>
 
     <!-- 3. Worth It -->
@@ -252,51 +253,75 @@ header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:1
         </div>
         <div class="song-musical">
           <span class="song-musical-item">110 BPM</span>
-          <span class="song-musical-item">La♭ majeur</span>
+          <span class="song-musical-item"><span data-fr="La♭ majeur" data-es="La♭ mayor">La♭ majeur</span></span>
         </div>
       </div>
-      <div class="song-presentation">Pour conclure, un titre contemporain. RAYE, voix londonienne d'une nouvelle génération soul, livre une ballade puissante sur l'effort qui paie. Notre clin d'œil à ce soir : oui, ça en valait la peine.</div>
-      <div class="song-duration">≈ 4 min · final intense</div>
+      <div class="song-presentation"><span data-fr="Pour conclure, un titre contemporain. RAYE, voix londonienne d'une nouvelle génération soul, livre une ballade puissante sur l'effort qui paie. Notre clin d'œil à ce soir : oui, ça en valait la peine." data-es="Para concluir, un título contemporáneo. RAYE, voz londinense de una nueva generación soul, ofrece una balada poderosa sobre el esfuerzo que vale la pena. Nuestro guiño a esta noche: sí, valió la pena.">Pour conclure, un titre contemporain. RAYE, voix londonienne d'une nouvelle génération soul, livre une ballade puissante sur l'effort qui paie. Notre clin d'œil à ce soir : oui, ça en valait la peine.</span></div>
+      <div class="song-duration"><span data-fr="≈ 4 min · final intense" data-es="≈ 4 min · final intenso">≈ 4 min · final intense</span></div>
     </div>
 
   </div>
 
   <div class="setlist-footer">
-    <div class="setlist-total">≈ 15 minutes de musique</div>
-    <div class="setlist-tagline">— Merci à vous —</div>
+    <div class="setlist-total"><span data-fr="≈ 15 minutes de musique" data-es="≈ 15 minutos de música">≈ 15 minutes de musique</span></div>
+    <div class="setlist-tagline"><span data-fr="— Merci à vous —" data-es="— Gracias a ustedes —">— Merci à vous —</span></div>
   </div>
 </div>
 
 <!-- INFOS LOGISTIQUES (n'apparaissent pas à l'impression) -->
 <div class="logistics">
-  <h2>Repères logistiques</h2>
+  <h2><span data-fr="Repères logistiques" data-es="Información logística">Repères logistiques</span></h2>
   <div class="logistics-grid">
     <div class="logistics-item">
-      <strong>Heure d'arrivée</strong>
-      À voir lors de la prochaine répétition.
+      <strong><span data-fr="Heure d'arrivée" data-es="Hora de llegada">Heure d'arrivée</span></strong>
+      <span data-fr="À voir lors de la prochaine répétition." data-es="A confirmar en el próximo ensayo.">À voir lors de la prochaine répétition.</span>
     </div>
     <div class="logistics-item">
-      <strong>Tenue</strong>
-      À voir lors de la prochaine répétition.
+      <strong><span data-fr="Tenue" data-es="Vestuario">Tenue</span></strong>
+      <span data-fr="À voir lors de la prochaine répétition." data-es="A confirmar en el próximo ensayo.">À voir lors de la prochaine répétition.</span>
     </div>
     <div class="logistics-item">
-      <strong>Présentation au public</strong>
-      Mots d'accueil entre les morceaux — à répartir lors de la dernière répétition.
+      <strong><span data-fr="Présentation au public" data-es="Presentación al público">Présentation au public</span></strong>
+      <span data-fr="Mots d'accueil entre les morceaux — à répartir lors de la dernière répétition." data-es="Palabras de bienvenida entre canciones — a repartir en el último ensayo.">Mots d'accueil entre les morceaux — à répartir lors de la dernière répétition.</span>
     </div>
     <div class="logistics-item">
-      <strong>Matériel</strong>
-      Sono fournie par l'Auditorium. Apporter ses instruments, partitions et câbles personnels.
+      <strong><span data-fr="Matériel" data-es="Material">Matériel</span></strong>
+      <span data-fr="Sono fournie par l'Auditorium. Apporter ses instruments, partitions et câbles personnels." data-es="Sonido proporcionado por el Auditorio. Traer instrumentos, partituras y cables personales.">Sono fournie par l'Auditorium. Apporter ses instruments, partitions et câbles personnels.</span>
     </div>
   </div>
 </div>
 
-<!-- AUTH -->
+<!-- AUTH + LANGUE -->
 <script>
 const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
 if(sessionStorage.getItem('atelier-auth')!=='1'){
   // si pas authentifié, on redirige vers l'accueil pour le login
   window.location.href = 'index.html';
 }
+
+/* ── TRADUCTION FR/ES ── */
+let currentLang = localStorage.getItem('atelier-lang') || 'fr';
+
+function applyLang(){
+  document.querySelectorAll('[data-fr]').forEach(el => {
+    const hasTranslatableChild = el.querySelector('[data-fr]');
+    if(!hasTranslatableChild){
+      el.textContent = (currentLang === 'fr') ? el.dataset.fr : el.dataset.es;
+    }
+  });
+  const btn = document.getElementById('lang-toggle');
+  if(btn) btn.textContent = (currentLang === 'fr') ? 'ES' : 'FR';
+  document.documentElement.lang = currentLang;
+}
+
+function toggleLang(){
+  currentLang = (currentLang === 'fr') ? 'es' : 'fr';
+  localStorage.setItem('atelier-lang', currentLang);
+  applyLang();
+}
+
+// Appliquer la langue au chargement
+applyLang();
 </script>
 
 </body>
