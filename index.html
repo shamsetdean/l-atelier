@@ -192,6 +192,9 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
 .pdf-open-btn{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;background:var(--gold-l);border:1.5px solid var(--borders);padding:6px 14px;border-radius:4px;font-weight:700;transition:background .2s;}
 .pdf-open-btn:hover{background:var(--gold-m);}
 
+.morceau-card{transition:transform .2s,box-shadow .2s,border-color .2s;}
+a.morceau-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(184,134,11,.15);border-color:var(--gold-m);}
+
 /* MOBILE */
 @media(max-width:640px){
   .header-nav{display:none;}
@@ -291,9 +294,9 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
       <p class="section-desc"><span data-fr="Cliquer sur PDF pour ouvrir la partition complète" data-es="Haz clic en PDF para abrir la partitura completa">Cliquer sur PDF pour ouvrir la partition complète</span></p>
       <div class="morceaux-grid">
 
-        <div class="morceau-card" style="cursor:default;" data-added="2026-04-01">
+        <a class="morceau-card" href="worth-it.html" style="cursor:pointer;text-decoration:none;color:inherit;display:block;" data-added="2026-04-01">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFF4DC,#FFE8A0);">
-            <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
+            <div class="morceau-thumb-play"></div>
             <div class="morceau-thumb-title">Worth It</div>
           </div>
           <div class="morceau-info">
@@ -304,15 +307,15 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
               <span title="Tonalité">La♭ majeur</span>
             </div>
             <div class="morceau-chips">
-              <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=uoAzWUHCRpU','_blank')">Vidéo</span>
-              <span class="chip chip-pdf" style="cursor:pointer;" onclick="openPDF('Worth It — Lyrics','https://www.dropbox.com/scl/fi/7pa5sc9mz2vfwwt1gzfl4/WORTH-IT-LYRICS.pdf?rlkey=z3nsc1dcskxvuox5kkq406msl&raw=1')">PDF</span>
+              <span class="chip chip-video">Vidéo</span>
+              <span class="chip chip-pdf">PDF</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <div class="morceau-card" style="cursor:default;" data-added="2026-03-15">
+        <a class="morceau-card" href="easy-lover.html" style="cursor:pointer;text-decoration:none;color:inherit;display:block;" data-added="2026-03-15">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#E8F7EF,#C0EDDA);">
-            <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
+            <div class="morceau-thumb-play"></div>
             <div class="morceau-thumb-title">Easy Lover</div>
           </div>
           <div class="morceau-info">
@@ -323,14 +326,14 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
               <span title="Tonalité">Ré♭ majeur</span>
             </div>
             <div class="morceau-chips">
-              <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=H0o6kAixIqE','_blank')">Vidéo</span>
+              <span class="chip chip-video">Vidéo</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <div class="morceau-card" style="cursor:default;" data-added="2026-03-15">
+        <a class="morceau-card" href="still-a-friend.html" style="cursor:pointer;text-decoration:none;color:inherit;display:block;" data-added="2026-03-15">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#EEF0FF,#D0D4FF);">
-            <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
+            <div class="morceau-thumb-play"></div>
             <div class="morceau-thumb-title">Still a Friend of Mine</div>
           </div>
           <div class="morceau-info">
@@ -341,15 +344,15 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
               <span title="Tonalité">La majeur</span>
             </div>
             <div class="morceau-chips">
-              <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=-syIJvQAW8Q','_blank')">Vidéo</span>
-              <span class="chip chip-pdf" style="cursor:pointer;" onclick="openPDF('Still a Friend of Mine — Lyrics','https://www.dropbox.com/scl/fi/z33jb8fblyyiuw2hqcyrk/STILL-A-FRIEND-OF-MINE-LYRICS.pdf?rlkey=wi1dnr5rb4bryyijntjemyuqd&raw=1')">PDF</span>
+              <span class="chip chip-video">Vidéo</span>
+              <span class="chip chip-pdf">PDF</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <div class="morceau-card" style="cursor:default;" data-added="2026-03-20">
+        <a class="morceau-card" href="medley-jt.html" style="cursor:pointer;text-decoration:none;color:inherit;display:block;" data-added="2026-03-20">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFF0E0,#FFD4A0);">
-            <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
+            <div class="morceau-thumb-play"></div>
             <div class="morceau-thumb-title">Medley Justin Timberlake</div>
           </div>
           <div class="morceau-info">
@@ -360,15 +363,15 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
               <span title="Tonalité">Mi mineur</span>
             </div>
             <div class="morceau-chips">
-              <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=cMIJsoaxRjk','_blank')">Vidéo</span>
-              <span class="chip chip-pdf" style="cursor:pointer;" onclick="openPDF('Medley Justin Timberlake — Lyrics','https://www.dropbox.com/scl/fi/ms8fjaecmpzl1voxiakyz/MEDLEY-JUSTIN-TIMBERLAKE-V2-Lyrics.pdf?rlkey=5yuvr7y9chdcgpzra8xmyv4l2&raw=1')">PDF</span>
+              <span class="chip chip-video">Vidéo</span>
+              <span class="chip chip-pdf">PDF</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <div class="morceau-card" style="cursor:default;" data-added="2026-04-20">
+        <a class="morceau-card" href="medley-chaka.html" style="cursor:pointer;text-decoration:none;color:inherit;display:block;" data-added="2026-04-20">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFE8F0,#FFB8D0);">
-            <div class="morceau-thumb-play" style="cursor:default;opacity:.4;"></div>
+            <div class="morceau-thumb-play" style="opacity:.5;"></div>
             <div class="morceau-thumb-title">Medley Chaka Khan</div>
           </div>
           <div class="morceau-info">
@@ -382,11 +385,11 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
               <span class="chip chip-pdf" style="opacity:.5;font-style:italic;">PDF à venir</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <div class="morceau-card" style="cursor:default;" data-added="2026-05-04">
+        <a class="morceau-card" href="this-place-hotel.html" style="cursor:pointer;text-decoration:none;color:inherit;display:block;" data-added="2026-05-04">
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#F0F8FF,#C8E4FF);">
-            <div class="morceau-thumb-play" style="cursor:default;pointer-events:none;"></div>
+            <div class="morceau-thumb-play"></div>
             <div class="morceau-thumb-title">This Place Hotel</div>
           </div>
           <div class="morceau-info">
@@ -397,10 +400,10 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
               <span title="Tonalité">Sol mineur</span>
             </div>
             <div class="morceau-chips">
-              <span class="chip chip-video" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/watch?v=-wHW3zsRK04','_blank')">Vidéo</span>
+              <span class="chip chip-video">Vidéo</span>
             </div>
           </div>
-        </div>
+        </a>
 
       </div>
     </section>
@@ -746,7 +749,8 @@ function showSection(id,btn){
 
 /* ── MODALE PDF ── */
 function openPDF(titre,rawUrl){
-  const viewerUrl='https://docs.google.com/viewer?url='+encodeURIComponent(rawUrl)+'&embedded=true';
+  // Mozilla pdf.js viewer : pas de tracking Google, fonctionne pour tous les PDFs
+  const viewerUrl='https://mozilla.github.io/pdf.js/web/viewer.html?file='+encodeURIComponent(rawUrl);
   document.getElementById('pdf-modal-title').textContent=titre;
   document.getElementById('pdf-frame').src=viewerUrl;
   document.getElementById('pdf-overlay').classList.add('open');

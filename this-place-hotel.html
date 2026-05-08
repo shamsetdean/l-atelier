@@ -1,616 +1,238 @@
 <!DOCTYPE html>
 <html lang="fr">
-<!--
-  ╔══════════════════════════════════════════════════════════════════╗
-  ║               AVIS IMPORTANT — DROITS D'AUTEUR                  ║
-  ╠══════════════════════════════════════════════════════════════════╣
-  ║  Ce site est un espace strictement privé, réservé aux membres   ║
-  ║  du groupe L'Atelier.                                           ║
-  ║                                                                  ║
-  ║  Les contenus présents (extraits audio, vidéos, partitions)     ║
-  ║  sont utilisés dans un cadre exclusivement privé et pédagogique,║
-  ║  conformément à l'exception d'usage privé prévue par le Code    ║
-  ║  de la propriété intellectuelle (art. L122-5 CPI).              ║
-  ║                                                                  ║
-  ║  Toute diffusion, reproduction ou partage en dehors de ce       ║
-  ║  cercle privé est strictement interdite.                        ║
-  ║                                                                  ║
-  ║  Les droits restent la propriété exclusive de leurs auteurs     ║
-  ║  et ayants droit respectifs.                                    ║
-  ╠══════════════════════════════════════════════════════════════════╣
-  ║  CADRE D'UTILISATION :                                          ║
-  ║  Ces contenus s'inscrivent dans le cadre des ateliers musicaux  ║
-  ║  du Conservatoire de Chelles. Usage limité à l'apprentissage    ║
-  ║  et à la préparation des répétitions au sein de cet             ║
-  ║  établissement.                                                 ║
-  ╚══════════════════════════════════════════════════════════════════╝
--->
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta name="theme-color" content="#FFF8E7">
 <title>This Place Hotel — L'Atelier</title>
-<meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#E8920A;--gold-h:#C87808;--gold-l:#FFF4DC;--gold-m:#FFD080;--cream:#FFFBF2;--cream2:#FFF5DC;--ink:#1C1200;--muted:#9A7A40;--surface:#FFFFFF;--border:rgba(232,146,10,.22);--borders:rgba(232,146,10,.5);--green:#1A8A5A;--green-bg:#E8F7EF;--shadow:0 4px 24px rgba(232,146,10,.13);}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--cream);color:var(--ink);font-family:'Space Mono',monospace;min-height:100vh;}
-header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(232,146,10,.08);}
-.header-logo{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.8rem;color:var(--gold);cursor:pointer;text-decoration:none;transition:color .2s;}
-.header-logo:hover{color:var(--gold-h);}
-.back-btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold-l);border:1.5px solid var(--borders);color:var(--gold);font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;cursor:pointer;border-radius:6px;font-weight:700;transition:background .2s;text-decoration:none;}
-.back-btn:hover{background:var(--gold-m);}
-main{max-width:900px;margin:0 auto;padding:3rem 2rem;}
-.page-back{margin-bottom:2rem;}
-.morceau-header{margin-bottom:2.5rem;}
-.morceau-artist{font-size:.65rem;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.4rem;}
-.morceau-title{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:3.5rem;color:var(--gold);line-height:1;margin-bottom:.5rem;}
-.morceau-divider{height:3px;width:80px;background:var(--gold-m);border-radius:2px;}
-.blocks{display:flex;flex-direction:column;gap:1.5rem;}
-.block{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;transition:box-shadow .2s;}
-.block:hover{box-shadow:var(--shadow);}
-.block-header{padding:12px 18px;background:var(--gold-l);border-bottom:1px solid var(--border);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;align-items:center;justify-content:space-between;}
-.block-header-left{display:flex;align-items:center;gap:8px;}
-.block-icon{font-size:1rem;}
-.block-body{padding:20px;}
-.yt-embed{width:100%;aspect-ratio:16/9;border:none;display:block;border-radius:8px;}
-.audio-player{width:100%;height:40px;accent-color:var(--gold);margin-top:4px;}
-.audio-dl{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;background:var(--gold-l);border:1.5px solid var(--borders);padding:5px 12px;border-radius:4px;font-weight:700;transition:background .2s;}
-.audio-dl:hover{background:var(--gold-m);}
-.btn-partition{width:100%;background:var(--gold);color:#fff;border:none;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.2rem;padding:1rem;cursor:pointer;transition:background .2s,transform .1s;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:12px;}
-.btn-partition:hover{background:var(--gold-h);}
-.btn-partition:active{transform:scale(.98);}
-.btn-partition-sub{font-family:'Space Mono',monospace;font-size:.6rem;font-style:normal;letter-spacing:.08em;opacity:.8;}
-/* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(28,18,0,.65);align-items:center;justify-content:center;padding:1rem;}
-.modal-overlay.open{display:flex;animation:overlayIn .2s ease;}
-@keyframes overlayIn{from{opacity:0;}to{opacity:1;}}
-.modal-box{background:var(--surface);border-radius:12px;width:100%;max-width:860px;max-height:92vh;display:flex;flex-direction:column;box-shadow:0 16px 60px rgba(28,18,0,.3);animation:modalIn .25s ease;}
-@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(12px);}to{opacity:1;transform:none;}}
-.modal-header{padding:14px 18px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--gold-l);border-radius:12px 12px 0 0;flex-shrink:0;}
-.modal-title{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.2rem;color:var(--gold);}
-.modal-close{background:var(--gold);color:#fff;border:none;width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;flex-shrink:0;}
-.modal-close:hover{background:var(--gold-h);transform:scale(1.1);}
-.modal-body{flex:1;overflow:hidden;border-radius:0 0 12px 12px;position:relative;min-height:60vh;}
-.modal-iframe{width:100%;height:100%;border:none;display:block;min-height:60vh;}
-.modal-fallback{display:none;padding:2.5rem;text-align:center;flex-direction:column;align-items:center;gap:1rem;}
-.modal-fallback.visible{display:flex;}
-.modal-fallback p{font-size:.82rem;color:var(--muted);line-height:1.8;}
-.btn-ext{display:inline-block;background:var(--gold);color:#fff;border:none;padding:.75rem 1.75rem;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1rem;border-radius:6px;cursor:pointer;text-decoration:none;transition:background .2s;}
-.btn-ext:hover{background:var(--gold-h);}
-/* no-content blocks */
-.no-content{padding:1.5rem;text-align:center;color:var(--muted);font-size:.75rem;letter-spacing:.08em;}
-/* ═══ MOBILE — refonte ergonomique ═══ */
-@media (max-width:860px){
-  main{max-width:100%;}
-  .blocks{gap:1rem;}
+:root{
+  --bg:#FFF8E7;
+  --surface:#FFFCF2;
+  --ink:#1C1200;
+  --muted:#8B7355;
+  --border:#E8DCC0;
+  --gold:#B8860B;
+  --gold-l:#FFF4DC;
+  --gold-m:#E5C987;
+  --green:#5C8A3A;
+  --borders:#D4AF37;
 }
-@media (max-width:640px){
-  /* SAFE AREA iOS (encoches) */
-  header{padding:0 1rem;padding-top:env(safe-area-inset-top);height:calc(62px + env(safe-area-inset-top));}
-  footer{padding-bottom:calc(3rem + env(safe-area-inset-bottom));}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--ink);font-family:'Space Mono',monospace;line-height:1.6;-webkit-font-smoothing:antialiased;}
 
-  /* HEADER compact */
-  .header-logo{font-size:1.3rem;}
-  .back-btn{font-size:.6rem;padding:10px 14px;letter-spacing:.08em;min-height:40px;}
+/* HEADER */
+header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;position:sticky;top:0;z-index:100;flex-wrap:wrap;}
+.header-logo{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.4rem;color:var(--gold);}
+.header-actions{display:flex;gap:8px;align-items:center;}
+.btn-back,.btn-lang{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;padding:.5rem 1rem;cursor:pointer;border-radius:4px;text-transform:uppercase;transition:all .2s;text-decoration:none;display:inline-block;font-weight:700;}
+.btn-back:hover,.btn-lang:hover{color:var(--ink);border-color:var(--gold);}
+.btn-back{color:var(--gold);border-color:var(--gold);}
 
-  /* MAIN plus aéré en bas, moins sur les côtés */
-  main{padding:1.5rem 1rem 2rem;}
+/* MAIN */
+main{max-width:1000px;margin:0 auto;padding:2rem 1.5rem 4rem;}
 
-  /* HERO plus lisible */
-  .morceau-artist{font-size:.6rem;letter-spacing:.15em;}
-  .morceau-title{font-size:2rem;line-height:1.1;word-break:break-word;}
+/* HERO */
+.hero{background:linear-gradient(135deg,#F0F8FF,#C8E4FF);border-radius:12px;padding:2.5rem 2rem;margin-bottom:2rem;position:relative;overflow:hidden;}
+.hero-meta{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:.6rem;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);color:var(--ink);line-height:1.1;margin-bottom:.4rem;}
+.hero-artist{font-size:.9rem;color:var(--ink);opacity:.7;letter-spacing:.05em;margin-bottom:1rem;}
+.hero-musical{display:flex;gap:.6rem;flex-wrap:wrap;}
+.hero-musical span{background:rgba(255,255,255,.5);border:1px solid rgba(28,18,0,.15);padding:.4rem .9rem;border-radius:20px;font-size:.7rem;color:var(--ink);font-weight:700;letter-spacing:.05em;}
 
-  /* BLOCS */
-  .block{border-radius:10px;}
-  .block-header{padding:10px 14px;font-size:.58rem;letter-spacing:.12em;}
-  .block-body{padding:14px;}
+/* SECTION */
+.section-block{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:1.8rem 2rem;margin-bottom:1.5rem;}
+.section-title{font-family:'Playfair Display',serif;font-style:italic;font-size:1.3rem;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem;}
+.section-title::after{content:"";flex:1;height:1px;background:var(--gold-m);margin-left:.6rem;}
 
-  /* YOUTUBE / AUDIO — pas de débordement */
-  .yt-embed,.audio-player{max-width:100%;}
-  .audio-player{height:44px;}
+/* VIDEO */
+.video-wrapper{position:relative;width:100%;padding-bottom:56.25%;background:#000;border-radius:8px;overflow:hidden;}
+.video-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+.video-empty{text-align:center;padding:3rem 1rem;color:var(--muted);font-style:italic;font-size:.85rem;background:var(--gold-l);border:1.5px dashed var(--gold-m);border-radius:8px;}
 
-  /* BOUTON DOWNLOAD — tap target 44px */
-  .audio-dl{padding:10px 14px;font-size:.6rem;min-height:40px;margin-top:14px;}
+/* AUDIO */
+.audio-block{margin-bottom:1.2rem;}
+.audio-block:last-child{margin-bottom:0;}
+.audio-label{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.audio-label .audio-source{font-size:.55rem;color:var(--gold);text-transform:none;letter-spacing:.05em;}
+audio{width:100%;height:42px;border-radius:6px;outline:none;}
+.audio-controls{display:flex;gap:6px;margin-top:.5rem;flex-wrap:wrap;}
+.audio-speed{padding:.3rem .7rem;background:var(--bg);border:1.5px solid var(--border);border-radius:4px;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.05em;color:var(--muted);font-weight:700;cursor:pointer;transition:all .15s;}
+.audio-speed:hover{border-color:var(--gold-m);color:var(--ink);}
+.audio-speed.active{background:var(--gold);border-color:var(--gold);color:#FFF;}
+.audio-placeholder{padding:1rem;background:var(--gold-l);border:1.5px dashed var(--gold-m);border-radius:6px;font-size:.75rem;color:var(--muted);font-style:italic;text-align:center;}
 
-  /* BOUTON PARTITION — empile sur 2 lignes, texte plus petit */
-  .btn-partition{flex-direction:column;gap:4px;padding:1rem .75rem;font-size:1.05rem;line-height:1.2;}
-  .btn-partition-sub{font-size:.58rem;}
+/* PARTITIONS */
+.tabs{display:flex;gap:0;border-bottom:1.5px solid var(--border);margin-bottom:1rem;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.tab{padding:.7rem 1.1rem;background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .15s;white-space:nowrap;flex-shrink:0;}
+.tab:hover{color:var(--ink);}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
 
-  /* MODALE PDF — PLEIN ÉCRAN sur mobile */
-  .modal-overlay{padding:0;}
-  .modal-box{max-width:100%;max-height:100%;height:100vh;width:100vw;border-radius:0;}
-  .modal-header{border-radius:0;padding:12px 14px;padding-top:calc(12px + env(safe-area-inset-top));}
-  .modal-title{font-size:.95rem;}
-  .modal-close{width:44px;height:44px;font-size:1.2rem;}
-  .modal-body{min-height:0;border-radius:0;}
-  .modal-iframe{min-height:0;height:100%;}
-  .modal-fallback{padding:1.5rem;}
-}
+.pdf-frame-wrapper{position:relative;width:100%;height:600px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;overflow:hidden;}
+.pdf-frame-wrapper iframe{width:100%;height:100%;border:none;}
+.pdf-actions{margin-top:.6rem;display:flex;gap:.6rem;flex-wrap:wrap;}
+.pdf-btn{padding:.5rem .9rem;background:var(--gold-l);border:1.5px solid var(--gold-m);color:var(--ink);font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;text-decoration:none;border-radius:4px;transition:background .2s;display:inline-block;}
+.pdf-btn:hover{background:var(--gold-m);}
+.pdf-empty{padding:3rem 1rem;text-align:center;color:var(--muted);font-style:italic;font-size:.85rem;background:var(--gold-l);border:1.5px dashed var(--gold-m);border-radius:8px;}
 
-/* TRÈS PETITS ÉCRANS (iPhone SE & co — 360px) */
-@media (max-width:380px){
-  .morceau-title{font-size:1.7rem;}
-  .back-btn{font-size:.55rem;padding:8px 10px;}
-  .header-logo{font-size:1.15rem;}
-  .btn-partition{font-size:.95rem;}
-}
-/* ═══ LECTEUR AUDIO PREMIUM ═══ */
-.apl{background:var(--cream2);border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:12px;}
-.apl-top{display:flex;align-items:center;gap:10px;}
-.apl-play{flex-shrink:0;width:48px;height:48px;border-radius:50%;background:var(--gold);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,transform .1s;}
-.apl-play:hover{background:var(--gold-h);}
-.apl-play:active{transform:scale(.94);}
-.apl-play svg{width:22px;height:22px;}
-.apl-play .icon-pause{display:none;}
-.apl.is-playing .apl-play .icon-play{display:none;}
-.apl.is-playing .apl-play .icon-pause{display:block;}
-.apl-skip{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:var(--surface);color:var(--gold);border:1.5px solid var(--borders);cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:.52rem;font-weight:700;letter-spacing:0;transition:background .15s,transform .1s;position:relative;padding:0;}
-.apl-skip:hover{background:var(--gold-l);}
-.apl-skip:active{transform:scale(.92);}
-.apl-skip svg{width:18px;height:18px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
-.apl-skip .apl-skip-num{position:relative;z-index:1;font-size:.5rem;margin-top:1px;}
-.apl-times{margin-left:auto;font-family:'Space Mono',monospace;font-size:.68rem;color:var(--muted);letter-spacing:.05em;white-space:nowrap;flex-shrink:0;}
-.apl-times b{color:var(--ink);font-weight:700;}
-.apl-progress{width:100%;height:22px;display:flex;align-items:center;cursor:pointer;position:relative;touch-action:none;}
-.apl-progress-track{width:100%;height:4px;background:var(--gold-m);border-radius:2px;position:relative;overflow:hidden;transition:height .15s;}
-.apl-progress:hover .apl-progress-track,.apl-progress.is-seeking .apl-progress-track{height:6px;}
-.apl-progress-buffer{position:absolute;top:0;left:0;height:100%;background:rgba(232,146,10,.25);border-radius:2px;width:0;pointer-events:none;}
-.apl-progress-fill{position:absolute;top:0;left:0;height:100%;background:var(--gold);border-radius:2px;width:0;pointer-events:none;}
-.apl-progress-thumb{position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:var(--gold);border:2px solid var(--surface);border-radius:50%;box-shadow:0 2px 6px rgba(232,146,10,.4);opacity:0;transition:opacity .15s;pointer-events:none;}
-.apl-progress:hover .apl-progress-thumb,.apl-progress.is-seeking .apl-progress-thumb{opacity:1;}
-.apl-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-.apl-speed{display:flex;gap:4px;background:var(--surface);border:1.5px solid var(--border);border-radius:6px;padding:3px;}
-.apl-speed-btn{background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:.6rem;font-weight:700;padding:5px 9px;cursor:pointer;border-radius:4px;transition:all .15s;min-width:36px;}
-.apl-speed-btn:hover{color:var(--ink);}
-.apl-speed-btn.active{background:var(--gold);color:#fff;}
-.apl-dl{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;background:var(--surface);border:1.5px solid var(--border);padding:7px 12px;border-radius:4px;font-weight:700;transition:all .15s;display:inline-flex;align-items:center;gap:4px;min-height:32px;}
-.apl-dl:hover{background:var(--gold-l);border-color:var(--borders);}
-.apl-loading{display:none;font-size:.6rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-style:italic;}
-.apl.is-loading .apl-loading{display:inline;}
-.apl.is-loading .apl-play{opacity:.5;pointer-events:none;}
-.apl-error{display:none;color:#D03030;font-size:.65rem;padding:8px;background:#fdeaea;border-radius:4px;}
-.apl.has-error .apl-error{display:block;}
-.apl.has-error .apl-top,.apl.has-error .apl-progress,.apl.has-error .apl-bottom{opacity:.3;pointer-events:none;}
-
+/* MOBILE */
 @media(max-width:640px){
-  .apl{padding:12px 14px;gap:10px;}
-  .apl-play{width:44px;height:44px;}
-  .apl-skip{width:38px;height:38px;}
-  .apl-skip .apl-skip-num{font-size:.48rem;}
-  .apl-times{font-size:.62rem;}
-  .apl-speed-btn{padding:6px 10px;min-height:36px;font-size:.58rem;}
-  .apl-dl{min-height:36px;padding:8px 12px;}
+  header{padding:.8rem 1rem;}
+  .header-logo{font-size:1.1rem;}
+  .btn-back,.btn-lang{font-size:.55rem;padding:.4rem .7rem;}
+  main{padding:1.5rem 1rem 4rem;}
+  .hero{padding:1.8rem 1.4rem;}
+  .section-block{padding:1.4rem;}
+  .pdf-frame-wrapper{height:500px;}
 }
-@media(max-width:380px){
-  .apl-top{gap:8px;}
-  .apl-skip{width:36px;height:36px;}
-  .apl-times{font-size:.58rem;}
-}
-
-
-/* Loop & A-B */
-.apl-loop{display:flex;gap:4px;align-items:center;}
-.apl-loop-btn{background:var(--surface);border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.58rem;font-weight:700;padding:6px 10px;cursor:pointer;border-radius:4px;transition:all .15s;min-height:32px;display:inline-flex;align-items:center;gap:4px;letter-spacing:.05em;}
-.apl-loop-btn:hover{color:var(--ink);border-color:var(--borders);}
-.apl-loop-btn.active{background:var(--gold);color:#fff;border-color:var(--gold);}
-.apl-loop-btn svg{width:12px;height:12px;}
-.apl-loop-clear{background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:.75rem;cursor:pointer;padding:4px 6px;line-height:1;transition:color .15s;}
-.apl-loop-clear:hover{color:#D03030;}
-.apl-loop-clear[hidden]{display:none;}
-/* Marqueurs A et B sur la progress bar */
-.apl-progress-marker{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--gold-h);z-index:3;display:none;}
-.apl-progress-marker.visible{display:block;}
-.apl-progress-marker::after{content:attr(data-label);position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold-h);color:#fff;font-size:.5rem;font-weight:700;padding:1px 4px;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:0;}
-.apl-progress-loop-zone{position:absolute;top:0;bottom:0;background:rgba(232,146,10,.2);z-index:2;display:none;pointer-events:none;}
-.apl-progress-loop-zone.visible{display:block;}
-@media(max-width:640px){
-  .apl-loop-btn{padding:7px 10px;min-height:36px;font-size:.56rem;}
-  .apl-loop-clear{font-size:.85rem;padding:6px 8px;}
-}
-
 </style>
 </head>
 <body>
-<script>
-(function(){
-  if(sessionStorage.getItem('atelier-auth')!=='1'){
-    window.location.replace('index.html');
-  }
-})();
-</script>
-
 
 <header>
-  <a class="header-logo" href="index.html">L'Atelier</a>
-  <a class="back-btn" href="index.html">← Accueil</a>
+  <span class="header-logo">L'Atelier</span>
+  <div class="header-actions">
+    <a class="btn-back" href="index.html"><span data-fr="← Accueil" data-es="← Inicio">← Accueil</span></a>
+    <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
+  </div>
 </header>
 
 <main>
-  <div class="morceau-header">
-    <div class="morceau-artist">The Jacksons</div>
-    <h1 class="morceau-title">This Place Hotel</h1>
-    <div class="morceau-divider"></div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-meta"><span data-fr="Morceau du répertoire" data-es="Canción del repertorio">Morceau du répertoire</span></div>
+    <h1 class="hero-title">This Place Hotel</h1>
+    <div class="hero-artist">The Jacksons · 1980</div>
+    <div class="hero-musical">
+      <span>120 BPM</span>
+      <span data-fr="Sol mineur" data-es="Sol menor">Sol mineur</span>
+    </div>
   </div>
 
-  <div class="blocks">
-    <div class="block">
-      <div class="block-header"><div class="block-header-left"><span class="block-icon">▶</span> Vidéo YouTube</div></div>
-      <div class="block-body">
-        <iframe class="yt-embed" src="https://www.youtube-nocookie.com/embed/-wHW3zsRK04?rel=0&modestbranding=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+  <!-- VIDEO YOUTUBE -->
+  <section class="section-block">
+    <h2 class="section-title"><span data-fr="Vidéo originale" data-es="Vídeo original">Vidéo originale</span></h2>
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube-nocookie.com/embed/-wHW3zsRK04" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <!-- AUDIOS -->
+  <section class="section-block">
+    <h2 class="section-title"><span data-fr="Audios" data-es="Audios">Audios</span></h2>
+
+    <div class="audio-block">
+      <div class="audio-label">
+        <span data-fr="Audio original" data-es="Audio original">Audio original</span>
+        <span class="audio-source" id="src-original-this-place-hotel"></span>
+      </div>
+      <div class="audio-placeholder"><span data-fr="Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_THIS_PLACE_HOTEL" data-es="Audio próximamente — placeholder: #REMPLACER_AUDIO_ORIGINAL_THIS_PLACE_HOTEL">Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_THIS_PLACE_HOTEL</span></div>
+    </div>
+
+    <div class="audio-block">
+      <div class="audio-label">
+        <span data-fr="Atelier du 2 avril" data-es="Taller del 2 de abril">Atelier du 2 avril</span>
+      </div>
+      <audio id="audio-repet-2avril-this-place-hotel" controls preload="none">
+        <source src="https://www.dropbox.com/scl/fi/tjx0ce45ougql8mf5lov0/this-place-hotel-atelier-du-2-avril.mp3?rlkey=c4uuzaiqvdkjic4sfqmcwoqzb&raw=1" type="audio/mpeg">
+        <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+      </audio>
+      <div class="audio-controls">
+        <span style="font-size:.55rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-weight:700;align-self:center;margin-right:6px;" data-fr="Vitesse :" data-es="Velocidad :">Vitesse :</span>
+        <button class="audio-speed" onclick="setSpeed('audio-repet-2avril-this-place-hotel',0.75,this)">0.75×</button>
+        <button class="audio-speed active" onclick="setSpeed('audio-repet-2avril-this-place-hotel',1,this)">1×</button>
+        <button class="audio-speed" onclick="setSpeed('audio-repet-2avril-this-place-hotel',1.25,this)">1.25×</button>
+        <a href="https://www.dropbox.com/scl/fi/tjx0ce45ougql8mf5lov0/this-place-hotel-atelier-du-2-avril.mp3?rlkey=c4uuzaiqvdkjic4sfqmcwoqzb&dl=1" class="pdf-btn" style="margin-left:auto;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
       </div>
     </div>
-    <div class="block">
-      <div class="block-header"><div class="block-header-left"><span class="block-icon">♪</span> Audio — L'Atelier · 16 avril</div></div>
-      <div class="block-body">
-        <p style="font-size:.72rem;color:var(--muted);margin-bottom:10px;">Répétition du 16 avril</p>
-        <div class="apl">
-  <audio preload="metadata" style="display:none;">
-    <source src="https://www.dropbox.com/scl/fi/r1vayuyl5yw3ro4lm0sx9/this-place-hotel-16-avril.mp3?rlkey=9zv6pgw05xae9ugg4fgmwbvta&raw=1" type="audio/mpeg">
-  </audio>
-  <div class="apl-top">
-    <button class="apl-play" aria-label="Lecture / Pause" type="button">
-      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8V4z"/></svg>
-      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="4" width="5" height="16" rx="1"/><rect x="14" y="4" width="5" height="16" rx="1"/></svg>
-    </button>
-    <button class="apl-skip" data-skip="-10" aria-label="Reculer 10 secondes" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 2a10 10 0 1 0 8 4"/><polyline points="20 2 20 7 15 7"/></svg>
-      <span class="apl-skip-num">10</span>
-    </button>
-    <button class="apl-skip" data-skip="10" aria-label="Avancer 10 secondes" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 2a10 10 0 1 1 -8 4"/><polyline points="4 2 4 7 9 7"/></svg>
-      <span class="apl-skip-num">10</span>
-    </button>
-    <div class="apl-times"><b class="apl-cur">0:00</b> / <span class="apl-dur">—:—</span> <span class="apl-loading">· chargement…</span></div>
-  </div>
-  <div class="apl-progress" role="slider" tabindex="0" aria-label="Position de lecture">
-    <div class="apl-progress-track">
-      <div class="apl-progress-buffer"></div>
-      <div class="apl-progress-loop-zone"></div>
-      <div class="apl-progress-fill"></div>
-      <div class="apl-progress-marker" data-label="A"></div>
-      <div class="apl-progress-marker" data-label="B"></div>
-      <div class="apl-progress-thumb"></div>
-    </div>
-  </div>
-  <div class="apl-bottom">
-    <div class="apl-loop">
-      <button class="apl-loop-btn apl-loop-toggle" aria-label="Lecture en boucle" aria-pressed="false" title="Rejouer en boucle" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-        <span>Loop</span>
-      </button>
-      <button class="apl-loop-btn apl-ab-btn" aria-label="Point de boucle A / B" title="Définir point A puis B" type="button">
-        <span class="apl-ab-label">A–B</span>
-      </button>
-      <button class="apl-loop-clear" aria-label="Effacer les points A / B" title="Effacer A / B" type="button" hidden>✕</button>
-    </div>
-    <div class="apl-speed" role="group" aria-label="Vitesse de lecture">
-      <button class="apl-speed-btn" data-speed="0.75" type="button">0.75×</button>
-      <button class="apl-speed-btn active" data-speed="1" type="button">1×</button>
-      <button class="apl-speed-btn" data-speed="1.25" type="button">1.25×</button>
-    </div>
-    <a class="apl-dl" href="https://www.dropbox.com/scl/fi/r1vayuyl5yw3ro4lm0sx9/this-place-hotel-16-avril.mp3?rlkey=9zv6pgw05xae9ugg4fgmwbvta&st=vstbp3cx&dl=0" target="_blank" rel="noopener" aria-label="Télécharger">↓ Télécharger</a>
-  </div>
-  <div class="apl-error" role="alert"></div>
-</div>
+
+    <div class="audio-block">
+      <div class="audio-label">
+        <span data-fr="Atelier du 16 avril" data-es="Taller del 16 de abril">Atelier du 16 avril</span>
+      </div>
+      <audio id="audio-repet-16avril-this-place-hotel" controls preload="none">
+        <source src="https://www.dropbox.com/scl/fi/r1vayuyl5yw3ro4lm0sx9/this-place-hotel-16-avril.mp3?rlkey=9zv6pgw05xae9ugg4fgmwbvta&raw=1" type="audio/mpeg">
+        <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+      </audio>
+      <div class="audio-controls">
+        <span style="font-size:.55rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-weight:700;align-self:center;margin-right:6px;" data-fr="Vitesse :" data-es="Velocidad :">Vitesse :</span>
+        <button class="audio-speed" onclick="setSpeed('audio-repet-16avril-this-place-hotel',0.75,this)">0.75×</button>
+        <button class="audio-speed active" onclick="setSpeed('audio-repet-16avril-this-place-hotel',1,this)">1×</button>
+        <button class="audio-speed" onclick="setSpeed('audio-repet-16avril-this-place-hotel',1.25,this)">1.25×</button>
+        <a href="https://www.dropbox.com/scl/fi/r1vayuyl5yw3ro4lm0sx9/this-place-hotel-16-avril.mp3?rlkey=9zv6pgw05xae9ugg4fgmwbvta&dl=1" class="pdf-btn" style="margin-left:auto;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
       </div>
     </div>
-    <div class="block">
-      <div class="block-header"><div class="block-header-left"><span class="block-icon">♪</span> Audio — L'Atelier · 2 avril</div></div>
-      <div class="block-body">
-        <p style="font-size:.72rem;color:var(--muted);margin-bottom:10px;">Répétition du 2 avril</p>
-        <div class="apl">
-  <audio preload="metadata" style="display:none;">
-    <source src="https://www.dropbox.com/scl/fi/tjx0ce45ougql8mf5lov0/this-place-hotel-atelier-du-2-avril.mp3?rlkey=c4uuzaiqvdkjic4sfqmcwoqzb&raw=1" type="audio/mpeg">
-  </audio>
-  <div class="apl-top">
-    <button class="apl-play" aria-label="Lecture / Pause" type="button">
-      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8V4z"/></svg>
-      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="4" width="5" height="16" rx="1"/><rect x="14" y="4" width="5" height="16" rx="1"/></svg>
-    </button>
-    <button class="apl-skip" data-skip="-10" aria-label="Reculer 10 secondes" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 2a10 10 0 1 0 8 4"/><polyline points="20 2 20 7 15 7"/></svg>
-      <span class="apl-skip-num">10</span>
-    </button>
-    <button class="apl-skip" data-skip="10" aria-label="Avancer 10 secondes" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 2a10 10 0 1 1 -8 4"/><polyline points="4 2 4 7 9 7"/></svg>
-      <span class="apl-skip-num">10</span>
-    </button>
-    <div class="apl-times"><b class="apl-cur">0:00</b> / <span class="apl-dur">—:—</span> <span class="apl-loading">· chargement…</span></div>
-  </div>
-  <div class="apl-progress" role="slider" tabindex="0" aria-label="Position de lecture">
-    <div class="apl-progress-track">
-      <div class="apl-progress-buffer"></div>
-      <div class="apl-progress-loop-zone"></div>
-      <div class="apl-progress-fill"></div>
-      <div class="apl-progress-marker" data-label="A"></div>
-      <div class="apl-progress-marker" data-label="B"></div>
-      <div class="apl-progress-thumb"></div>
+  </section>
+
+  <!-- PARTITIONS -->
+  <section class="section-block">
+    <h2 class="section-title"><span data-fr="Partitions" data-es="Partituras">Partitions</span></h2>
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('guitare',this)"><span data-fr="Guitare" data-es="Guitarra">Guitare</span></button>
+      <button class="tab" onclick="switchTab('basse',this)"><span data-fr="Basse" data-es="Bajo">Basse</span></button>
+      <button class="tab" onclick="switchTab('chant',this)"><span data-fr="Chant" data-es="Voz">Chant</span></button>
+      <button class="tab" onclick="switchTab('batterie',this)"><span data-fr="Batterie" data-es="Batería">Batterie</span></button>
+      <button class="tab" onclick="switchTab('clavier',this)"><span data-fr="Clavier" data-es="Teclado">Clavier</span></button>
     </div>
-  </div>
-  <div class="apl-bottom">
-    <div class="apl-loop">
-      <button class="apl-loop-btn apl-loop-toggle" aria-label="Lecture en boucle" aria-pressed="false" title="Rejouer en boucle" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-        <span>Loop</span>
-      </button>
-      <button class="apl-loop-btn apl-ab-btn" aria-label="Point de boucle A / B" title="Définir point A puis B" type="button">
-        <span class="apl-ab-label">A–B</span>
-      </button>
-      <button class="apl-loop-clear" aria-label="Effacer les points A / B" title="Effacer A / B" type="button" hidden>✕</button>
-    </div>
-    <div class="apl-speed" role="group" aria-label="Vitesse de lecture">
-      <button class="apl-speed-btn" data-speed="0.75" type="button">0.75×</button>
-      <button class="apl-speed-btn active" data-speed="1" type="button">1×</button>
-      <button class="apl-speed-btn" data-speed="1.25" type="button">1.25×</button>
-    </div>
-    <a class="apl-dl" href="https://www.dropbox.com/scl/fi/tjx0ce45ougql8mf5lov0/this-place-hotel-atelier-du-2-avril.mp3?rlkey=c4uuzaiqvdkjic4sfqmcwoqzb&st=hsss17n9&dl=0" target="_blank" rel="noopener" aria-label="Télécharger">↓ Télécharger</a>
-  </div>
-  <div class="apl-error" role="alert"></div>
-</div>
-      </div>
-    </div>
-  </div>
+
+    <div class="tab-content active" id="tab-guitare"><div class="pdf-empty"><span data-fr="Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_THIS_PLACE_HOTEL" data-es="Partitura Guitarra próximamente — placeholder: #REMPLACER_PDF_GUITARE_THIS_PLACE_HOTEL">Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_THIS_PLACE_HOTEL</span></div></div>
+    <div class="tab-content" id="tab-basse"><div class="pdf-empty"><span data-fr="Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_THIS_PLACE_HOTEL" data-es="Partitura Bajo próximamente — placeholder: #REMPLACER_PDF_BASSE_THIS_PLACE_HOTEL">Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_THIS_PLACE_HOTEL</span></div></div>
+    <div class="tab-content" id="tab-chant"><div class="pdf-empty"><span data-fr="Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_THIS_PLACE_HOTEL" data-es="Partitura Voz próximamente — placeholder: #REMPLACER_PDF_CHANT_THIS_PLACE_HOTEL">Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_THIS_PLACE_HOTEL</span></div></div>
+    <div class="tab-content" id="tab-batterie"><div class="pdf-empty"><span data-fr="Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_THIS_PLACE_HOTEL" data-es="Partitura Batería próximamente — placeholder: #REMPLACER_PDF_BATTERIE_THIS_PLACE_HOTEL">Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_THIS_PLACE_HOTEL</span></div></div>
+    <div class="tab-content" id="tab-clavier"><div class="pdf-empty"><span data-fr="Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_THIS_PLACE_HOTEL" data-es="Partitura Teclado próximamente — placeholder: #REMPLACER_PDF_CLAVIER_THIS_PLACE_HOTEL">Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_THIS_PLACE_HOTEL</span></div></div>
+  </section>
+
 </main>
 
-<!-- MODAL PDF -->
-<div class="modal-overlay" id="pdf-modal" onclick="handleOverlay(event)">
-  <div class="modal-box">
-    <div class="modal-header">
-      <div class="modal-title" id="modal-title">Partition</div>
-      <button class="modal-close" onclick="closePDF()" title="Fermer ❌">✕</button>
-    </div>
-    <div class="modal-body">
-      <iframe class="modal-iframe" id="modal-iframe" src="" title="Partition PDF"></iframe>
-      <div class="modal-fallback" id="modal-fallback">
-        <p>Ce PDF ne peut pas s'afficher directement.<br>Clique ci-dessous pour l'ouvrir dans un nouvel onglet.</p>
-        <a class="btn-ext" id="modal-ext" href="#" target="_blank">Ouvrir le PDF ↗</a>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
-/* Détection mobile (écran étroit OU pointeur tactile primaire) */
-function isMobileDevice(){
-  return window.matchMedia('(max-width:860px)').matches
-      || window.matchMedia('(pointer:coarse) and (hover:none)').matches;
+const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
+if(sessionStorage.getItem('atelier-auth')!=='1'){
+  window.location.href='index.html';
 }
 
-function openPDF(url,title,dl){
-  /* MOBILE → page dédiée plein écran avec bouton retour, dans le même onglet */
-  if(isMobileDevice()){
-    const params = new URLSearchParams({
-      url: url,
-      title: title || 'Partition',
-      dl: dl || url,
-      from: window.location.pathname.split('/').pop() || 'index.html'
-    });
-    window.location.href = 'pdf-view.html?' + params.toString();
-    return;
-  }
-  /* DESKTOP → modale iframe comme avant */
-  document.getElementById('modal-title').textContent=title;
-  document.getElementById('modal-iframe').src=url;
-  document.getElementById('modal-ext').href=dl||url;
-  document.getElementById('modal-fallback').classList.remove('visible');
-  document.getElementById('modal-iframe').style.display='block';
-  document.getElementById('pdf-modal').classList.add('open');
-  document.body.style.overflow='hidden';
-  const iframe=document.getElementById('modal-iframe');
-  const t=setTimeout(()=>{try{if(!iframe.contentDocument||!iframe.contentDocument.body||iframe.contentDocument.body.innerHTML===''){showFallback();}}catch(e){}},5000);
-  iframe.onload=()=>clearTimeout(t);
-  iframe.onerror=()=>{clearTimeout(t);showFallback();};
+/* TRADUCTION */
+let currentLang=localStorage.getItem('atelier-lang')||'fr';
+function applyLang(){
+  document.querySelectorAll('[data-fr]').forEach(el=>{
+    const hasChild=el.querySelector('[data-fr]');
+    if(!hasChild) el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;
+  });
+  const btn=document.getElementById('lang-toggle');
+  if(btn) btn.textContent=(currentLang==='fr')?'ES':'FR';
+  document.documentElement.lang=currentLang;
 }
-function showFallback(){document.getElementById('modal-iframe').style.display='none';document.getElementById('modal-fallback').classList.add('visible');}
-function closePDF(){document.getElementById('pdf-modal').classList.remove('open');document.getElementById('modal-iframe').src='';document.getElementById('modal-iframe').style.display='block';document.body.style.overflow='';}
-function handleOverlay(e){if(e.target===document.getElementById('pdf-modal'))closePDF();}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDF();});
+function toggleLang(){
+  currentLang=(currentLang==='fr')?'es':'fr';
+  localStorage.setItem('atelier-lang',currentLang);
+  applyLang();
+}
+
+/* TABS PARTITIONS */
+function switchTab(name,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+/* VITESSE AUDIO */
+function setSpeed(audioId, speed, btn){
+  const audio=document.getElementById(audioId);
+  if(!audio) return;
+  audio.playbackRate=speed;
+  // Mettre à jour les boutons du même groupe
+  btn.parentElement.querySelectorAll('.audio-speed').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+applyLang();
 </script>
 
-  <footer style="max-width:900px;margin:3rem auto 0;padding:1.5rem 2rem 3rem;border-top:1px solid var(--border);">
-    <p style="font-size:.6rem;color:var(--muted);line-height:1.9;letter-spacing:.04em;">
-      <strong style="color:var(--gold);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;">Avis droits d'auteur</strong><br>
-      Ce site est un espace strictement privé, réservé aux membres du groupe L'Atelier.<br>
-      Les contenus présents (extraits audio, vidéos, partitions) sont utilisés dans un cadre exclusivement privé et pédagogique, conformément à l'exception d'usage privé prévue par le Code de la propriété intellectuelle (art. L122-5 CPI).<br>
-      Toute diffusion, reproduction ou partage en dehors de ce cercle privé est strictement interdite.<br>
-      Les droits restent la propriété exclusive de leurs auteurs et ayants droit respectifs.<br><br>
-      <strong style="color:var(--gold);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;">Cadre d'utilisation</strong><br>
-      Les contenus partagés sur ce site s'inscrivent exclusivement dans le cadre des ateliers musicaux du Conservatoire de Chelles. Leur utilisation est limitée à l'apprentissage, au travail de répétition et à la préparation des séances au sein de cet établissement. Toute utilisation en dehors de ce cadre institutionnel est interdite.
-    </p>
-  </footer>
-<script>
-/* ═══ LECTEUR AUDIO PREMIUM — init (v2 : loop + A-B) ═══ */
-(function(){
-  function fmtTime(s){
-    if(!isFinite(s)||s<0) s=0;
-    const m=Math.floor(s/60), sec=Math.floor(s%60);
-    return m+':'+(sec<10?'0':'')+sec;
-  }
-
-  function initPlayer(root){
-    const audio = root.querySelector('audio');
-    if(!audio) return;
-    const playBtn = root.querySelector('.apl-play');
-    const rewBtn = root.querySelector('.apl-skip[data-skip="-10"]');
-    const fwdBtn = root.querySelector('.apl-skip[data-skip="10"]');
-    const prog = root.querySelector('.apl-progress');
-    const fill = root.querySelector('.apl-progress-fill');
-    const buffer = root.querySelector('.apl-progress-buffer');
-    const thumb = root.querySelector('.apl-progress-thumb');
-    const cur = root.querySelector('.apl-cur');
-    const dur = root.querySelector('.apl-dur');
-    const speedBtns = root.querySelectorAll('.apl-speed-btn');
-    const errorBox = root.querySelector('.apl-error');
-    const loopBtn = root.querySelector('.apl-loop-toggle');
-    const abBtn = root.querySelector('.apl-ab-btn');
-    const markerA = root.querySelector('.apl-progress-marker[data-label="A"]');
-    const markerB = root.querySelector('.apl-progress-marker[data-label="B"]');
-    const loopZone = root.querySelector('.apl-progress-loop-zone');
-    const abClear = root.querySelector('.apl-loop-clear');
-
-    /* État A-B */
-    let pointA = null, pointB = null;
-
-    /* PLAY / PAUSE */
-    playBtn.addEventListener('click', ()=>{
-      if(audio.paused) audio.play().catch(err=>{
-        console.error(err);
-        root.classList.add('has-error');
-        errorBox.textContent = 'Impossible de lire le fichier.';
-      });
-      else audio.pause();
-    });
-    audio.addEventListener('play', ()=>root.classList.add('is-playing'));
-    audio.addEventListener('pause', ()=>root.classList.remove('is-playing'));
-    audio.addEventListener('ended', ()=>root.classList.remove('is-playing'));
-
-    /* LOADING */
-    audio.addEventListener('waiting', ()=>root.classList.add('is-loading'));
-    audio.addEventListener('canplay', ()=>root.classList.remove('is-loading'));
-    audio.addEventListener('playing', ()=>root.classList.remove('is-loading'));
-    audio.addEventListener('error', ()=>{
-      root.classList.add('has-error');
-      errorBox.textContent = 'Erreur de chargement du fichier audio.';
-    });
-
-    /* SKIP 10s */
-    if(rewBtn) rewBtn.addEventListener('click', ()=>{ audio.currentTime = Math.max(0, audio.currentTime - 10); });
-    if(fwdBtn) fwdBtn.addEventListener('click', ()=>{ audio.currentTime = Math.min(audio.duration||Infinity, audio.currentTime + 10); });
-
-    /* TIME UPDATE + LOGIQUE A-B */
-    audio.addEventListener('loadedmetadata', ()=>{
-      dur.textContent = fmtTime(audio.duration);
-    });
-    audio.addEventListener('timeupdate', ()=>{
-      /* Boucle A-B : si on a dépassé B, on revient à A */
-      if(pointA !== null && pointB !== null && audio.currentTime >= pointB){
-        audio.currentTime = pointA;
-      }
-      if(!isSeeking){
-        const pct = audio.duration ? (audio.currentTime / audio.duration * 100) : 0;
-        fill.style.width = pct + '%';
-        thumb.style.left = pct + '%';
-      }
-      cur.textContent = fmtTime(audio.currentTime);
-    });
-    audio.addEventListener('progress', ()=>{
-      if(audio.buffered.length > 0 && audio.duration){
-        const end = audio.buffered.end(audio.buffered.length - 1);
-        buffer.style.width = (end / audio.duration * 100) + '%';
-      }
-    });
-
-    /* SEEK */
-    let isSeeking = false;
-    function seekFromEvent(e){
-      const rect = prog.getBoundingClientRect();
-      const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-      const pct = Math.max(0, Math.min(1, x / rect.width));
-      fill.style.width = (pct*100) + '%';
-      thumb.style.left = (pct*100) + '%';
-      if(audio.duration) audio.currentTime = pct * audio.duration;
-    }
-    prog.addEventListener('mousedown', e=>{ isSeeking = true; prog.classList.add('is-seeking'); seekFromEvent(e); });
-    document.addEventListener('mousemove', e=>{ if(isSeeking) seekFromEvent(e); });
-    document.addEventListener('mouseup', ()=>{ if(isSeeking){ isSeeking = false; prog.classList.remove('is-seeking'); } });
-    prog.addEventListener('touchstart', e=>{ isSeeking = true; prog.classList.add('is-seeking'); seekFromEvent(e); }, {passive:true});
-    prog.addEventListener('touchmove', e=>{ if(isSeeking) seekFromEvent(e); }, {passive:true});
-    prog.addEventListener('touchend', ()=>{ if(isSeeking){ isSeeking = false; prog.classList.remove('is-seeking'); } });
-    prog.addEventListener('click', seekFromEvent);
-
-    /* VITESSE */
-    speedBtns.forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const rate = parseFloat(btn.dataset.speed);
-        audio.playbackRate = rate;
-        speedBtns.forEach(b=>b.classList.toggle('active', b===btn));
-      });
-    });
-
-    /* BOUCLE ENTIÈRE */
-    if(loopBtn){
-      loopBtn.addEventListener('click', ()=>{
-        audio.loop = !audio.loop;
-        loopBtn.classList.toggle('active', audio.loop);
-        loopBtn.setAttribute('aria-pressed', audio.loop);
-      });
-    }
-
-    /* POINT A-B
-     * 1er clic : pose A (position actuelle, marqueur A visible)
-     * 2e clic : pose B (si > A, active la boucle A-B, affiche zone)
-     * 3e clic : reset A-B
-     * Le bouton "✕" efface en un clic à tout moment. */
-    function updateABDisplay(){
-      if(!audio.duration){ return; }
-      if(pointA !== null){
-        markerA.style.left = (pointA / audio.duration * 100) + '%';
-        markerA.classList.add('visible');
-      } else {
-        markerA.classList.remove('visible');
-      }
-      if(pointB !== null){
-        markerB.style.left = (pointB / audio.duration * 100) + '%';
-        markerB.classList.add('visible');
-      } else {
-        markerB.classList.remove('visible');
-      }
-      if(pointA !== null && pointB !== null){
-        const aPct = pointA / audio.duration * 100;
-        const bPct = pointB / audio.duration * 100;
-        loopZone.style.left = aPct + '%';
-        loopZone.style.width = (bPct - aPct) + '%';
-        loopZone.classList.add('visible');
-        abBtn.classList.add('active');
-        abClear.hidden = false;
-        abBtn.querySelector('.apl-ab-label').textContent = 'A–B';
-      } else if(pointA !== null){
-        loopZone.classList.remove('visible');
-        abBtn.classList.add('active');
-        abClear.hidden = false;
-        abBtn.querySelector('.apl-ab-label').textContent = 'A · …';
-      } else {
-        loopZone.classList.remove('visible');
-        abBtn.classList.remove('active');
-        abClear.hidden = true;
-        abBtn.querySelector('.apl-ab-label').textContent = 'A–B';
-      }
-    }
-
-    if(abBtn){
-      abBtn.addEventListener('click', ()=>{
-        if(pointA === null){
-          pointA = audio.currentTime;
-        } else if(pointB === null){
-          if(audio.currentTime <= pointA + 0.5){
-            /* B trop proche ou avant A → on ignore et on garde A */
-            return;
-          }
-          pointB = audio.currentTime;
-        } else {
-          /* reset */
-          pointA = null;
-          pointB = null;
-        }
-        updateABDisplay();
-      });
-    }
-    if(abClear){
-      abClear.addEventListener('click', ()=>{
-        pointA = null;
-        pointB = null;
-        updateABDisplay();
-      });
-    }
-    audio.addEventListener('loadedmetadata', updateABDisplay);
-  }
-
-  document.querySelectorAll('.apl').forEach(initPlayer);
-})();
-
-</script>
 </body>
 </html>
