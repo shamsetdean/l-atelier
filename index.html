@@ -252,7 +252,7 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
 
 <div id="app">
   <header>
-    <span class="header-logo" onclick="showSection('morceaux',document.querySelector('.header-nav button'))" title="Accueil">L'Atelier</span>
+    <span class="header-logo" onclick="showSection('morceaux')" title="Accueil">L'Atelier</span>
     <nav>
       <ul class="header-nav">
         <li><button class="active" onclick="showSection('morceaux',this)"><span data-fr="Morceaux" data-es="Canciones">Morceaux</span></button></li>
@@ -703,14 +703,15 @@ function toggleLang(){
 
 /* ── NAVIGATION ── */
 function showSection(id,btn){
+  const sec=document.getElementById(id);
+  if(!sec)return;
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  const lbl=btn.querySelector('span[data-fr]')||btn.querySelector('.nav-label')||btn;
-  const labelText=(currentLang==='fr')?(lbl.dataset&&lbl.dataset.fr)||lbl.textContent:(lbl.dataset&&lbl.dataset.es)||lbl.textContent;
+  sec.classList.add('active');
+  // active la nav correspondante (par id de section, sans dépendre du btn)
   document.querySelectorAll('.header-nav button,.mobile-nav button').forEach(b=>{
-    const s=b.querySelector('span[data-fr]')||b.querySelector('.nav-label');
-    const t=(currentLang==='fr')?(s&&s.dataset.fr)||b.textContent:(s&&s.dataset.es)||b.textContent;
-    b.classList.toggle('active',t.trim()===labelText.trim()||b===btn);
+    const onclickAttr=b.getAttribute('onclick')||'';
+    const isMatch=onclickAttr.includes("showSection('"+id+"'");
+    b.classList.toggle('active',isMatch);
   });
   window.scrollTo({top:0,behavior:'smooth'});
 }
