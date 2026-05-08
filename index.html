@@ -227,6 +227,8 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
         <li><button class="active" onclick="showSection('morceaux',this)"><span data-fr="Morceaux" data-es="Canciones">Morceaux</span></button></li>
         <li><button onclick="showSection('planning',this)"><span data-fr="Planning" data-es="Agenda">Planning</span></button></li>
         <li><button onclick="showSection('videos',this)"><span data-fr="Vidéos" data-es="Vídeos">Vidéos</span></button></li>
+        <li><a href="sondages.html" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;padding:.5rem .9rem;text-decoration:none;display:inline-block;border-bottom:3px solid transparent;margin-bottom:-2px;transition:border-color .2s;" onmouseover="this.style.borderBottomColor='var(--gold)'" onmouseout="this.style.borderBottomColor='transparent'"><span data-fr="Sondages" data-es="Encuestas">Sondages</span></a></li>
+        <li><a href="profil.html" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;padding:.5rem .9rem;text-decoration:none;display:inline-block;border-bottom:3px solid transparent;margin-bottom:-2px;transition:border-color .2s;" onmouseover="this.style.borderBottomColor='var(--gold)'" onmouseout="this.style.borderBottomColor='transparent'"><span data-fr="Profil" data-es="Perfil">Profil</span></a></li>
       </ul>
     </nav>
     <div style="display:flex;align-items:center;gap:8px;">
@@ -338,10 +340,25 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
       <h1 class="section-title"><span data-fr="Planning" data-es="Agenda">Planning</span></h1>
       <p class="section-desc"><span data-fr="Répétitions &amp; concerts" data-es="Ensayos &amp; conciertos">Répétitions &amp; concerts</span></p>
       <div class="planning-list">
-        <div class="event-row repetition" style="border-left-color:#B06020;background:linear-gradient(90deg,#FFF0E0 0%,var(--surface) 40%);">
-          <div><div class="event-date" style="color:#B06020;">7</div><div class="event-month">Mai 2026</div></div>
-          <div><div class="event-name"><span data-fr="Prochaine répétition" data-es="Próximo ensayo">Prochaine répétition</span></div><div class="event-lieu">Salle A2 · Conservatoire de Chelles · 19h30 – 21h00</div></div>
-          <span class="event-badge option"><span data-fr="À confirmer — Cédric" data-es="Por confirmar — Cédric">À confirmer — Cédric</span></span>
+        <div class="event-row repetition" style="display:block;padding:14px 18px;">
+          <div style="display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:1rem;">
+            <div><div class="event-date">7</div><div class="event-month">Mai 2026</div></div>
+            <div>
+              <div class="event-name"><span data-fr="Répétition complète" data-es="Ensayo completo">Répétition complète</span></div>
+              <div class="event-lieu">Salle A2 · Conservatoire de Chelles · Jacques Higelin</div>
+            </div>
+            <span class="event-badge repetition"><span data-fr="Audio dispo" data-es="Audio disponible">Audio dispo</span></span>
+          </div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">
+            <div style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:8px;" data-fr="Enregistrement de la répétition" data-es="Grabación del ensayo">Enregistrement de la répétition</div>
+            <audio controls preload="none" style="width:100%;height:42px;border-radius:6px;outline:none;">
+              <source src="https://www.dropbox.com/scl/fi/4suc3l7idy76hf0tp2pbn/Conservatoire-Jacques-Higelin-repetition-complete-7-mai.m4a?rlkey=5q2ea6f03xq27we7hq65lwd17&raw=1" type="audio/mp4">
+              <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+            </audio>
+            <div style="margin-top:6px;">
+              <a href="https://www.dropbox.com/scl/fi/4suc3l7idy76hf0tp2pbn/Conservatoire-Jacques-Higelin-repetition-complete-7-mai.m4a?rlkey=5q2ea6f03xq27we7hq65lwd17&dl=1" style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;font-weight:700;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
+            </div>
+          </div>
         </div>
         <div class="event-row concert" style="display:block;padding:14px 18px;">
           <div style="display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:1rem;">
@@ -453,6 +470,8 @@ main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
     <button class="active" onclick="showSection('morceaux',this)"><span class="nav-label" data-fr="Morceaux" data-es="Canciones">Morceaux</span></button>
     <button onclick="showSection('planning',this)"><span class="nav-label" data-fr="Planning" data-es="Agenda">Planning</span></button>
     <button onclick="showSection('videos',this)"><span class="nav-label" data-fr="Vidéos" data-es="Vídeos">Vidéos</span></button>
+    <a href="sondages.html" style="flex:1;color:var(--gold);font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:1rem .5rem;border-top:3px solid transparent;min-height:62px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-weight:700;"><span class="nav-label" data-fr="Sondages" data-es="Encuestas">Sondages</span></a>
+    <a href="profil.html" style="flex:1;color:var(--gold);font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:1rem .5rem;border-top:3px solid transparent;min-height:62px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-weight:700;"><span class="nav-label" data-fr="Profil" data-es="Perfil">Profil</span></a>
   </nav>
 </div>
 

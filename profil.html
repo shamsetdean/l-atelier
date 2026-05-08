@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta name="theme-color" content="#FFF8E7">
+<title>Profil — L'Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFF8E7;
+  --surface:#FFFCF2;
+  --ink:#1C1200;
+  --muted:#8B7355;
+  --border:#E8DCC0;
+  --gold:#B8860B;
+  --gold-l:#FFF4DC;
+  --gold-m:#E5C987;
+  --green:#5C8A3A;
+  --green-bg:#E8F5DD;
+  --borders:#D4AF37;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--ink);font-family:'Space Mono',monospace;line-height:1.6;-webkit-font-smoothing:antialiased;}
+body{min-height:100vh;}
+
+/* ── LOGIN ── */
+.login-screen{position:fixed;inset:0;background:linear-gradient(135deg,#1C1200 0%,#3D2914 100%);display:flex;align-items:center;justify-content:center;z-index:1000;padding:1.5rem;}
+.login-box{background:var(--bg);border:2px solid var(--gold);border-radius:8px;padding:2.5rem 2rem;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(184,134,11,.3);}
+.login-title{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--gold);text-align:center;margin-bottom:.4rem;font-style:italic;}
+.login-subtitle{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:2rem;}
+.login-box input{width:100%;padding:.9rem 1rem;border:1.5px solid var(--border);background:var(--surface);font-family:'Space Mono',monospace;font-size:.95rem;color:var(--ink);border-radius:4px;}
+.login-box input:focus{outline:none;border-color:var(--gold);}
+.login-box button{width:100%;margin-top:1rem;padding:.9rem;background:var(--gold);border:none;color:#FFF;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;font-weight:700;cursor:pointer;border-radius:4px;transition:background .2s;}
+.login-box button:hover{background:#9A6F09;}
+.login-error{color:#C03030;font-size:.7rem;text-align:center;margin-top:.8rem;min-height:1rem;}
+
+/* ── HEADER ── */
+header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;position:sticky;top:0;z-index:100;}
+.header-logo{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.4rem;color:var(--gold);}
+.header-actions{display:flex;gap:8px;align-items:center;}
+.btn-back,.btn-logout{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;padding:.5rem 1rem;cursor:pointer;border-radius:4px;text-transform:uppercase;transition:all .2s;text-decoration:none;display:inline-block;}
+.btn-back:hover,.btn-logout:hover{color:var(--ink);border-color:var(--gold);}
+.btn-back{color:var(--gold);border-color:var(--gold);}
+
+/* ── MAIN ── */
+main{max-width:1000px;margin:0 auto;padding:2.5rem 1.5rem 4rem;}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,2.8rem);color:var(--ink);margin-bottom:.4rem;}
+.page-title em{color:var(--gold);font-style:italic;}
+.page-subtitle{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:2.5rem;}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:0;border-bottom:1.5px solid var(--border);margin-bottom:2rem;}
+.tab{padding:.9rem 1.5rem;background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .2s;}
+.tab:hover{color:var(--ink);}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* ── FIREBASE STATUS ── */
+.firebase-error{background:#FFF0F0;border:1.5px solid #C03030;color:#8B1A1A;padding:1.2rem 1.5rem;border-radius:6px;margin-bottom:2rem;font-size:.85rem;line-height:1.5;}
+.firebase-error strong{display:block;margin-bottom:.4rem;font-family:'Playfair Display',serif;font-size:1rem;}
+
+/* ── MON PROFIL ── */
+.profile-form{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:2rem;}
+.profile-form-title{font-family:'Playfair Display',serif;font-style:italic;font-size:1.4rem;color:var(--gold);margin-bottom:1.5rem;}
+
+.avatar-section{display:flex;align-items:center;gap:1.5rem;margin-bottom:2rem;flex-wrap:wrap;}
+.avatar-preview{width:120px;height:120px;border-radius:50%;background:var(--gold-l);border:3px solid var(--gold-m);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;}
+.avatar-preview img{width:100%;height:100%;object-fit:cover;}
+.avatar-initials{font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--gold);font-weight:700;}
+.avatar-actions{display:flex;flex-direction:column;gap:.6rem;flex:1;min-width:200px;}
+.avatar-btn{padding:.6rem 1.2rem;background:var(--gold-l);border:1.5px solid var(--gold-m);color:var(--ink);font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:4px;font-weight:700;text-align:center;}
+.avatar-btn:hover{background:var(--gold-m);}
+.avatar-btn-remove{background:none;border:1.5px solid #C03030;color:#C03030;}
+.avatar-btn-remove:hover{background:#C03030;color:#FFF;}
+.avatar-hint{font-size:.65rem;color:var(--muted);font-style:italic;}
+
+.form-group{margin-bottom:1.2rem;}
+.form-label{display:block;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;font-weight:700;}
+.form-label .required{color:#C03030;}
+.form-input,.form-select,.form-textarea{width:100%;padding:.7rem .9rem;border:1.5px solid var(--border);background:var(--bg);font-family:'Space Mono',monospace;font-size:.9rem;color:var(--ink);border-radius:4px;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:var(--gold);}
+.form-textarea{resize:vertical;min-height:80px;}
+.char-count{font-size:.6rem;color:var(--muted);text-align:right;margin-top:.2rem;}
+.char-count.warn{color:#C03030;}
+
+.form-actions{display:flex;gap:.8rem;justify-content:space-between;margin-top:1.8rem;padding-top:1.2rem;border-top:1px solid var(--border);flex-wrap:wrap;}
+.btn-save{padding:.8rem 1.6rem;background:var(--gold);border:none;color:#FFF;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;cursor:pointer;border-radius:4px;}
+.btn-save:hover{background:#9A6F09;}
+.btn-save:disabled{background:var(--border);cursor:not-allowed;color:var(--muted);}
+.btn-delete-profile{padding:.7rem 1.2rem;background:none;border:1.5px solid #C03030;color:#C03030;font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;cursor:pointer;border-radius:4px;}
+.btn-delete-profile:hover{background:#C03030;color:#FFF;}
+
+.save-feedback{margin-top:1rem;font-size:.75rem;text-align:center;color:var(--green);font-weight:700;display:none;}
+.save-feedback.show{display:block;}
+
+/* ── ANNUAIRE ── */
+.directory-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem;}
+.member-card{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:1.5rem;text-align:center;transition:all .2s;}
+.member-card:hover{border-color:var(--gold-m);box-shadow:0 6px 20px rgba(184,134,11,.1);}
+.member-avatar{width:90px;height:90px;border-radius:50%;background:var(--gold-l);border:2.5px solid var(--gold-m);display:flex;align-items:center;justify-content:center;overflow:hidden;margin:0 auto 1rem;}
+.member-avatar img{width:100%;height:100%;object-fit:cover;}
+.member-avatar-initials{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--gold);font-weight:700;}
+.member-name{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--ink);margin-bottom:.3rem;}
+.member-instrument{display:inline-block;padding:.3rem .8rem;background:var(--gold-l);color:var(--gold);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;border-radius:20px;margin-bottom:.8rem;}
+.member-bio{font-size:.8rem;color:var(--muted);font-style:italic;line-height:1.5;}
+
+.empty{text-align:center;padding:4rem 1rem;color:var(--muted);}
+.empty-icon{font-family:'Playfair Display',serif;font-size:3rem;color:var(--gold-m);margin-bottom:1rem;font-style:italic;}
+.empty-text{font-size:.95rem;}
+
+/* ── RGPD ── */
+.rgpd-box{background:var(--gold-l);border:1px solid var(--gold-m);border-radius:8px;padding:1.2rem 1.5rem;margin-top:2.5rem;font-size:.7rem;color:var(--ink);line-height:1.6;}
+.rgpd-box strong{color:var(--gold);font-family:'Playfair Display',serif;font-size:.85rem;display:block;margin-bottom:.4rem;font-style:italic;}
+
+/* ── LOADING ── */
+.loading{text-align:center;padding:3rem 1rem;color:var(--muted);font-size:.85rem;}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+  header{padding:.8rem 1rem;}
+  .header-logo{font-size:1.15rem;}
+  .btn-back,.btn-logout{font-size:.55rem;padding:.4rem .7rem;}
+  main{padding:1.5rem 1rem 4rem;}
+  .profile-form{padding:1.4rem;}
+  .tabs{overflow-x:auto;}
+  .tab{padding:.7rem 1rem;font-size:.65rem;white-space:nowrap;}
+  .avatar-section{flex-direction:column;align-items:center;text-align:center;}
+  .form-actions{flex-direction:column;}
+  .btn-save,.btn-delete-profile{width:100%;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="login-screen">
+  <div class="login-box">
+    <h1 class="login-title">L'Atelier</h1>
+    <div class="login-subtitle">Profils — Accès privé</div>
+    <input type="password" id="pwd" placeholder="Mot de passe" autocomplete="off">
+    <button onclick="checkPassword()">Entrer</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" style="display:none;">
+
+  <header>
+    <span class="header-logo">L'Atelier · Profils</span>
+    <div class="header-actions">
+      <a class="btn-back" href="index.html">← Accueil</a>
+      <button class="btn-logout" onclick="logout()">Déconnexion</button>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="page-title">Profils <em>du groupe</em></h1>
+    <div class="page-subtitle">Mon profil · Annuaire des membres</div>
+
+    <div id="firebase-status"></div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('profil',this)">Mon profil</button>
+      <button class="tab" onclick="switchTab('annuaire',this)">Annuaire</button>
+    </div>
+
+    <!-- MON PROFIL -->
+    <div class="tab-content active" id="tab-profil">
+      <div class="profile-form">
+        <h2 class="profile-form-title">Mon profil</h2>
+
+        <div class="avatar-section">
+          <div class="avatar-preview" id="avatar-preview">
+            <span class="avatar-initials" id="avatar-initials">?</span>
+          </div>
+          <div class="avatar-actions">
+            <label class="avatar-btn" for="avatar-input">Choisir une photo</label>
+            <input type="file" id="avatar-input" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event)">
+            <button class="avatar-btn avatar-btn-remove" onclick="removeAvatar()" id="btn-remove-avatar" style="display:none;">Retirer la photo</button>
+            <div class="avatar-hint">Optionnel — sinon les initiales sont affichées. Max 200 Ko, redimensionné automatiquement.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="profile-prenom">Prénom <span class="required">*</span></label>
+          <input type="text" class="form-input" id="profile-prenom" maxlength="20" placeholder="Ex: Patrick">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="profile-instrument">Instrument <span class="required">*</span></label>
+          <select class="form-select" id="profile-instrument">
+            <option value="">— Choisir —</option>
+            <option value="Chant">Chant</option>
+            <option value="Guitare">Guitare</option>
+            <option value="Basse">Basse</option>
+            <option value="Batterie">Batterie</option>
+            <option value="Clavier">Clavier</option>
+            <option value="Cuivres">Cuivres</option>
+            <option value="Direction">Direction</option>
+            <option value="Autre">Autre</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="profile-bio">Bio courte</label>
+          <textarea class="form-textarea" id="profile-bio" maxlength="200" placeholder="Une phrase ou deux sur toi (optionnel)" oninput="updateCharCount()"></textarea>
+          <div class="char-count" id="char-count">0 / 200</div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-delete-profile" onclick="deleteMyProfile()" id="btn-delete-profile" style="display:none;">Supprimer mon profil</button>
+          <button class="btn-save" onclick="saveProfile()">Enregistrer</button>
+        </div>
+
+        <div class="save-feedback" id="save-feedback">✓ Profil enregistré</div>
+      </div>
+
+      <div class="rgpd-box">
+        <strong>Tes données et tes droits</strong>
+        Les profils sont stockés sur Firebase Realtime Database, en région UE (Belgique, <em>europe-west1</em>). Données collectées : prénom, instrument, bio (200 caractères max), photo facultative compressée en base64. Aucune donnée n'est partagée avec des tiers, aucune publicité, aucun cookie de suivi. L'annuaire n'est visible qu'aux membres authentifiés du site. Conformément au RGPD, tu peux supprimer ton profil à tout moment via le bouton ci-dessus, ce qui efface définitivement tes données de la base.
+      </div>
+    </div>
+
+    <!-- ANNUAIRE -->
+    <div class="tab-content" id="tab-annuaire">
+      <div id="directory-container">
+        <div class="loading">Chargement de l'annuaire…</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ============================================== -->
+<!--  FIREBASE                                       -->
+<!-- ============================================== -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, set, onValue, remove, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+/* ========================================================
+   IMPORTANT : utilise la MÊME config que sondages.html
+   pour n'avoir qu'un seul projet Firebase à gérer.
+   ======================================================== */
+const firebaseConfig = {
+  apiKey: "REMPLACER_API_KEY",
+  authDomain: "REMPLACER.firebaseapp.com",
+  databaseURL: "https://REMPLACER-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "REMPLACER",
+  storageBucket: "REMPLACER.appspot.com",
+  messagingSenderId: "REMPLACER",
+  appId: "REMPLACER"
+};
+
+let db = null;
+let firebaseReady = false;
+
+try {
+  if(firebaseConfig.apiKey === "REMPLACER_API_KEY"){
+    throw new Error("CONFIG_NEEDED");
+  }
+  const app = initializeApp(firebaseConfig);
+  db = getDatabase(app);
+  firebaseReady = true;
+} catch(e){
+  if(e.message === "CONFIG_NEEDED"){
+    document.getElementById('firebase-status').innerHTML = `
+      <div class="firebase-error">
+        <strong>Configuration Firebase requise</strong>
+        Utilise la même config que dans <code>sondages.html</code> (lignes ~190-200) et colle-la ici.<br>
+        Vérifie que la base est bien en région <code>europe-west1</code> (Belgique) pour la conformité RGPD.<br>
+        Ajoute aussi cette règle aux règles Realtime Database : <code>"profils": {".read": true, ".write": true}</code>
+      </div>`;
+  } else {
+    document.getElementById('firebase-status').innerHTML = `
+      <div class="firebase-error"><strong>Erreur Firebase</strong>${e.message}</div>`;
+  }
+}
+
+window._firebase = { db, ref, set, onValue, remove, get, ready: firebaseReady };
+</script>
+
+<!-- ============================================== -->
+<!--  APP LOGIC                                      -->
+<!-- ============================================== -->
+<script>
+const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
+
+let currentPrenom = null;
+let myProfile = { prenom:'', instrument:'', bio:'', photo:'' };
+let allProfiles = {};
+
+/* ── AUTH ── */
+async function sha256(s){
+  const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+async function checkPassword(){
+  const v = document.getElementById('pwd').value;
+  if(!v) return;
+  const h = await sha256(v);
+  if(h === PASSWORD_HASH){
+    sessionStorage.setItem('atelier-auth','1');
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').style.display='block';
+    initApp();
+  } else {
+    document.getElementById('login-error').textContent='Mot de passe incorrect.';
+    document.getElementById('pwd').value='';
+    setTimeout(()=>document.getElementById('login-error').textContent='', 3000);
+  }
+}
+function logout(){
+  sessionStorage.removeItem('atelier-auth');
+  location.reload();
+}
+document.getElementById('pwd').addEventListener('keydown', e => { if(e.key==='Enter') checkPassword(); });
+
+/* ── TABS ── */
+function switchTab(name, btn){
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+  if(name === 'annuaire') renderDirectory();
+}
+
+/* ── PROFIL ── */
+function updateCharCount(){
+  const v = document.getElementById('profile-bio').value;
+  const el = document.getElementById('char-count');
+  el.textContent = `${v.length} / 200`;
+  el.classList.toggle('warn', v.length > 180);
+}
+
+function getInitials(prenom){
+  if(!prenom) return '?';
+  return prenom.trim().charAt(0).toUpperCase();
+}
+
+function updateAvatarPreview(){
+  const preview = document.getElementById('avatar-preview');
+  const initials = document.getElementById('avatar-initials');
+  const removeBtn = document.getElementById('btn-remove-avatar');
+  if(myProfile.photo){
+    preview.innerHTML = `<img src="${myProfile.photo}" alt="Avatar">`;
+    removeBtn.style.display = 'block';
+  } else {
+    const prenom = document.getElementById('profile-prenom').value || myProfile.prenom;
+    preview.innerHTML = `<span class="avatar-initials">${getInitials(prenom)}</span>`;
+    removeBtn.style.display = 'none';
+  }
+}
+
+document.getElementById('profile-prenom').addEventListener('input', updateAvatarPreview);
+
+/* compression photo : redimensionne à 400px max, qualité .82, max ~200 Ko */
+async function compressImage(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        const MAX = 400;
+        let w = img.width, h = img.height;
+        if(w > h){ if(w > MAX){ h = h * (MAX/w); w = MAX; } }
+        else { if(h > MAX){ w = w * (MAX/h); h = MAX; } }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        let quality = 0.82;
+        let dataUrl = canvas.toDataURL('image/jpeg', quality);
+        // si > 200 Ko, on baisse la qualité
+        while(dataUrl.length > 270000 && quality > 0.4){
+          quality -= 0.1;
+          dataUrl = canvas.toDataURL('image/jpeg', quality);
+        }
+        resolve(dataUrl);
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function handleAvatarUpload(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  if(!file.type.startsWith('image/')){ alert('Format non valide.'); return; }
+  if(file.size > 10 * 1024 * 1024){ alert('Image trop lourde (max 10 Mo brut).'); return; }
+  try {
+    const compressed = await compressImage(file);
+    myProfile.photo = compressed;
+    updateAvatarPreview();
+  } catch(err){
+    alert('Erreur lors du traitement de l\'image.');
+    console.error(err);
+  }
+}
+
+function removeAvatar(){
+  if(!confirm('Retirer ta photo ?')) return;
+  myProfile.photo = '';
+  document.getElementById('avatar-input').value = '';
+  updateAvatarPreview();
+}
+
+async function saveProfile(){
+  if(!window._firebase || !window._firebase.ready){ alert('Firebase non configuré.'); return; }
+  const prenom = document.getElementById('profile-prenom').value.trim();
+  const instrument = document.getElementById('profile-instrument').value;
+  const bio = document.getElementById('profile-bio').value.trim();
+
+  if(!prenom){ alert('Le prénom est requis.'); return; }
+  if(!instrument){ alert('L\'instrument est requis.'); return; }
+
+  const cleanPrenom = prenom.charAt(0).toUpperCase() + prenom.slice(1).toLowerCase();
+  // si l'utilisateur change de prénom, on supprime l'ancien profil pour pas en avoir 2
+  const oldKey = currentPrenom;
+
+  myProfile = {
+    prenom: cleanPrenom,
+    instrument,
+    bio,
+    photo: myProfile.photo || '',
+    updatedAt: Date.now()
+  };
+
+  const { db, ref, set, remove } = window._firebase;
+  await set(ref(db, `profils/${cleanPrenom}`), myProfile);
+
+  if(oldKey && oldKey !== cleanPrenom){
+    await remove(ref(db, `profils/${oldKey}`));
+  }
+
+  currentPrenom = cleanPrenom;
+  localStorage.setItem('atelier-prenom', cleanPrenom);
+
+  const fb = document.getElementById('save-feedback');
+  fb.classList.add('show');
+  setTimeout(() => fb.classList.remove('show'), 2500);
+
+  document.getElementById('btn-delete-profile').style.display = 'block';
+}
+
+async function deleteMyProfile(){
+  if(!currentPrenom){ alert('Aucun profil à supprimer.'); return; }
+  if(!confirm(`Supprimer définitivement le profil de ${currentPrenom} ?\n\nToutes tes données seront effacées de Firebase.`)) return;
+  const { db, ref, remove } = window._firebase;
+  await remove(ref(db, `profils/${currentPrenom}`));
+  currentPrenom = null;
+  myProfile = { prenom:'', instrument:'', bio:'', photo:'' };
+  document.getElementById('profile-prenom').value = '';
+  document.getElementById('profile-instrument').value = '';
+  document.getElementById('profile-bio').value = '';
+  document.getElementById('avatar-input').value = '';
+  updateAvatarPreview();
+  updateCharCount();
+  document.getElementById('btn-delete-profile').style.display = 'none';
+  alert('Ton profil a été supprimé.');
+}
+
+function loadMyProfileFromCache(){
+  currentPrenom = localStorage.getItem('atelier-prenom') || null;
+  if(currentPrenom && allProfiles[currentPrenom]){
+    myProfile = { ...allProfiles[currentPrenom] };
+    document.getElementById('profile-prenom').value = myProfile.prenom || '';
+    document.getElementById('profile-instrument').value = myProfile.instrument || '';
+    document.getElementById('profile-bio').value = myProfile.bio || '';
+    updateCharCount();
+    updateAvatarPreview();
+    document.getElementById('btn-delete-profile').style.display = 'block';
+  } else {
+    updateAvatarPreview();
+  }
+}
+
+/* ── ANNUAIRE ── */
+function escapeHtml(s){
+  return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderDirectory(){
+  const container = document.getElementById('directory-container');
+  const keys = Object.keys(allProfiles);
+  if(keys.length === 0){
+    container.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">∅</div>
+        <div class="empty-text">Aucun profil pour l'instant.<br>Sois le premier à compléter ton profil dans l'onglet "Mon profil".</div>
+      </div>`;
+    return;
+  }
+  keys.sort((a,b) => a.localeCompare(b, 'fr'));
+  container.innerHTML = `<div class="directory-grid">${keys.map(k => {
+    const p = allProfiles[k];
+    const avatar = p.photo
+      ? `<img src="${p.photo}" alt="${escapeHtml(p.prenom)}">`
+      : `<span class="member-avatar-initials">${getInitials(p.prenom)}</span>`;
+    return `
+      <div class="member-card">
+        <div class="member-avatar">${avatar}</div>
+        <h3 class="member-name">${escapeHtml(p.prenom)}</h3>
+        <div class="member-instrument">${escapeHtml(p.instrument || '')}</div>
+        ${p.bio ? `<div class="member-bio">${escapeHtml(p.bio)}</div>` : ''}
+      </div>`;
+  }).join('')}</div>`;
+}
+
+/* ── INIT ── */
+function initApp(){
+  if(!window._firebase || !window._firebase.ready){
+    document.querySelector('.loading').style.display = 'none';
+    return;
+  }
+  const { db, ref, onValue } = window._firebase;
+  onValue(ref(db, 'profils'), snapshot => {
+    allProfiles = snapshot.val() || {};
+    loadMyProfileFromCache();
+    renderDirectory();
+  });
+}
+
+if(sessionStorage.getItem('atelier-auth') === '1'){
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  setTimeout(initApp, 100);
+}
+</script>
+
+</body>
+</html>
