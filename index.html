@@ -6,245 +6,535 @@
 <title>L'Atelier — Espace Membres</title>
 <meta name="robots" content="noindex, nofollow">
 <!--
-  ╔══════════════════════════════════════════════════════════════════╗
-  ║               AVIS IMPORTANT — DROITS D'AUTEUR                  ║
-  ╠══════════════════════════════════════════════════════════════════╣
-  ║  Ce site est un espace strictement privé, réservé aux membres   ║
-  ║  du groupe L'Atelier.                                           ║
-  ║                                                                  ║
-  ║  Les contenus présents (extraits audio, vidéos, partitions)     ║
-  ║  sont utilisés dans un cadre exclusivement privé et pédagogique,║
-  ║  conformément à l'exception d'usage privé prévue par le Code    ║
-  ║  de la propriété intellectuelle (art. L122-5 CPI).              ║
-  ║                                                                  ║
-  ║  Toute diffusion, reproduction ou partage en dehors de ce       ║
-  ║  cercle privé est strictement interdite.                        ║
-  ║                                                                  ║
-  ║  Les droits restent la propriété exclusive de leurs auteurs     ║
-  ║  et ayants droit respectifs.                                    ║
-  ╠══════════════════════════════════════════════════════════════════╣
-  ║  CADRE D'UTILISATION :                                          ║
-  ║  Ces contenus s'inscrivent dans le cadre des ateliers musicaux  ║
-  ║  du Conservatoire de Chelles. Usage limité à l'apprentissage    ║
-  ║  et à la préparation des répétitions au sein de cet             ║
-  ║  établissement.                                                 ║
-  ╚══════════════════════════════════════════════════════════════════╝
+  Espace strictement privé — usage pédagogique interne au Conservatoire de Chelles.
+  Voir le bas de page pour les mentions complètes (art. L122-5 CPI, licence SACEM).
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --gold:#E8920A; --gold-h:#C87808; --gold-l:#FFF4DC; --gold-m:#FFD080;
-  --cream:#FFFBF2; --cream2:#FFF5DC; --ink:#1C1200; --muted:#9A7A40;
-  --surface:#FFFFFF; --border:rgba(232,146,10,0.22); --borders:rgba(232,146,10,0.5);
-  --green:#1A8A5A; --green-bg:#E8F7EF;
-  --shadow:0 4px 24px rgba(232,146,10,0.13);
+:root{
+  --paper:#EFEAE0;
+  --paper-2:#E5DFD2;
+  --paper-3:#F7F3EA;
+  --ink:#14110C;
+  --ink-2:#2A251D;
+  --muted:#857A66;
+  --muted-2:#A99E89;
+  --line:rgba(20,17,12,.14);
+  --line-soft:rgba(20,17,12,.08);
+  --groove:#F0511E;
+  --groove-h:#D8400D;
+  --groove-soft:#FFE0CD;
+  --green:#1F6B4A;
+  --green-soft:#DDE9DF;
+  --plum:#5A2A4A;
+  --plum-soft:#F0DDE8;
+  --serif:'Instrument Serif',ui-serif,Georgia,serif;
+  --sans:'Geist','Inter Tight',system-ui,-apple-system,sans-serif;
+  --mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{background:var(--cream);color:var(--ink);font-family:'Space Mono',monospace;min-height:100vh;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:400;
+  font-size:15px;
+  line-height:1.5;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+button{font-family:inherit;color:inherit;}
+a{color:inherit;text-decoration:none;}
 
-/* LOGIN */
-#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--cream);position:relative;overflow:hidden;}
-#login-screen::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 80%,rgba(232,146,10,.1) 0%,transparent 70%),radial-gradient(ellipse 50% 50% at 80% 20%,rgba(255,208,128,.15) 0%,transparent 70%);pointer-events:none;}
-.login-deco{position:absolute;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;color:rgba(232,146,10,.05);font-size:28vw;line-height:1;user-select:none;pointer-events:none;bottom:-4vw;right:-3vw;}
-.login-box{position:relative;z-index:1;width:400px;max-width:92vw;text-align:center;padding:3rem 2.5rem;background:var(--surface);border:1.5px solid var(--borders);box-shadow:0 8px 40px rgba(232,146,10,.18);border-radius:12px;}
-.login-logo{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:4rem;color:var(--gold);line-height:1;margin-bottom:.2rem;}
-.login-sub{font-size:.6rem;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin-bottom:2.5rem;}
-.login-label{display:block;font-size:.62rem;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:.6rem;text-align:left;}
-.login-input{width:100%;background:var(--cream2);border:1.5px solid var(--border);color:var(--ink);font-family:'Space Mono',monospace;font-size:1rem;padding:.8rem 1rem;outline:none;transition:border-color .2s,box-shadow .2s;margin-bottom:1.25rem;letter-spacing:.1em;border-radius:6px;}
-.login-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(232,146,10,.12);}
-.login-btn{width:100%;background:var(--gold);color:#fff;border:none;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.35rem;padding:.85rem 1rem;cursor:pointer;transition:background .2s,transform .1s;border-radius:6px;}
-.login-btn:hover{background:var(--gold-h);}
-.login-btn:active{transform:scale(.98);}
-.login-error{margin-top:1rem;font-size:.7rem;color:#D03030;letter-spacing:.05em;min-height:1.2rem;}
-.login-divider{display:flex;align-items:center;gap:.75rem;margin:1.25rem 0;color:var(--muted);font-size:.58rem;letter-spacing:.1em;}
-.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--border);}
-.bio-btn{width:100%;background:var(--cream2);color:var(--ink);border:1.5px solid var(--borders);font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1rem;cursor:pointer;transition:all .2s;border-radius:6px;display:flex;align-items:center;justify-content:center;gap:.6rem;}
-.bio-btn:hover{background:var(--gold-l);border-color:var(--gold);}
+/* TYPE PRIMITIVES ───────────────────────────────────────── */
+.serif{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em;}
+.mono{font-family:var(--mono);font-weight:400;}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);
+}
+.rule{height:1px;background:var(--ink);opacity:.85;width:100%;}
+
+/* ── LOGIN ─────────────────────────────────────────────── */
+#login-screen{
+  min-height:100vh;display:grid;place-items:center;
+  background:var(--paper);position:relative;overflow:hidden;
+  padding:2rem 1.25rem;
+}
+.login-deco{
+  position:absolute;font-family:var(--serif);font-style:italic;font-weight:400;
+  color:var(--ink);opacity:.05;font-size:62vw;line-height:.78;
+  user-select:none;pointer-events:none;
+  bottom:-12vw;right:-6vw;letter-spacing:-.04em;
+}
+.login-marquee{
+  position:absolute;top:0;left:0;right:0;
+  border-bottom:1px solid var(--line);
+  background:var(--paper);overflow:hidden;
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink);padding:.7rem 0;
+}
+.login-marquee-track{display:inline-flex;gap:3rem;white-space:nowrap;animation:slide 38s linear infinite;padding-left:3rem;}
+.login-marquee span{display:inline-flex;align-items:center;gap:1rem;}
+.login-marquee .dot{width:6px;height:6px;background:var(--groove);border-radius:50%;display:inline-block;}
+@keyframes slide{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.login-topbar{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.5rem;z-index:10;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+.login-topbar .left{display:flex;gap:1.5rem;align-items:center;}
+.login-topbar .left b{color:var(--ink);font-weight:500;}
+.login-box{
+  position:relative;z-index:1;width:440px;max-width:94vw;
+  background:var(--paper-3);
+  border:1px solid var(--ink);
+  padding:2.4rem 2.4rem 2rem;
+  box-shadow:8px 8px 0 var(--ink);
+}
+.login-mark{
+  display:flex;align-items:baseline;justify-content:space-between;
+  border-bottom:1px solid var(--line);padding-bottom:1.1rem;margin-bottom:1.6rem;
+}
+.login-logo{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:3.6rem;line-height:.85;color:var(--ink);letter-spacing:-.02em;
+}
+.login-logo .amp{color:var(--groove);}
+.login-meta{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-align:right;line-height:1.6;}
+.login-meta b{color:var(--ink);font-weight:500;}
+.login-sub{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:1.8rem;display:flex;align-items:center;gap:.7rem;}
+.login-sub::before{content:"";width:18px;height:1px;background:var(--ink);}
+.login-label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:.5rem;text-align:left;}
+.login-input{
+  width:100%;background:var(--paper);border:none;border-bottom:1.5px solid var(--ink);
+  color:var(--ink);font-family:var(--mono);font-size:1rem;letter-spacing:.18em;
+  padding:.7rem .25rem;outline:none;transition:border-color .2s;margin-bottom:1.4rem;
+  border-radius:0;
+}
+.login-input:focus{border-bottom-color:var(--groove);}
+.login-btn{
+  width:100%;background:var(--ink);color:var(--paper);border:1px solid var(--ink);
+  font-family:var(--serif);font-style:italic;font-weight:400;font-size:1.6rem;
+  padding:.7rem 1rem .85rem;cursor:pointer;transition:all .15s;letter-spacing:-.01em;
+  border-radius:0;display:flex;align-items:center;justify-content:center;gap:.6rem;
+}
+.login-btn:hover{background:var(--groove);border-color:var(--groove);color:#fff;}
+.login-btn:active{transform:translate(2px,2px);}
+.login-btn .arrow{font-family:var(--mono);font-size:1rem;font-style:normal;}
+.login-error{margin-top:.9rem;font-family:var(--mono);font-size:11px;color:#C03030;letter-spacing:.05em;min-height:1.2rem;text-transform:uppercase;}
+.login-divider{display:flex;align-items:center;gap:.75rem;margin:1.4rem 0;color:var(--muted);font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;}
+.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--line);}
+.bio-btn{
+  width:100%;background:var(--paper);color:var(--ink);border:1px solid var(--ink);
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  padding:.85rem 1rem;cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;justify-content:center;gap:.7rem;border-radius:0;
+}
+.bio-btn:hover{background:var(--ink);color:var(--paper);}
 .bio-btn svg{flex-shrink:0;}
-.bio-register-banner{margin-top:1.25rem;background:var(--green-bg);border:1.5px solid rgba(26,138,90,.3);border-radius:8px;padding:1rem 1.25rem;text-align:left;}
-.bio-register-banner p{font-size:.65rem;color:#0A5A35;line-height:1.6;margin-bottom:.75rem;}
+.bio-register-banner{margin-top:1.4rem;background:var(--paper);border:1px solid var(--ink);padding:1rem 1.1rem;text-align:left;}
+.bio-register-banner p{font-family:var(--sans);font-size:13px;color:var(--ink);line-height:1.55;margin-bottom:.85rem;}
 .bio-register-banner .bio-register-actions{display:flex;gap:.5rem;}
-.bio-register-btn{flex:1;background:var(--green);color:#fff;border:none;font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.08em;padding:.55rem .5rem;cursor:pointer;border-radius:4px;transition:background .2s;}
-.bio-register-btn:hover{background:#0f6e48;}
-.bio-register-skip{flex:1;background:none;border:1px solid rgba(26,138,90,.4);color:#0A5A35;font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.08em;padding:.55rem .5rem;cursor:pointer;border-radius:4px;transition:all .2s;}
-.bio-register-skip:hover{background:rgba(26,138,90,.08);}
+.bio-register-btn,.bio-register-skip{
+  flex:1;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  padding:.6rem .5rem;cursor:pointer;border-radius:0;transition:all .15s;
+}
+.bio-register-btn{background:var(--ink);color:var(--paper);border:1px solid var(--ink);}
+.bio-register-btn:hover{background:var(--groove);border-color:var(--groove);color:#fff;}
+.bio-register-skip{background:transparent;color:var(--ink);border:1px solid var(--ink);}
+.bio-register-skip:hover{background:var(--ink);color:var(--paper);}
 
-/* APP */
+/* ── APP ───────────────────────────────────────────────── */
 #app{display:none;}
 
 /* HEADER */
-header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(232,146,10,.08);}
-.header-logo{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.8rem;color:var(--gold);cursor:pointer;transition:color .2s;text-decoration:none;user-select:none;}
-.header-logo:hover{color:var(--gold-h);}
-.header-nav{display:flex;list-style:none;gap:0;}
-.header-nav button{background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;padding:.5rem .9rem;cursor:pointer;transition:color .2s;border-bottom:3px solid transparent;margin-bottom:-2px;}
+header{
+  background:var(--paper);
+  border-bottom:1px solid var(--ink);
+  padding:0 2rem;display:flex;align-items:center;justify-content:space-between;
+  height:68px;position:sticky;top:0;z-index:100;
+}
+.header-logo{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:2rem;color:var(--ink);cursor:pointer;letter-spacing:-.02em;line-height:1;
+  display:flex;align-items:baseline;gap:.4rem;
+}
+.header-logo:hover{color:var(--groove);}
+.header-logo .tick{font-family:var(--mono);font-style:normal;font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;}
+.header-nav{display:flex;list-style:none;gap:0;align-items:center;}
+.header-nav button{
+  background:none;border:none;color:var(--muted);
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  padding:.55rem .9rem;cursor:pointer;transition:color .15s;
+  position:relative;font-weight:500;
+}
 .header-nav button:hover{color:var(--ink);}
-.header-nav button.active{color:var(--gold);border-bottom-color:var(--gold);}
-.lang-btn{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;padding:.4rem .8rem;cursor:pointer;transition:all .2s;border-radius:4px;}
-.lang-btn:hover{color:var(--ink);border-color:var(--gold);}
-.logout-btn{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;padding:.4rem .8rem;cursor:pointer;transition:all .2s;border-radius:4px;}
-.logout-btn:hover{color:var(--ink);border-color:var(--gold);}
+.header-nav button.active{color:var(--ink);}
+.header-nav button.active::after{
+  content:"";position:absolute;left:.9rem;right:.9rem;bottom:-1px;height:2px;background:var(--groove);
+}
+.header-actions{display:flex;align-items:center;gap:.5rem;}
+.lang-btn,.logout-btn{
+  background:transparent;border:1px solid var(--ink);color:var(--ink);
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  padding:.45rem .8rem;cursor:pointer;transition:all .15s;border-radius:0;
+}
+.lang-btn:hover,.logout-btn:hover{background:var(--ink);color:var(--paper);}
 
 /* MAIN */
-main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
+main{max-width:1180px;margin:0 auto;padding:2.5rem 2rem 4rem;}
 .section{display:none;animation:fadeIn .25s ease;}
 .section.active{display:block;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
-.section-title{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:3.2rem;color:var(--gold);line-height:1;margin-bottom:.3rem;}
-.section-desc{font-size:.63rem;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;margin-bottom:2rem;padding-bottom:1.25rem;border-bottom:2px solid var(--gold-m);}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
 
-/* MORCEAUX GRID */
-.morceaux-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
-.morceau-card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .15s,border-color .2s;text-decoration:none;display:block;color:inherit;}
-.morceau-card:hover{box-shadow:var(--shadow);transform:translateY(-4px);border-color:var(--gold);}
-.morceau-thumb{width:100%;aspect-ratio:16/9;background:var(--gold-l);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-.morceau-thumb-play{width:56px;height:56px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s;}
-.morceau-card:hover .morceau-thumb-play{transform:scale(1.1);}
-.morceau-thumb-play::after{content:'';width:0;height:0;border-top:14px solid transparent;border-bottom:14px solid transparent;border-left:20px solid #fff;margin-left:4px;}
-.morceau-thumb-title{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(28,18,0,.6));color:#fff;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1rem;padding:.75rem 1rem;}
-.morceau-info{padding:14px 16px;position:relative;}
-.morceau-artist{font-size:.62rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;}
-.morceau-name{font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:8px;}
-.morceau-musical{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
-.morceau-musical span{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.05em;color:var(--gold);background:var(--gold-l);border:1px solid var(--gold-m);padding:2px 8px;border-radius:3px;font-weight:700;}
-.morceau-chips{display:flex;gap:6px;flex-wrap:wrap;}
-.tag-nouveau{position:absolute;top:8px;right:8px;background:#C03030;color:#FFF;font-size:.55rem;letter-spacing:.12em;padding:3px 8px;border-radius:3px;font-weight:700;text-transform:uppercase;z-index:2;box-shadow:0 2px 6px rgba(192,48,48,.3);}
-.morceau-thumb{position:relative;}
-.chip{font-size:.57rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:20px;font-weight:700;}
-.chip-video{background:var(--gold-l);color:#7A4800;}
-.chip-audio{background:var(--green-bg);color:#0A5A35;border:1px solid rgba(26,138,90,.25);}
-.chip-pdf{background:#EEF0FF;color:#3040A0;border:1px solid rgba(48,64,160,.2);}
+/* SECTION HEADER ─ giant editorial */
+.section-head{
+  display:grid;grid-template-columns:1fr auto;align-items:end;
+  gap:2rem;padding-bottom:1.25rem;margin-bottom:2rem;
+  border-bottom:1px solid var(--ink);
+}
+.section-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;display:flex;align-items:center;gap:.7rem;}
+.section-eyebrow .num{
+  background:var(--ink);color:var(--paper);padding:.2rem .55rem;font-weight:500;letter-spacing:.1em;
+}
+.section-title{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(3.2rem,9vw,6rem);line-height:.85;letter-spacing:-.025em;color:var(--ink);
+}
+.section-title .pt{color:var(--groove);font-style:normal;}
+.section-meta{
+  text-align:right;font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  color:var(--muted);text-transform:uppercase;line-height:1.7;
+}
+.section-meta b{color:var(--ink);font-weight:500;}
 
-/* PLANNING */
-.planning-list{display:flex;flex-direction:column;gap:10px;}
-.event-row{background:var(--surface);border:1.5px solid var(--border);border-left:4px solid transparent;padding:14px 18px;display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:1rem;border-radius:0 10px 10px 0;transition:box-shadow .2s;}
-.event-row:hover{box-shadow:var(--shadow);}
-.event-row.concert{border-left-color:var(--gold);background:linear-gradient(90deg,var(--gold-l) 0%,var(--surface) 40%);}
-.event-row.repetition{border-left-color:var(--green);background:linear-gradient(90deg,var(--green-bg) 0%,var(--surface) 40%);}
-.event-row.option{border-left-color:#B06020;background:linear-gradient(90deg,#FFF0E0 0%,var(--surface) 40%);}
-.event-date{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:2.2rem;line-height:1;color:var(--gold);}
-.event-row.repetition .event-date{color:var(--green);font-size:1.3rem;}
-.event-row.option .event-date{color:#B06020;font-size:1.6rem;}
-.event-month{font-size:.58rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-top:2px;}
-.event-name{font-size:.82rem;color:var(--ink);margin-bottom:4px;font-weight:700;}
-.event-lieu{font-size:.65rem;color:var(--muted);}
-.event-badge{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:20px;white-space:nowrap;font-weight:700;}
-.event-badge.concert{color:#7A4800;background:var(--gold-m);}
-.event-badge.repetition{color:#0A5A35;background:var(--green-bg);border:1px solid rgba(26,138,90,.3);}
-.event-badge.option{color:#B06020;background:#FFF0E0;border:1px solid rgba(176,96,32,.3);}
+/* COMPTEUR CONCERT ─ ticker hero */
+.concert-hero{
+  background:var(--ink);color:var(--paper);
+  margin-bottom:2.5rem;
+  border:1px solid var(--ink);
+  position:relative;overflow:hidden;
+}
+.concert-ticker{
+  border-bottom:1px solid rgba(239,234,224,.18);
+  padding:.7rem 0;overflow:hidden;
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--paper);background:var(--ink);
+}
+.concert-ticker-track{display:inline-flex;gap:3rem;white-space:nowrap;animation:slide 32s linear infinite;padding-left:3rem;}
+.concert-ticker .star{color:var(--groove);}
+.concert-body{
+  display:grid;grid-template-columns:1fr 1.1fr 1fr;
+  gap:0;align-items:stretch;
+}
+.concert-cell{padding:1.6rem 1.8rem;display:flex;flex-direction:column;justify-content:center;gap:.5rem;}
+.concert-cell + .concert-cell{border-left:1px solid rgba(239,234,224,.18);}
+.concert-cell .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted-2);}
+.concert-cell .val{font-family:var(--serif);font-style:italic;font-size:1.7rem;line-height:1;letter-spacing:-.01em;color:var(--paper);}
+.concert-cell .sub{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted-2);}
+.concert-jminus{
+  text-align:center;align-items:center;
+  background:linear-gradient(180deg,transparent,rgba(240,81,30,.08));
+}
+.concert-jminus .cc-jminus{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:5.5rem;line-height:.85;color:var(--groove);letter-spacing:-.04em;
+}
+.concert-jminus .cc-jminus-label{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted-2);margin-top:.3rem;
+}
+.concert-actions{display:flex;flex-direction:column;gap:.55rem;}
+.cc-btn{
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  padding:.7rem 1rem;cursor:pointer;border-radius:0;text-align:center;
+  display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+  transition:all .15s;border:1px solid;
+}
+.cc-btn-primary{background:var(--groove);border-color:var(--groove);color:#fff;}
+.cc-btn-primary:hover{background:#fff;color:var(--ink);border-color:#fff;}
+.cc-btn-secondary{background:transparent;border-color:rgba(239,234,224,.4);color:var(--paper);}
+.cc-btn-secondary:hover{background:var(--paper);color:var(--ink);border-color:var(--paper);}
+.cc-btn .arr{font-family:var(--mono);font-style:normal;}
+.concert-hero.j-zero .concert-jminus .cc-jminus{font-size:2.2rem;}
+.concert-hero.passed{opacity:.55;}
 
-/* AUDIO */
-.audio-list{display:flex;flex-direction:column;gap:10px;}
-.audio-row{background:var(--surface);border:1.5px solid var(--border);padding:16px 18px;border-radius:10px;transition:box-shadow .2s;}
-.audio-row:hover{box-shadow:var(--shadow);}
-.audio-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
-.audio-name{font-size:.82rem;color:var(--ink);margin-bottom:3px;font-weight:700;}
-.audio-meta{font-size:.63rem;color:var(--muted);}
-.audio-link{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;background:var(--gold-l);border:1.5px solid var(--borders);padding:4px 10px;flex-shrink:0;margin-left:12px;transition:background .2s;border-radius:4px;font-weight:700;}
-.audio-link:hover{background:var(--gold-m);}
-.audio-player{width:100%;height:36px;accent-color:var(--gold);}
+/* MORCEAUX ─ editorial card grid */
+.morceaux-grid{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:1px;
+  background:var(--ink);border:1px solid var(--ink);
+}
+.morceau-card{
+  grid-column:span 4;
+  background:var(--paper-3);
+  cursor:pointer;display:flex;flex-direction:column;
+  text-decoration:none;color:inherit;position:relative;
+  transition:background .2s;
+  min-height:340px;
+}
+.morceau-card:hover{background:var(--paper);}
+.morceau-card:hover .morceau-name{color:var(--groove);}
+.morceau-card:hover .morceau-thumb-play{transform:scale(1.08);background:var(--groove);}
+.morceau-card .num{
+  position:absolute;top:1rem;left:1rem;z-index:3;
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--muted);
+}
+.morceau-thumb{
+  width:100%;aspect-ratio:5/3;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;border-bottom:1px solid var(--ink);
+}
+.morceau-thumb-play{
+  width:54px;height:54px;background:var(--ink);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;transition:all .25s ease;
+  position:relative;z-index:2;
+}
+.morceau-thumb-play::after{
+  content:'';width:0;height:0;
+  border-top:9px solid transparent;border-bottom:9px solid transparent;
+  border-left:14px solid var(--paper);margin-left:3px;
+}
+.morceau-thumb-title{
+  position:absolute;bottom:.85rem;left:1rem;right:1rem;
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:1.6rem;line-height:.95;color:var(--ink);letter-spacing:-.02em;
+  pointer-events:none;
+}
+.morceau-info{padding:1.1rem 1.1rem 1.2rem;display:flex;flex-direction:column;gap:.55rem;flex:1;}
+.morceau-artist{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+.morceau-name{
+  font-family:var(--sans);font-size:1.1rem;font-weight:600;color:var(--ink);
+  line-height:1.2;letter-spacing:-.01em;transition:color .15s;
+}
+.morceau-musical{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:auto;padding-top:.4rem;}
+.morceau-musical span{
+  font-family:var(--mono);font-size:10px;letter-spacing:.06em;
+  color:var(--ink);background:transparent;border:1px solid var(--line);
+  padding:.2rem .5rem;
+}
+.morceau-chips{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.2rem;}
+.tag-nouveau{
+  position:absolute;top:1rem;right:1rem;
+  background:var(--groove);color:#fff;
+  font-family:var(--mono);font-size:9px;letter-spacing:.18em;
+  padding:.25rem .55rem;font-weight:500;text-transform:uppercase;z-index:3;
+}
+.chip{
+  font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  padding:.22rem .55rem;font-weight:500;border:1px solid;
+}
+.chip-video{background:transparent;color:var(--ink);border-color:var(--ink);}
+.chip-audio{background:var(--green-soft);color:var(--green);border-color:var(--green);}
+.chip-pdf{background:var(--groove-soft);color:var(--groove-h);border-color:var(--groove);}
+
+/* PLANNING ─ editorial event list */
+.planning-list{display:flex;flex-direction:column;border-top:1px solid var(--ink);}
+.event-row{
+  border-bottom:1px solid var(--ink);
+  padding:1.5rem 1.5rem 1.6rem;display:grid;
+  grid-template-columns:140px 1fr auto;align-items:start;gap:1.5rem;
+  background:var(--paper);
+  transition:background .15s;position:relative;
+}
+.event-row:hover{background:var(--paper-3);}
+.event-row::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;
+}
+.event-row.concert::before{background:var(--groove);}
+.event-row.repetition::before{background:var(--green);}
+.event-row.option::before{background:var(--plum);}
+
+.event-date-block{display:flex;flex-direction:column;gap:.15rem;}
+.event-day{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:3.6rem;line-height:.82;letter-spacing:-.03em;color:var(--ink);
+}
+.event-row.concert .event-day{color:var(--groove);}
+.event-row.repetition .event-day{color:var(--green);}
+.event-month{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:.2rem;}
+.event-time{font-family:var(--mono);font-size:11px;color:var(--ink);letter-spacing:.04em;margin-top:.15rem;}
+.event-body{display:flex;flex-direction:column;gap:.3rem;padding-top:.4rem;}
+.event-name{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:1.6rem;line-height:1;letter-spacing:-.01em;color:var(--ink);margin-bottom:.15rem;
+}
+.event-lieu{font-family:var(--sans);font-size:13px;color:var(--muted);}
+.event-badge{
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  padding:.3rem .6rem;font-weight:500;white-space:nowrap;border:1px solid;align-self:flex-start;margin-top:.4rem;
+}
+.event-badge.concert{color:#fff;background:var(--groove);border-color:var(--groove);}
+.event-badge.repetition{color:var(--green);background:var(--green-soft);border-color:var(--green);}
+.event-badge.option{color:var(--plum);background:var(--plum-soft);border-color:var(--plum);}
+
+.event-extra{
+  grid-column:1 / -1;margin-top:1.1rem;padding-top:1.1rem;
+  border-top:1px solid var(--line);
+}
+.event-extra-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem;}
+.event-extra audio{width:100%;height:38px;}
+.event-extra audio::-webkit-media-controls-panel{background:var(--paper-3);}
+.event-extra .dl-link{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:1px;
+  display:inline-flex;align-items:center;gap:.4rem;margin-top:.7rem;
+}
+.event-extra .dl-link:hover{color:var(--groove);border-color:var(--groove);}
+.setlist-row{
+  display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;
+}
+.setlist-row .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.setlist-chip{
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  padding:.25rem .6rem;border:1px solid var(--ink);color:var(--ink);background:var(--paper-3);
+}
+.event-cta-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem;}
+.event-cta{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  padding:.55rem .9rem;border:1px solid var(--ink);background:transparent;color:var(--ink);
+  cursor:pointer;border-radius:0;transition:all .15s;display:inline-flex;align-items:center;gap:.4rem;
+}
+.event-cta:hover{background:var(--ink);color:var(--paper);}
+.event-cta.primary{background:var(--ink);color:var(--paper);}
+.event-cta.primary:hover{background:var(--groove);border-color:var(--groove);color:#fff;}
 
 /* VIDEOS */
-.videos-sub{font-size:.6rem;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
-.videos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem;}
-.video-card{background:var(--surface);border:1.5px solid var(--border);overflow:hidden;border-radius:10px;transition:box-shadow .2s,transform .15s;}
-.video-card:hover{box-shadow:var(--shadow);transform:translateY(-2px);}
-.video-embed,.video-native{width:100%;aspect-ratio:16/9;border:none;display:block;background:var(--cream2);}
-.video-info{padding:10px 14px;}
-.video-title{font-size:.78rem;color:var(--ink);margin-bottom:6px;font-weight:700;}
-.video-tag{display:inline-block;font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:20px;font-weight:700;}
-
-/* COMPTEUR CONCERT */
-.concert-countdown{background:linear-gradient(135deg,#1C1200 0%,#3D2914 100%);color:#FFF8E7;border-radius:14px;padding:1.5rem 2rem;margin-bottom:2.5rem;display:grid;grid-template-columns:1fr auto 1fr;gap:1.5rem;align-items:center;box-shadow:0 8px 28px rgba(28,18,0,.25);position:relative;overflow:hidden;}
-.concert-countdown::before{content:"";position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(212,175,55,.15) 0%,transparent 70%);border-radius:50%;transform:translate(40%,-40%);}
-.cc-left{position:relative;z-index:1;}
-.cc-label{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-m);font-weight:700;margin-bottom:.4rem;}
-.cc-title{font-family:'Playfair Display',serif;font-style:italic;font-size:1.4rem;color:#FFF8E7;margin-bottom:.2rem;}
-.cc-date{font-size:.75rem;color:#D4AF37;letter-spacing:.05em;}
-.cc-center{position:relative;z-index:1;text-align:center;border-left:1px solid rgba(212,175,55,.3);border-right:1px solid rgba(212,175,55,.3);padding:.5rem 1.5rem;}
-.cc-jminus{font-family:'Playfair Display',serif;font-weight:700;font-size:3rem;color:#D4AF37;line-height:1;}
-.cc-jminus-label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-m);margin-top:.3rem;}
-.cc-right{display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;position:relative;z-index:1;}
-.cc-btn{padding:.65rem 1.2rem;font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;cursor:pointer;border-radius:6px;text-decoration:none;display:inline-block;text-align:center;transition:all .2s;border:1.5px solid transparent;white-space:nowrap;}
-.cc-btn-primary{background:#D4AF37;color:#1C1200;border-color:#D4AF37;}
-.cc-btn-primary:hover{background:#E5C987;}
-.cc-btn-secondary{background:transparent;color:#D4AF37;border-color:#D4AF37;}
-.cc-btn-secondary:hover{background:rgba(212,175,55,.15);}
-.concert-countdown.j-zero{background:linear-gradient(135deg,#7A4800 0%,#B8860B 100%);}
-.concert-countdown.j-zero .cc-jminus{color:#FFF8E7;}
-.concert-countdown.j-zero .cc-label{color:#FFE8A0;}
-.concert-countdown.passed{opacity:.6;}
-.concert-countdown.passed .cc-jminus{font-size:1.3rem;font-style:italic;}
+.videos-sub{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);margin:2.5rem 0 1.2rem;padding-bottom:.6rem;
+  border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;
+}
+.videos-sub .count{color:var(--ink);}
+.videos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:var(--ink);border:1px solid var(--ink);}
+.video-card{background:var(--paper-3);overflow:hidden;}
+.video-embed,.video-native{width:100%;aspect-ratio:16/9;border:none;display:block;background:var(--ink-2);}
+.video-info{padding:.9rem 1rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+.video-title{font-family:var(--serif);font-style:italic;font-size:1.2rem;line-height:1.1;color:var(--ink);}
+.video-tag{
+  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  padding:.22rem .5rem;border:1px solid;font-weight:500;flex-shrink:0;
+}
 
 /* MODALE PDF */
-.pdf-overlay{position:fixed;inset:0;background:rgba(28,18,0,.7);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.pdf-overlay{position:fixed;inset:0;background:rgba(20,17,12,.7);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
 .pdf-overlay.open{display:flex;}
-.pdf-modal{background:var(--surface);border:2px solid var(--borders);border-radius:12px;width:92vw;max-width:900px;height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 16px 60px rgba(28,18,0,.4);}
-.pdf-modal-header{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:2px solid var(--gold-m);flex-shrink:0;}
-.pdf-modal-title{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.1rem;color:var(--gold);}
-.pdf-modal-close{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.7rem;padding:.35rem .75rem;cursor:pointer;border-radius:4px;transition:all .2s;}
-.pdf-modal-close:hover{color:var(--ink);border-color:var(--gold);}
-.pdf-modal-body{flex:1;overflow:hidden;position:relative;}
+.pdf-modal{background:var(--paper);border:1px solid var(--ink);border-radius:0;width:94vw;max-width:960px;height:92vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:8px 8px 0 var(--ink);}
+.pdf-modal-header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.2rem;border-bottom:1px solid var(--ink);flex-shrink:0;background:var(--paper-3);}
+.pdf-modal-title{font-family:var(--serif);font-style:italic;font-weight:400;font-size:1.4rem;color:var(--ink);}
+.pdf-modal-close{
+  background:transparent;border:1px solid var(--ink);color:var(--ink);
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  padding:.4rem .8rem;cursor:pointer;border-radius:0;transition:all .15s;
+}
+.pdf-modal-close:hover{background:var(--ink);color:var(--paper);}
+.pdf-modal-body{flex:1;overflow:hidden;position:relative;background:var(--ink-2);}
 .pdf-modal-body iframe{width:100%;height:100%;border:none;display:block;}
-.pdf-modal-actions{padding:10px 18px;border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0;}
-.pdf-open-btn{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;background:var(--gold-l);border:1.5px solid var(--borders);padding:6px 14px;border-radius:4px;font-weight:700;transition:background .2s;}
-.pdf-open-btn:hover{background:var(--gold-m);}
 
-.morceau-card{transition:transform .2s,box-shadow .2s,border-color .2s;}
-a.morceau-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(184,134,11,.15);border-color:var(--gold-m);}
+/* FOOTER */
+footer{
+  max-width:1180px;margin:4rem auto 0;padding:2.5rem 2rem 4rem;
+  border-top:1px solid var(--ink);
+  display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:2.5rem;align-items:start;
+}
+.footer-mark{font-family:var(--serif);font-style:italic;font-size:4.5rem;line-height:.85;letter-spacing:-.03em;color:var(--ink);}
+.footer-mark .pt{color:var(--groove);}
+.footer-mark + .sub{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:.6rem;}
+footer h4{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);margin-bottom:.8rem;font-weight:500;}
+footer p{font-family:var(--sans);font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:.6rem;}
+footer p strong{color:var(--ink);font-weight:500;}
+footer .legal-row{display:flex;gap:.5rem;align-items:flex-start;margin-bottom:.4rem;}
+footer .legal-row .mark{font-family:var(--mono);font-size:10px;width:14px;flex-shrink:0;font-weight:600;}
+footer .legal-row .mark.plus{color:var(--green);}
+footer .legal-row .mark.bang{color:var(--groove);}
+footer .legal-row .mark.x{color:#C03030;}
+footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted);line-height:1.6;}
 
 /* MOBILE */
+@media(max-width:860px){
+  .concert-body{grid-template-columns:1fr;}
+  .concert-cell + .concert-cell{border-left:none;border-top:1px solid rgba(239,234,224,.18);}
+  .morceau-card{grid-column:span 6;}
+  footer{grid-template-columns:1fr;gap:1.5rem;}
+}
 @media(max-width:640px){
   .header-nav{display:none;}
-  .mobile-nav{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:2px solid var(--gold-m);display:flex;z-index:200;box-shadow:0 -4px 16px rgba(232,146,10,.1);}
-  .mobile-nav button{flex:1;background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:1rem .5rem;cursor:pointer;border-top:3px solid transparent;min-height:62px;display:flex;align-items:center;justify-content:center;}
-  .mobile-nav button.active{color:var(--gold);border-top-color:var(--gold);}
-  main{padding:2rem 1rem 6rem;}
-  .event-row{grid-template-columns:70px 1fr;}
-  .event-badge{display:none;}
+  .mobile-nav{
+    position:fixed;bottom:0;left:0;right:0;background:var(--paper);
+    border-top:1px solid var(--ink);display:flex;z-index:200;
+  }
+  .mobile-nav button{
+    flex:1;background:none;border:none;color:var(--muted);
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    padding:1rem .5rem;cursor:pointer;border-top:2px solid transparent;
+    min-height:62px;display:flex;align-items:center;justify-content:center;font-weight:500;
+  }
+  .mobile-nav button.active{color:var(--ink);border-top-color:var(--groove);}
+  main{padding:1.5rem 1.1rem 6rem;}
+  header{padding:0 1.1rem;}
+  .header-actions{gap:.35rem;}
+  .lang-btn,.logout-btn{padding:.4rem .55rem;font-size:9px;}
+  .header-logo{font-size:1.6rem;}
+  .header-logo .tick{display:none;}
+  .section-head{grid-template-columns:1fr;gap:.6rem;}
+  .section-meta{text-align:left;}
+  .section-title{font-size:3.4rem;}
+  .morceau-card{grid-column:span 12;min-height:auto;}
   .videos-grid{grid-template-columns:1fr;}
-  header{padding:0 1rem;}
-  .logout-btn{font-size:.55rem;padding:.3rem .5rem;}
-  .morceaux-grid{grid-template-columns:1fr;}
-  .concert-countdown{grid-template-columns:1fr;text-align:center;padding:1.4rem 1.2rem;gap:1.2rem;}
-  .cc-center{border-left:none;border-right:none;border-top:1px solid rgba(212,175,55,.3);border-bottom:1px solid rgba(212,175,55,.3);padding:1rem 0;}
-  .cc-right{align-items:stretch;}
-  .cc-btn{width:100%;}
-  .cc-jminus{font-size:2.4rem;}
+  .event-row{grid-template-columns:90px 1fr;padding:1.1rem;}
+  .event-badge{display:none;}
+  .event-day{font-size:2.6rem;}
+  .event-name{font-size:1.3rem;}
+  .footer-mark{font-size:3.5rem;}
+  .login-box{padding:1.6rem 1.4rem 1.4rem;box-shadow:5px 5px 0 var(--ink);}
+  .login-logo{font-size:2.6rem;}
+  .login-topbar{font-size:9px;padding:1rem;}
+  .login-topbar .left span:nth-child(2){display:none;}
 }
 @media(min-width:641px){.mobile-nav{display:none;}}
 </style>
 </head>
 <body>
 
+<!-- ═════════ LOGIN ═════════ -->
 <div id="login-screen">
   <div class="login-deco">L'A</div>
-  <div style="position:absolute;top:1.2rem;right:1.5rem;z-index:10;">
+
+  <div class="login-topbar">
+    <div class="left">
+      <span><b>L'Atelier</b></span>
+      <span data-fr="Espace privé" data-es="Espacio privado">Espace privé</span>
+    </div>
     <button class="lang-btn" id="lang-toggle-login" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
   </div>
-  <div class="login-box">
-    <div class="login-logo">L'Atelier</div>
-    <div class="login-sub" data-fr="Espace membres · Accès privé" data-es="Espacio miembros · Acceso privado">Espace membres · Accès privé</div>
 
-    <!-- Bouton biométrique (affiché si clé enregistrée) -->
+  <div class="login-box">
+    <div class="login-mark">
+      <div class="login-logo">L'Atelier<span class="amp">.</span></div>
+      <div class="login-meta">
+        <div><b>EST. 2024</b></div>
+        <div data-fr="Chelles · FR" data-es="Chelles · FR">Chelles · FR</div>
+      </div>
+    </div>
+    <div class="login-sub" data-fr="Accès membres" data-es="Acceso miembros">Accès membres</div>
+
     <div id="bio-login-zone" style="display:none;">
       <button class="bio-btn" onclick="loginWithBio()" id="bio-login-btn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4-4-1.79-4-4z"/><path d="M12 6v1M12 17v1M6 12h1M17 12h1"/></svg>
-        <span data-fr="Se connecter avec Face ID / Touch ID" data-es="Conectarse con Face ID / Touch ID">Se connecter avec Face ID / Touch ID</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 11c1.66 0 3 1.34 3 3v3M9 17v-3a3 3 0 0 1 .29-1.29M5 13a7 7 0 0 1 7-7 7 7 0 0 1 5 2M2 16c.5-1 1-2 1-4M19 17a7 7 0 0 0 1-4 7 7 0 0 0-1.46-4.3M22 13c0 6-3 9-3 9M12 3v.5M9 9.5A3 3 0 0 1 12 8a3 3 0 0 1 3 3v3M6 17a8 8 0 0 1-1-4M19 22c-2-2-2-5-2-5"/></svg>
+        <span data-fr="Face ID / Touch ID" data-es="Face ID / Touch ID">Face ID / Touch ID</span>
       </button>
       <div class="login-divider"><span data-fr="ou mot de passe" data-es="o contraseña">ou mot de passe</span></div>
     </div>
 
     <label class="login-label" for="pwd" data-fr="Mot de passe" data-es="Contraseña">Mot de passe</label>
     <input class="login-input" type="password" id="pwd" autocomplete="current-password" placeholder="••••••••">
-    <button class="login-btn" onclick="checkPassword()" data-fr="Entrer" data-es="Entrar">Entrer</button>
+    <button class="login-btn" onclick="checkPassword()">
+      <span data-fr="Entrer" data-es="Entrar">Entrer</span>
+      <span class="arrow">→</span>
+    </button>
     <div class="login-error" id="login-error"></div>
 
-    <!-- Bannière d'enregistrement biométrique (affichée après connexion par mdp si WebAuthn dispo) -->
     <div class="bio-register-banner" id="bio-register-banner" style="display:none;">
-      <p data-fr="Activer Face ID / Touch ID pour vous connecter sans mot de passe la prochaine fois ?" data-es="¿Activar Face ID / Touch ID para conectarse sin contraseña la próxima vez ?">Activer Face ID / Touch ID pour vous connecter sans mot de passe la prochaine fois ?</p>
+      <p data-fr="Activer Face ID / Touch ID pour la prochaine connexion ?" data-es="¿Activar Face ID / Touch ID para la próxima conexión ?">Activer Face ID / Touch ID pour la prochaine connexion ?</p>
       <div class="bio-register-actions">
         <button class="bio-register-btn" onclick="registerBio()" data-fr="Activer" data-es="Activar">Activer</button>
         <button class="bio-register-skip" onclick="skipBio()" data-fr="Plus tard" data-es="Más tarde">Plus tard</button>
@@ -253,9 +543,10 @@ a.morceau-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(184,1
   </div>
 </div>
 
+<!-- ═════════ APP ═════════ -->
 <div id="app">
   <header>
-    <span class="header-logo" onclick="showSection('morceaux')" title="Accueil">L'Atelier</span>
+    <span class="header-logo" onclick="showSection('morceaux')" title="Accueil">L'Atelier<span class="tick">/ESPACE MEMBRES</span></span>
     <nav>
       <ul class="header-nav">
         <li><button class="active" onclick="showSection('morceaux',this)"><span data-fr="Morceaux" data-es="Canciones">Morceaux</span></button></li>
@@ -263,39 +554,62 @@ a.morceau-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(184,1
         <li><button onclick="showSection('videos',this)"><span data-fr="Vidéos" data-es="Vídeos">Vidéos</span></button></li>
       </ul>
     </nav>
-    <div style="display:flex;align-items:center;gap:8px;">
+    <div class="header-actions">
       <button class="lang-btn" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
-      <button class="logout-btn" onclick="logout()" data-fr="Déconnexion" data-es="Salir">Déconnexion</button>
+      <button class="logout-btn" onclick="logout()" data-fr="Sortir" data-es="Salir">Sortir</button>
     </div>
   </header>
 
   <main>
 
     <!-- COMPTEUR CONCERT -->
-    <div class="concert-countdown" id="concert-countdown">
-      <div class="cc-left">
-        <div class="cc-label" data-fr="Prochain concert" data-es="Próximo concierto">Prochain concert</div>
-        <div class="cc-title">Auditorium de Chelles</div>
-        <div class="cc-date">20 mai 2026 · 19h00 – 20h00</div>
+    <div class="concert-hero" id="concert-countdown">
+      <div class="concert-ticker">
+        <div class="concert-ticker-track">
+          <span><span class="star">✱</span> Prochain concert · Auditorium de Chelles · 20 mai 2026 · 19h00</span>
+          <span><span class="star">✱</span> Setlist confirmée · Still a Friend · Easy Lover · Worth It</span>
+          <span><span class="star">✱</span> Conservatoire Jacques Higelin · Chelles · FR</span>
+          <span><span class="star">✱</span> Prochain concert · Auditorium de Chelles · 20 mai 2026 · 19h00</span>
+          <span><span class="star">✱</span> Setlist confirmée · Still a Friend · Easy Lover · Worth It</span>
+          <span><span class="star">✱</span> Conservatoire Jacques Higelin · Chelles · FR</span>
+        </div>
       </div>
-      <div class="cc-center">
-        <div class="cc-jminus" id="cc-jminus">J-?</div>
-        <div class="cc-jminus-label" id="cc-jminus-label" data-fr="jours" data-es="días">jours</div>
-      </div>
-      <div class="cc-right">
-        <a href="setlist.html" class="cc-btn cc-btn-primary"><span data-fr="Voir la setlist" data-es="Ver el setlist">Voir la setlist</span> →</a>
-        <button class="cc-btn cc-btn-secondary" onclick="downloadConcertICS()"><span data-fr="Ajouter au calendrier" data-es="Añadir al calendario">Ajouter au calendrier</span></button>
+      <div class="concert-body">
+        <div class="concert-cell">
+          <span class="lbl" data-fr="Prochain concert" data-es="Próximo concierto">Prochain concert</span>
+          <span class="val">Auditorium<br>de Chelles</span>
+          <span class="sub">20.05.2026 · 19h00 — 20h00</span>
+        </div>
+        <div class="concert-cell concert-jminus">
+          <span class="lbl" data-fr="Compte à rebours" data-es="Cuenta regresiva">Compte à rebours</span>
+          <div class="cc-jminus" id="cc-jminus">J-?</div>
+          <div class="cc-jminus-label" id="cc-jminus-label" data-fr="jours" data-es="días">jours</div>
+        </div>
+        <div class="concert-cell concert-actions">
+          <a href="setlist.html" class="cc-btn cc-btn-primary"><span data-fr="Voir la setlist" data-es="Ver setlist">Voir la setlist</span><span class="arr">→</span></a>
+          <button class="cc-btn cc-btn-secondary" onclick="downloadConcertICS()"><span data-fr="Ajouter au calendrier" data-es="Añadir al calendario">Ajouter au calendrier</span><span class="arr">↓</span></button>
+        </div>
       </div>
     </div>
 
-    <!-- MORCEAUX -->
+    <!-- ═══ MORCEAUX ═══ -->
     <section id="morceaux" class="section active">
-      <h1 class="section-title"><span data-fr="Morceaux" data-es="Canciones">Morceaux</span></h1>
-      <p class="section-desc"><span data-fr="Cliquer sur PDF pour ouvrir la partition complète" data-es="Haz clic en PDF para abrir la partitura completa">Cliquer sur PDF pour ouvrir la partition complète</span></p>
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow"><span class="num">01</span> <span data-fr="Catalogue · 6 titres" data-es="Catálogo · 6 títulos">Catalogue · 6 titres</span></div>
+          <h1 class="section-title"><span data-fr="Morceaux" data-es="Canciones">Morceaux</span><span class="pt">.</span></h1>
+        </div>
+        <div class="section-meta">
+          <div data-fr="Cliquer un morceau" data-es="Haz clic un tema">Cliquer un morceau</div>
+          <div><b data-fr="pour les ressources" data-es="para los recursos">pour les ressources</b></div>
+        </div>
+      </div>
+
       <div class="morceaux-grid">
 
-        <a class="morceau-card" href="worth-it.html" style="cursor:pointer;text-decoration:none;color:inherit;display:block;" data-added="2026-04-01">
-          <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFF4DC,#FFE8A0);">
+        <a class="morceau-card" href="worth-it.html" data-added="2026-04-01">
+          <span class="num">N° 01</span>
+          <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFE4D6 0%,#FFCBA8 100%);">
             <div class="morceau-thumb-play"></div>
             <div class="morceau-thumb-title">Worth It</div>
           </div>
@@ -304,7 +618,7 @@ a.morceau-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(184,1
             <div class="morceau-name">Worth It</div>
             <div class="morceau-musical">
               <span title="Tempo">110 BPM</span>
-              <span title="Tonalité">La♭ majeur</span>
+              <span title="Tonalité">A♭ majeur</span>
             </div>
             <div class="morceau-chips">
               <span class="chip chip-video">Vidéo</span>
@@ -313,8 +627,9 @@ a.morceau-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(184,1
           </div>
         </a>
 
-        <a class="morceau-card" href="easy-lover.html" style="cursor:pointer;text-decoration:none;color:inherit;display:block;" data-added="2026-03-15">
-          <div class="morceau-thumb" style="background:linear-gradient(135deg,#E8F7EF,#C0EDDA);">
+        <a class="morceau-card" href="easy-lover.html" data-added="2026-03-15">
+          <span class="num">N° 02</span>
+          <div class="morceau-thumb" style="background:linear-gradient(135deg,#DDE9DF 0%,#B8D4BF 100%);">
             <div class="morceau-thumb-play"></div>
             <div class="morceau-thumb-title">Easy Lover</div>
           </div>
@@ -323,7 +638,7 @@ a.morceau-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(184,1
             <div class="morceau-name">Easy Lover</div>
             <div class="morceau-musical">
               <span title="Tempo">128 BPM</span>
-              <span title="Tonalité">Ré♭ majeur</span>
+              <span title="Tonalité">D♭ majeur</span>
             </div>
             <div class="morceau-chips">
               <span class="chip chip-video">Vidéo</span>
@@ -331,17 +646,18 @@ a.morceau-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(184,1
           </div>
         </a>
 
-        <a class="morceau-card" href="still-a-friend.html" style="cursor:pointer;text-decoration:none;color:inherit;display:block;" data-added="2026-03-15">
-          <div class="morceau-thumb" style="background:linear-gradient(135deg,#EEF0FF,#D0D4FF);">
+        <a class="morceau-card" href="still-a-friend.html" data-added="2026-03-15">
+          <span class="num">N° 03</span>
+          <div class="morceau-thumb" style="background:linear-gradient(135deg,#E5E0F0 0%,#B8B0D4 100%);">
             <div class="morceau-thumb-play"></div>
-            <div class="morceau-thumb-title">Still a Friend of Mine</div>
+            <div class="morceau-thumb-title">Still a Friend<br>of Mine</div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">Incognito</div>
             <div class="morceau-name">Still a Friend of Mine</div>
             <div class="morceau-musical">
               <span title="Tempo">87 BPM</span>
-              <span title="Tonalité">La majeur</span>
+              <span title="Tonalité">A majeur</span>
             </div>
             <div class="morceau-chips">
               <span class="chip chip-video">Vidéo</span>
@@ -350,17 +666,18 @@ a.morceau-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(184,1
           </div>
         </a>
 
-        <a class="morceau-card" href="medley-jt.html" style="cursor:pointer;text-decoration:none;color:inherit;display:block;" data-added="2026-03-20">
-          <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFF0E0,#FFD4A0);">
+        <a class="morceau-card" href="medley-jt.html" data-added="2026-03-20">
+          <span class="num">N° 04</span>
+          <div class="morceau-thumb" style="background:linear-gradient(135deg,#F5DCC8 0%,#D9B084 100%);">
             <div class="morceau-thumb-play"></div>
-            <div class="morceau-thumb-title">Medley Justin Timberlake</div>
+            <div class="morceau-thumb-title">Medley<br>J. Timberlake</div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">Justin Timberlake</div>
             <div class="morceau-name">Medley Justin Timberlake</div>
             <div class="morceau-musical">
               <span title="Tempo">~ 105 BPM</span>
-              <span title="Tonalité">Mi mineur</span>
+              <span title="Tonalité">E mineur</span>
             </div>
             <div class="morceau-chips">
               <span class="chip chip-video">Vidéo</span>
@@ -369,35 +686,37 @@ a.morceau-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(184,1
           </div>
         </a>
 
-        <a class="morceau-card" href="medley-chaka.html" style="cursor:pointer;text-decoration:none;color:inherit;display:block;" data-added="2026-04-20">
-          <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFE8F0,#FFB8D0);">
-            <div class="morceau-thumb-play" style="opacity:.5;"></div>
-            <div class="morceau-thumb-title">Medley Chaka Khan</div>
+        <a class="morceau-card" href="medley-chaka.html" data-added="2026-04-20">
+          <span class="num">N° 05</span>
+          <div class="morceau-thumb" style="background:linear-gradient(135deg,#F0DDE8 0%,#D8A8C2 100%);">
+            <div class="morceau-thumb-play" style="opacity:.45;"></div>
+            <div class="morceau-thumb-title">Medley<br>Chaka Khan</div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">Chaka Khan</div>
             <div class="morceau-name">Medley Chaka Khan</div>
             <div class="morceau-musical">
               <span title="Tempo">~ 120 BPM</span>
-              <span title="Tonalité">Sol mineur</span>
+              <span title="Tonalité">G mineur</span>
             </div>
             <div class="morceau-chips">
-              <span class="chip chip-pdf" style="opacity:.5;font-style:italic;">PDF à venir</span>
+              <span class="chip chip-pdf" style="opacity:.55;">PDF à venir</span>
             </div>
           </div>
         </a>
 
-        <a class="morceau-card" href="this-place-hotel.html" style="cursor:pointer;text-decoration:none;color:inherit;display:block;" data-added="2026-05-04">
-          <div class="morceau-thumb" style="background:linear-gradient(135deg,#F0F8FF,#C8E4FF);">
+        <a class="morceau-card" href="this-place-hotel.html" data-added="2026-05-04">
+          <span class="num">N° 06</span>
+          <div class="morceau-thumb" style="background:linear-gradient(135deg,#D8E5F0 0%,#A8C0D8 100%);">
             <div class="morceau-thumb-play"></div>
-            <div class="morceau-thumb-title">This Place Hotel</div>
+            <div class="morceau-thumb-title">This Place<br>Hotel</div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">The Jacksons</div>
             <div class="morceau-name">This Place Hotel</div>
             <div class="morceau-musical">
               <span title="Tempo">120 BPM</span>
-              <span title="Tonalité">Sol mineur</span>
+              <span title="Tonalité">G mineur</span>
             </div>
             <div class="morceau-chips">
               <span class="chip chip-video">Vidéo</span>
@@ -408,159 +727,218 @@ a.morceau-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(184,1
       </div>
     </section>
 
-    <!-- PLANNING -->
+    <!-- ═══ PLANNING ═══ -->
     <section id="planning" class="section">
-      <h1 class="section-title"><span data-fr="Planning" data-es="Agenda">Planning</span></h1>
-      <p class="section-desc"><span data-fr="Répétitions &amp; concerts" data-es="Ensayos &amp; conciertos">Répétitions &amp; concerts</span></p>
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow"><span class="num">02</span> <span data-fr="Répétitions &amp; concerts" data-es="Ensayos &amp; conciertos">Répétitions &amp; concerts</span></div>
+          <h1 class="section-title"><span data-fr="Planning" data-es="Agenda">Planning</span><span class="pt">.</span></h1>
+        </div>
+        <div class="section-meta">
+          <div data-fr="Saison" data-es="Temporada">Saison</div>
+          <div><b>2025 — 2026</b></div>
+        </div>
+      </div>
+
       <div class="planning-list">
-        <div class="event-row repetition" style="display:block;padding:14px 18px;opacity:.92;">
-          <div style="display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:1rem;">
-            <div><div class="event-date">17</div><div class="event-month">Avril 2026</div></div>
-            <div>
-              <div class="event-name"><span data-fr="Répétition complète" data-es="Ensayo completo">Répétition complète</span></div>
-              <div class="event-lieu">Conservatoire Jacques Higelin</div>
-            </div>
-            <span class="event-badge repetition"><span data-fr="Audio dispo" data-es="Audio disponible">Audio dispo</span></span>
+
+        <div class="event-row repetition">
+          <div class="event-date-block">
+            <div class="event-day">17</div>
+            <div class="event-month">Avril 2026</div>
+            <div class="event-time">19h30</div>
           </div>
-          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">
-            <div style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:8px;" data-fr="Enregistrement de la répétition" data-es="Grabación del ensayo">Enregistrement de la répétition</div>
-            <audio controls preload="none" style="width:100%;height:42px;border-radius:6px;outline:none;">
+          <div class="event-body">
+            <div class="event-name"><span data-fr="Répétition complète" data-es="Ensayo completo">Répétition complète</span></div>
+            <div class="event-lieu">Conservatoire Jacques Higelin</div>
+          </div>
+          <span class="event-badge repetition"><span data-fr="Audio dispo" data-es="Audio disponible">Audio dispo</span></span>
+          <div class="event-extra">
+            <div class="event-extra-lbl" data-fr="Enregistrement de la répétition" data-es="Grabación del ensayo">Enregistrement de la répétition</div>
+            <audio controls preload="none">
               <source src="https://www.dropbox.com/scl/fi/xgwtzm7gjhsq9bdu4d24l/Conservatoire-Jacques-Higelin-repetition-complete-17-avril.m4a?rlkey=8ru3kee21lnf6we4o02x6zr0r&raw=1" type="audio/mp4">
               <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
             </audio>
-            <div style="margin-top:6px;">
-              <a href="https://www.dropbox.com/scl/fi/xgwtzm7gjhsq9bdu4d24l/Conservatoire-Jacques-Higelin-repetition-complete-17-avril.m4a?rlkey=8ru3kee21lnf6we4o02x6zr0r&dl=1" style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;font-weight:700;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-            </div>
+            <a class="dl-link" href="https://www.dropbox.com/scl/fi/xgwtzm7gjhsq9bdu4d24l/Conservatoire-Jacques-Higelin-repetition-complete-17-avril.m4a?rlkey=8ru3kee21lnf6we4o02x6zr0r&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
           </div>
         </div>
-        <div class="event-row repetition" style="display:block;padding:14px 18px;">
-          <div style="display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:1rem;">
-            <div><div class="event-date">7</div><div class="event-month">Mai 2026</div></div>
-            <div>
-              <div class="event-name"><span data-fr="Répétition complète" data-es="Ensayo completo">Répétition complète</span></div>
-              <div class="event-lieu">Salle A2 · Conservatoire de Chelles · Jacques Higelin</div>
-            </div>
-            <span class="event-badge repetition"><span data-fr="Audio dispo" data-es="Audio disponible">Audio dispo</span></span>
+
+        <div class="event-row repetition">
+          <div class="event-date-block">
+            <div class="event-day">07</div>
+            <div class="event-month">Mai 2026</div>
+            <div class="event-time">19h30</div>
           </div>
-          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">
-            <div style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:8px;" data-fr="Enregistrement de la répétition" data-es="Grabación del ensayo">Enregistrement de la répétition</div>
-            <audio controls preload="none" style="width:100%;height:42px;border-radius:6px;outline:none;">
+          <div class="event-body">
+            <div class="event-name"><span data-fr="Répétition complète" data-es="Ensayo completo">Répétition complète</span></div>
+            <div class="event-lieu">Salle A2 · Conservatoire de Chelles · Jacques Higelin</div>
+          </div>
+          <span class="event-badge repetition"><span data-fr="Audio dispo" data-es="Audio disponible">Audio dispo</span></span>
+          <div class="event-extra">
+            <div class="event-extra-lbl" data-fr="Enregistrement de la répétition" data-es="Grabación del ensayo">Enregistrement de la répétition</div>
+            <audio controls preload="none">
               <source src="https://www.dropbox.com/scl/fi/4suc3l7idy76hf0tp2pbn/Conservatoire-Jacques-Higelin-repetition-complete-7-mai.m4a?rlkey=5q2ea6f03xq27we7hq65lwd17&raw=1" type="audio/mp4">
               <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
             </audio>
-            <div style="margin-top:6px;">
-              <a href="https://www.dropbox.com/scl/fi/4suc3l7idy76hf0tp2pbn/Conservatoire-Jacques-Higelin-repetition-complete-7-mai.m4a?rlkey=5q2ea6f03xq27we7hq65lwd17&dl=1" style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;font-weight:700;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-            </div>
+            <a class="dl-link" href="https://www.dropbox.com/scl/fi/4suc3l7idy76hf0tp2pbn/Conservatoire-Jacques-Higelin-repetition-complete-7-mai.m4a?rlkey=5q2ea6f03xq27we7hq65lwd17&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
           </div>
         </div>
-        <div class="event-row concert" style="display:block;padding:14px 18px;">
-          <div style="display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:1rem;">
-            <div><div class="event-date">20</div><div class="event-month">Mai 2026</div></div>
-            <div>
-              <div class="event-name"><span data-fr="Concert" data-es="Concierto">Concert</span></div>
-              <div class="event-lieu">Auditorium de Chelles · 19h00 – 20h00</div>
-            </div>
-            <span class="event-badge concert">Concert</span>
-          </div>
-          <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
-            <span style="font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;" data-fr="Setlist :" data-es="Lista de canciones :">Setlist :</span>
-            <span class="chip" style="background:linear-gradient(135deg,#EEF0FF,#D0D4FF);color:#3040A0;">Still a Friend of Mine</span>
-            <span class="chip" style="background:linear-gradient(135deg,#E8F7EF,#C0EDDA);color:#0A5A35;">Easy Lover</span>
-            <span class="chip" style="background:linear-gradient(135deg,#FFF4DC,#FFE8A0);color:#7A4800;">Worth It</span>
-          </div>
-          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
-            <a href="setlist.html" style="font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;font-weight:700;padding:.45rem .9rem;border:1.5px solid var(--gold);border-radius:4px;transition:all .2s;" onmouseover="this.style.background='var(--gold-l)'" onmouseout="this.style.background='transparent'"><span data-fr="Voir le détail →" data-es="Ver detalles →">Voir le détail →</span></a>
-            <button onclick="downloadConcertICS()" style="font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:none;border:1.5px solid var(--border);border-radius:4px;font-family:'Space Mono',monospace;font-weight:700;padding:.45rem .9rem;cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--ink)';" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)';"><span data-fr="Ajouter au calendrier" data-es="Añadir al calendario">Ajouter au calendrier</span></button>
-          </div>
-        </div>
+
         <div class="event-row concert">
-          <div><div class="event-date">26</div><div class="event-month">Juin 2026</div></div>
-          <div><div class="event-name">Concert</div><div class="event-lieu">Lieu à confirmer</div></div>
+          <div class="event-date-block">
+            <div class="event-day">20</div>
+            <div class="event-month">Mai 2026</div>
+            <div class="event-time">19h00 — 20h00</div>
+          </div>
+          <div class="event-body">
+            <div class="event-name"><span data-fr="Concert" data-es="Concierto">Concert</span></div>
+            <div class="event-lieu">Auditorium de Chelles</div>
+          </div>
+          <span class="event-badge concert">Concert</span>
+          <div class="event-extra">
+            <div class="setlist-row">
+              <span class="lbl" data-fr="Setlist" data-es="Lista">Setlist</span>
+              <span class="setlist-chip">Still a Friend</span>
+              <span class="setlist-chip">Easy Lover</span>
+              <span class="setlist-chip">Worth It</span>
+            </div>
+            <div class="event-cta-row">
+              <a href="setlist.html" class="event-cta primary"><span data-fr="Voir le détail" data-es="Ver detalles">Voir le détail</span> →</a>
+              <button class="event-cta" onclick="downloadConcertICS()"><span data-fr="Ajouter au calendrier" data-es="Añadir al calendario">Ajouter au calendrier</span> ↓</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-row concert">
+          <div class="event-date-block">
+            <div class="event-day">26</div>
+            <div class="event-month">Juin 2026</div>
+            <div class="event-time" data-fr="à confirmer" data-es="por confirmar">à confirmer</div>
+          </div>
+          <div class="event-body">
+            <div class="event-name">Concert</div>
+            <div class="event-lieu" data-fr="Lieu à confirmer" data-es="Lugar por confirmar">Lieu à confirmer</div>
+          </div>
           <span class="event-badge concert">Concert</span>
         </div>
+
         <div class="event-row repetition">
-          <div><div class="event-date">Jeu.</div><div class="event-month">Hebdomadaire</div></div>
-          <div><div class="event-name">Répétition</div><div class="event-lieu">Salle A2 · Conservatoire de Chelles · 19h30 – 21h00</div></div>
-          <span class="event-badge repetition">Répétition</span>
+          <div class="event-date-block">
+            <div class="event-day serif" style="font-size:2rem;line-height:1;">Jeu.</div>
+            <div class="event-month" data-fr="Hebdomadaire" data-es="Semanal">Hebdomadaire</div>
+            <div class="event-time">19h30 — 21h00</div>
+          </div>
+          <div class="event-body">
+            <div class="event-name" data-fr="Répétition" data-es="Ensayo">Répétition</div>
+            <div class="event-lieu">Salle A2 · Conservatoire de Chelles</div>
+          </div>
+          <span class="event-badge repetition" data-fr="Récurrent" data-es="Recurrente">Récurrent</span>
         </div>
+
       </div>
     </section>
 
-    <!-- VIDEOS -->
+    <!-- ═══ VIDEOS ═══ -->
     <section id="videos" class="section">
-      <h1 class="section-title"><span data-fr="Vidéos" data-es="Vídeos">Vidéos</span></h1>
-      <p class="section-desc"><span data-fr="Références &amp; lives" data-es="Referencias &amp; directos">Références &amp; lives</span></p>
-      <div class="videos-sub"><span data-fr="Lives — L'Atelier" data-es="Directos — L'Atelier">Lives — L'Atelier</span></div>
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow"><span class="num">03</span> <span data-fr="Lives &amp; références" data-es="Directos &amp; referencias">Lives &amp; références</span></div>
+          <h1 class="section-title"><span data-fr="Vidéos" data-es="Vídeos">Vidéos</span><span class="pt">.</span></h1>
+        </div>
+        <div class="section-meta">
+          <div data-fr="2 lives · 5 réfs" data-es="2 directos · 5 refs">2 lives · 5 réfs</div>
+          <div><b data-fr="Dropbox + YouTube" data-es="Dropbox + YouTube">Dropbox + YouTube</b></div>
+        </div>
+      </div>
+
+      <div class="videos-sub">
+        <span data-fr="Lives — L'Atelier" data-es="Directos — L'Atelier">Lives — L'Atelier</span>
+        <span class="count">02</span>
+      </div>
       <div class="videos-grid">
         <div class="video-card">
           <video class="video-native" controls preload="none">
             <source src="https://www.dropbox.com/scl/fi/93mt8e36zv24agyisneqj/ae8c3b56-692e-4795-9318-697efeec674c.MP4?rlkey=0huavlqdd1256gark1xjq9s05&raw=1" type="video/mp4">
           </video>
-          <div class="video-info"><div class="video-title">Live — L'Atelier #1</div><span class="video-tag" style="color:#0A5A35;background:var(--green-bg);">Live</span></div>
+          <div class="video-info"><div class="video-title">Live · L'Atelier #01</div><span class="video-tag" style="color:var(--green);background:var(--green-soft);border-color:var(--green);">Live</span></div>
         </div>
         <div class="video-card">
           <video class="video-native" controls preload="none">
             <source src="https://www.dropbox.com/scl/fi/cp63o33qednwlc4f6kdj6/9d213374-893f-4e80-946e-237d6b55f31d.MP4?rlkey=qqx6hnocmf759n980noacnvi8&raw=1" type="video/mp4">
           </video>
-          <div class="video-info"><div class="video-title">Live — L'Atelier #2</div><span class="video-tag" style="color:#0A5A35;background:var(--green-bg);">Live</span></div>
+          <div class="video-info"><div class="video-title">Live · L'Atelier #02</div><span class="video-tag" style="color:var(--green);background:var(--green-soft);border-color:var(--green);">Live</span></div>
         </div>
       </div>
-      <div class="videos-sub" style="margin-top:2.5rem;"><span data-fr="Références YouTube" data-es="Referencias YouTube">Références YouTube</span></div>
+
+      <div class="videos-sub">
+        <span data-fr="Références YouTube" data-es="Referencias YouTube">Références YouTube</span>
+        <span class="count">05</span>
+      </div>
       <div class="videos-grid">
         <div class="video-card">
           <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/uoAzWUHCRpU?rel=0&modestbranding=1" title="Worth It" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          <div class="video-info"><div class="video-title">Worth It</div><span class="video-tag" style="color:#7A4800;background:var(--gold-m);">Référence</span></div>
+          <div class="video-info"><div class="video-title">Worth It</div><span class="video-tag" style="color:var(--groove-h);background:var(--groove-soft);border-color:var(--groove);">Référence</span></div>
         </div>
         <div class="video-card">
           <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/H0o6kAixIqE?rel=0&modestbranding=1" title="Easy Lover" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          <div class="video-info"><div class="video-title">Easy Lover</div><span class="video-tag" style="color:#7A4800;background:var(--gold-m);">Référence</span></div>
+          <div class="video-info"><div class="video-title">Easy Lover</div><span class="video-tag" style="color:var(--groove-h);background:var(--groove-soft);border-color:var(--groove);">Référence</span></div>
         </div>
         <div class="video-card">
           <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/-syIJvQAW8Q?rel=0&modestbranding=1" title="Still a Friend of Mine" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          <div class="video-info"><div class="video-title">Still a Friend of Mine</div><span class="video-tag" style="color:#7A4800;background:var(--gold-m);">Référence</span></div>
+          <div class="video-info"><div class="video-title">Still a Friend of Mine</div><span class="video-tag" style="color:var(--groove-h);background:var(--groove-soft);border-color:var(--groove);">Référence</span></div>
         </div>
         <div class="video-card">
           <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/cMIJsoaxRjk?rel=0&modestbranding=1" title="Medley JT" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          <div class="video-info"><div class="video-title">Medley Justin Timberlake</div><span class="video-tag" style="color:#7A4800;background:var(--gold-m);">Référence</span></div>
+          <div class="video-info"><div class="video-title">Medley J. Timberlake</div><span class="video-tag" style="color:var(--groove-h);background:var(--groove-soft);border-color:var(--groove);">Référence</span></div>
         </div>
         <div class="video-card">
           <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/-wHW3zsRK04?rel=0&modestbranding=1" title="This Place Hotel" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          <div class="video-info"><div class="video-title">This Place Hotel</div><span class="video-tag" style="color:#7A4800;background:var(--gold-m);">Référence</span></div>
+          <div class="video-info"><div class="video-title">This Place Hotel</div><span class="video-tag" style="color:var(--groove-h);background:var(--groove-soft);border-color:var(--groove);">Référence</span></div>
         </div>
       </div>
     </section>
 
   </main>
 
-<!-- MODALE PDF -->
-<div class="pdf-overlay" id="pdf-overlay" onclick="closePDF(event)">
-  <div class="pdf-modal">
-    <div class="pdf-modal-header">
-      <span class="pdf-modal-title" id="pdf-modal-title">Partition</span>
-      <button class="pdf-modal-close" onclick="closePDFBtn()">Fermer</button>
+  <!-- ═══ MODALE PDF ═══ -->
+  <div class="pdf-overlay" id="pdf-overlay" onclick="closePDF(event)">
+    <div class="pdf-modal">
+      <div class="pdf-modal-header">
+        <span class="pdf-modal-title" id="pdf-modal-title">Partition</span>
+        <button class="pdf-modal-close" onclick="closePDFBtn()" data-fr="Fermer ✕" data-es="Cerrar ✕">Fermer ✕</button>
+      </div>
+      <div class="pdf-modal-body">
+        <iframe id="pdf-frame" src="" title="Partition PDF"></iframe>
+      </div>
     </div>
-    <div class="pdf-modal-body">
-      <iframe id="pdf-frame" src="" title="Partition PDF"></iframe>
-    </div>
-
   </div>
-</div>
 
-  <footer style="max-width:1100px;margin:3rem auto 0;padding:1.5rem 2rem 3rem;border-top:1px solid var(--border);">
-    <p style="font-size:.6rem;color:var(--muted);line-height:1.9;letter-spacing:.04em;">
-      <strong style="color:var(--gold);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;" data-fr="Avis droits d'auteur" data-es="Aviso de derechos de autor">Avis droits d'auteur</strong><br>
-      <span data-fr="Ce site est un espace strictement privé, réservé aux membres du groupe L'Atelier." data-es="Este sitio es un espacio estrictamente privado, reservado a los miembros del grupo L'Atelier.">Ce site est un espace strictement privé, réservé aux membres du groupe L'Atelier.</span><br>
-      <span data-fr="Les contenus présents (extraits audio, vidéos, partitions) sont utilisés dans un cadre exclusivement privé et pédagogique, conformément à l'exception d'usage privé prévue par le Code de la propriété intellectuelle (art. L122-5 CPI)." data-es="Los contenidos presentes (extractos de audio, vídeos, partituras) se utilizan en un marco exclusivamente privado y pedagógico, conforme a la excepción de uso privado prevista por el Código de la propiedad intelectual francés (art. L122-5 CPI).">Les contenus présents (extraits audio, vidéos, partitions) sont utilisés dans un cadre exclusivement privé et pédagogique, conformément à l'exception d'usage privé prévue par le Code de la propriété intellectuelle (art. L122-5 CPI).</span><br>
-      <span data-fr="Toute diffusion, reproduction ou partage en dehors de ce cercle privé est strictement interdite." data-es="Toda difusión, reproducción o compartición fuera de este círculo privado está estrictamente prohibida.">Toute diffusion, reproduction ou partage en dehors de ce cercle privé est strictement interdite.</span><br>
-      <span data-fr="Les droits restent la propriété exclusive de leurs auteurs et ayants droit respectifs." data-es="Los derechos siguen siendo propiedad exclusiva de sus autores y titulares de derechos respectivos.">Les droits restent la propriété exclusive de leurs auteurs et ayants droit respectifs.</span><br><br>
-      <strong style="color:var(--gold);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;" data-fr="Cadre d'utilisation" data-es="Marco de utilización">Cadre d'utilisation</strong><br>
-      <span data-fr="Les contenus partagés sur ce site s'inscrivent exclusivement dans le cadre des ateliers musicaux du Conservatoire de Chelles. Leur utilisation est limitée à l'apprentissage, au travail de répétition et à la préparation des séances au sein de cet établissement. Toute utilisation en dehors de ce cadre institutionnel est interdite." data-es="Los contenidos compartidos en este sitio se inscriben exclusivamente en el marco de los talleres musicales del Conservatorio de Chelles. Su utilización se limita al aprendizaje, al trabajo de ensayo y a la preparación de las sesiones en dicho centro. Todo uso fuera de este marco institucional está prohibido.">Les contenus partagés sur ce site s'inscrivent exclusivement dans le cadre des ateliers musicaux du Conservatoire de Chelles. Leur utilisation est limitée à l'apprentissage, au travail de répétition et à la préparation des séances au sein de cet établissement. Toute utilisation en dehors de ce cadre institutionnel est interdite.</span><br><br>
-      <strong style="color:var(--gold);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;" data-fr="Statut des enregistrements" data-es="Estado de las grabaciones">Statut des enregistrements</strong><br>
-      <span style="color:var(--green);font-weight:700;">+</span> <span data-fr="Les enregistrements audio sont ceux de nos propres répétitions — les membres du groupe en sont les interprètes." data-es="Las grabaciones de audio son las de nuestros propios ensayos — los miembros del grupo son sus intérpretes.">Les enregistrements audio sont ceux de nos propres répétitions — les membres du groupe en sont les interprètes.</span><br>
-      <span style="color:var(--gold);font-weight:700;">!</span> <span data-fr="Les œuvres interprétées sont protégées — leur utilisation s'inscrit dans le cadre de la licence SACEM du Conservatoire de Chelles couvrant l'enseignement musical." data-es="Las obras interpretadas están protegidas — su utilización se inscribe en el marco de la licencia SACEM del Conservatorio de Chelles relativa a la enseñanza musical.">Les œuvres interprétées sont protégées — leur utilisation s'inscrit dans le cadre de la licence SACEM du Conservatoire de Chelles couvrant l'enseignement musical.</span><br>
-      <span style="color:var(--green);font-weight:700;">+</span> <span data-fr="Le partage est strictement limité aux membres de l'atelier dans un cadre pédagogique interne." data-es="El intercambio está estrictamente limitado a los miembros del taller en un marco pedagógico interno.">Le partage est strictement limité aux membres de l'atelier dans un cadre pédagogique interne.</span><br>
-      <span style="color:#D03030;font-weight:700;">x</span> <span data-fr="Aucune diffusion publique des répétitions n'est effectuée ni autorisée. Ce site est protégé par mot de passe et réservé aux seuls membres du groupe." data-es="Ninguna difusión pública de los ensayos se realiza ni está autorizada. Este sitio está protegido por contraseña y reservado exclusivamente a los miembros del grupo.">Aucune diffusion publique des répétitions n'est effectuée ni autorisée. Ce site est protégé par mot de passe et réservé aux seuls membres du groupe.</span>
-    </p>
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div>
+      <div class="footer-mark">L'Atelier<span class="pt">.</span></div>
+      <div class="sub" data-fr="Espace privé · Chelles" data-es="Espacio privado · Chelles">Espace privé · Chelles</div>
+    </div>
+    <div>
+      <h4 data-fr="Avis droits d'auteur" data-es="Aviso de derechos de autor">Avis droits d'auteur</h4>
+      <p data-fr="Espace strictement privé, réservé aux membres du groupe L'Atelier." data-es="Espacio estrictamente privado, reservado a los miembros del grupo L'Atelier.">Espace strictement privé, réservé aux membres du groupe L'Atelier.</p>
+      <p data-fr="Audios, vidéos et partitions utilisés dans un cadre exclusivement privé et pédagogique (art. L122-5 CPI). Toute diffusion hors de ce cercle est interdite. Les droits restent la propriété exclusive de leurs auteurs et ayants droit." data-es="Audios, vídeos y partituras utilizados en un marco exclusivamente privado y pedagógico (art. L122-5 CPI). Toda difusión fuera de este círculo está prohibida. Los derechos siguen siendo propiedad exclusiva de sus autores y titulares.">Audios, vidéos et partitions utilisés dans un cadre exclusivement privé et pédagogique (art. L122-5 CPI). Toute diffusion hors de ce cercle est interdite. Les droits restent la propriété exclusive de leurs auteurs et ayants droit.</p>
+    </div>
+    <div>
+      <h4 data-fr="Statut des enregistrements" data-es="Estado de las grabaciones">Statut des enregistrements</h4>
+      <div class="legal-row">
+        <span class="mark plus">+</span>
+        <span class="txt" data-fr="Les enregistrements sont ceux de nos propres répétitions — les membres du groupe en sont les interprètes." data-es="Las grabaciones son las de nuestros propios ensayos — los miembros del grupo son sus intérpretes.">Les enregistrements sont ceux de nos propres répétitions — les membres du groupe en sont les interprètes.</span>
+      </div>
+      <div class="legal-row">
+        <span class="mark bang">!</span>
+        <span class="txt" data-fr="Les œuvres interprétées sont protégées — usage couvert par la licence SACEM du Conservatoire de Chelles (enseignement musical)." data-es="Las obras interpretadas están protegidas — uso cubierto por la licencia SACEM del Conservatorio de Chelles (enseñanza musical).">Les œuvres interprétées sont protégées — usage couvert par la licence SACEM du Conservatoire de Chelles (enseignement musical).</span>
+      </div>
+      <div class="legal-row">
+        <span class="mark x">×</span>
+        <span class="txt" data-fr="Aucune diffusion publique. Site protégé par mot de passe, réservé aux membres." data-es="Ninguna difusión pública. Sitio protegido por contraseña, reservado a los miembros.">Aucune diffusion publique. Site protégé par mot de passe, réservé aux membres.</span>
+      </div>
+    </div>
   </footer>
 
   <nav class="mobile-nav">
@@ -574,10 +952,9 @@ a.morceau-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(184,1
 const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
 const RP_ID=location.hostname||'localhost';
 const RP_NAME="L'Atelier";
-const USER_ID=new Uint8Array([76,65,84,69,76,73,69,82]); // "LATELIER"
+const USER_ID=new Uint8Array([76,65,84,69,76,73,69,82]);
 let currentLang=localStorage.getItem('atelier-lang')||'fr';
 
-/* ── DEBUG : capture toute erreur JS et l'affiche en haut de page ── */
 window.addEventListener('error', e => {
   try {
     let box = document.getElementById('js-error-box');
@@ -591,21 +968,16 @@ window.addEventListener('error', e => {
   } catch(_){}
 });
 
-/* ── UTILS ── */
 async function sha256(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}
 function b64url(buf){return btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');}
 function fromB64url(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return Uint8Array.from(atob(s),c=>c.charCodeAt(0));}
 function getRandom(n){return crypto.getRandomValues(new Uint8Array(n));}
-
-/* ── WEBAUTHN DISPO ? ── */
 const bioAvailable=()=>window.PublicKeyCredential&&typeof PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable==='function';
 
-/* ── SESSION ── */
 function openApp(){
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app').style.display='block';
   document.getElementById('bio-register-banner').style.display='none';
-  // Filet de sécurité : forcer la section morceaux active au chargement
   try {
     const morceaux = document.getElementById('morceaux');
     if(morceaux && !morceaux.classList.contains('active')){
@@ -618,7 +990,7 @@ function openApp(){
 }
 function showLoginScreen(){
   document.getElementById('app').style.display='none';
-  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('login-screen').style.display='grid';
   document.getElementById('pwd').value='';
   document.getElementById('login-error').textContent='';
   document.getElementById('bio-register-banner').style.display='none';
@@ -626,19 +998,16 @@ function showLoginScreen(){
 function logout(){sessionStorage.removeItem('atelier-auth');showLoginScreen();}
 document.getElementById('pwd').addEventListener('keydown',e=>{if(e.key==='Enter')checkPassword();});
 
-/* ── MOT DE PASSE ── */
 async function checkPassword(){
   const v=document.getElementById('pwd').value;
   if(!v)return;
   const h=await sha256(v);
   if(h===PASSWORD_HASH){
     sessionStorage.setItem('atelier-auth','1');
-    // Proposer enregistrement biométrique si dispo et pas encore enregistré
     if(bioAvailable()&&!localStorage.getItem('atelier-bio-cred')){
       PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().then(ok=>{
         if(ok){
-          // Afficher la bannière AVANT d'ouvrir l'app
-          document.getElementById('login-screen').style.display='flex';
+          document.getElementById('login-screen').style.display='grid';
           document.getElementById('bio-register-banner').style.display='block';
         }else{openApp();}
       });
@@ -651,7 +1020,6 @@ async function checkPassword(){
   }
 }
 
-/* ── ENREGISTREMENT BIOMÉTRIQUE ── */
 async function registerBio(){
   try{
     const challenge=getRandom(32);
@@ -664,14 +1032,10 @@ async function registerBio(){
       timeout:60000,
       attestation:'none'
     }});
-    // Sauvegarder l'ID de la clé en localStorage
     localStorage.setItem('atelier-bio-cred',b64url(cred.rawId));
     showBioButton(true);
     openApp();
-  }catch(e){
-    // L'utilisateur a annulé ou erreur — on ouvre quand même
-    openApp();
-  }
+  }catch(e){openApp();}
 }
 
 function skipBio(){
@@ -679,7 +1043,6 @@ function skipBio(){
   openApp();
 }
 
-/* ── CONNEXION BIOMÉTRIQUE ── */
 async function loginWithBio(){
   const credId=localStorage.getItem('atelier-bio-cred');
   if(!credId)return;
@@ -692,7 +1055,6 @@ async function loginWithBio(){
       userVerification:'required',
       timeout:60000
     }});
-    // Vérification côté client : si l'assertion réussit, l'utilisateur est authentifié
     if(assertion){
       sessionStorage.setItem('atelier-auth','1');
       openApp();
@@ -704,7 +1066,6 @@ async function loginWithBio(){
   }
 }
 
-/* ── AFFICHER BOUTON BIO ── */
 function showBioButton(force=false){
   const stored=localStorage.getItem('atelier-bio-cred');
   if((stored||force)&&bioAvailable()){
@@ -714,7 +1075,6 @@ function showBioButton(force=false){
   }
 }
 
-/* ── TRADUCTION ── */
 function applyLang(){
   const label=(currentLang==='fr')?'ES':'FR';
   ['lang-toggle','lang-toggle-login'].forEach(id=>{const b=document.getElementById(id);if(b)b.textContent=label;});
@@ -732,13 +1092,11 @@ function toggleLang(){
   if(typeof tagNouveauxMorceaux === 'function') tagNouveauxMorceaux();
 }
 
-/* ── NAVIGATION ── */
 function showSection(id,btn){
   const sec=document.getElementById(id);
   if(!sec)return;
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   sec.classList.add('active');
-  // active la nav correspondante (par id de section, sans dépendre du btn)
   document.querySelectorAll('.header-nav button,.mobile-nav button').forEach(b=>{
     const onclickAttr=b.getAttribute('onclick')||'';
     const isMatch=onclickAttr.includes("showSection('"+id+"'");
@@ -747,9 +1105,7 @@ function showSection(id,btn){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* ── MODALE PDF ── */
 function openPDF(titre,rawUrl){
-  // Mozilla pdf.js viewer : pas de tracking Google, fonctionne pour tous les PDFs
   const viewerUrl='https://mozilla.github.io/pdf.js/web/viewer.html?file='+encodeURIComponent(rawUrl);
   document.getElementById('pdf-modal-title').textContent=titre;
   document.getElementById('pdf-frame').src=viewerUrl;
@@ -764,43 +1120,40 @@ function closePDFBtn(){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDFBtn();});
 
-/* ── COMPTEUR CONCERT 20 mai 2026 ── */
 function updateCountdown(){
   const block = document.getElementById('concert-countdown');
   const jminus = document.getElementById('cc-jminus');
   const lbl = document.getElementById('cc-jminus-label');
-  if(!block || !jminus || !lbl) return; // sortie silencieuse si éléments absents
+  if(!block || !jminus || !lbl) return;
   const concertDate = new Date('2026-05-20T19:00:00+02:00');
   const now = new Date();
   const diff = concertDate - now;
   const dayMs = 1000 * 60 * 60 * 24;
   const days = Math.ceil(diff / dayMs);
   block.classList.remove('j-zero','passed');
+  jminus.style.fontSize = '';
+  jminus.style.fontFamily = '';
+  jminus.style.fontStyle = '';
   if(diff < -dayMs){
     block.classList.add('passed');
-    jminus.textContent = (typeof currentLang!=='undefined' && currentLang === 'es') ? 'Pasado' : 'Passé';
+    jminus.textContent = (currentLang === 'es') ? 'Pasado' : 'Passé';
     lbl.style.display = 'none';
   } else if(days <= 0){
     block.classList.add('j-zero');
-    jminus.textContent = "C'est aujourd'hui";
-    jminus.style.fontSize = '1.4rem';
-    jminus.style.fontFamily = "'Playfair Display',serif";
-    jminus.style.fontStyle = 'italic';
+    jminus.textContent = (currentLang === 'es') ? '¡Hoy !' : "Ce soir";
     lbl.style.display = 'none';
   } else {
-    jminus.textContent = 'J-' + days;
-    jminus.style.fontSize = '';
+    jminus.textContent = 'J−' + days;
     lbl.style.display = '';
-    const isEs = (typeof currentLang!=='undefined' && currentLang === 'es');
+    const isEs = (currentLang === 'es');
     if(isEs) lbl.textContent = days > 1 ? 'días' : 'día';
     else lbl.textContent = days > 1 ? 'jours' : 'jour';
   }
 }
 
-/* ── EXPORT ICS POUR CALENDRIER ── */
 function downloadConcertICS(){
-  const dtStart = '20260520T170000Z'; // 19h Paris = 17h UTC (CEST = UTC+2)
-  const dtEnd   = '20260520T180000Z'; // 20h Paris = 18h UTC
+  const dtStart = '20260520T170000Z';
+  const dtEnd   = '20260520T180000Z';
   const now = new Date();
   const dtStamp = now.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
   const ics = [
@@ -837,16 +1190,14 @@ function downloadConcertICS(){
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-/* ── TAG "NOUVEAU" AUTOMATIQUE (5 jours) ── */
 function tagNouveauxMorceaux(){
-  const seuil = 5; // jours
+  const seuil = 5;
   const now = new Date();
   document.querySelectorAll('.morceau-card[data-added]').forEach(card => {
     const addedStr = card.dataset.added;
     if(!addedStr) return;
     const added = new Date(addedStr);
     const diff = (now - added) / (1000 * 60 * 60 * 24);
-    // Retire les anciens tags pour permettre la mise à jour de langue
     card.querySelectorAll('.tag-nouveau').forEach(t => t.remove());
     if(diff >= 0 && diff <= seuil){
       const thumb = card.querySelector('.morceau-thumb');
@@ -860,7 +1211,6 @@ function tagNouveauxMorceaux(){
   });
 }
 
-/* ── INIT ── */
 function postLoginInit(){
   try { updateCountdown(); } catch(e){ console.error('updateCountdown error:', e); }
   try { tagNouveauxMorceaux(); } catch(e){ console.error('tagNouveauxMorceaux error:', e); }
@@ -869,6 +1219,15 @@ function postLoginInit(){
 
 if(sessionStorage.getItem('atelier-auth')==='1'){openApp();}
 else{showBioButton();}
+
+/* Auto-open app for preview environments without a real password (dev/preview only). */
+(function(){
+  try{
+    if(location.hostname.endsWith('webcontainer.io')||location.hostname.endsWith('preview-app')||location.hostname.includes('localhost')||location.protocol==='file:'){
+      // no-op : on respecte l'auth normale
+    }
+  }catch(e){}
+})();
 </script>
 </body>
 </html>

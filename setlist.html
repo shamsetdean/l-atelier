@@ -3,213 +3,220 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
-<meta name="theme-color" content="#FFF8E7">
+<meta name="theme-color" content="#EFEAE0">
 <title>Setlist — Concert 20 mai 2026 — L'Atelier</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="atelier.css">
 <style>
 :root{
-  --bg:#FFF8E7;
-  --surface:#FFFCF2;
-  --ink:#1C1200;
-  --muted:#8B7355;
-  --border:#E8DCC0;
-  --gold:#B8860B;
-  --gold-l:#FFF4DC;
-  --gold-m:#E5C987;
-  --green:#5C8A3A;
-  --borders:#D4AF37;
+  --accent:#F0511E;
+  --accent-h:#D8400D;
+  --accent-soft:#FFE0CD;
+  --accent-deep:#7A2A0E;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{background:var(--bg);color:var(--ink);font-family:'Space Mono',monospace;line-height:1.6;-webkit-font-smoothing:antialiased;}
 
-/* ── HEADER (écran uniquement) ── */
-header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;position:sticky;top:0;z-index:100;}
-.header-logo{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.4rem;color:var(--gold);}
-.header-actions{display:flex;gap:8px;align-items:center;}
-.btn-back,.btn-print,.btn-lang{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;padding:.5rem 1rem;cursor:pointer;border-radius:4px;text-transform:uppercase;transition:all .2s;text-decoration:none;display:inline-block;font-weight:700;}
-.btn-back:hover,.btn-print:hover,.btn-lang:hover{color:var(--ink);border-color:var(--gold);}
-.btn-back{color:var(--gold);border-color:var(--gold);}
-.btn-print{background:var(--gold);color:#FFF;border-color:var(--gold);}
-.btn-print:hover{background:#9A6F09;color:#FFF;border-color:#9A6F09;}
-
-/* ── PAGE CONTAINER (style A4 noir/or pour impression) ── */
+/* ── PAGE CONTAINER (A4 noir/orange, conserve l'identité scénique) ── */
 .setlist-page{
   max-width:780px;
   margin:2rem auto;
-  background:#1C1200;
-  color:#F5E8C8;
-  border-radius:8px;
-  padding:3.5rem 3rem;
-  box-shadow:0 12px 50px rgba(28,18,0,.3);
+  background:var(--ink);
+  color:var(--paper);
+  border:1px solid var(--ink);
+  padding:3.2rem 3rem 2.6rem;
   position:relative;
   overflow:hidden;
 }
 .setlist-page::before{
-  content:"";position:absolute;top:-100px;right:-100px;
-  width:400px;height:400px;
-  background:radial-gradient(circle,rgba(212,175,55,.12) 0%,transparent 60%);
-  border-radius:50%;
-  pointer-events:none;
-}
-.setlist-page::after{
-  content:"";position:absolute;bottom:-100px;left:-100px;
-  width:300px;height:300px;
-  background:radial-gradient(circle,rgba(212,175,55,.08) 0%,transparent 60%);
-  border-radius:50%;
-  pointer-events:none;
+  content:"";position:absolute;top:-30%;right:-15%;
+  width:55%;height:160%;
+  background:radial-gradient(circle,var(--accent) 0%,transparent 60%);
+  opacity:.15;pointer-events:none;
 }
 
 /* ── EN-TÊTE SETLIST ── */
-.setlist-brand{font-family:'Playfair Display',serif;font-style:italic;font-size:1.6rem;color:#D4AF37;text-align:center;letter-spacing:.04em;margin-bottom:.3rem;position:relative;z-index:1;}
-.setlist-divider{width:80px;height:1px;background:#D4AF37;margin:1rem auto 1.5rem;position:relative;z-index:1;}
-.setlist-event-meta{font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:#D4AF37;text-align:center;margin-bottom:.6rem;position:relative;z-index:1;}
-.setlist-title{font-family:'Playfair Display',serif;font-size:2.6rem;color:#F5E8C8;text-align:center;line-height:1.2;margin-bottom:.5rem;position:relative;z-index:1;}
-.setlist-venue{font-size:.85rem;color:#D4AF37;text-align:center;letter-spacing:.05em;margin-bottom:.4rem;position:relative;z-index:1;}
-.setlist-time{font-size:.75rem;color:#A89169;text-align:center;letter-spacing:.05em;position:relative;z-index:1;}
-
-/* ── ORNEMENT ── */
-.ornament{display:flex;align-items:center;justify-content:center;gap:1rem;margin:2.5rem 0 2rem;position:relative;z-index:1;}
-.ornament-line{flex:1;max-width:120px;height:1px;background:#D4AF37;}
-.ornament-mark{font-family:'Playfair Display',serif;font-style:italic;color:#D4AF37;font-size:1.2rem;}
-
-/* ── MORCEAUX SETLIST ── */
-.setlist-songs{position:relative;z-index:1;}
-.song-block{margin-bottom:2rem;padding-bottom:1.8rem;border-bottom:1px solid rgba(212,175,55,.2);}
-.song-block:last-child{border-bottom:none;margin-bottom:.5rem;}
-.song-header{display:grid;grid-template-columns:60px 1fr auto;gap:1rem;align-items:center;margin-bottom:.8rem;}
-.song-number{font-family:'Playfair Display',serif;font-style:italic;font-size:2.4rem;color:#D4AF37;line-height:1;}
-.song-info{}
-.song-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:#F5E8C8;margin-bottom:.2rem;}
-.song-artist{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#A89169;}
-.song-musical{display:flex;flex-direction:column;gap:.3rem;text-align:right;}
-.song-musical-item{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.05em;color:#D4AF37;font-weight:700;}
-.song-presentation{margin-top:.8rem;padding-left:75px;font-size:.78rem;line-height:1.7;color:#D4C9A8;font-style:italic;}
-.song-presentation::before{content:"❝ ";color:#D4AF37;font-family:'Playfair Display',serif;font-size:1rem;}
-.song-presentation::after{content:" ❞";color:#D4AF37;font-family:'Playfair Display',serif;font-size:1rem;}
-.song-duration{margin-top:.6rem;padding-left:75px;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:#A89169;font-weight:700;}
-
-/* ── PIED DE PAGE SETLIST ── */
-.setlist-footer{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(212,175,55,.3);text-align:center;position:relative;z-index:1;}
-.setlist-total{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:#D4AF37;margin-bottom:.3rem;}
-.setlist-tagline{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:#A89169;}
-
-/* ── INFOS LOGISTIQUES (n'apparaissent pas à l'impression) ── */
-.logistics{
-  max-width:780px;
-  margin:2rem auto;
-  background:var(--surface);
-  border:1.5px solid var(--border);
-  border-left:4px solid var(--gold);
-  border-radius:0 8px 8px 0;
-  padding:1.5rem 2rem;
+.setlist-head{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end;padding-bottom:1.4rem;border-bottom:1px solid rgba(239,234,224,.18);margin-bottom:2rem;position:relative;z-index:1;}
+.setlist-eyebrow{
+  font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);font-weight:500;margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem;
 }
-.logistics h2{font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--gold);margin-bottom:1rem;}
-.logistics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;}
-.logistics-item{font-size:.85rem;}
-.logistics-item strong{display:block;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem;font-weight:700;}
+.setlist-eyebrow .num{
+  background:var(--accent);color:var(--ink);padding:.2rem .55rem;font-weight:500;letter-spacing:.1em;
+}
+.setlist-title{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(2.4rem,5.5vw,3.6rem);line-height:.88;letter-spacing:-.025em;color:var(--paper);
+}
+.setlist-title .pt{color:var(--accent);font-style:normal;}
+.setlist-meta{
+  text-align:right;font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+  color:rgba(239,234,224,.6);text-transform:uppercase;line-height:1.8;
+}
+.setlist-meta b{color:var(--paper);font-weight:500;}
+.setlist-meta .sep{color:var(--accent);}
+
+/* ── MORCEAUX ── */
+.setlist-songs{position:relative;z-index:1;}
+.song-block{
+  margin-bottom:1.6rem;padding-bottom:1.6rem;
+  border-bottom:1px solid rgba(239,234,224,.14);
+}
+.song-block:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.song-header{display:grid;grid-template-columns:80px 1fr auto;gap:1.4rem;align-items:baseline;margin-bottom:.7rem;}
+.song-number{
+  font-family:var(--serif);font-style:italic;font-size:3.4rem;line-height:.85;
+  color:var(--accent);letter-spacing:-.04em;
+}
+.song-info{}
+.song-title{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:1.7rem;line-height:1;letter-spacing:-.015em;color:var(--paper);margin-bottom:.35rem;
+}
+.song-artist{
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(239,234,224,.6);font-weight:500;
+}
+.song-musical{display:flex;flex-direction:column;gap:.25rem;text-align:right;}
+.song-musical-item{
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  color:var(--accent);font-weight:500;text-transform:uppercase;
+}
+.song-presentation{
+  margin-top:.5rem;padding-left:96px;
+  font-family:var(--serif);font-style:italic;
+  font-size:.95rem;line-height:1.55;color:rgba(239,234,224,.86);
+  text-wrap:pretty;
+}
+.song-duration{
+  margin-top:.7rem;padding-left:96px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(239,234,224,.5);font-weight:500;
+  display:flex;align-items:center;gap:.6rem;
+}
+.song-duration::before{content:"";width:14px;height:1px;background:var(--accent);display:inline-block;}
+
+/* ── PIED ── */
+.setlist-footer{
+  margin-top:2rem;padding-top:1.4rem;
+  border-top:1px solid rgba(239,234,224,.18);
+  display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+  position:relative;z-index:1;font-family:var(--mono);font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(239,234,224,.55);
+}
+.setlist-total b{color:var(--accent);font-weight:500;letter-spacing:.18em;}
+.setlist-tagline{
+  font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--paper);
+  letter-spacing:0;text-transform:none;
+}
+
+/* ── LOGISTIQUE (écran uniquement) ── */
+.logistics{
+  max-width:780px;margin:1.2rem auto 4rem;
+  background:var(--paper-3);border:1px solid var(--ink);
+  padding:1.6rem 1.8rem 1.8rem;
+}
+.logistics h2{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink);margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem;font-weight:500;
+}
+.logistics h2::before{content:"";width:14px;height:1px;background:var(--accent);}
+.logistics h2::after{content:"";flex:1;height:1px;background:var(--line);margin-left:.4rem;}
+.logistics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.4rem 1.6rem;}
+.logistics-item{font-size:.92rem;line-height:1.55;}
+.logistics-item strong{
+  display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;font-weight:500;
+}
+.logistics-item span{color:var(--ink-2);}
 
 /* ── MOBILE ── */
 @media(max-width:640px){
-  header{padding:.8rem 1rem;}
-  .header-logo{font-size:1.1rem;}
-  .btn-back,.btn-print{font-size:.55rem;padding:.4rem .7rem;}
   .setlist-page{margin:1rem;padding:2rem 1.4rem;}
-  .setlist-title{font-size:1.8rem;}
-  .setlist-brand{font-size:1.3rem;}
-  .song-header{grid-template-columns:45px 1fr;gap:.8rem;}
-  .song-number{font-size:1.8rem;}
-  .song-title{font-size:1.2rem;}
-  .song-musical{grid-column:1/3;flex-direction:row;gap:1rem;text-align:left;margin-top:.5rem;flex-wrap:wrap;}
-  .song-presentation{padding-left:0;font-size:.75rem;margin-top:.6rem;}
+  .setlist-head{grid-template-columns:1fr;gap:.8rem;align-items:start;}
+  .setlist-meta{text-align:left;}
+  .song-header{grid-template-columns:55px 1fr;gap:1rem;}
+  .song-number{font-size:2.4rem;}
+  .song-title{font-size:1.3rem;}
+  .song-musical{grid-column:1/3;flex-direction:row;gap:1rem;text-align:left;margin-top:.5rem;flex-wrap:wrap;padding-left:71px;}
+  .song-presentation{padding-left:0;font-size:.92rem;margin-top:.6rem;}
   .song-duration{padding-left:0;}
-  .logistics{margin:1rem;padding:1.2rem 1.4rem;}
+  .setlist-footer{flex-direction:column;align-items:flex-start;gap:.6rem;}
+  .logistics{margin:1rem;padding:1.3rem 1.2rem;}
   .logistics-grid{grid-template-columns:1fr;}
 }
 
-/* ── PRINT A4 — DOIT TENIR SUR UNE SEULE PAGE ── */
+/* ── PRINT A4 — UNE SEULE PAGE ── */
 @media print{
   @page{size:A4 portrait;margin:0.8cm;}
   html,body{background:#FFF !important;height:auto;overflow:hidden;}
-  header,.logistics,.btn-back,.btn-print{display:none !important;}
+  header.atelier-header,.logistics,.btn-back,.btn-print,.btn-lang{display:none !important;}
 
   .setlist-page{
-    margin:0 !important;
-    padding:1cm 1.4cm !important;
-    background:#1C1200 !important;
-    color:#F5E8C8 !important;
-    box-shadow:none !important;
-    -webkit-print-color-adjust:exact !important;
-    print-color-adjust:exact !important;
-    border-radius:0 !important;
-    page-break-inside:avoid !important;
-    page-break-after:avoid !important;
-    max-width:100% !important;
-    width:100% !important;
-    height:auto !important;
-    box-sizing:border-box;
+    margin:0 !important;padding:.9cm 1.3cm !important;
+    background:var(--ink) !important;color:var(--paper) !important;
+    border:none !important;
+    -webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;
+    page-break-inside:avoid !important;page-break-after:avoid !important;
+    max-width:100% !important;width:100% !important;height:auto !important;box-sizing:border-box;
   }
 
-  /* En-tête compacté */
-  .setlist-brand{font-size:1.15rem !important;margin-bottom:.15rem !important;}
-  .setlist-divider{margin:.5rem auto .7rem !important;}
-  .setlist-event-meta{font-size:.55rem !important;margin-bottom:.3rem !important;}
-  .setlist-title{font-size:1.6rem !important;margin-bottom:.25rem !important;line-height:1.15 !important;}
-  .setlist-venue{font-size:.7rem !important;margin-bottom:.15rem !important;}
-  .setlist-time{font-size:.62rem !important;}
+  .setlist-head{padding-bottom:.7rem !important;margin-bottom:1rem !important;}
+  .setlist-eyebrow{font-size:8px !important;margin-bottom:.4rem !important;}
+  .setlist-title{font-size:1.7rem !important;line-height:.95 !important;}
+  .setlist-meta{font-size:8.5px !important;line-height:1.5 !important;}
 
-  .ornament{margin:1rem 0 .8rem !important;}
-
-  /* Chaque morceau plus compact */
-  .song-block{margin-bottom:.9rem !important;padding-bottom:.7rem !important;page-break-inside:avoid !important;}
-  .song-block:last-child{margin-bottom:0 !important;padding-bottom:0 !important;}
-  .song-header{grid-template-columns:50px 1fr auto !important;gap:.7rem !important;margin-bottom:.4rem !important;align-items:center !important;}
-  .song-number{font-size:1.7rem !important;}
+  .song-block{margin-bottom:.65rem !important;padding-bottom:.6rem !important;page-break-inside:avoid !important;}
+  .song-header{grid-template-columns:55px 1fr auto !important;gap:.8rem !important;margin-bottom:.3rem !important;}
+  .song-number{font-size:1.85rem !important;}
   .song-title{font-size:1.05rem !important;margin-bottom:.1rem !important;}
-  .song-artist{font-size:.55rem !important;}
-  .song-musical-item{font-size:.55rem !important;}
-  .song-presentation{padding-left:60px !important;font-size:.65rem !important;line-height:1.45 !important;margin-top:.35rem !important;}
-  .song-duration{padding-left:60px !important;font-size:.52rem !important;margin-top:.3rem !important;}
+  .song-artist{font-size:8px !important;}
+  .song-musical-item{font-size:8px !important;}
+  .song-presentation{padding-left:65px !important;font-size:.7rem !important;line-height:1.4 !important;margin-top:.3rem !important;}
+  .song-duration{padding-left:65px !important;font-size:7.5px !important;margin-top:.3rem !important;}
 
-  /* Pied de page */
-  .setlist-footer{margin-top:1rem !important;padding-top:.8rem !important;}
-  .setlist-total{font-size:.85rem !important;margin-bottom:.2rem !important;}
-  .setlist-tagline{font-size:.55rem !important;}
+  .setlist-footer{margin-top:.8rem !important;padding-top:.6rem !important;font-size:8px !important;}
+  .setlist-tagline{font-size:.85rem !important;}
 
-  /* Forcer 1 page : interdit le débordement */
   .setlist-page > *{page-break-inside:avoid !important;}
 }
 </style>
 </head>
 <body>
 
-<header>
-  <span class="header-logo">L'Atelier · <span data-fr="Setlist" data-es="Repertorio">Setlist</span></span>
+<header class="atelier-header">
+  <a class="header-logo" href="index.html">
+    L'Atelier<span class="tick">setlist</span>
+  </a>
   <div class="header-actions">
     <a class="btn-back" href="index.html"><span data-fr="← Accueil" data-es="← Inicio">← Accueil</span></a>
     <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
-    <button class="btn-print" onclick="window.print()"><span data-fr="Imprimer (A4)" data-es="Imprimir (A4)">Imprimer (A4)</span></button>
+    <button class="btn-print" onclick="window.print()"><span data-fr="Imprimer A4" data-es="Imprimir A4">Imprimer A4</span></button>
   </div>
 </header>
 
 <div class="setlist-page">
-  <div class="setlist-brand">L'Atelier</div>
-  <div class="setlist-divider"></div>
-  <div class="setlist-event-meta"><span data-fr="Concert · 20 mai 2026" data-es="Concierto · 20 de mayo 2026">Concert · 20 mai 2026</span></div>
-  <h1 class="setlist-title"><span data-fr="Soirée Funk &amp; Soul" data-es="Velada Funk &amp; Soul">Soirée Funk &amp; Soul</span></h1>
-  <div class="setlist-venue">Auditorium de Chelles</div>
-  <div class="setlist-time">19h00 — 20h00</div>
 
-  <div class="ornament">
-    <div class="ornament-line"></div>
-    <span class="ornament-mark">§</span>
-    <div class="ornament-line"></div>
+  <div class="setlist-head">
+    <div>
+      <div class="setlist-eyebrow">
+        <span class="num">20.05.26</span>
+        <span data-fr="Programme du concert" data-es="Programa del concierto">Programme du concert</span>
+      </div>
+      <h1 class="setlist-title">
+        <span data-fr="Soirée Funk" data-es="Velada Funk">Soirée Funk</span><span class="pt"> &amp; </span><span data-fr="Soul" data-es="Soul">Soul</span>
+      </h1>
+    </div>
+    <div class="setlist-meta">
+      <div><b>Auditorium de Chelles</b></div>
+      <div>19h00 <span class="sep">→</span> 20h00</div>
+      <div><span data-fr="Mercredi 20 mai 2026" data-es="Miércoles 20 mayo 2026">Mercredi 20 mai 2026</span></div>
+    </div>
   </div>
 
   <div class="setlist-songs">
 
-    <!-- 1. Still a Friend of Mine -->
+    <!-- I. Still a Friend of Mine -->
     <div class="song-block">
       <div class="song-header">
         <div class="song-number">I</div>
@@ -226,7 +233,7 @@ header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:1
       <div class="song-duration"><span data-fr="≈ 5 min 30 · ouverture en douceur" data-es="≈ 5 min 30 · apertura suave">≈ 5 min 30 · ouverture en douceur</span></div>
     </div>
 
-    <!-- 2. Easy Lover -->
+    <!-- II. Easy Lover -->
     <div class="song-block">
       <div class="song-header">
         <div class="song-number">II</div>
@@ -243,7 +250,7 @@ header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:1
       <div class="song-duration"><span data-fr="≈ 5 min · montée en énergie" data-es="≈ 5 min · subida de energía">≈ 5 min · montée en énergie</span></div>
     </div>
 
-    <!-- 3. Worth It -->
+    <!-- III. Worth It -->
     <div class="song-block">
       <div class="song-header">
         <div class="song-number">III</div>
@@ -263,12 +270,12 @@ header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:1
   </div>
 
   <div class="setlist-footer">
-    <div class="setlist-total"><span data-fr="≈ 15 minutes de musique" data-es="≈ 15 minutos de música">≈ 15 minutes de musique</span></div>
-    <div class="setlist-tagline"><span data-fr="— Merci à vous —" data-es="— Gracias a ustedes —">— Merci à vous —</span></div>
+    <div class="setlist-total"><b><span data-fr="≈ 15 min" data-es="≈ 15 min">≈ 15 min</span></b> <span data-fr="de musique" data-es="de música">de musique</span></div>
+    <div class="setlist-tagline"><span data-fr="Merci à vous" data-es="Gracias a ustedes">Merci à vous</span></div>
   </div>
 </div>
 
-<!-- INFOS LOGISTIQUES (n'apparaissent pas à l'impression) -->
+<!-- LOGISTIQUE (écran uniquement) -->
 <div class="logistics">
   <h2><span data-fr="Repères logistiques" data-es="Información logística">Repères logistiques</span></h2>
   <div class="logistics-grid">
@@ -295,11 +302,9 @@ header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:1
 <script>
 const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
 if(sessionStorage.getItem('atelier-auth')!=='1'){
-  // si pas authentifié, on redirige vers l'accueil pour le login
   window.location.href = 'index.html';
 }
 
-/* ── TRADUCTION FR/ES ── */
 let currentLang = localStorage.getItem('atelier-lang') || 'fr';
 
 function applyLang(){
@@ -320,7 +325,6 @@ function toggleLang(){
   applyLang();
 }
 
-// Appliquer la langue au chargement
 applyLang();
 </script>
 
