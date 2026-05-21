@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta name="theme-color" content="#FFF8E7">
+<title>Say Say Say — L'Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="atelier.css">
+<style>
+:root{
+  --accent:#A03060;
+  --accent-h:#7E2350;
+  --accent-soft:#F5DCE7;
+  --accent-deep:#5C1A38;
+}
+</style>
+</head>
+<body>
+
+<header class="atelier-header">
+  <a class="header-logo" href="index.html">
+    L'Atelier<span class="tick">private</span>
+  </a>
+  <div class="header-actions">
+    <a class="btn-back" href="index.html"><span data-fr="← Accueil" data-es="← Inicio">← Accueil</span></a>
+    <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
+  </div>
+</header>
+
+<main class="atelier-main">
+
+  <!-- PAGE HEAD -->
+  <div class="page-head">
+    <div>
+      <div class="page-eyebrow">
+        <span class="num accent">07</span>
+        <span data-fr="Morceau du répertoire" data-es="Canción del repertorio">Morceau du répertoire</span>
+      </div>
+      <h1 class="page-title">Say Say Say</h1>
+    </div>
+    <div class="page-meta">
+      <div><b>Paul McCartney &amp; Michael Jackson</b></div>
+      <div>· 1983 ·</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-meta"><span class="dot"></span><span data-fr="Ambiance / clé / tempo" data-es="Ambiente / tonalidad / tempo">Ambiance / clé / tempo</span></div>
+      <div class="hero-title">Say Say Say</div>
+      <div class="hero-artist">Paul McCartney &amp; Michael Jackson — 1983</div>
+      <div class="hero-musical">
+        <span>118 BPM</span>
+        <span data-fr="Si♭ mineur" data-es="Si♭ menor">Si♭ mineur</span>
+      </div>
+    </div>
+    <div class="hero-side">
+      <span data-fr="Référence" data-es="Referencia">Référence</span>
+      <div class="num">07</div>
+    </div>
+  </div>
+
+  <!-- VIDEO YOUTUBE -->
+  <section class="section-block">
+    <h2 class="section-title"><span data-fr="Vidéo originale" data-es="Vídeo original">Vidéo originale</span></h2>
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube-nocookie.com/embed/iSRbINhFqGE" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <!-- AUDIOS -->
+  <section class="section-block">
+    <h2 class="section-title"><span data-fr="Audios" data-es="Audios">Audios</span></h2>
+
+    <div class="audio-block">
+      <div class="audio-label">
+        <span data-fr="Audio original" data-es="Audio original">Audio original</span>
+        <span class="audio-source" id="src-original-this-place-hotel"></span>
+      </div>
+      <div class="audio-placeholder"><span data-fr="Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_SAY_SAY_SAY" data-es="Audio próximamente — placeholder: #REMPLACER_AUDIO_ORIGINAL_SAY_SAY_SAY">Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_SAY_SAY_SAY</span></div>
+    </div>
+
+    <div class="audio-block">
+      <div class="audio-label">
+        <span data-fr="Audio original" data-es="Audio original">Audio original</span>
+      </div>
+      <div class="audio-placeholder"><span data-fr="Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_SAY_SAY_SAY" data-es="Audio próximamente — placeholder: #REMPLACER_AUDIO_ORIGINAL_SAY_SAY_SAY">Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_SAY_SAY_SAY</span></div>
+    </div>
+
+    <div class="audio-block">
+      <div class="audio-label">
+        <span data-fr="Audio répétition" data-es="Audio del ensayo">Audio répétition</span>
+      </div>
+      <div class="audio-placeholder"><span data-fr="Audio à venir — placeholder : #REMPLACER_AUDIO_REPETITION_SAY_SAY_SAY" data-es="Audio próximamente — placeholder: #REMPLACER_AUDIO_REPETITION_SAY_SAY_SAY">Audio à venir — placeholder : #REMPLACER_AUDIO_REPETITION_SAY_SAY_SAY</span></div>
+    </div>
+  </section>
+
+  <!-- PARTITIONS -->
+  <section class="section-block">
+    <h2 class="section-title"><span data-fr="Partitions" data-es="Partituras">Partitions</span></h2>
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('guitare',this)"><span data-fr="Guitare" data-es="Guitarra">Guitare</span></button>
+      <button class="tab" onclick="switchTab('basse',this)"><span data-fr="Basse" data-es="Bajo">Basse</span></button>
+      <button class="tab" onclick="switchTab('chant',this)"><span data-fr="Chant" data-es="Voz">Chant</span></button>
+      <button class="tab" onclick="switchTab('batterie',this)"><span data-fr="Batterie" data-es="Batería">Batterie</span></button>
+      <button class="tab" onclick="switchTab('clavier',this)"><span data-fr="Clavier" data-es="Teclado">Clavier</span></button>
+    </div>
+
+    <div class="tab-content active" id="tab-guitare"><div class="pdf-empty"><span data-fr="Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_SAY_SAY_SAY" data-es="Partitura Guitarra próximamente — placeholder: #REMPLACER_PDF_GUITARE_SAY_SAY_SAY">Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_SAY_SAY_SAY</span></div></div>
+    <div class="tab-content" id="tab-basse"><div class="pdf-empty"><span data-fr="Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_SAY_SAY_SAY" data-es="Partitura Bajo próximamente — placeholder: #REMPLACER_PDF_BASSE_SAY_SAY_SAY">Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_SAY_SAY_SAY</span></div></div>
+    <div class="tab-content" id="tab-chant"><div class="pdf-empty"><span data-fr="Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_SAY_SAY_SAY" data-es="Partitura Voz próximamente — placeholder: #REMPLACER_PDF_CHANT_SAY_SAY_SAY">Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_SAY_SAY_SAY</span></div></div>
+    <div class="tab-content" id="tab-batterie"><div class="pdf-empty"><span data-fr="Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_SAY_SAY_SAY" data-es="Partitura Batería próximamente — placeholder: #REMPLACER_PDF_BATTERIE_SAY_SAY_SAY">Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_SAY_SAY_SAY</span></div></div>
+    <div class="tab-content" id="tab-clavier"><div class="pdf-empty"><span data-fr="Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_SAY_SAY_SAY" data-es="Partitura Teclado próximamente — placeholder: #REMPLACER_PDF_CLAVIER_SAY_SAY_SAY">Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_SAY_SAY_SAY</span></div></div>
+  </section>
+
+</main>
+
+<script>
+const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
+if(sessionStorage.getItem('atelier-auth')!=='1'){
+  window.location.href='index.html';
+}
+
+/* TRADUCTION */
+let currentLang=localStorage.getItem('atelier-lang')||'fr';
+function applyLang(){
+  document.querySelectorAll('[data-fr]').forEach(el=>{
+    const hasChild=el.querySelector('[data-fr]');
+    if(!hasChild) el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;
+  });
+  const btn=document.getElementById('lang-toggle');
+  if(btn) btn.textContent=(currentLang==='fr')?'ES':'FR';
+  document.documentElement.lang=currentLang;
+}
+function toggleLang(){
+  currentLang=(currentLang==='fr')?'es':'fr';
+  localStorage.setItem('atelier-lang',currentLang);
+  applyLang();
+}
+
+/* TABS PARTITIONS */
+function switchTab(name,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+/* VITESSE AUDIO */
+function setSpeed(audioId, speed, btn){
+  const audio=document.getElementById(audioId);
+  if(!audio) return;
+  audio.playbackRate=speed;
+  // Mettre à jour les boutons du même groupe
+  btn.parentElement.querySelectorAll('.audio-speed').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+applyLang();
+</script>
+
+</body>
+</html>
