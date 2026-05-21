@@ -578,10 +578,10 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
     <div class="concert-hero" id="concert-countdown">
       <div class="concert-ticker">
         <div class="concert-ticker-track">
-          <span><span class="star">✱</span> Prochain concert · 26 juin 2026 · 5 répétitions à venir</span>
+          <span><span class="star">✱</span> Prochain concert · 26 juin 2026 · Extérieur Chelles · 5 répétitions à venir</span>
           <span><span class="star">✱</span> Setlist · Worth It · Still a Friend · Easy Lover</span>
           <span><span class="star">✱</span> Conservatoire Jacques Higelin · Chelles · FR</span>
-          <span><span class="star">✱</span> Prochain concert · 26 juin 2026 · 5 répétitions à venir</span>
+          <span><span class="star">✱</span> Prochain concert · 26 juin 2026 · Extérieur Chelles · 5 répétitions à venir</span>
           <span><span class="star">✱</span> Setlist · Worth It · Still a Friend · Easy Lover</span>
           <span><span class="star">✱</span> Conservatoire Jacques Higelin · Chelles · FR</span>
         </div>
@@ -589,8 +589,8 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
       <div class="concert-body">
         <div class="concert-cell">
           <span class="lbl" data-fr="Prochain concert" data-es="Próximo concierto">Prochain concert</span>
-          <span class="val" data-fr="Lieu à confirmer" data-es="Lugar por confirmar">Lieu à confirmer</span>
-          <span class="sub">26.06.2026 · <span data-fr="heure à déterminer" data-es="hora por determinar">heure à déterminer</span></span>
+          <span class="val" data-fr="Extérieur · Ville de Chelles" data-es="Exterior · Ciudad de Chelles">Extérieur · Ville de Chelles</span>
+          <span class="sub">26.06.2026 · <span data-fr="balances 18h00 — 18h30" data-es="pruebas 18h00 — 18h30">balances 18h00 — 18h30</span></span>
         </div>
         <div class="concert-cell concert-jminus">
           <span class="lbl" data-fr="Compte à rebours" data-es="Cuenta regresiva">Compte à rebours</span>
@@ -760,6 +760,24 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
           </div>
         </a>
 
+        <a class="morceau-card" href="heyoka-chelles.html" data-added="2026-05-21">
+          <span class="num">N° 08</span>
+          <div class="morceau-thumb" style="background:linear-gradient(135deg,#E8DCF5 0%,#B89AD8 100%);">
+            <div class="morceau-thumb-play"></div>
+            <div class="morceau-thumb-title">Heyoka<br>Chelles</div>
+          </div>
+          <div class="morceau-info">
+            <div class="morceau-artist"><span data-fr="Composition Frank Gervais" data-es="Composición Frank Gervais">Composition Frank Gervais</span></div>
+            <div class="morceau-name">Heyoka Chelles</div>
+            <div class="morceau-musical">
+              <span data-fr="Création L'Atelier" data-es="Creación L'Atelier">Création L'Atelier</span>
+            </div>
+            <div class="morceau-chips">
+              <span class="chip chip-audio">Audio</span>
+            </div>
+          </div>
+        </a>
+
       </div>
     </section>
 
@@ -788,11 +806,15 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
           </div>
           <div class="event-body">
             <div class="event-name"><span data-fr="Concert" data-es="Concierto">Concert</span></div>
-            <div class="event-lieu" data-fr="Lieu à confirmer" data-es="Lugar por confirmar">Lieu à confirmer</div>
+            <div class="event-lieu" data-fr="Extérieur · Ville de Chelles" data-es="Exterior · Ciudad de Chelles">Extérieur · Ville de Chelles</div>
           </div>
           <span class="event-badge concert">Concert</span>
           <div class="event-extra">
-            <div class="event-cta-row">
+            <div class="event-extra-lbl" data-fr="Balances" data-es="Pruebas de sonido">Balances</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.7;margin-top:.2rem;">
+              <span data-fr="Balances prévues entre 18h00 et 18h30 sur place" data-es="Pruebas de sonido previstas entre 18h00 y 18h30 in situ">Balances prévues entre 18h00 et 18h30 sur place</span>
+            </div>
+            <div class="event-cta-row" style="margin-top:.7rem;">
               <button class="event-cta primary" onclick="downloadConcertICS()"><span data-fr="Ajouter au calendrier" data-es="Añadir al calendario">Ajouter au calendrier</span> ↓</button>
             </div>
           </div>
@@ -896,7 +918,10 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
       </div>
       <div class="videos-grid">
         <div class="video-card">
-          <iframe class="video-embed" src="https://drive.google.com/file/d/178QPiqw-zgJxyLyuZACwCyzac3HxYK5n/preview" title="Live · L'Atelier #03" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          <video class="video-native" controls preload="none" poster="poster-live-03.png">
+            <source src="https://www.dropbox.com/scl/fi/2fzb0hm9fqompc1zo77b2/concert-du-20-mai.mov?rlkey=bnhtzartx8bsrlu2i71he0k33&raw=1" type="video/quicktime">
+            <source src="https://www.dropbox.com/scl/fi/2fzb0hm9fqompc1zo77b2/concert-du-20-mai.mov?rlkey=bnhtzartx8bsrlu2i71he0k33&raw=1" type="video/mp4">
+          </video>
           <div class="video-info">
             <div>
               <div class="video-title">Live · L'Atelier #03</div>
@@ -906,7 +931,7 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
           </div>
         </div>
         <div class="video-card">
-          <video class="video-native" controls preload="none">
+          <video class="video-native" controls preload="none" poster="poster-live-02.png">
             <source src="https://www.dropbox.com/scl/fi/cp63o33qednwlc4f6kdj6/9d213374-893f-4e80-946e-237d6b55f31d.MP4?rlkey=qqx6hnocmf759n980noacnvi8&raw=1" type="video/mp4">
           </video>
           <div class="video-info">
@@ -918,7 +943,7 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
           </div>
         </div>
         <div class="video-card">
-          <video class="video-native" controls preload="none">
+          <video class="video-native" controls preload="none" poster="poster-live-01.png">
             <source src="https://www.dropbox.com/scl/fi/93mt8e36zv24agyisneqj/ae8c3b56-692e-4795-9318-697efeec674c.MP4?rlkey=0huavlqdd1256gark1xjq9s05&raw=1" type="video/mp4">
           </video>
           <div class="video-info">
@@ -1236,8 +1261,8 @@ function downloadConcertICS(){
     'DTSTART;VALUE=DATE:20260626',
     'DTEND;VALUE=DATE:20260627',
     "SUMMARY:Concert L'Atelier — 26 juin 2026",
-    'LOCATION:Chelles\\, France',
-    "DESCRIPTION:Concert de L'Atelier.\\nLieu et horaire à confirmer.",
+    'LOCATION:Extérieur — Ville de Chelles\\, France',
+    "DESCRIPTION:Concert de L'Atelier en extérieur — Ville de Chelles.\\nBalances entre 18h00 et 18h30 sur place.\\nHoraire concert à confirmer.",
     'STATUS:CONFIRMED',
     'BEGIN:VALARM',
     'ACTION:DISPLAY',
