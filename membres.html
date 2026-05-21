@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta name="theme-color" content="#EFEAE0">
+<title>Membres — L'Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="atelier.css">
+<style>
+:root{
+  --accent:#F0511E;
+  --accent-h:#D8400D;
+  --accent-soft:#FFE0CD;
+  --accent-deep:#7A2A0E;
+}
+
+/* ── PAGE MEMBRES ── */
+.members-intro{
+  display:grid;grid-template-columns:1fr;
+  gap:.6rem;padding-bottom:1.1rem;margin-bottom:2rem;
+  border-bottom:1px solid var(--ink);
+}
+.members-eyebrow{
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:.5rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+}
+.members-eyebrow .num{
+  background:var(--ink);color:var(--paper);padding:.18rem .5rem;font-weight:500;letter-spacing:.08em;
+}
+.members-title{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(2.2rem,9vw,3.4rem);line-height:.9;letter-spacing:-.025em;color:var(--ink);
+}
+.members-tagline{
+  font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--muted);
+  margin-top:.4rem;line-height:1.4;
+}
+
+/* ── DIRECTION (Cédric) — bloc d'honneur ── */
+.direction-block{
+  background:var(--accent-soft);
+  border:2px solid var(--ink);
+  padding:1.8rem 1.4rem 1.8rem;margin-bottom:2rem;
+  position:relative;overflow:hidden;
+  box-shadow:6px 6px 0 var(--ink);
+}
+.direction-block::before{
+  content:"";position:absolute;top:-30%;right:-15%;
+  width:55%;height:160%;
+  background:radial-gradient(circle,var(--accent) 0%,transparent 60%);
+  opacity:.22;pointer-events:none;
+}
+.direction-block::after{
+  content:"00";position:absolute;right:1rem;bottom:-2rem;
+  font-family:var(--serif);font-style:italic;
+  font-size:11rem;line-height:1;color:var(--ink);
+  opacity:.08;letter-spacing:-.05em;pointer-events:none;user-select:none;
+}
+.direction-inner{position:relative;z-index:1;}
+.direction-eyebrow{
+  font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent-deep);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem;
+}
+.direction-eyebrow .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;display:inline-block;}
+.direction-name{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(2.4rem,10vw,3.2rem);color:var(--ink);line-height:.95;letter-spacing:-.025em;
+}
+.direction-alias{
+  font-family:var(--mono);font-size:11px;color:var(--ink);letter-spacing:.18em;
+  text-transform:uppercase;margin-top:.8rem;
+}
+.direction-alias b{color:var(--accent-deep);font-weight:500;}
+.direction-instrument{
+  margin-top:1.2rem;padding-top:1rem;
+  border-top:1px solid rgba(20,17,12,.2);
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink);display:flex;align-items:center;gap:.55rem;font-weight:500;
+}
+.direction-instrument .ico{display:inline-flex;align-items:center;color:var(--accent-deep);flex-shrink:0;}
+.direction-instrument .ico svg{display:block;}
+
+@media(min-width:768px){
+  .direction-block{padding:2.4rem 2.4rem 2.6rem;box-shadow:8px 8px 0 var(--ink);}
+  .direction-name{font-size:clamp(2.8rem,7vw,4rem);}
+  .direction-block::after{font-size:18rem;right:2rem;bottom:-4rem;}
+}
+
+/* ── SECTIONS ── */
+.section-members{
+  background:var(--paper-3);border:1px solid var(--ink);
+  padding:1.2rem 1rem 1.3rem;margin-bottom:1.2rem;
+}
+.section-members-title{
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem;font-weight:500;
+}
+.section-members-title::before{
+  content:"";width:14px;height:1px;background:var(--accent);flex-shrink:0;
+}
+.section-members-title::after{content:"";flex:1;height:1px;background:var(--line);margin-left:.4rem;}
+.section-members-title .count{
+  background:var(--ink);color:var(--paper);padding:.1rem .45rem;font-weight:500;letter-spacing:.08em;
+}
+
+.members-list{
+  display:grid;grid-template-columns:1fr;gap:0;
+}
+.member-row{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:.85rem 0;border-bottom:1px solid var(--line);
+  gap:1rem;
+}
+.member-row:last-child{border-bottom:none;}
+.member-name{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:1.4rem;color:var(--ink);line-height:1;letter-spacing:-.01em;
+}
+.member-role{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;text-align:right;flex-shrink:0;
+  display:inline-flex;align-items:center;gap:.45rem;
+}
+.member-role .ico{display:inline-flex;align-items:center;color:var(--accent);flex-shrink:0;}
+.member-role .ico svg{display:block;}
+
+/* ── STATS ── */
+.members-stats{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
+  background:var(--ink);border:1px solid var(--ink);margin-top:2rem;
+}
+.members-stat{background:var(--paper-3);padding:1.2rem 1rem;text-align:center;}
+.members-stat-num{
+  font-family:var(--serif);font-style:italic;font-size:2.4rem;color:var(--ink);
+  line-height:1;letter-spacing:-.02em;
+}
+.members-stat-lbl{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);margin-top:.4rem;
+}
+
+/* ── DESKTOP ── */
+@media(min-width:768px){
+  .members-intro{
+    grid-template-columns:1fr auto;align-items:end;
+    gap:2rem;padding-bottom:1.25rem;margin-bottom:2rem;
+  }
+  .members-eyebrow{font-size:11px;letter-spacing:.22em;gap:.7rem;}
+  .members-title{font-size:clamp(2.8rem,7vw,5rem);line-height:.85;}
+  .members-tagline{text-align:right;}
+
+  .section-members{padding:1.6rem 1.8rem 1.8rem;margin-bottom:1.5rem;}
+  .section-members-title{font-size:11px;letter-spacing:.22em;gap:.7rem;}
+
+  .members-list{grid-template-columns:repeat(2,1fr);column-gap:2.5rem;}
+  .members-stats{grid-template-columns:repeat(4,1fr);}
+  .members-stat{padding:1.4rem 1rem;}
+}
+</style>
+</head>
+<body>
+
+<header class="atelier-header">
+  <a class="header-logo" href="index.html">
+    L'Atelier<span class="tick">private</span>
+  </a>
+  <div class="header-actions">
+    <a class="btn-back" href="index.html"><span data-fr="← Accueil" data-es="← Inicio">← Accueil</span></a>
+    <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
+  </div>
+</header>
+
+<main class="atelier-main">
+
+  <!-- INTRO -->
+  <div class="members-intro">
+    <div>
+      <div class="members-eyebrow">
+        <span class="num accent">04</span>
+        <span data-fr="L'Atelier · Membres" data-es="L'Atelier · Miembros">L'Atelier · Membres</span>
+      </div>
+      <h1 class="members-title"><span data-fr="Les voix" data-es="Las voces">Les voix</span><span class="pt">.</span></h1>
+    </div>
+    <div class="members-tagline">
+      <span data-fr="Dix musiciens, un groove" data-es="Diez músicos, un solo groove">Dix musiciens, un groove</span>
+    </div>
+  </div>
+
+  <!-- DIRECTION -->
+  <div class="direction-block">
+    <div class="direction-inner">
+      <div class="direction-eyebrow">
+        <span class="dot"></span>
+        <span data-fr="Direction de l'atelier" data-es="Dirección del taller">Direction de l'atelier</span>
+      </div>
+      <div class="direction-name">Cédric</div>
+      <div class="direction-alias">
+        <span data-fr="Alias" data-es="Alias">Alias</span> <b>· El Jefe ·</b>
+      </div>
+      <div class="direction-instrument">
+        <span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg></span>
+        <span data-fr="Saxophone ténor" data-es="Saxofón tenor">Saxophone ténor</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOIX -->
+  <section class="section-members">
+    <h2 class="section-members-title">
+      <span data-fr="Chant" data-es="Voz">Chant</span>
+      <span class="count">04</span>
+    </h2>
+    <div class="members-list">
+      <div class="member-row">
+        <span class="member-name">Larose</span>
+        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
+      </div>
+      <div class="member-row">
+        <span class="member-name">Marine</span>
+        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
+      </div>
+      <div class="member-row">
+        <span class="member-name">Patricia</span>
+        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
+      </div>
+      <div class="member-row">
+        <span class="member-name">Theythey</span>
+        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAXOPHONE -->
+  <section class="section-members">
+    <h2 class="section-members-title">
+      <span data-fr="Saxophone" data-es="Saxofón">Saxophone</span>
+      <span class="count">01</span>
+    </h2>
+    <div class="members-list">
+      <div class="member-row">
+        <span class="member-name">Jean-Marc</span>
+        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg></span><span data-fr="Saxophone ténor" data-es="Saxofón tenor">Saxophone ténor</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUITARES -->
+  <section class="section-members">
+    <h2 class="section-members-title">
+      <span data-fr="Guitares" data-es="Guitarras">Guitares</span>
+      <span class="count">02</span>
+    </h2>
+    <div class="members-list">
+      <div class="member-row">
+        <span class="member-name">Patrice</span>
+        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="18" r="4"/><path d="M12 18V2l7 4"/></svg></span><span data-fr="Guitare" data-es="Guitarra">Guitare</span></span>
+      </div>
+      <div class="member-row">
+        <span class="member-name">Nico</span>
+        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="18" r="4"/><path d="M12 18V2l7 4"/></svg></span><span data-fr="Guitare" data-es="Guitarra">Guitare</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLAVIER -->
+  <section class="section-members">
+    <h2 class="section-members-title">
+      <span data-fr="Clavier" data-es="Teclado">Clavier</span>
+      <span class="count">01</span>
+    </h2>
+    <div class="members-list">
+      <div class="member-row">
+        <span class="member-name">Pablo</span>
+        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.7 16.62A1 1 0 0 0 22 16V4a1 1 0 0 0-1-1h-7a1 1 0 0 0-.95.68l-.85 2.55a1 1 0 0 1-1.9 0L9.45 3.68A1 1 0 0 0 8.5 3H3a1 1 0 0 0-1 1v12a1 1 0 0 0 .3.7l8.5 8.5a1 1 0 0 0 1.4 0Z"/></svg></span><span data-fr="Clavier" data-es="Teclado">Clavier</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BASSE -->
+  <section class="section-members">
+    <h2 class="section-members-title">
+      <span data-fr="Basse" data-es="Bajo">Basse</span>
+      <span class="count">01</span>
+    </h2>
+    <div class="members-list">
+      <div class="member-row">
+        <span class="member-name">Nata</span>
+        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="4"/><path d="M16 18V2"/></svg></span><span data-fr="Basse" data-es="Bajo">Basse</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BATTERIE -->
+  <section class="section-members">
+    <h2 class="section-members-title">
+      <span data-fr="Batterie" data-es="Batería">Batterie</span>
+      <span class="count">01</span>
+    </h2>
+    <div class="members-list">
+      <div class="member-row">
+        <span class="member-name">Shams</span>
+        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 2 8 8"/><path d="m22 2-8 8"/><ellipse cx="12" cy="9" rx="10" ry="5"/><path d="M7 13.4v7.9"/><path d="M12 14v8"/><path d="M17 13.4v7.9"/><path d="M2 9v8a10 5 0 0 0 20 0V9"/></svg></span><span data-fr="Batterie" data-es="Batería">Batterie</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="members-stats">
+    <div class="members-stat">
+      <div class="members-stat-num">11</div>
+      <div class="members-stat-lbl" data-fr="Musiciens" data-es="Músicos">Musiciens</div>
+    </div>
+    <div class="members-stat">
+      <div class="members-stat-num">4</div>
+      <div class="members-stat-lbl" data-fr="Voix" data-es="Voces">Voix</div>
+    </div>
+    <div class="members-stat">
+      <div class="members-stat-num">7</div>
+      <div class="members-stat-lbl" data-fr="Instruments" data-es="Instrumentos">Instruments</div>
+    </div>
+    <div class="members-stat">
+      <div class="members-stat-num">1</div>
+      <div class="members-stat-lbl" data-fr="Atelier" data-es="Taller">Atelier</div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
+if(sessionStorage.getItem('atelier-auth')!=='1'){
+  window.location.href='index.html';
+}
+
+/* TRADUCTION */
+let currentLang=localStorage.getItem('atelier-lang')||'fr';
+function applyLang(){
+  document.querySelectorAll('[data-fr]').forEach(el=>{
+    const hasChild=el.querySelector('[data-fr]');
+    if(!hasChild) el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;
+  });
+  const btn=document.getElementById('lang-toggle');
+  if(btn) btn.textContent=(currentLang==='fr')?'ES':'FR';
+  document.documentElement.lang=currentLang;
+}
+function toggleLang(){
+  currentLang=(currentLang==='fr')?'es':'fr';
+  localStorage.setItem('atelier-lang',currentLang);
+  applyLang();
+}
+applyLang();
+</script>
+
+</body>
+</html>
