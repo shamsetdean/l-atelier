@@ -408,9 +408,18 @@ main{max-width:1180px;margin:0 auto;padding:2.5rem 2rem 4rem;}
 .videos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:var(--ink);border:1px solid var(--ink);}
 .video-card{background:var(--paper-3);overflow:hidden;}
 .video-embed,.video-native{width:100%;aspect-ratio:16/9;border:none;display:block;background:var(--ink-2);}
-.video-info{padding:.9rem 1rem 1rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+.video-info{padding:.9rem 1rem .7rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
 .video-title{font-family:var(--serif);font-style:italic;font-size:1.2rem;line-height:1.1;color:var(--ink);}
 .video-subtitle{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--muted);margin-top:.35rem;line-height:1.5;}
+.video-actions{padding:.5rem 1rem 1rem;border-top:1px solid var(--line-soft);margin-top:.3rem;display:flex;gap:.5rem;}
+.video-dl{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink);border:1px solid var(--ink);background:transparent;
+  padding:.45rem .8rem;font-weight:500;text-decoration:none;
+  display:inline-flex;align-items:center;gap:.3rem;transition:all .15s;border-radius:0;
+  min-height:36px;
+}
+.video-dl:hover{background:var(--ink);color:var(--paper);}
 .video-tag{
   font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
   padding:.22rem .5rem;border:1px solid;font-weight:500;flex-shrink:0;
@@ -603,8 +612,7 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
           <div class="cc-jminus-label" data-fr="répétitions" data-es="ensayos">répétitions</div>
         </div>
         <div class="concert-cell concert-actions">
-          <a href="setlist.html" class="cc-btn cc-btn-primary"><span data-fr="Voir la setlist" data-es="Ver setlist">Voir la setlist</span><span class="arr">→</span></a>
-          <button class="cc-btn cc-btn-secondary" onclick="downloadConcertICS()"><span data-fr="Ajouter au calendrier" data-es="Añadir al calendario">Ajouter au calendrier</span><span class="arr">↓</span></button>
+          <button class="cc-btn cc-btn-primary" onclick="downloadConcertICS()"><span data-fr="Ajouter au calendrier" data-es="Añadir al calendario">Ajouter au calendrier</span><span class="arr">↓</span></button>
         </div>
       </div>
     </div>
@@ -929,6 +937,9 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
             </div>
             <span class="video-tag live" style="color:#E53935;background:#FFE8E8;border-color:#E53935;">Live</span>
           </div>
+          <div class="video-actions">
+            <a href="https://www.dropbox.com/scl/fi/2fzb0hm9fqompc1zo77b2/concert-du-20-mai.mov?rlkey=bnhtzartx8bsrlu2i71he0k33&dl=1" class="video-dl"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
+          </div>
         </div>
         <div class="video-card">
           <video class="video-native" controls preload="none" poster="poster-live-02.png">
@@ -941,6 +952,9 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
             </div>
             <span class="video-tag live" style="color:#E53935;background:#FFE8E8;border-color:#E53935;">Live</span>
           </div>
+          <div class="video-actions">
+            <a href="https://www.dropbox.com/scl/fi/cp63o33qednwlc4f6kdj6/9d213374-893f-4e80-946e-237d6b55f31d.MP4?rlkey=qqx6hnocmf759n980noacnvi8&dl=1" class="video-dl"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
+          </div>
         </div>
         <div class="video-card">
           <video class="video-native" controls preload="none" poster="poster-live-01.png">
@@ -952,6 +966,9 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
               <div class="video-subtitle">Say Say Say</div>
             </div>
             <span class="video-tag live" style="color:#E53935;background:#FFE8E8;border-color:#E53935;">Live</span>
+          </div>
+          <div class="video-actions">
+            <a href="https://www.dropbox.com/scl/fi/93mt8e36zv24agyisneqj/ae8c3b56-692e-4795-9318-697efeec674c.MP4?rlkey=0huavlqdd1256gark1xjq9s05&dl=1" class="video-dl"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
           </div>
         </div>
       </div>
