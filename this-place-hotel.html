@@ -16,6 +16,22 @@
   --accent-soft:#F0DDE8;
   --accent-deep:#33172A;
 }
+
+.tuto-grid{display:grid;grid-template-columns:1fr;gap:1.2rem;}
+.tuto-card{background:var(--paper);border:1px solid var(--ink);overflow:hidden;}
+.tuto-header{
+  padding:.7rem 1rem;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:.5rem;
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink);font-weight:500;
+}
+.tuto-ico{display:inline-flex;align-items:center;color:var(--accent);flex-shrink:0;}
+.tuto-ico svg{display:block;}
+.tuto-video-wrapper{position:relative;width:100%;padding-bottom:56.25%;background:var(--ink-2);}
+.tuto-video-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+@media(min-width:768px){
+  .tuto-grid{grid-template-columns:repeat(2,1fr);gap:1.4rem;}
+}
 </style>
 </head>
 <body>
@@ -115,6 +131,22 @@
         <button class="audio-speed active" onclick="setSpeed('audio-repet-16avril-this-place-hotel',1,this)">1×</button>
         <button class="audio-speed" onclick="setSpeed('audio-repet-16avril-this-place-hotel',1.25,this)">1.25×</button>
         <a href="https://www.dropbox.com/scl/fi/r1vayuyl5yw3ro4lm0sx9/this-place-hotel-16-avril.mp3?rlkey=9zv6pgw05xae9ugg4fgmwbvta&dl=1" class="pdf-btn" style="margin-left:auto;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
+      </div>
+    </div>
+  </section>
+
+    <!-- TUTOS -->
+  <section class="section-block">
+    <h2 class="section-title"><span data-fr="Tutos" data-es="Tutoriales">Tutos</span></h2>
+    <div class="tuto-grid">
+      <div class="tuto-card">
+        <div class="tuto-header">
+          <span class="tuto-ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 2 8 8"/><path d="m22 2-8 8"/><ellipse cx="12" cy="9" rx="10" ry="5"/><path d="M7 13.4v7.9"/><path d="M12 14v8"/><path d="M17 13.4v7.9"/><path d="M2 9v8a10 5 0 0 0 20 0V9"/></svg></span>
+          <span class="tuto-label" data-fr="Tuto batterie" data-es="Tutorial batería">Tuto batterie</span>
+        </div>
+        <div class="tuto-video-wrapper">
+          <iframe src="https://www.youtube-nocookie.com/embed/7b8fxUxhGs4" title="Tuto batterie" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>
       </div>
     </div>
   </section>
