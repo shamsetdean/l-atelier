@@ -200,9 +200,19 @@ header{
 .header-logo{
   font-family:var(--serif);font-style:italic;font-weight:400;
   font-size:2rem;color:var(--ink);cursor:pointer;letter-spacing:-.02em;line-height:1;
-  display:flex;align-items:baseline;gap:.4rem;
+  display:inline-flex;align-items:center;gap:.4rem;
+  position:relative;padding-left:3rem;
 }
+.header-logo::before{
+  content:"";position:absolute;left:-.5rem;top:50%;transform:translateY(-50%);
+  width:3.2rem;height:3.2rem;
+  background:url('apple-touch-icon.png') center/contain no-repeat;
+  opacity:.55;z-index:0;pointer-events:none;
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.08));
+}
+.header-logo > *{position:relative;z-index:1;}
 .header-logo:hover{color:var(--groove);}
+.header-logo:hover::before{opacity:.85;transition:opacity .2s;}
 .header-logo .tick{font-family:var(--mono);font-style:normal;font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;}
 .header-nav{display:flex;list-style:none;gap:0;align-items:center;}
 .header-nav button,.header-nav .nav-link{
@@ -555,6 +565,39 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
   .login-topbar .left span:nth-child(2){display:none;}
 }
 @media(min-width:641px){.mobile-nav{display:none;}}
+/* ════════════════════════════════════════════════════════════════
+   BOUCLE A↔B — panneau de contrôle pour audio/video
+   Inséré automatiquement par loop-ab.js
+   ════════════════════════════════════════════════════════════════ */
+.ab-loop-panel{
+  display:flex;gap:.35rem;margin-top:.55rem;flex-wrap:wrap;align-items:stretch;
+}
+.ab-btn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.4rem .65rem;background:var(--paper-3);border:1px solid var(--ink);
+  font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--ink);
+  font-weight:500;cursor:pointer;transition:all .15s;border-radius:0;
+  min-height:36px;
+}
+.ab-btn:hover:not(:disabled){background:var(--accent-soft);}
+.ab-btn:disabled{opacity:.4;cursor:not-allowed;}
+.ab-btn .ab-label{
+  letter-spacing:.1em;text-transform:uppercase;font-weight:600;font-size:10px;
+}
+.ab-btn .ab-time{
+  font-size:10px;letter-spacing:.04em;color:var(--muted);
+  font-variant-numeric:tabular-nums;
+}
+.ab-btn.set{background:var(--accent-soft);border-color:var(--accent);}
+.ab-btn.set .ab-time{color:var(--accent-deep);font-weight:500;}
+.ab-btn.set .ab-label{color:var(--accent-deep);}
+.ab-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.ab-btn.active .ab-label,.ab-btn.active .ab-time{color:var(--paper);}
+.ab-btn svg{flex-shrink:0;}
+.ab-clear{padding:.4rem .55rem;}
+
+/* Panneau sur fond sombre (vidéos lives sur fond noir) */
+.video-card .ab-loop-panel{padding:0 1rem 1rem;}
 </style>
 </head>
 <body>

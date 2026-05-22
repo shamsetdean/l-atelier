@@ -59,9 +59,19 @@ header.atelier-header{
 .header-logo{
   font-family:var(--serif);font-style:italic;font-weight:400;
   font-size:1.5rem;color:var(--ink);cursor:pointer;letter-spacing:-.02em;line-height:1;
-  display:flex;align-items:baseline;gap:.4rem;text-decoration:none;flex-shrink:0;
+  display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;flex-shrink:0;
+  position:relative;padding-left:2.4rem;
 }
+.header-logo::before{
+  content:"";position:absolute;left:-.4rem;top:50%;transform:translateY(-50%);
+  width:2.6rem;height:2.6rem;
+  background:url('apple-touch-icon.png') center/contain no-repeat;
+  opacity:.55;z-index:0;pointer-events:none;
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.08));
+}
+.header-logo > *{position:relative;z-index:1;}
 .header-logo:hover{color:var(--accent);}
+.header-logo:hover::before{opacity:.85;transition:opacity .2s;}
 .header-logo .tick{
   font-family:var(--mono);font-style:normal;font-size:9px;letter-spacing:.16em;
   color:var(--muted);text-transform:uppercase;display:none;
@@ -334,7 +344,7 @@ audio::-webkit-media-controls-panel{background:var(--paper);}
 }
 .ab-btn{
   display:inline-flex;align-items:center;gap:.4rem;
-  padding:.4rem .65rem;background:var(--paper);border:1px solid var(--ink);
+  padding:.4rem .65rem;background:var(--paper-3);border:1px solid var(--ink);
   font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--ink);
   font-weight:500;cursor:pointer;transition:all .15s;border-radius:0;
   min-height:36px;
@@ -348,7 +358,7 @@ audio::-webkit-media-controls-panel{background:var(--paper);}
   font-size:10px;letter-spacing:.04em;color:var(--muted);
   font-variant-numeric:tabular-nums;
 }
-.ab-btn.set{background:var(--accent-soft);}
+.ab-btn.set{background:var(--accent-soft);border-color:var(--accent);}
 .ab-btn.set .ab-time{color:var(--accent-deep);font-weight:500;}
 .ab-btn.set .ab-label{color:var(--accent-deep);}
 .ab-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
@@ -356,6 +366,13 @@ audio::-webkit-media-controls-panel{background:var(--paper);}
 .ab-btn svg{flex-shrink:0;}
 .ab-clear{padding:.4rem .55rem;}
 
-/* Sur fond clair de page index */
-.audio-block .ab-btn,
-.event-extra .ab-btn{background:var(--paper);}
+/* Le panneau A↔B est identique sur toutes les pages — pas d'override par contexte */
+
+/* ── INDICATEUR PARTITION DISPONIBLE SUR ONGLETS ── */
+.tab.has-pdf{position:relative;}
+.tab.has-pdf::after{
+  content:"";position:absolute;top:.5rem;right:.55rem;
+  width:6px;height:6px;border-radius:50%;
+  background:#2D7D4F;box-shadow:0 0 0 1.5px var(--paper);
+}
+.tab.has-pdf.active::after{background:var(--accent);box-shadow:0 0 0 1.5px var(--ink);}

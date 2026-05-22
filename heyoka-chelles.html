@@ -71,11 +71,11 @@
     </div>
   </div>
 
-  <!-- VIDEO YOUTUBE -->
+  <!-- VIDEO — pas de référence pour cette création originale -->
   <section class="section-block">
-    <h2 class="section-title"><span data-fr="Vidéo originale" data-es="Vídeo original">Vidéo originale</span></h2>
-    <div class="video-wrapper">
-      <iframe src="https://www.youtube-nocookie.com/embed/RRhY8A-OAgc" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <h2 class="section-title"><span data-fr="Vidéo" data-es="Vídeo">Vidéo</span></h2>
+    <div class="video-empty">
+      <span data-fr="Vidéo non disponible — Heyoka Chelles est une composition originale de Frank Gervais, créée par L'Atelier." data-es="Vídeo no disponible — Heyoka Chelles es una composición original de Frank Gervais, creada por L'Atelier.">Vidéo non disponible — Heyoka Chelles est une composition originale de Frank Gervais, créée par L'Atelier.</span>
     </div>
   </section>
 
@@ -175,5 +175,32 @@ applyLang();
 </script>
 
 <script src="loop-ab.js" defer></script>
+<script>
+/* Indicateur partition disponible sur les onglets */
+(function(){
+  function markTabs(){
+    var tabs = document.querySelectorAll('.tab');
+    tabs.forEach(function(tab){
+      var onclick = tab.getAttribute('onclick') || '';
+      var match = onclick.match(/switchTab\(['"]([^'"]+)['"]/);
+      if(!match) return;
+      var name = match[1];
+      var content = document.getElementById('tab-' + name);
+      if(!content) return;
+      var isEmpty = content.querySelector('.pdf-empty') !== null;
+      if(!isEmpty){
+        tab.classList.add('has-pdf');
+      } else {
+        tab.classList.remove('has-pdf');
+      }
+    });
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', markTabs);
+  } else {
+    markTabs();
+  }
+})();
+</script>
 </body>
 </html>
