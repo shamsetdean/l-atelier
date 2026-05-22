@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<!-- FAVICON & ÉCRAN D'ACCUEIL -->
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512.png">
+
 <meta name="theme-color" content="#FFF8E7">
 <title>Medley Chaka Khan — L'Atelier</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -104,11 +111,81 @@
       <button class="tab" onclick="switchTab('clavier',this)"><span data-fr="Clavier" data-es="Teclado">Clavier</span></button>
     </div>
 
-    <div class="tab-content active" id="tab-guitare"><div class="pdf-empty"><span data-fr="Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_MEDLEY_CHAKA" data-es="Partitura Guitarra próximamente — placeholder: #REMPLACER_PDF_GUITARE_MEDLEY_CHAKA">Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_MEDLEY_CHAKA</span></div></div>
-    <div class="tab-content" id="tab-basse"><div class="pdf-empty"><span data-fr="Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_MEDLEY_CHAKA" data-es="Partitura Bajo próximamente — placeholder: #REMPLACER_PDF_BASSE_MEDLEY_CHAKA">Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_MEDLEY_CHAKA</span></div></div>
-    <div class="tab-content" id="tab-chant"><div class="pdf-empty"><span data-fr="Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_MEDLEY_CHAKA" data-es="Partitura Voz próximamente — placeholder: #REMPLACER_PDF_CHANT_MEDLEY_CHAKA">Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_MEDLEY_CHAKA</span></div></div>
-    <div class="tab-content" id="tab-batterie"><div class="pdf-empty"><span data-fr="Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_MEDLEY_CHAKA" data-es="Partitura Batería próximamente — placeholder: #REMPLACER_PDF_BATTERIE_MEDLEY_CHAKA">Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_MEDLEY_CHAKA</span></div></div>
-    <div class="tab-content" id="tab-clavier"><div class="pdf-empty"><span data-fr="Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_MEDLEY_CHAKA" data-es="Partitura Teclado próximamente — placeholder: #REMPLACER_PDF_CLAVIER_MEDLEY_CHAKA">Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_MEDLEY_CHAKA</span></div></div>
+    <div class="tab-content active" id="tab-guitare"><div class="pdf-frame-wrapper">
+        <object data="https://dl.dropboxusercontent.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&raw=1" type="application/pdf">
+          <div class="pdf-fallback">
+            <span data-fr="Le viewer PDF n'est pas disponible sur cet appareil." data-es="El visor de PDF no está disponible en este dispositivo.">Le viewer PDF n'est pas disponible sur cet appareil.</span>
+            <a href="https://www.dropbox.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&dl=1" class="pdf-btn primary" target="_blank" rel="noopener"><span data-fr="↓ Télécharger PDF" data-es="↓ Descargar PDF">↓ Télécharger PDF</span></a>
+          </div>
+        </object>
+      </div>
+      <div style="font-size:9.5px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-top:.6rem;">
+        <span data-fr="Partition générale · Guitare" data-es="Partitura general · Guitarra">Partition générale · Guitare</span>
+      </div>
+      <div class="pdf-actions">
+        <a href="https://www.dropbox.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&dl=1" class="pdf-btn primary" target="_blank" rel="noopener"><span data-fr="↓ Télécharger PDF" data-es="↓ Descargar PDF">↓ Télécharger PDF</span></a>
+        <a href="https://www.dropbox.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&raw=1" class="pdf-btn" target="_blank" rel="noopener"><span data-fr="↗ Ouvrir dans Dropbox" data-es="↗ Abrir en Dropbox">↗ Ouvrir dans Dropbox</span></a>
+      </div></div>
+    <div class="tab-content" id="tab-basse"><div class="pdf-frame-wrapper">
+        <object data="https://dl.dropboxusercontent.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&raw=1" type="application/pdf">
+          <div class="pdf-fallback">
+            <span data-fr="Le viewer PDF n'est pas disponible sur cet appareil." data-es="El visor de PDF no está disponible en este dispositivo.">Le viewer PDF n'est pas disponible sur cet appareil.</span>
+            <a href="https://www.dropbox.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&dl=1" class="pdf-btn primary" target="_blank" rel="noopener"><span data-fr="↓ Télécharger PDF" data-es="↓ Descargar PDF">↓ Télécharger PDF</span></a>
+          </div>
+        </object>
+      </div>
+      <div style="font-size:9.5px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-top:.6rem;">
+        <span data-fr="Partition générale · Basse" data-es="Partitura general · Bajo">Partition générale · Basse</span>
+      </div>
+      <div class="pdf-actions">
+        <a href="https://www.dropbox.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&dl=1" class="pdf-btn primary" target="_blank" rel="noopener"><span data-fr="↓ Télécharger PDF" data-es="↓ Descargar PDF">↓ Télécharger PDF</span></a>
+        <a href="https://www.dropbox.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&raw=1" class="pdf-btn" target="_blank" rel="noopener"><span data-fr="↗ Ouvrir dans Dropbox" data-es="↗ Abrir en Dropbox">↗ Ouvrir dans Dropbox</span></a>
+      </div></div>
+    <div class="tab-content" id="tab-chant"><div class="pdf-frame-wrapper">
+        <object data="https://dl.dropboxusercontent.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&raw=1" type="application/pdf">
+          <div class="pdf-fallback">
+            <span data-fr="Le viewer PDF n'est pas disponible sur cet appareil." data-es="El visor de PDF no está disponible en este dispositivo.">Le viewer PDF n'est pas disponible sur cet appareil.</span>
+            <a href="https://www.dropbox.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&dl=1" class="pdf-btn primary" target="_blank" rel="noopener"><span data-fr="↓ Télécharger PDF" data-es="↓ Descargar PDF">↓ Télécharger PDF</span></a>
+          </div>
+        </object>
+      </div>
+      <div style="font-size:9.5px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-top:.6rem;">
+        <span data-fr="Partition générale · Chant" data-es="Partitura general · Voz">Partition générale · Chant</span>
+      </div>
+      <div class="pdf-actions">
+        <a href="https://www.dropbox.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&dl=1" class="pdf-btn primary" target="_blank" rel="noopener"><span data-fr="↓ Télécharger PDF" data-es="↓ Descargar PDF">↓ Télécharger PDF</span></a>
+        <a href="https://www.dropbox.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&raw=1" class="pdf-btn" target="_blank" rel="noopener"><span data-fr="↗ Ouvrir dans Dropbox" data-es="↗ Abrir en Dropbox">↗ Ouvrir dans Dropbox</span></a>
+      </div></div>
+    <div class="tab-content" id="tab-batterie"><div class="pdf-frame-wrapper">
+        <object data="https://dl.dropboxusercontent.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&raw=1" type="application/pdf">
+          <div class="pdf-fallback">
+            <span data-fr="Le viewer PDF n'est pas disponible sur cet appareil." data-es="El visor de PDF no está disponible en este dispositivo.">Le viewer PDF n'est pas disponible sur cet appareil.</span>
+            <a href="https://www.dropbox.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&dl=1" class="pdf-btn primary" target="_blank" rel="noopener"><span data-fr="↓ Télécharger PDF" data-es="↓ Descargar PDF">↓ Télécharger PDF</span></a>
+          </div>
+        </object>
+      </div>
+      <div style="font-size:9.5px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-top:.6rem;">
+        <span data-fr="Partition générale · Batterie" data-es="Partitura general · Batería">Partition générale · Batterie</span>
+      </div>
+      <div class="pdf-actions">
+        <a href="https://www.dropbox.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&dl=1" class="pdf-btn primary" target="_blank" rel="noopener"><span data-fr="↓ Télécharger PDF" data-es="↓ Descargar PDF">↓ Télécharger PDF</span></a>
+        <a href="https://www.dropbox.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&raw=1" class="pdf-btn" target="_blank" rel="noopener"><span data-fr="↗ Ouvrir dans Dropbox" data-es="↗ Abrir en Dropbox">↗ Ouvrir dans Dropbox</span></a>
+      </div></div>
+    <div class="tab-content" id="tab-clavier"><div class="pdf-frame-wrapper">
+        <object data="https://dl.dropboxusercontent.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&raw=1" type="application/pdf">
+          <div class="pdf-fallback">
+            <span data-fr="Le viewer PDF n'est pas disponible sur cet appareil." data-es="El visor de PDF no está disponible en este dispositivo.">Le viewer PDF n'est pas disponible sur cet appareil.</span>
+            <a href="https://www.dropbox.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&dl=1" class="pdf-btn primary" target="_blank" rel="noopener"><span data-fr="↓ Télécharger PDF" data-es="↓ Descargar PDF">↓ Télécharger PDF</span></a>
+          </div>
+        </object>
+      </div>
+      <div style="font-size:9.5px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-top:.6rem;">
+        <span data-fr="Partition générale · Clavier" data-es="Partitura general · Teclado">Partition générale · Clavier</span>
+      </div>
+      <div class="pdf-actions">
+        <a href="https://www.dropbox.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&dl=1" class="pdf-btn primary" target="_blank" rel="noopener"><span data-fr="↓ Télécharger PDF" data-es="↓ Descargar PDF">↓ Télécharger PDF</span></a>
+        <a href="https://www.dropbox.com/scl/fi/6mtxk1ekiq10g7jwl81qd/Chaka-Kahn-MEDLEY-ATELIER-FUNK-V2-Key-Light.pdf?rlkey=hb26m1vnqhdq45xduofsygumg&raw=1" class="pdf-btn" target="_blank" rel="noopener"><span data-fr="↗ Ouvrir dans Dropbox" data-es="↗ Abrir en Dropbox">↗ Ouvrir dans Dropbox</span></a>
+      </div></div>
   </section>
 
 </main>
