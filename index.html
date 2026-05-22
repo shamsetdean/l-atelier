@@ -86,15 +86,30 @@ a{color:inherit;text-decoration:none;}
 
 /* ── LOGIN ─────────────────────────────────────────────── */
 #login-screen{
-  min-height:100vh;display:grid;place-items:center;
-  background:#0A0805 url('og-image.png') center/cover no-repeat;
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:#0A0805;
   position:relative;overflow:hidden;
   padding:2rem 1.25rem;
 }
 #login-screen::before{
-  content:"";position:absolute;inset:0;
-  background:radial-gradient(ellipse at center, rgba(10,8,5,.45) 0%, rgba(10,8,5,.85) 70%, rgba(10,8,5,.95) 100%);
-  pointer-events:none;z-index:0;
+  content:"";position:absolute;inset:0;z-index:0;
+  background-image:url('og-image.png');
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  opacity:.55;
+}
+#login-screen::after{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:radial-gradient(ellipse at center, rgba(10,8,5,.15) 0%, rgba(10,8,5,.6) 75%, rgba(10,8,5,.85) 100%);
+  pointer-events:none;
+}
+@media(max-width:640px){
+  #login-screen::before{
+    background-size:contain;
+    background-position:center top;
+  }
+  #login-screen::after{
+    background:linear-gradient(to bottom, rgba(10,8,5,.15) 0%, rgba(10,8,5,.35) 35%, rgba(10,8,5,.85) 70%, rgba(10,8,5,.95) 100%);
+  }
 }
 .login-deco{display:none;}
 .login-marquee{
@@ -1391,5 +1406,6 @@ else{showBioButton();}
   }catch(e){}
 })();
 </script>
+<script src="loop-ab.js" defer></script>
 </body>
 </html>
