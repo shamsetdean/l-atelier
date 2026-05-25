@@ -254,10 +254,10 @@
 
 /* ── DESKTOP ── */
 @media(min-width:768px){
-  .propose-form{grid-template-columns:1fr 2fr auto;gap:.7rem;}
+  .propose-form{grid-template-columns:1fr auto;gap:.7rem;}
   .propose-submit{padding:.95rem 1.8rem;}
-  .track-card{grid-template-columns:280px 1fr;}
-  .track-thumb{aspect-ratio:16/9;}
+  .track-card{grid-template-columns:320px 1fr;align-items:stretch;}
+  .track-thumb{aspect-ratio:auto;height:100%;min-height:180px;}
   .track-info{padding:1.2rem 1.4rem 0;}
   .vote-buttons{padding:.8rem 1.4rem 1.2rem;border-top:none;}
   .playlist-eyebrow{font-size:11px;letter-spacing:.22em;}
@@ -299,18 +299,52 @@
   font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);
   margin-bottom:1.4rem;line-height:1.6;
 }
-.name-prompt-input{
-  font-family:var(--mono);font-size:13px;color:var(--ink);
-  background:var(--paper);border:1px solid var(--ink);border-radius:0;
-  padding:.85rem 1rem;width:100%;outline:none;margin-bottom:1rem;
+.member-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:.45rem;
+  margin-bottom:1.2rem;max-height:46vh;overflow-y:auto;
+  padding-right:.2rem;
 }
-.name-prompt-input:focus{border-color:var(--accent);}
+.member-grid::-webkit-scrollbar{width:6px;}
+.member-grid::-webkit-scrollbar-track{background:transparent;}
+.member-grid::-webkit-scrollbar-thumb{background:var(--line);}
+.member-option{
+  display:flex;flex-direction:column;align-items:flex-start;gap:.2rem;
+  padding:.7rem .8rem;background:var(--paper);border:1px solid var(--ink);
+  cursor:pointer;transition:all .15s;text-align:left;border-radius:0;
+  font-family:inherit;
+}
+.member-option:hover{background:var(--accent-soft);}
+.member-option.selected{
+  background:var(--ink);color:var(--paper);
+  box-shadow:3px 3px 0 var(--accent);
+}
+.member-option-name{
+  font-family:var(--serif);font-style:italic;font-size:1.15rem;line-height:1;font-weight:400;
+  letter-spacing:-.01em;color:inherit;
+}
+.member-option-role{
+  font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;
+}
+.member-option.selected .member-option-role{color:rgba(239,234,224,.7);}
+.member-option .ico{display:inline-flex;align-items:center;gap:.35rem;color:var(--accent);}
+.member-option.selected .ico{color:var(--accent);}
 .name-prompt-submit{
   font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
   background:var(--ink);color:var(--paper);border:none;border-radius:0;
-  padding:.85rem 1.5rem;width:100%;font-weight:500;cursor:pointer;
+  padding:.85rem 1.5rem;width:100%;font-weight:500;cursor:pointer;transition:background .15s;
 }
-.name-prompt-submit:hover{background:var(--accent-deep);}
+.name-prompt-submit:hover:not(:disabled){background:var(--accent-deep);}
+.name-prompt-submit:disabled{opacity:.4;cursor:not-allowed;}
+
+/* Bouton changer de membre */
+.change-member-btn{
+  background:transparent;border:none;color:var(--accent-deep);
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;padding:0 .3rem;margin-left:.5rem;font-weight:500;
+  border-bottom:1px dashed var(--accent-deep);
+}
+.change-member-btn:hover{color:var(--accent);border-bottom-color:var(--accent);}
 </style>
 </head>
 <body>
@@ -353,7 +387,6 @@
       <span data-fr="Proposer un morceau" data-es="Proponer una canción">Proposer un morceau</span>
     </h2>
     <div class="propose-form">
-      <input id="proposer-name" class="propose-input" type="text" placeholder="Ton prénom" maxlength="40">
       <input id="proposer-url" class="propose-input" type="url" placeholder="URL YouTube (ex: https://youtu.be/…)" maxlength="200">
       <button id="proposer-submit" class="propose-submit" onclick="submitProposal()">
         <span data-fr="Ajouter" data-es="Añadir">Ajouter</span>
@@ -366,7 +399,7 @@
   <!-- LISTE -->
   <div class="playlist-header">
     <div class="playlist-count">
-      <span id="track-count">0</span> <span data-fr="morceaux" data-es="canciones">morceaux</span>
+      <span id="track-count">0</span> <span id="track-count-word">morceaux</span>
     </div>
     <div class="playlist-count" id="my-name-display"></div>
   </div>
@@ -379,20 +412,22 @@
 
 </main>
 
-<!-- MODALE PRÉNOM -->
+<!-- MODALE SÉLECTION MEMBRE -->
 <div id="name-prompt-overlay" class="name-prompt-overlay">
   <div class="name-prompt-box">
     <div class="name-prompt-eyebrow">
-      <span data-fr="Première visite" data-es="Primera visita">Première visite</span>
+      <span data-fr="Identification" data-es="Identificación">Identification</span>
     </div>
     <div class="name-prompt-title">
       <span data-fr="Qui es-tu ?" data-es="¿Quién eres?">Qui es-tu ?</span>
     </div>
     <div class="name-prompt-desc">
-      <span data-fr="Ton prénom servira à signer tes propositions et tes votes. Tu peux le changer plus tard depuis le menu." data-es="Tu nombre se usará para firmar tus propuestas y votos. Puedes cambiarlo más tarde desde el menú.">Ton prénom servira à signer tes propositions et tes votes. Tu peux le changer plus tard depuis le menu.</span>
+      <span data-fr="Sélectionne ton prénom dans la liste des membres de L'Atelier." data-es="Selecciona tu nombre en la lista de miembros de L'Atelier.">Sélectionne ton prénom dans la liste des membres de L'Atelier.</span>
     </div>
-    <input id="prompt-name-input" class="name-prompt-input" type="text" placeholder="Ex : Cédric" maxlength="40">
-    <button class="name-prompt-submit" onclick="setMyName()">
+    <div id="member-grid" class="member-grid">
+      <!-- généré dynamiquement -->
+    </div>
+    <button id="member-confirm" class="name-prompt-submit" onclick="confirmMember()" disabled>
       <span data-fr="Entrer dans la playlist →" data-es="Entrar en la lista →">Entrer dans la playlist →</span>
     </button>
   </div>
@@ -440,28 +475,90 @@ function toggleLang(){
   currentLang = (currentLang==='fr') ? 'es' : 'fr';
   localStorage.setItem('atelier-lang', currentLang);
   applyLang();
+  if(typeof renderMemberGrid === 'function') renderMemberGrid();
   render();
 }
 
-/* ── PRÉNOM DU MEMBRE ── */
-function setMyName(){
-  const val = document.getElementById('prompt-name-input').value.trim();
-  if(!val || val.length < 2){
-    document.getElementById('prompt-name-input').focus();
-    return;
-  }
-  myName = val.charAt(0).toUpperCase() + val.slice(1).toLowerCase();
+/* ── LISTE DES MEMBRES OFFICIELS DE L'ATELIER ── */
+const MEMBERS = [
+  { name: 'Cédric',     role_fr: 'Direction',      role_es: 'Dirección',    ico: 'wind' },
+  { name: 'Jean-Marc',  role_fr: 'Saxophone',      role_es: 'Saxofón',      ico: 'wind' },
+  { name: 'Larose',     role_fr: 'Chant',          role_es: 'Voz',          ico: 'mic' },
+  { name: 'Marine',     role_fr: 'Chant',          role_es: 'Voz',          ico: 'mic' },
+  { name: 'Nata',       role_fr: 'Basse',          role_es: 'Bajo',         ico: 'bass' },
+  { name: 'Nico',       role_fr: 'Guitare',        role_es: 'Guitarra',     ico: 'guitar' },
+  { name: 'Pablo',      role_fr: 'Clavier',        role_es: 'Teclado',      ico: 'piano' },
+  { name: 'Patrice',    role_fr: 'Guitare',        role_es: 'Guitarra',     ico: 'guitar' },
+  { name: 'Patricia',   role_fr: 'Chant',          role_es: 'Voz',          ico: 'mic' },
+  { name: 'Shams',      role_fr: 'Batterie',       role_es: 'Batería',      ico: 'drum' },
+  { name: 'Theythey',   role_fr: 'Chant',          role_es: 'Voz',          ico: 'mic' }
+];
+
+const ICONS = {
+  mic:    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>',
+  wind:   '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg>',
+  guitar: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="18" r="4"/><path d="M12 18V2l7 4"/></svg>',
+  piano:  '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.7 16.62A1 1 0 0 0 22 16V4a1 1 0 0 0-1-1h-7a1 1 0 0 0-.95.68l-.85 2.55a1 1 0 0 1-1.9 0L9.45 3.68A1 1 0 0 0 8.5 3H3a1 1 0 0 0-1 1v12a1 1 0 0 0 .3.7l8.5 8.5a1 1 0 0 0 1.4 0Z"/></svg>',
+  bass:   '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="4"/><path d="M16 18V2"/></svg>',
+  drum:   '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 2 8 8"/><path d="m22 2-8 8"/><ellipse cx="12" cy="9" rx="10" ry="5"/><path d="M7 13.4v7.9"/><path d="M12 14v8"/><path d="M17 13.4v7.9"/><path d="M2 9v8a10 5 0 0 0 20 0V9"/></svg>'
+};
+
+let selectedMemberName = null; // Sélection en cours dans la modale
+
+function renderMemberGrid(){
+  const grid = document.getElementById('member-grid');
+  grid.innerHTML = MEMBERS.map(m => {
+    const isSelected = m.name === selectedMemberName;
+    const role = (currentLang === 'fr') ? m.role_fr : m.role_es;
+    return `<button type="button" class="member-option ${isSelected?'selected':''}" onclick="selectMember('${escapeHtml(m.name)}')">
+      <span class="member-option-name">${escapeHtml(m.name)}</span>
+      <span class="member-option-role">
+        <span class="ico" aria-hidden="true">${ICONS[m.ico]||''}</span> ${escapeHtml(role)}
+      </span>
+    </button>`;
+  }).join('');
+}
+
+function selectMember(name){
+  selectedMemberName = name;
+  renderMemberGrid();
+  document.getElementById('member-confirm').disabled = false;
+}
+
+function confirmMember(){
+  if(!selectedMemberName) return;
+  myName = selectedMemberName;
   localStorage.setItem('atelier-playlist-name', myName);
   document.getElementById('name-prompt-overlay').classList.remove('open');
-  document.getElementById('my-name-display').innerHTML =
-    '<span data-fr="Signé : " data-es="Firmado : ">'+(currentLang==='fr'?'Signé : ':'Firmado : ')+'</span><b>'+escapeHtml(myName)+'</b>';
+  updateMyNameDisplay();
   render();
+}
+
+function changeMember(){
+  selectedMemberName = myName; // pré-sélectionner le membre actuel
+  renderMemberGrid();
+  document.getElementById('member-confirm').disabled = false;
+  document.getElementById('name-prompt-overlay').classList.add('open');
+}
+
+function updateMyNameDisplay(){
+  if(!myName){
+    document.getElementById('my-name-display').innerHTML = '';
+    return;
+  }
+  const label = (currentLang==='fr') ? 'Connecté : ' : 'Conectado : ';
+  const change = (currentLang==='fr') ? 'changer' : 'cambiar';
+  document.getElementById('my-name-display').innerHTML =
+    '<span>'+label+'</span><b>'+escapeHtml(myName)+'</b>'+
+    '<button class="change-member-btn" onclick="changeMember()">'+change+'</button>';
 }
 
 function ensureName(){
   if(!myName){
+    selectedMemberName = null;
+    renderMemberGrid();
+    document.getElementById('member-confirm').disabled = true;
     document.getElementById('name-prompt-overlay').classList.add('open');
-    setTimeout(()=>document.getElementById('prompt-name-input').focus(), 100);
     return false;
   }
   return true;
@@ -498,23 +595,19 @@ async function fetchYouTubeTitle(videoId){
 
 /* ── PROPOSITION D'UN MORCEAU ── */
 async function submitProposal(){
-  const nameInput = document.getElementById('proposer-name');
   const urlInput = document.getElementById('proposer-url');
   const msg = document.getElementById('propose-message');
   const submitBtn = document.getElementById('proposer-submit');
 
-  const name = nameInput.value.trim();
-  const url = urlInput.value.trim();
-
   msg.className = 'propose-message';
   msg.textContent = '';
 
-  if(!name || name.length < 2){
-    msg.className = 'propose-message error';
-    msg.textContent = currentLang==='fr' ? 'Entre ton prénom (2 lettres minimum).' : 'Introduce tu nombre (mínimo 2 letras).';
-    nameInput.focus();
+  // Vérifier qu'on est identifié (sinon ouvrir la modale)
+  if(!ensureName()){
     return;
   }
+
+  const url = urlInput.value.trim();
 
   const videoId = extractYouTubeId(url);
   if(!videoId){
@@ -538,11 +631,10 @@ async function submitProposal(){
   const title = await fetchYouTubeTitle(videoId);
 
   // Insère dans Supabase
-  const formattedName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   const { data, error } = await sb.from('playlist_tracks').insert([{
     youtube_id: videoId,
     title: title || ('YouTube · ' + videoId),
-    proposed_by: formattedName
+    proposed_by: myName
   }]).select();
 
   submitBtn.disabled = false;
@@ -557,16 +649,7 @@ async function submitProposal(){
   msg.className = 'propose-message success';
   msg.textContent = currentLang==='fr' ? '✓ Morceau ajouté à la playlist.' : '✓ Canción añadida a la lista.';
 
-  // Si le proposant n'a pas encore défini son nom global, on le fait maintenant
-  if(!myName){
-    myName = formattedName;
-    localStorage.setItem('atelier-playlist-name', myName);
-    document.getElementById('my-name-display').innerHTML =
-      '<span>'+(currentLang==='fr'?'Signé : ':'Firmado : ')+'</span><b>'+escapeHtml(myName)+'</b>';
-  }
-
   urlInput.value = '';
-  // On garde le prénom dans le champ pour le prochain ajout
 
   setTimeout(()=>{ msg.textContent = ''; msg.className='propose-message'; }, 3500);
 }
@@ -681,11 +764,13 @@ function stopInline(){
 function render(){
   const container = document.getElementById('tracks-container');
   document.getElementById('track-count').textContent = tracks.length;
+  const n = tracks.length;
+  const word = (currentLang === 'fr')
+    ? (n <= 1 ? 'morceau' : 'morceaux')
+    : (n <= 1 ? 'canción' : 'canciones');
+  document.getElementById('track-count-word').textContent = word;
 
-  if(myName){
-    document.getElementById('my-name-display').innerHTML =
-      '<span>'+(currentLang==='fr'?'Signé : ':'Firmado : ')+'</span><b>'+escapeHtml(myName)+'</b>';
-  }
+  updateMyNameDisplay();
 
   if(tracks.length === 0){
     const emptyMsg = (currentLang==='fr')
@@ -800,21 +885,17 @@ function subscribeRealtime(){
 
 /* ── INIT ── */
 applyLang();
+renderMemberGrid(); // grille des 11 membres dans la modale
 if(!myName){
+  document.getElementById('member-confirm').disabled = true;
   document.getElementById('name-prompt-overlay').classList.add('open');
-  setTimeout(()=>document.getElementById('prompt-name-input').focus(), 200);
-}
-// Pré-remplir le champ proposer-name si le membre s'est déjà identifié
-if(myName){
-  document.getElementById('proposer-name').value = myName;
+} else {
+  // Si le membre existe déjà, on l'affiche en haut
+  updateMyNameDisplay();
 }
 loadAll();
 subscribeRealtime();
 
-// Entrée = soumettre dans la modale prénom
-document.getElementById('prompt-name-input').addEventListener('keydown', e => {
-  if(e.key === 'Enter') setMyName();
-});
 // Entrée dans le champ URL = soumettre
 document.getElementById('proposer-url').addEventListener('keydown', e => {
   if(e.key === 'Enter') submitProposal();
