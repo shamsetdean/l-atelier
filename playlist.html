@@ -271,14 +271,15 @@
 
 /* ── DELETE ── */
 .track-delete{
-  position:absolute;bottom:.6rem;right:.8rem;z-index:2;
-  background:transparent;border:none;
+  position:absolute;top:3rem;right:.8rem;z-index:2;
+  background:var(--paper);border:1px solid #E53935;
   font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--muted);cursor:pointer;padding:.3rem .5rem;
-  display:none;
+  color:#E53935;cursor:pointer;padding:.35rem .55rem;
+  display:inline-flex;align-items:center;gap:.35rem;
+  font-weight:500;transition:all .15s;
 }
-.track-card:hover .track-delete{display:inline-block;}
-.track-delete:hover{color:#E53935;}
+.track-delete:hover{background:#E53935;color:var(--paper);}
+.track-delete svg{flex-shrink:0;}
 
 /* ── DESKTOP ── */
 @media(min-width:768px){
@@ -861,7 +862,10 @@ function render(){
     <div class="track-card ${t.proposed_by === myName ? 'mine' : ''}" data-id="${t.id}">
       <div class="track-rank">#${rank}</div>
       <div class="track-score">+${score}<span class="track-score-label">pts</span></div>
-      ${canDelete ? `<button class="track-delete" onclick="deleteTrack(${t.id})" title="${currentLang==='fr'?'Supprimer':'Eliminar'}">${currentLang==='fr'?'Supprimer':'Eliminar'}</button>` : ''}
+      ${canDelete ? `<button class="track-delete" onclick="deleteTrack(${t.id})" title="${currentLang==='fr'?'Supprimer cette proposition':'Eliminar esta propuesta'}">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        <span>${currentLang==='fr'?'Supprimer':'Eliminar'}</span>
+      </button>` : ''}
       ${currentlyPlayingId === t.youtube_id
         ? `<div class="track-thumb is-playing">
             <iframe class="track-iframe" src="https://www.youtube-nocookie.com/embed/${t.youtube_id}?autoplay=1&rel=0&modestbranding=1" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
