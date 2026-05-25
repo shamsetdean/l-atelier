@@ -153,13 +153,13 @@
 }
 .track-thumb{
   width:100%;aspect-ratio:16/9;background:var(--ink-2) center/cover no-repeat;
-  position:relative;
+  position:relative;cursor:pointer;
 }
 .track-thumb-play{
   position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
   width:48px;height:48px;border-radius:50%;background:rgba(20,17,12,.85);
   display:flex;align-items:center;justify-content:center;
-  transition:background .15s;
+  transition:background .15s, transform .15s;
 }
 .track-thumb-play::before{
   content:"";display:block;
@@ -167,7 +167,22 @@
   border-top:9px solid transparent;border-bottom:9px solid transparent;
   margin-left:3px;
 }
-.track-thumb:hover .track-thumb-play{background:var(--accent);}
+.track-thumb:hover .track-thumb-play{background:var(--accent);transform:translate(-50%,-50%) scale(1.08);}
+.track-thumb.is-playing{cursor:default;background:#000;}
+.track-thumb.is-playing .track-thumb-play{display:none;}
+.track-iframe{
+  position:absolute;inset:0;width:100%;height:100%;border:none;
+}
+.track-close{
+  position:absolute;top:.5rem;right:.5rem;z-index:3;
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(20,17,12,.85);color:var(--paper);
+  border:none;cursor:pointer;
+  font-size:14px;line-height:1;font-family:var(--mono);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s;padding:0;
+}
+.track-close:hover{background:var(--accent);}
 .track-info{padding:1rem 1.2rem 1.1rem;}
 .track-title{
   font-family:var(--serif);font-style:italic;font-weight:400;
@@ -632,6 +647,36 @@ function escapeHtml(s){
   return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
+/* ── LECTURE INLINE DE LA VIDÉO ── */
+let currentlyPlayingId = null; // id YouTube de la vidéo en cours de lecture (pour préserver l'iframe au re-render)
+
+function playInline(thumbEl, youtubeId){
+  // Si une autre vidéo joue déjà, on l'arrête (le re-render remet sa vignette)
+  if(currentlyPlayingId && currentlyPlayingId !== youtubeId){
+    currentlyPlayingId = youtubeId;
+    render();
+    return;
+  }
+  // On garde une trace pour ne pas casser la lecture quand le tri change
+  currentlyPlayingId = youtubeId;
+  // On remplace le contenu du thumb par une iframe YouTube autoplay
+  thumbEl.innerHTML = `<iframe class="track-iframe"
+      src="https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1"
+      title="YouTube"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+    <button class="track-close" onclick="stopInline()" title="${currentLang==='fr'?'Fermer la vidéo':'Cerrar el vídeo'}" aria-label="${currentLang==='fr'?'Fermer':'Cerrar'}">✕</button>`;
+  thumbEl.classList.add('is-playing');
+  thumbEl.style.backgroundImage = 'none';
+  thumbEl.onclick = null;
+  thumbEl.style.cursor = 'default';
+}
+
+function stopInline(){
+  currentlyPlayingId = null;
+  render();
+}
+
 /* ── RENDU ── */
 function render(){
   const container = document.getElementById('tracks-container');
@@ -672,10 +717,13 @@ function render(){
       <div class="track-rank">#${rank}</div>
       <div class="track-score">+${score}<span class="track-score-label">pts</span></div>
       ${canDelete ? `<button class="track-delete" onclick="deleteTrack(${t.id})" title="${currentLang==='fr'?'Supprimer':'Eliminar'}">${currentLang==='fr'?'Supprimer':'Eliminar'}</button>` : ''}
-      <a class="track-thumb" href="https://www.youtube.com/watch?v=${t.youtube_id}" target="_blank" rel="noopener"
-         style="background-image:url('https://img.youtube.com/vi/${t.youtube_id}/mqdefault.jpg');">
-        <div class="track-thumb-play"></div>
-      </a>
+      ${currentlyPlayingId === t.youtube_id
+        ? `<div class="track-thumb is-playing">
+            <iframe class="track-iframe" src="https://www.youtube-nocookie.com/embed/${t.youtube_id}?autoplay=1&rel=0&modestbranding=1" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <button class="track-close" onclick="stopInline()" title="${currentLang==='fr'?'Fermer la vidéo':'Cerrar el vídeo'}" aria-label="${currentLang==='fr'?'Fermer':'Cerrar'}">✕</button>
+          </div>`
+        : `<div class="track-thumb" data-youtube-id="${t.youtube_id}" onclick="playInline(this, '${t.youtube_id}')" style="background-image:url('https://img.youtube.com/vi/${t.youtube_id}/mqdefault.jpg');"><div class="track-thumb-play"></div></div>`
+      }
       <div>
         <div class="track-info">
           <div class="track-title">${escapeHtml(t.title || 'YouTube · '+t.youtube_id)}</div>
