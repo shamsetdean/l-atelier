@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+
+<!-- FAVICON & ÉCRAN D'ACCUEIL -->
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512.png">
+
+<meta name="theme-color" content="#EFEAE0">
+<title>Playlist collaborative — L'Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="atelier.css">
+<style>
+:root{
+  --accent:#F0511E;
+  --accent-h:#D8400D;
+  --accent-soft:#FFE0CD;
+  --accent-deep:#7A2A0E;
+  --like:#2D7D4F;
+  --like-soft:#D7EBDD;
+  --maybe:#C5A572;
+  --maybe-soft:#F4EBD8;
+  --skip:#857A66;
+  --skip-soft:#E8E2D5;
+}
+
+/* ── INTRO ── */
+.playlist-intro{
+  display:grid;grid-template-columns:1fr;gap:.6rem;
+  padding-bottom:1.1rem;margin-bottom:2rem;
+  border-bottom:1px solid var(--ink);
+}
+.playlist-eyebrow{
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:.5rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+}
+.playlist-eyebrow .num{
+  background:var(--ink);color:var(--paper);padding:.18rem .5rem;font-weight:500;letter-spacing:.08em;
+}
+.playlist-title{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(2.2rem,9vw,3.4rem);line-height:.9;letter-spacing:-.025em;color:var(--ink);
+}
+.playlist-tagline{
+  font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--muted);
+  margin-top:.4rem;line-height:1.4;
+}
+
+/* ── CONNECTION STATUS ── */
+.connection-status{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);padding:.4rem .7rem;border:1px solid var(--line);background:var(--paper);
+  margin-bottom:1.5rem;
+}
+.connection-status .dot{
+  width:7px;height:7px;border-radius:50%;background:#C5A572;
+  transition:background .3s;
+}
+.connection-status.online .dot{background:var(--like);box-shadow:0 0 0 0 var(--like);animation:pulse 2s infinite;}
+.connection-status.offline .dot{background:#E53935;}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(45,125,79,.5);}
+  70%{box-shadow:0 0 0 5px rgba(45,125,79,0);}
+  100%{box-shadow:0 0 0 0 rgba(45,125,79,0);}
+}
+
+/* ── PROPOSER UN MORCEAU ── */
+.propose-block{
+  background:var(--paper-3);border:1px solid var(--ink);
+  padding:1.4rem 1.4rem 1.5rem;margin-bottom:2rem;
+  box-shadow:6px 6px 0 var(--ink);
+}
+.propose-title{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink);margin-bottom:1.1rem;display:flex;align-items:center;gap:.55rem;font-weight:500;
+}
+.propose-title::before{
+  content:"";width:14px;height:1px;background:var(--accent);flex-shrink:0;
+}
+.propose-form{display:grid;grid-template-columns:1fr;gap:.8rem;}
+.propose-input{
+  font-family:var(--mono);font-size:13px;color:var(--ink);
+  background:var(--paper);border:1px solid var(--ink);border-radius:0;
+  padding:.85rem 1rem;width:100%;outline:none;transition:border-color .15s;
+}
+.propose-input:focus{border-color:var(--accent);}
+.propose-input::placeholder{color:var(--muted);letter-spacing:.04em;}
+.propose-submit{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  background:var(--ink);color:var(--paper);border:1px solid var(--ink);border-radius:0;
+  padding:.95rem 1.5rem;font-weight:500;cursor:pointer;transition:background .15s;
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+}
+.propose-submit:hover:not(:disabled){background:var(--accent-deep);border-color:var(--accent-deep);}
+.propose-submit:disabled{opacity:.5;cursor:not-allowed;}
+.propose-message{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--muted);
+  margin-top:.5rem;min-height:1.2em;
+}
+.propose-message.error{color:#E53935;}
+.propose-message.success{color:var(--like);}
+
+/* ── LISTE DES MORCEAUX ── */
+.playlist-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:1px solid var(--line);
+}
+.playlist-count{
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;
+}
+.playlist-empty{
+  padding:3rem 1.5rem;text-align:center;background:var(--paper);
+  border:1px dashed var(--ink);
+  font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);
+}
+
+.tracks-list{display:flex;flex-direction:column;gap:1rem;}
+.track-card{
+  background:var(--paper-3);border:1px solid var(--ink);
+  display:grid;grid-template-columns:1fr;gap:0;
+  overflow:hidden;transition:transform .35s, box-shadow .35s;
+  position:relative;
+}
+.track-card.changed{
+  transform:translateY(-2px);
+  box-shadow:0 4px 0 var(--accent);
+}
+.track-rank{
+  position:absolute;top:.8rem;left:.8rem;z-index:2;
+  background:var(--ink);color:var(--paper);
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;font-weight:500;
+  padding:.2rem .5rem;
+}
+.track-score{
+  position:absolute;top:.8rem;right:.8rem;z-index:2;
+  background:var(--accent);color:var(--paper);
+  font-family:var(--serif);font-style:italic;font-size:1.1rem;font-weight:500;
+  padding:.15rem .65rem;letter-spacing:-.01em;
+  display:inline-flex;align-items:baseline;gap:.2rem;
+}
+.track-score-label{
+  font-family:var(--mono);font-style:normal;font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  opacity:.8;
+}
+.track-thumb{
+  width:100%;aspect-ratio:16/9;background:var(--ink-2) center/cover no-repeat;
+  position:relative;
+}
+.track-thumb-play{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:48px;height:48px;border-radius:50%;background:rgba(20,17,12,.85);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s;
+}
+.track-thumb-play::before{
+  content:"";display:block;
+  border-left:14px solid var(--paper);
+  border-top:9px solid transparent;border-bottom:9px solid transparent;
+  margin-left:3px;
+}
+.track-thumb:hover .track-thumb-play{background:var(--accent);}
+.track-info{padding:1rem 1.2rem 1.1rem;}
+.track-title{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:1.25rem;color:var(--ink);line-height:1.2;letter-spacing:-.01em;
+  margin-bottom:.4rem;
+}
+.track-proposer{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;
+}
+.track-proposer b{color:var(--ink);font-weight:500;}
+.track-progress-row{
+  display:flex;align-items:center;gap:.6rem;
+  margin-top:.8rem;padding-top:.8rem;border-top:1px solid var(--line);
+}
+.track-progress{
+  flex:1;height:6px;background:var(--paper);border:1px solid var(--line);
+  position:relative;overflow:hidden;
+}
+.track-progress-fill{
+  position:absolute;left:0;top:0;height:100%;
+  background:linear-gradient(90deg,var(--like) 0%,var(--accent) 100%);
+  transition:width .4s ease;
+}
+.track-progress-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--ink);
+  font-variant-numeric:tabular-nums;flex-shrink:0;font-weight:500;
+}
+
+/* ── VOTES ── */
+.vote-buttons{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;
+  padding:0 1.2rem 1.1rem;
+}
+.vote-btn{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;
+  padding:.55rem .4rem;background:var(--paper);border:1px solid var(--ink);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink);cursor:pointer;transition:all .15s;border-radius:0;
+  font-weight:500;min-height:54px;
+}
+.vote-btn:hover:not(:disabled){transform:translateY(-1px);}
+.vote-btn:disabled{opacity:.4;cursor:not-allowed;}
+.vote-btn .vote-count{
+  font-family:var(--serif);font-style:italic;font-size:1.15rem;font-weight:400;
+  letter-spacing:-.01em;line-height:1;color:var(--ink);
+}
+.vote-btn.like:hover{background:var(--like-soft);border-color:var(--like);}
+.vote-btn.maybe:hover{background:var(--maybe-soft);border-color:var(--maybe);}
+.vote-btn.skip:hover{background:var(--skip-soft);border-color:var(--skip);}
+
+.vote-btn.voted-like{background:var(--like);color:var(--paper);border-color:var(--like);}
+.vote-btn.voted-like .vote-count{color:var(--paper);}
+.vote-btn.voted-maybe{background:var(--maybe);color:var(--paper);border-color:var(--maybe);}
+.vote-btn.voted-maybe .vote-count{color:var(--paper);}
+.vote-btn.voted-skip{background:var(--skip);color:var(--paper);border-color:var(--skip);}
+.vote-btn.voted-skip .vote-count{color:var(--paper);}
+
+/* ── DELETE ── */
+.track-delete{
+  position:absolute;bottom:.6rem;right:.8rem;z-index:2;
+  background:transparent;border:none;
+  font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);cursor:pointer;padding:.3rem .5rem;
+  display:none;
+}
+.track-card:hover .track-delete{display:inline-block;}
+.track-delete:hover{color:#E53935;}
+
+/* ── DESKTOP ── */
+@media(min-width:768px){
+  .propose-form{grid-template-columns:1fr 2fr auto;gap:.7rem;}
+  .propose-submit{padding:.95rem 1.8rem;}
+  .track-card{grid-template-columns:280px 1fr;}
+  .track-thumb{aspect-ratio:16/9;}
+  .track-info{padding:1.2rem 1.4rem 0;}
+  .vote-buttons{padding:.8rem 1.4rem 1.2rem;border-top:none;}
+  .playlist-eyebrow{font-size:11px;letter-spacing:.22em;}
+  .playlist-title{font-size:clamp(2.8rem,7vw,5rem);line-height:.85;}
+}
+
+/* ── LOADING ── */
+.loading-spinner{
+  display:inline-block;width:14px;height:14px;
+  border:2px solid var(--muted);border-top-color:var(--accent);border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{from{transform:rotate(0);}to{transform:rotate(360deg);}}
+
+/* ── PROMPT NAME ── */
+.name-prompt-overlay{
+  position:fixed;inset:0;background:rgba(20,17,12,.85);z-index:1000;
+  display:none;align-items:center;justify-content:center;padding:2rem 1.25rem;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+}
+.name-prompt-overlay.open{display:flex;}
+.name-prompt-box{
+  background:var(--paper-3);border:1px solid var(--ink);
+  padding:2rem 2rem 1.6rem;max-width:420px;width:100%;
+  box-shadow:8px 8px 0 var(--accent);
+}
+.name-prompt-eyebrow{
+  font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent-deep);margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem;
+}
+.name-prompt-eyebrow::before{
+  content:"";width:6px;height:6px;background:var(--accent);border-radius:50%;
+}
+.name-prompt-title{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:1.8rem;color:var(--ink);line-height:1;margin-bottom:.8rem;letter-spacing:-.02em;
+}
+.name-prompt-desc{
+  font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);
+  margin-bottom:1.4rem;line-height:1.6;
+}
+.name-prompt-input{
+  font-family:var(--mono);font-size:13px;color:var(--ink);
+  background:var(--paper);border:1px solid var(--ink);border-radius:0;
+  padding:.85rem 1rem;width:100%;outline:none;margin-bottom:1rem;
+}
+.name-prompt-input:focus{border-color:var(--accent);}
+.name-prompt-submit{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  background:var(--ink);color:var(--paper);border:none;border-radius:0;
+  padding:.85rem 1.5rem;width:100%;font-weight:500;cursor:pointer;
+}
+.name-prompt-submit:hover{background:var(--accent-deep);}
+</style>
+</head>
+<body>
+
+<header class="atelier-header">
+  <a class="header-logo" href="index.html">
+    L'Atelier<span class="tick">private</span>
+  </a>
+  <div class="header-actions">
+    <a class="btn-back" href="index.html"><span data-fr="← Accueil" data-es="← Inicio">← Accueil</span></a>
+    <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
+  </div>
+</header>
+
+<main class="atelier-main">
+
+  <!-- INTRO -->
+  <div class="playlist-intro">
+    <div>
+      <div class="playlist-eyebrow">
+        <span class="num accent">05</span>
+        <span data-fr="L'Atelier · Playlist collaborative" data-es="L'Atelier · Lista colaborativa">L'Atelier · Playlist collaborative</span>
+      </div>
+      <h1 class="playlist-title"><span data-fr="La playlist" data-es="La lista">La playlist</span><span class="pt">.</span></h1>
+    </div>
+    <div class="playlist-tagline">
+      <span data-fr="Propose, vote, écoute" data-es="Propón, vota, escucha">Propose, vote, écoute</span>
+    </div>
+  </div>
+
+  <!-- STATUT CONNEXION -->
+  <div class="connection-status" id="connection-status">
+    <span class="dot"></span>
+    <span data-fr="Connexion…" data-es="Conexión…">Connexion…</span>
+  </div>
+
+  <!-- PROPOSER UN MORCEAU -->
+  <div class="propose-block">
+    <h2 class="propose-title">
+      <span data-fr="Proposer un morceau" data-es="Proponer una canción">Proposer un morceau</span>
+    </h2>
+    <div class="propose-form">
+      <input id="proposer-name" class="propose-input" type="text" placeholder="Ton prénom" maxlength="40">
+      <input id="proposer-url" class="propose-input" type="url" placeholder="URL YouTube (ex: https://youtu.be/…)" maxlength="200">
+      <button id="proposer-submit" class="propose-submit" onclick="submitProposal()">
+        <span data-fr="Ajouter" data-es="Añadir">Ajouter</span>
+        <span>→</span>
+      </button>
+    </div>
+    <div id="propose-message" class="propose-message"></div>
+  </div>
+
+  <!-- LISTE -->
+  <div class="playlist-header">
+    <div class="playlist-count">
+      <span id="track-count">0</span> <span data-fr="morceaux" data-es="canciones">morceaux</span>
+    </div>
+    <div class="playlist-count" id="my-name-display"></div>
+  </div>
+
+  <div id="tracks-container" class="tracks-list">
+    <div class="playlist-empty">
+      <span data-fr="Chargement de la playlist…" data-es="Cargando la lista…">Chargement de la playlist…</span>
+    </div>
+  </div>
+
+</main>
+
+<!-- MODALE PRÉNOM -->
+<div id="name-prompt-overlay" class="name-prompt-overlay">
+  <div class="name-prompt-box">
+    <div class="name-prompt-eyebrow">
+      <span data-fr="Première visite" data-es="Primera visita">Première visite</span>
+    </div>
+    <div class="name-prompt-title">
+      <span data-fr="Qui es-tu ?" data-es="¿Quién eres?">Qui es-tu ?</span>
+    </div>
+    <div class="name-prompt-desc">
+      <span data-fr="Ton prénom servira à signer tes propositions et tes votes. Tu peux le changer plus tard depuis le menu." data-es="Tu nombre se usará para firmar tus propuestas y votos. Puedes cambiarlo más tarde desde el menú.">Ton prénom servira à signer tes propositions et tes votes. Tu peux le changer plus tard depuis le menu.</span>
+    </div>
+    <input id="prompt-name-input" class="name-prompt-input" type="text" placeholder="Ex : Cédric" maxlength="40">
+    <button class="name-prompt-submit" onclick="setMyName()">
+      <span data-fr="Entrer dans la playlist →" data-es="Entrar en la lista →">Entrer dans la playlist →</span>
+    </button>
+  </div>
+</div>
+
+<!-- AUTH GATE -->
+<script>
+if(sessionStorage.getItem('atelier-auth')!=='1'){
+  window.location.href='index.html';
+}
+</script>
+
+<!-- SUPABASE CLIENT -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<!-- APP -->
+<script>
+/* ════════════════════════════════════════════════════════════════
+   CONFIGURATION SUPABASE — À REMPLACER PAR TES PROPRES CLÉS
+   ════════════════════════════════════════════════════════════════ */
+const SUPABASE_URL  = 'https://atsbhmvjungckpknkbxw.supabase.co';
+const SUPABASE_KEY  = 'sb_publishable_5NtVvQKSMnhQRijrWcW2hA_hwWKGW9j';
+
+/* ════════════════════════════════════════════════════════════════
+   INITIALISATION
+   ════════════════════════════════════════════════════════════════ */
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let myName = localStorage.getItem('atelier-playlist-name') || '';
+let tracks = [];        // [{id, youtube_id, title, proposed_by, votes:[{voter_name, vote_type}]}]
+let isOnline = false;
+
+/* ── TRADUCTION (réutilise le système du site) ── */
+let currentLang = localStorage.getItem('atelier-lang') || 'fr';
+function applyLang(){
+  document.querySelectorAll('[data-fr]').forEach(el=>{
+    const hasChild = el.querySelector('[data-fr]');
+    if(!hasChild) el.textContent = (currentLang==='fr') ? el.dataset.fr : el.dataset.es;
+  });
+  const btn = document.getElementById('lang-toggle');
+  if(btn) btn.textContent = (currentLang==='fr') ? 'ES' : 'FR';
+  document.documentElement.lang = currentLang;
+}
+function toggleLang(){
+  currentLang = (currentLang==='fr') ? 'es' : 'fr';
+  localStorage.setItem('atelier-lang', currentLang);
+  applyLang();
+  render();
+}
+
+/* ── PRÉNOM DU MEMBRE ── */
+function setMyName(){
+  const val = document.getElementById('prompt-name-input').value.trim();
+  if(!val || val.length < 2){
+    document.getElementById('prompt-name-input').focus();
+    return;
+  }
+  myName = val.charAt(0).toUpperCase() + val.slice(1).toLowerCase();
+  localStorage.setItem('atelier-playlist-name', myName);
+  document.getElementById('name-prompt-overlay').classList.remove('open');
+  document.getElementById('my-name-display').innerHTML =
+    '<span data-fr="Signé : " data-es="Firmado : ">'+(currentLang==='fr'?'Signé : ':'Firmado : ')+'</span><b>'+escapeHtml(myName)+'</b>';
+  render();
+}
+
+function ensureName(){
+  if(!myName){
+    document.getElementById('name-prompt-overlay').classList.add('open');
+    setTimeout(()=>document.getElementById('prompt-name-input').focus(), 100);
+    return false;
+  }
+  return true;
+}
+
+/* ── EXTRACTION DU YOUTUBE ID ── */
+function extractYouTubeId(url){
+  if(!url) return null;
+  // Patterns supportés : youtu.be/ID, youtube.com/watch?v=ID, youtube.com/embed/ID
+  const patterns = [
+    /youtu\.be\/([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/v\/([a-zA-Z0-9_-]{11})/
+  ];
+  for(const p of patterns){
+    const m = url.match(p);
+    if(m) return m[1];
+  }
+  return null;
+}
+
+/* ── RÉCUPÉRATION TITRE VIA OEMBED YOUTUBE ── */
+async function fetchYouTubeTitle(videoId){
+  try{
+    const r = await fetch('https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v='+videoId+'&format=json');
+    if(!r.ok) return null;
+    const d = await r.json();
+    return d.title || null;
+  } catch(e){
+    return null;
+  }
+}
+
+/* ── PROPOSITION D'UN MORCEAU ── */
+async function submitProposal(){
+  const nameInput = document.getElementById('proposer-name');
+  const urlInput = document.getElementById('proposer-url');
+  const msg = document.getElementById('propose-message');
+  const submitBtn = document.getElementById('proposer-submit');
+
+  const name = nameInput.value.trim();
+  const url = urlInput.value.trim();
+
+  msg.className = 'propose-message';
+  msg.textContent = '';
+
+  if(!name || name.length < 2){
+    msg.className = 'propose-message error';
+    msg.textContent = currentLang==='fr' ? 'Entre ton prénom (2 lettres minimum).' : 'Introduce tu nombre (mínimo 2 letras).';
+    nameInput.focus();
+    return;
+  }
+
+  const videoId = extractYouTubeId(url);
+  if(!videoId){
+    msg.className = 'propose-message error';
+    msg.textContent = currentLang==='fr' ? 'URL YouTube invalide. Colle un lien youtu.be ou youtube.com.' : 'URL de YouTube no válida.';
+    urlInput.focus();
+    return;
+  }
+
+  // Vérif que ce morceau n'est pas déjà proposé
+  if(tracks.some(t => t.youtube_id === videoId)){
+    msg.className = 'propose-message error';
+    msg.textContent = currentLang==='fr' ? 'Ce morceau a déjà été proposé.' : 'Esta canción ya fue propuesta.';
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<span class="loading-spinner"></span>';
+
+  // Récupère le titre depuis YouTube
+  const title = await fetchYouTubeTitle(videoId);
+
+  // Insère dans Supabase
+  const formattedName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  const { data, error } = await sb.from('playlist_tracks').insert([{
+    youtube_id: videoId,
+    title: title || ('YouTube · ' + videoId),
+    proposed_by: formattedName
+  }]).select();
+
+  submitBtn.disabled = false;
+  submitBtn.innerHTML = '<span>'+(currentLang==='fr'?'Ajouter':'Añadir')+'</span><span>→</span>';
+
+  if(error){
+    msg.className = 'propose-message error';
+    msg.textContent = currentLang==='fr' ? ('Erreur : '+error.message) : ('Error : '+error.message);
+    return;
+  }
+
+  msg.className = 'propose-message success';
+  msg.textContent = currentLang==='fr' ? '✓ Morceau ajouté à la playlist.' : '✓ Canción añadida a la lista.';
+
+  // Si le proposant n'a pas encore défini son nom global, on le fait maintenant
+  if(!myName){
+    myName = formattedName;
+    localStorage.setItem('atelier-playlist-name', myName);
+    document.getElementById('my-name-display').innerHTML =
+      '<span>'+(currentLang==='fr'?'Signé : ':'Firmado : ')+'</span><b>'+escapeHtml(myName)+'</b>';
+  }
+
+  urlInput.value = '';
+  // On garde le prénom dans le champ pour le prochain ajout
+
+  setTimeout(()=>{ msg.textContent = ''; msg.className='propose-message'; }, 3500);
+}
+
+/* ── VOTER ── */
+async function vote(trackId, type){
+  if(!ensureName()) return;
+
+  // Cherche si on a déjà voté pour ce morceau
+  const track = tracks.find(t => t.id === trackId);
+  if(!track) return;
+  const existing = track.votes.find(v => v.voter_name === myName);
+
+  if(existing && existing.vote_type === type){
+    // Si on reclique le même vote → on retire
+    const { error } = await sb.from('playlist_votes').delete()
+      .eq('track_id', trackId).eq('voter_name', myName);
+    if(error) console.error(error);
+    return;
+  }
+
+  if(existing){
+    // Changer le vote
+    const { error } = await sb.from('playlist_votes').update({ vote_type: type })
+      .eq('track_id', trackId).eq('voter_name', myName);
+    if(error) console.error(error);
+  } else {
+    // Nouveau vote
+    const { error } = await sb.from('playlist_votes').insert([{
+      track_id: trackId, voter_name: myName, vote_type: type
+    }]);
+    if(error) console.error(error);
+  }
+  // Le rendu se fera automatiquement via la souscription temps réel
+}
+
+/* ── SUPPRESSION (uniquement par le proposant) ── */
+async function deleteTrack(trackId){
+  const track = tracks.find(t => t.id === trackId);
+  if(!track) return;
+  if(track.proposed_by !== myName){
+    alert(currentLang==='fr' ? 'Tu ne peux supprimer que tes propres propositions.' : 'Solo puedes eliminar tus propias propuestas.');
+    return;
+  }
+  if(!confirm(currentLang==='fr' ? 'Supprimer "'+track.title+'" ?' : '¿Eliminar "'+track.title+'"?')) return;
+  const { error } = await sb.from('playlist_tracks').delete().eq('id', trackId);
+  if(error) console.error(error);
+}
+
+/* ── CALCUL DU SCORE ── */
+function computeScore(track){
+  // J'aime = +2 / Pourquoi pas = +1 / Pas d'avis = 0
+  let s = 0;
+  for(const v of track.votes){
+    if(v.vote_type === 'like') s += 2;
+    else if(v.vote_type === 'maybe') s += 1;
+  }
+  return s;
+}
+function countByType(track, type){
+  return track.votes.filter(v => v.vote_type === type).length;
+}
+function getMyVote(track){
+  if(!myName) return null;
+  const v = track.votes.find(x => x.voter_name === myName);
+  return v ? v.vote_type : null;
+}
+function getLikePercent(track){
+  const total = track.votes.length;
+  if(total === 0) return 0;
+  const likes = countByType(track, 'like');
+  return Math.round((likes / total) * 100);
+}
+
+/* ── ÉCHAPPEMENT HTML ── */
+function escapeHtml(s){
+  if(!s) return '';
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ── RENDU ── */
+function render(){
+  const container = document.getElementById('tracks-container');
+  document.getElementById('track-count').textContent = tracks.length;
+
+  if(myName){
+    document.getElementById('my-name-display').innerHTML =
+      '<span>'+(currentLang==='fr'?'Signé : ':'Firmado : ')+'</span><b>'+escapeHtml(myName)+'</b>';
+  }
+
+  if(tracks.length === 0){
+    container.innerHTML = '<div class="playlist-empty"><span data-fr="Aucun morceau proposé pour l\\'instant. Sois le premier !" data-es="Ninguna canción propuesta. ¡Sé el primero!">'+(currentLang==='fr'?"Aucun morceau proposé pour l'instant. Sois le premier !":'Ninguna canción propuesta. ¡Sé el primero!')+'</span></div>';
+    return;
+  }
+
+  // Tri par score décroissant, puis date croissante (le plus ancien en cas d'égalité)
+  const sorted = [...tracks].sort((a,b)=>{
+    const sa = computeScore(a), sb = computeScore(b);
+    if(sb !== sa) return sb - sa;
+    return new Date(a.created_at) - new Date(b.created_at);
+  });
+
+  container.innerHTML = sorted.map((t, idx)=>{
+    const score = computeScore(t);
+    const myV = getMyVote(t);
+    const likes = countByType(t, 'like');
+    const maybes = countByType(t, 'maybe');
+    const skips = countByType(t, 'skip');
+    const pct = getLikePercent(t);
+    const canDelete = t.proposed_by === myName;
+    const rank = String(idx + 1).padStart(2, '0');
+
+    return `
+    <div class="track-card" data-id="${t.id}">
+      <div class="track-rank">#${rank}</div>
+      <div class="track-score">+${score}<span class="track-score-label">pts</span></div>
+      ${canDelete ? `<button class="track-delete" onclick="deleteTrack(${t.id})" title="${currentLang==='fr'?'Supprimer':'Eliminar'}">${currentLang==='fr'?'Supprimer':'Eliminar'}</button>` : ''}
+      <a class="track-thumb" href="https://www.youtube.com/watch?v=${t.youtube_id}" target="_blank" rel="noopener"
+         style="background-image:url('https://img.youtube.com/vi/${t.youtube_id}/mqdefault.jpg');">
+        <div class="track-thumb-play"></div>
+      </a>
+      <div>
+        <div class="track-info">
+          <div class="track-title">${escapeHtml(t.title || 'YouTube · '+t.youtube_id)}</div>
+          <div class="track-proposer">
+            ${currentLang==='fr'?'Proposé par':'Propuesto por'} <b>${escapeHtml(t.proposed_by)}</b>
+          </div>
+          ${t.votes.length > 0 ? `
+          <div class="track-progress-row">
+            <div class="track-progress">
+              <div class="track-progress-fill" style="width:${pct}%;"></div>
+            </div>
+            <div class="track-progress-label">${pct}% ${currentLang==='fr'?"j'aime":'me gusta'}</div>
+          </div>` : ''}
+        </div>
+        <div class="vote-buttons">
+          <button class="vote-btn like ${myV==='like'?'voted-like':''}" onclick="vote(${t.id}, 'like')">
+            <span class="vote-count">${likes}</span>
+            <span>${currentLang==='fr'?"J'aime":"Me gusta"}</span>
+          </button>
+          <button class="vote-btn maybe ${myV==='maybe'?'voted-maybe':''}" onclick="vote(${t.id}, 'maybe')">
+            <span class="vote-count">${maybes}</span>
+            <span>${currentLang==='fr'?'Pourquoi pas':'Tal vez'}</span>
+          </button>
+          <button class="vote-btn skip ${myV==='skip'?'voted-skip':''}" onclick="vote(${t.id}, 'skip')">
+            <span class="vote-count">${skips}</span>
+            <span>${currentLang==='fr'?"Pas d'avis":'Sin opinión'}</span>
+          </button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ── CHARGEMENT INITIAL ── */
+async function loadAll(){
+  try{
+    const [{ data: rawTracks, error: e1 }, { data: rawVotes, error: e2 }] = await Promise.all([
+      sb.from('playlist_tracks').select('*').order('created_at', { ascending: true }),
+      sb.from('playlist_votes').select('*')
+    ]);
+    if(e1 || e2){
+      console.error(e1 || e2);
+      setStatus(false);
+      return;
+    }
+    tracks = (rawTracks || []).map(t => ({
+      ...t,
+      votes: (rawVotes || []).filter(v => v.track_id === t.id)
+    }));
+    setStatus(true);
+    render();
+  } catch(e){
+    console.error(e);
+    setStatus(false);
+  }
+}
+
+function setStatus(online){
+  isOnline = online;
+  const el = document.getElementById('connection-status');
+  el.className = 'connection-status ' + (online ? 'online' : 'offline');
+  el.innerHTML = '<span class="dot"></span><span>'+
+    (online ? (currentLang==='fr'?'Temps réel actif':'Tiempo real activo')
+            : (currentLang==='fr'?'Connexion impossible':'Conexión imposible'))+'</span>';
+}
+
+/* ── SOUSCRIPTION TEMPS RÉEL ── */
+function subscribeRealtime(){
+  sb.channel('playlist-realtime')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'playlist_tracks' }, () => loadAll())
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'playlist_votes' }, () => loadAll())
+    .subscribe();
+}
+
+/* ── INIT ── */
+applyLang();
+if(!myName){
+  document.getElementById('name-prompt-overlay').classList.add('open');
+  setTimeout(()=>document.getElementById('prompt-name-input').focus(), 200);
+}
+// Pré-remplir le champ proposer-name si le membre s'est déjà identifié
+if(myName){
+  document.getElementById('proposer-name').value = myName;
+}
+loadAll();
+subscribeRealtime();
+
+// Entrée = soumettre dans la modale prénom
+document.getElementById('prompt-name-input').addEventListener('keydown', e => {
+  if(e.key === 'Enter') setMyName();
+});
+// Entrée dans le champ URL = soumettre
+document.getElementById('proposer-url').addEventListener('keydown', e => {
+  if(e.key === 'Enter') submitProposal();
+});
+</script>
+
+</body>
+</html>
