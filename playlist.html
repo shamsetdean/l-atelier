@@ -107,6 +107,34 @@
 }
 .propose-message.error{color:#E53935;}
 .propose-message.success{color:var(--like);}
+.propose-warning{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;
+  color:var(--accent-deep);background:var(--accent-soft);
+  border:1px solid var(--accent);
+  margin-top:.6rem;padding:.55rem .8rem;line-height:1.5;
+}
+
+/* Compteur dans la zone "Connecté : Shams · 2/3 morceaux · changer" */
+.my-count{
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink);font-weight:500;
+}
+.my-count.over{
+  color:var(--accent-deep);background:var(--accent-soft);
+  padding:.1rem .4rem;border:1px solid var(--accent);
+}
+
+/* Liseré sur mes propres morceaux */
+.track-card.mine{
+  border-left:3px solid var(--accent);
+}
+.track-card.mine::before{
+  content:"";position:absolute;top:0;left:0;
+  width:0;height:0;
+  border-top:14px solid var(--accent);
+  border-right:14px solid transparent;
+  z-index:3;pointer-events:none;
+}
 
 /* ── LISTE DES MORCEAUX ── */
 .playlist-header{
@@ -394,6 +422,7 @@
       </button>
     </div>
     <div id="propose-message" class="propose-message"></div>
+    <div id="propose-warning" class="propose-warning" style="display:none;"></div>
   </div>
 
   <!-- LISTE -->
@@ -541,16 +570,47 @@ function changeMember(){
   document.getElementById('name-prompt-overlay').classList.add('open');
 }
 
+/* ── LIMITE DE PROPOSITIONS ── */
+const MAX_PROPOSALS = 3;
+
+function getMyProposalCount(){
+  if(!myName) return 0;
+  return tracks.filter(t => t.proposed_by === myName).length;
+}
+
+function updateProposeWarning(){
+  const warn = document.getElementById('propose-warning');
+  if(!warn) return;
+  const count = getMyProposalCount();
+  if(!myName || count <= MAX_PROPOSALS){
+    warn.style.display = 'none';
+    warn.textContent = '';
+    return;
+  }
+  const over = count - MAX_PROPOSALS;
+  warn.style.display = 'block';
+  warn.textContent = (currentLang==='fr')
+    ? 'Tu dépasses la limite recommandée de '+MAX_PROPOSALS+' morceaux (+'+over+'). Pense à laisser de la place aux autres.'
+    : 'Superas el límite recomendado de '+MAX_PROPOSALS+' canciones (+'+over+'). Deja sitio a los demás.';
+}
+
 function updateMyNameDisplay(){
   if(!myName){
     document.getElementById('my-name-display').innerHTML = '';
+    updateProposeWarning();
     return;
   }
   const label = (currentLang==='fr') ? 'Connecté : ' : 'Conectado : ';
   const change = (currentLang==='fr') ? 'changer' : 'cambiar';
+  const count = getMyProposalCount();
+  const overLimit = count > MAX_PROPOSALS;
+  const countLbl = (currentLang==='fr') ? 'morceau' + (count > 1 ? 'x' : '') : 'canción' + (count > 1 ? 'es' : '');
+  const counterHtml = '<span class="my-count'+(overLimit?' over':'')+'">'+count+'/'+MAX_PROPOSALS+' '+countLbl+'</span>';
   document.getElementById('my-name-display').innerHTML =
     '<span>'+label+'</span><b>'+escapeHtml(myName)+'</b>'+
+    ' · '+counterHtml+' · '+
     '<button class="change-member-btn" onclick="changeMember()">'+change+'</button>';
+  updateProposeWarning();
 }
 
 function ensureName(){
@@ -798,7 +858,7 @@ function render(){
     const rank = String(idx + 1).padStart(2, '0');
 
     return `
-    <div class="track-card" data-id="${t.id}">
+    <div class="track-card ${t.proposed_by === myName ? 'mine' : ''}" data-id="${t.id}">
       <div class="track-rank">#${rank}</div>
       <div class="track-score">+${score}<span class="track-score-label">pts</span></div>
       ${canDelete ? `<button class="track-delete" onclick="deleteTrack(${t.id})" title="${currentLang==='fr'?'Supprimer':'Eliminar'}">${currentLang==='fr'?'Supprimer':'Eliminar'}</button>` : ''}
