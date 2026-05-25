@@ -643,7 +643,10 @@ function render(){
   }
 
   if(tracks.length === 0){
-    container.innerHTML = '<div class="playlist-empty"><span data-fr="Aucun morceau proposé pour l\\'instant. Sois le premier !" data-es="Ninguna canción propuesta. ¡Sé el primero!">'+(currentLang==='fr'?"Aucun morceau proposé pour l'instant. Sois le premier !":'Ninguna canción propuesta. ¡Sé el primero!')+'</span></div>';
+    const emptyMsg = (currentLang==='fr')
+      ? "Aucun morceau proposé pour l'instant. Sois le premier !"
+      : "Ninguna canción propuesta. ¡Sé el primero!";
+    container.innerHTML = '<div class="playlist-empty"><span>'+escapeHtml(emptyMsg)+'</span></div>';
     return;
   }
 
