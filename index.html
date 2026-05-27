@@ -531,22 +531,9 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
 }
 @media(max-width:640px){
   .header-nav{display:none;}
-  .mobile-nav{
-    position:fixed;bottom:0;left:0;right:0;background:var(--paper);
-    border-top:1px solid var(--ink);display:flex;z-index:200;
-  }
-  .mobile-nav button,.mobile-nav .nav-link-mobile{
-    flex:1;background:none;border:none;color:var(--muted);
-    font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-    padding:1rem .5rem;cursor:pointer;border-top:2px solid transparent;
-    min-height:62px;display:flex;align-items:center;justify-content:center;font-weight:500;
-    text-decoration:none;
-  }
-  .mobile-nav button.active{color:var(--ink);border-top-color:var(--groove);}
-  main{padding:1.5rem 1.1rem 6rem;}
+  main{padding:1.5rem 1.1rem 2.5rem;}
   header{padding:0 1.1rem;}
   .header-actions{gap:.35rem;}
-  .lang-btn,.logout-btn{padding:.4rem .55rem;font-size:9px;}
   .header-logo{font-size:1.6rem;}
   .header-logo .tick{display:none;}
   .section-head{grid-template-columns:1fr;gap:.6rem;}
@@ -564,7 +551,125 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
   .login-topbar{font-size:9px;padding:1rem;}
   .login-topbar .left span:nth-child(2){display:none;}
 }
-@media(min-width:641px){.mobile-nav{display:none;}}
+
+/* ── HAMBURGER & DRAWER MOBILE ── */
+.mobile-only{display:none;}
+.desktop-only{display:inline-flex;}
+@media(max-width:640px){
+  .mobile-only{display:inline-flex;}
+  .desktop-only{display:none;}
+}
+.hamburger-btn{
+  background:transparent;border:1px solid var(--ink);
+  width:42px;height:42px;
+  display:inline-flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:5px;cursor:pointer;padding:0;border-radius:0;
+  transition:background .15s;
+}
+.hamburger-btn:hover,.hamburger-btn:active{background:var(--ink);}
+.hamburger-btn:hover .hamburger-line,.hamburger-btn:active .hamburger-line{background:var(--paper);}
+.hamburger-line{
+  width:18px;height:2px;background:var(--ink);
+  transition:background .15s;
+}
+
+/* Overlay derrière le drawer */
+.mobile-drawer-overlay{
+  position:fixed;inset:0;background:rgba(20,17,12,.5);
+  z-index:999;opacity:0;visibility:hidden;
+  transition:opacity .3s, visibility .3s;
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+}
+.mobile-drawer-overlay.open{opacity:1;visibility:visible;}
+
+/* Drawer plein écran qui glisse depuis la droite */
+.mobile-drawer{
+  position:fixed;top:0;right:0;bottom:0;
+  width:88%;max-width:380px;
+  background:var(--paper);
+  z-index:1000;
+  transform:translateX(100%);
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;
+  box-shadow:-12px 0 32px rgba(20,17,12,.15);
+}
+.mobile-drawer.open{transform:translateX(0);}
+
+.mobile-drawer-head{
+  display:flex;justify-content:flex-end;
+  padding:1rem 1.25rem .8rem;
+}
+.mobile-drawer-close{
+  background:transparent;border:1px solid var(--ink);
+  width:42px;height:42px;border-radius:0;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink);transition:all .15s;
+}
+.mobile-drawer-close:hover{background:var(--ink);color:var(--paper);}
+
+.mobile-drawer-nav{
+  flex:1;display:flex;flex-direction:column;gap:0;
+  padding:1rem 0 0;overflow-y:auto;
+}
+.drawer-link{
+  display:flex;align-items:baseline;gap:1.2rem;
+  padding:1.25rem 1.8rem;
+  background:transparent;border:none;border-bottom:1px solid var(--line);
+  text-align:left;cursor:pointer;text-decoration:none;
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:2rem;line-height:1;color:var(--ink);letter-spacing:-.02em;
+  transition:background .15s, padding-left .2s;
+  position:relative;
+}
+.drawer-link:active,.drawer-link:hover{
+  background:var(--paper-2);padding-left:2.2rem;
+}
+.drawer-link.active{background:var(--paper-3);}
+.drawer-link.active::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;
+  width:3px;background:var(--accent);
+}
+.drawer-num{
+  font-family:var(--mono);font-style:normal;font-size:11px;letter-spacing:.16em;
+  color:var(--muted);font-weight:500;
+  text-transform:uppercase;flex-shrink:0;width:1.6rem;
+}
+.drawer-link.active .drawer-num{color:var(--accent);}
+.drawer-label{flex:1;}
+
+.mobile-drawer-footer{
+  border-top:1px solid var(--ink);
+  padding:1.2rem 1.8rem 1.5rem;
+  background:var(--paper-3);
+}
+.drawer-footer-row{
+  display:flex;gap:.55rem;margin-bottom:.9rem;
+}
+.drawer-lang,.drawer-logout{
+  flex:1;background:transparent;border:1px solid var(--ink);
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  padding:.75rem 1rem;font-weight:500;cursor:pointer;color:var(--ink);
+  transition:all .15s;border-radius:0;min-height:44px;
+}
+.drawer-lang:hover,.drawer-logout:hover{background:var(--ink);color:var(--paper);}
+.drawer-footer-meta{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+  color:var(--muted);text-transform:uppercase;text-align:center;
+}
+
+/* Hamburger devient une croix quand drawer ouvert */
+.hamburger-btn[aria-expanded="true"] .hamburger-line:nth-child(1){
+  transform:translateY(7px) rotate(45deg);
+}
+.hamburger-btn[aria-expanded="true"] .hamburger-line:nth-child(2){
+  opacity:0;
+}
+.hamburger-btn[aria-expanded="true"] .hamburger-line:nth-child(3){
+  transform:translateY(-7px) rotate(-45deg);
+}
+.hamburger-line{
+  transform-origin:center;transition:transform .25s, opacity .15s, background .15s;
+}
 /* ════════════════════════════════════════════════════════════════
    BOUCLE A↔B — panneau de contrôle pour audio/video
    Inséré automatiquement par loop-ab.js
@@ -664,8 +769,13 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
       </ul>
     </nav>
     <div class="header-actions">
-      <button class="lang-btn" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
-      <button class="logout-btn" onclick="logout()" data-fr="Sortir" data-es="Salir">Sortir</button>
+      <button class="lang-btn desktop-only" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
+      <button class="logout-btn desktop-only" onclick="logout()" data-fr="Sortir" data-es="Salir">Sortir</button>
+      <button class="hamburger-btn mobile-only" onclick="toggleDrawer()" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
     </div>
   </header>
 
@@ -1162,13 +1272,46 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
     </div>
   </footer>
 
-  <nav class="mobile-nav">
-    <button class="active" onclick="showSection('morceaux',this)"><span class="nav-label" data-fr="Morceaux" data-es="Canciones">Morceaux</span></button>
-    <button onclick="showSection('planning',this)"><span class="nav-label" data-fr="Planning" data-es="Agenda">Planning</span></button>
-    <button onclick="showSection('videos',this)"><span class="nav-label" data-fr="Vidéos" data-es="Vídeos">Vidéos</span></button>
-    <a href="membres.html" class="nav-link-mobile"><span class="nav-label" data-fr="Membres" data-es="Miembros">Membres</span></a>
-    <a href="playlist.html" class="nav-link-mobile"><span class="nav-label" data-fr="Playlist" data-es="Lista">Playlist</span></a>
-  </nav>
+  <!-- DRAWER HAMBURGER (mobile) -->
+  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay" onclick="closeDrawer(event)"></div>
+  <aside id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
+    <div class="mobile-drawer-head">
+      <button class="mobile-drawer-close" onclick="toggleDrawer()" aria-label="Fermer le menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="mobile-drawer-nav">
+      <button class="drawer-link active" data-section="morceaux" onclick="navigateFromDrawer('morceaux', this)">
+        <span class="drawer-num">01</span>
+        <span class="drawer-label" data-fr="Morceaux" data-es="Canciones">Morceaux</span>
+      </button>
+      <button class="drawer-link" data-section="planning" onclick="navigateFromDrawer('planning', this)">
+        <span class="drawer-num">02</span>
+        <span class="drawer-label" data-fr="Planning" data-es="Agenda">Planning</span>
+      </button>
+      <button class="drawer-link" data-section="videos" onclick="navigateFromDrawer('videos', this)">
+        <span class="drawer-num">03</span>
+        <span class="drawer-label" data-fr="Vidéos" data-es="Vídeos">Vidéos</span>
+      </button>
+      <a class="drawer-link" href="membres.html">
+        <span class="drawer-num">04</span>
+        <span class="drawer-label" data-fr="Membres" data-es="Miembros">Membres</span>
+      </a>
+      <a class="drawer-link" href="playlist.html">
+        <span class="drawer-num">05</span>
+        <span class="drawer-label" data-fr="Playlist" data-es="Lista">Playlist</span>
+      </a>
+    </nav>
+    <div class="mobile-drawer-footer">
+      <div class="drawer-footer-row">
+        <button class="drawer-lang" onclick="toggleLang()"><span id="drawer-lang-label">ES</span></button>
+        <button class="drawer-logout" onclick="logout()" data-fr="Sortir" data-es="Salir">Sortir</button>
+      </div>
+      <div class="drawer-footer-meta">
+        <span data-fr="L'Atelier · Conservatoire Jacques Higelin" data-es="L'Atelier · Conservatorio Jacques Higelin">L'Atelier · Conservatoire Jacques Higelin</span>
+      </div>
+    </div>
+  </aside>
 </div>
 
 <script>
@@ -1300,7 +1443,7 @@ function showBioButton(force=false){
 
 function applyLang(){
   const label=(currentLang==='fr')?'ES':'FR';
-  ['lang-toggle','lang-toggle-login'].forEach(id=>{const b=document.getElementById(id);if(b)b.textContent=label;});
+  ['lang-toggle','lang-toggle-login','drawer-lang-label'].forEach(id=>{const b=document.getElementById(id);if(b)b.textContent=label;});
   document.querySelectorAll('[data-fr]').forEach(el=>{
     const hasTranslatableChild=el.querySelector('[data-fr]');
     if(!hasTranslatableChild){el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;}
@@ -1320,13 +1463,53 @@ function showSection(id,btn){
   if(!sec)return;
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   sec.classList.add('active');
-  document.querySelectorAll('.header-nav button,.mobile-nav button').forEach(b=>{
+  // Sync nav desktop
+  document.querySelectorAll('.header-nav button').forEach(b=>{
     const onclickAttr=b.getAttribute('onclick')||'';
     const isMatch=onclickAttr.includes("showSection('"+id+"'");
     b.classList.toggle('active',isMatch);
   });
+  // Sync drawer mobile
+  document.querySelectorAll('.drawer-link[data-section]').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-section')===id);
+  });
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
+/* ── DRAWER MOBILE ── */
+function toggleDrawer(){
+  const drawer=document.getElementById('mobile-drawer');
+  const overlay=document.getElementById('mobile-drawer-overlay');
+  const btn=document.querySelector('.hamburger-btn');
+  const isOpen=drawer.classList.toggle('open');
+  overlay.classList.toggle('open',isOpen);
+  drawer.setAttribute('aria-hidden', isOpen?'false':'true');
+  if(btn) btn.setAttribute('aria-expanded', isOpen?'true':'false');
+  document.body.style.overflow=isOpen?'hidden':'';
+}
+function closeDrawer(e){
+  // Ne ferme que si on a cliqué sur l'overlay lui-même (pas sur le drawer)
+  if(e && e.target.id!=='mobile-drawer-overlay') return;
+  const drawer=document.getElementById('mobile-drawer');
+  const overlay=document.getElementById('mobile-drawer-overlay');
+  const btn=document.querySelector('.hamburger-btn');
+  drawer.classList.remove('open');
+  overlay.classList.remove('open');
+  drawer.setAttribute('aria-hidden','true');
+  if(btn) btn.setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
+}
+function navigateFromDrawer(id, btn){
+  showSection(id, btn);
+  closeDrawer();
+}
+// Touche Escape ferme le drawer
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape'){
+    const drawer=document.getElementById('mobile-drawer');
+    if(drawer && drawer.classList.contains('open')) closeDrawer();
+  }
+});
 
 function openPDF(titre,rawUrl){
   const viewerUrl='https://mozilla.github.io/pdf.js/web/viewer.html?file='+encodeURIComponent(rawUrl);
