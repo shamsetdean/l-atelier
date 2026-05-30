@@ -1012,7 +1012,7 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
 
         
 
-        <div class="event-row concert">
+        <div class="event-row concert" data-date="2026-06-26">
           <div class="event-date-block">
             <div class="event-day">26</div>
             <div class="event-month">Juin 2026</div>
@@ -1034,7 +1034,7 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
           </div>
         </div>
 
-        <div class="event-row repetition">
+        <div class="event-row repetition" data-date="2026-05-28">
           <div class="event-date-block">
             <div class="event-day">28</div>
             <div class="event-month">Mai 2026</div>
@@ -1068,7 +1068,7 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
           </div>
         </div>
 
-        <div class="event-row repetition">
+        <div class="event-row repetition" data-date="2026-05-21">
           <div class="event-date-block">
             <div class="event-day">21</div>
             <div class="event-month">Mai 2026</div>
@@ -1092,7 +1092,7 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
           </div>
         </div>
 
-        <div class="event-row repetition">
+        <div class="event-row repetition" data-date="2026-05-16">
           <div class="event-date-block">
             <div class="event-day">16</div>
             <div class="event-month">Mai 2026</div>
@@ -1113,7 +1113,7 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
           </div>
         </div>
 
-        <div class="event-row repetition">
+        <div class="event-row repetition" data-date="2026-05-07">
           <div class="event-date-block">
             <div class="event-day">07</div>
             <div class="event-month">Mai 2026</div>
@@ -1134,7 +1134,7 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
           </div>
         </div>
 
-        <div class="event-row repetition">
+        <div class="event-row repetition" data-date="2026-04-17">
           <div class="event-date-block">
             <div class="event-day">17</div>
             <div class="event-month">Avril 2026</div>
@@ -1500,6 +1500,7 @@ function toggleLang(){
   applyLang();
   if(typeof updateCountdown === 'function') updateCountdown();
   if(typeof tagNouveauxMorceaux === 'function') tagNouveauxMorceaux();
+  if(typeof tagNouvelleRepetition === 'function') tagNouvelleRepetition();
 }
 
 function showSection(id,btn){
@@ -1660,9 +1661,54 @@ function tagNouveauxMorceaux(){
   });
 }
 
+/* ── BADGE "NOUVEAU" SUR LA RÉPÉTITION LA PLUS RÉCENTE ── */
+function tagNouvelleRepetition(){
+  const now = new Date();
+  // Récupère toutes les répétitions avec une data-date
+  const repets = Array.from(document.querySelectorAll('.event-row.repetition[data-date]'));
+  if(repets.length === 0) return;
+
+  // Filtre celles dont la date est passée ou égale à aujourd'hui (on ne tag pas une répét future)
+  const pastRepets = repets.filter(el => {
+    const d = new Date(el.dataset.date);
+    return d <= now;
+  });
+  if(pastRepets.length === 0) return;
+
+  // Trouve la plus récente (date max)
+  pastRepets.sort((a,b) => new Date(b.dataset.date) - new Date(a.dataset.date));
+  const latest = pastRepets[0];
+
+  // Pour chaque répétition, on met à jour le badge :
+  // - la plus récente → "Nouveau" (style orange accent)
+  // - les autres avec audio → "Audio dispo" (style vert)
+  repets.forEach(el => {
+    const badge = el.querySelector('.event-badge.repetition');
+    if(!badge) return;
+    const hasAudio = el.querySelector('audio') !== null;
+    const isLatest = el === latest;
+
+    if(isLatest){
+      // Style "Nouveau" orange
+      badge.style.background = '#FFE0CD';
+      badge.style.color = '#7A2A0E';
+      badge.style.borderColor = '#F0511E';
+      badge.innerHTML = '<span data-fr="Nouveau" data-es="Nuevo">'+(currentLang==='es'?'Nuevo':'Nouveau')+'</span>';
+    } else if(hasAudio){
+      // Style "Audio dispo" vert (vide les inline styles pour reprendre celui par défaut)
+      badge.style.background = '';
+      badge.style.color = '';
+      badge.style.borderColor = '';
+      badge.innerHTML = '<span data-fr="Audio dispo" data-es="Audio disponible">'+(currentLang==='es'?'Audio disponible':'Audio dispo')+'</span>';
+    }
+    // Si pas d'audio, on laisse le badge tel quel
+  });
+}
+
 function postLoginInit(){
   try { updateCountdown(); } catch(e){ console.error('updateCountdown error:', e); }
   try { tagNouveauxMorceaux(); } catch(e){ console.error('tagNouveauxMorceaux error:', e); }
+  try { tagNouvelleRepetition(); } catch(e){ console.error('tagNouvelleRepetition error:', e); }
   try { setInterval(updateCountdown, 1000 * 60 * 60); } catch(e){}
 }
 
