@@ -109,10 +109,20 @@
 
     <div class="audio-block">
       <div class="audio-label">
-        <span data-fr="Audio répétition" data-es="Audio del ensayo">Audio répétition</span>
+        <span data-fr="Atelier du 28 mai" data-es="Ensayo del 28 de mayo">Atelier du 28 mai</span>
         <span class="audio-source" id="src-repet-easy-lover"></span>
       </div>
-      <div class="audio-placeholder"><span data-fr="Audio à venir — placeholder : #REMPLACER_AUDIO_REPETITION_EASY_LOVER" data-es="Audio próximamente — placeholder: #REMPLACER_AUDIO_REPETITION_EASY_LOVER">Audio à venir — placeholder : #REMPLACER_AUDIO_REPETITION_EASY_LOVER</span></div>
+      <audio id="audio-repet-easy-lover" controls preload="none">
+        <source src="https://www.dropbox.com/scl/fi/9wou9mtd8ex225l5lrys1/Easy-Lover-Still-atelier-du-jeudi-28-mai.m4a?rlkey=2bg6om2m5j6ia0y0i7lekyjj0&raw=1" type="audio/mp4">
+        <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+      </audio>
+      <div class="audio-controls">
+        <span class="speed-lbl" data-fr="Vitesse :" data-es="Velocidad :">Vitesse :</span>
+        <button class="audio-speed" onclick="setSpeed('audio-repet-easy-lover',0.75,this)">0.75×</button>
+        <button class="audio-speed active" onclick="setSpeed('audio-repet-easy-lover',1,this)">1×</button>
+        <button class="audio-speed" onclick="setSpeed('audio-repet-easy-lover',1.25,this)">1.25×</button>
+        <a href="https://www.dropbox.com/scl/fi/9wou9mtd8ex225l5lrys1/Easy-Lover-Still-atelier-du-jeudi-28-mai.m4a?rlkey=2bg6om2m5j6ia0y0i7lekyjj0&dl=1" class="pdf-btn" style="margin-left:auto;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
+      </div>
     </div>
   </section>
 
