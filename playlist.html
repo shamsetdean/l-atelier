@@ -53,6 +53,59 @@
   margin-top:.4rem;line-height:1.4;
 }
 
+/* ── BLOC À PROPOS (DÉPLIABLE) ── */
+.about-block{
+  margin-bottom:2rem;
+  border:1px solid var(--ink);background:var(--paper-3);
+}
+.about-summary{
+  display:flex;align-items:center;gap:.7rem;
+  padding:1rem 1.2rem;
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink);font-weight:500;
+  cursor:pointer;list-style:none;
+  transition:background .15s;
+  user-select:none;-webkit-user-select:none;
+}
+.about-summary::-webkit-details-marker{display:none;}
+.about-summary:hover{background:var(--paper-2);}
+.about-summary .about-icon{
+  color:var(--accent);flex-shrink:0;
+}
+.about-summary > span{flex:1;}
+.about-summary .about-chevron{
+  color:var(--muted);flex-shrink:0;
+  transition:transform .25s;
+}
+.about-block[open] .about-summary{
+  border-bottom:1px solid var(--line);
+}
+.about-block[open] .about-summary .about-chevron{
+  transform:rotate(180deg);color:var(--accent);
+}
+.about-body{
+  padding:1.4rem 1.4rem 1.1rem;
+  background:var(--paper);
+}
+.about-para{
+  font-family:var(--serif);font-size:1rem;line-height:1.65;
+  color:var(--ink);
+  margin:0 0 1rem 0;
+  letter-spacing:0;
+}
+.about-para:last-child{margin-bottom:0;}
+.about-para-final{
+  padding:.9rem 1rem;background:var(--accent-soft);
+  border-left:3px solid var(--accent);
+  font-style:italic;font-size:.95rem;color:var(--accent-deep);
+  margin-top:1.3rem;
+}
+@media(min-width:768px){
+  .about-body{padding:1.7rem 1.8rem 1.4rem;}
+  .about-para{font-size:1.05rem;}
+  .about-para-final{padding:1.1rem 1.3rem;font-size:1rem;}
+}
+
 /* ── CONNECTION STATUS ── */
 .connection-status{
   display:inline-flex;align-items:center;gap:.5rem;
@@ -403,6 +456,26 @@
       <span data-fr="Propose, vote, écoute" data-es="Propón, vota, escucha">Propose, vote, écoute</span>
     </div>
   </div>
+
+  <!-- À PROPOS (DÉPLIABLE) -->
+  <details class="about-block">
+    <summary class="about-summary">
+      <svg class="about-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="16" y2="12"/><line x1="12" x2="12.01" y1="8" y2="8"/></svg>
+      <span data-fr="Comment ça marche" data-es="Cómo funciona">Comment ça marche</span>
+      <svg class="about-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </summary>
+    <div class="about-body">
+      <p class="about-para">
+        <span data-fr="Les propositions de morceaux sont les bienvenues et doivent avant tout tenir compte de la composition actuelle du groupe, c'est-à-dire des musiciens présents au sein de l'atelier. L'objectif n'est pas de se limiter au niveau individuel de chacun, mais de favoriser des choix adaptés au travail collectif." data-es="Las propuestas de canciones son bienvenidas y deben tener en cuenta ante todo la composición actual del grupo, es decir, los músicos presentes en el taller. El objetivo no es limitarse al nivel individual de cada uno, sino favorecer opciones adaptadas al trabajo colectivo.">Les propositions de morceaux sont les bienvenues et doivent avant tout tenir compte de la composition actuelle du groupe, c'est-à-dire des musiciens présents au sein de l'atelier. L'objectif n'est pas de se limiter au niveau individuel de chacun, mais de favoriser des choix adaptés au travail collectif.</span>
+      </p>
+      <p class="about-para">
+        <span data-fr="Cette playlist a pour vocation de permettre à Cédric de mieux connaître les envies et les centres d'intérêt musicaux des participants, afin d'identifier les morceaux que le groupe souhaiterait explorer et travailler ensemble." data-es="Esta lista tiene como objetivo permitir a Cédric conocer mejor los gustos y los intereses musicales de los participantes, para identificar las canciones que el grupo desearía explorar y trabajar juntos.">Cette playlist a pour vocation de permettre à Cédric de mieux connaître les envies et les centres d'intérêt musicaux des participants, afin d'identifier les morceaux que le groupe souhaiterait explorer et travailler ensemble.</span>
+      </p>
+      <p class="about-para about-para-final">
+        <span data-fr="Les suggestions recueillies constituent une source d'inspiration et d'échange. Le choix final des morceaux reste toutefois à l'appréciation de Cédric, qui sélectionnera les titres les plus pertinents au regard de la dynamique du groupe, de sa progression et des objectifs pédagogiques de l'atelier." data-es="Las sugerencias recogidas constituyen una fuente de inspiración y de intercambio. La elección final de las canciones queda no obstante a discreción de Cédric, quien seleccionará los títulos más pertinentes en relación con la dinámica del grupo, su progresión y los objetivos pedagógicos del taller.">Les suggestions recueillies constituent une source d'inspiration et d'échange. Le choix final des morceaux reste toutefois à l'appréciation de Cédric, qui sélectionnera les titres les plus pertinents au regard de la dynamique du groupe, de sa progression et des objectifs pédagogiques de l'atelier.</span>
+      </p>
+    </div>
+  </details>
 
   <!-- STATUT CONNEXION -->
   <div class="connection-status" id="connection-status">
