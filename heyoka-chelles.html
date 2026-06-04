@@ -93,8 +93,27 @@
 
     <div class="audio-block">
       <div class="audio-label">
-        <span data-fr="Audio répétition" data-es="Audio del ensayo">Audio répétition</span>
-        <span class="audio-source" id="src-repet-medley-chaka"></span>
+        <span data-fr="Atelier du 4 juin" data-es="Ensayo del 4 de junio">Atelier du 4 juin</span>
+        <span style="font-family:var(--serif);font-style:italic;color:var(--accent);margin-left:.4rem;" data-fr="· voix uniquement" data-es="· solo voces">· voix uniquement</span>
+        <span class="audio-source" id="src-repet2-heyoka-chelles"></span>
+      </div>
+      <audio id="audio-repet2-heyoka-chelles" controls preload="none">
+        <source src="https://www.dropbox.com/scl/fi/8cwzr2cne6w0l28efirro/HEYOKA-CHELLES-4-6-Voix-uniquement..m4a?rlkey=qclrf8howbz7t9g1kep6ta8nc&raw=1" type="audio/mp4">
+        <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+      </audio>
+      <div class="audio-controls">
+        <span class="speed-lbl" data-fr="Vitesse :" data-es="Velocidad :">Vitesse :</span>
+        <button class="audio-speed" onclick="setSpeed('audio-repet2-heyoka-chelles',0.75,this)">0.75×</button>
+        <button class="audio-speed active" onclick="setSpeed('audio-repet2-heyoka-chelles',1,this)">1×</button>
+        <button class="audio-speed" onclick="setSpeed('audio-repet2-heyoka-chelles',1.25,this)">1.25×</button>
+        <a href="https://www.dropbox.com/scl/fi/8cwzr2cne6w0l28efirro/HEYOKA-CHELLES-4-6-Voix-uniquement..m4a?rlkey=qclrf8howbz7t9g1kep6ta8nc&dl=1" class="pdf-btn" style="margin-left:auto;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
+      </div>
+    </div>
+
+    <div class="audio-block">
+      <div class="audio-label">
+        <span data-fr="Atelier · enregistrement précédent" data-es="Ensayo · grabación anterior">Atelier · enregistrement précédent</span>
+        <span class="audio-source" id="src-repet-heyoka-chelles"></span>
       </div>
       <audio id="audio-repet-heyoka-chelles" controls preload="none">
         <source src="https://www.dropbox.com/scl/fi/r79x28fr9x0uvfkjbhe2l/HEYOKA-CHELLES.m4a?rlkey=fd8yhtlo0luenw15vzrgd4y2j&raw=1" type="audio/mp4">

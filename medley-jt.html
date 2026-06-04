@@ -103,10 +103,20 @@
 
     <div class="audio-block">
       <div class="audio-label">
-        <span data-fr="Audio répétition" data-es="Audio del ensayo">Audio répétition</span>
+        <span data-fr="Atelier du 4 juin" data-es="Ensayo del 4 de junio">Atelier du 4 juin</span>
         <span class="audio-source" id="src-repet-medley-jt"></span>
       </div>
-      <div class="audio-placeholder"><span data-fr="Audio à venir — placeholder : #REMPLACER_AUDIO_REPETITION_MEDLEY_JT" data-es="Audio próximamente — placeholder: #REMPLACER_AUDIO_REPETITION_MEDLEY_JT">Audio à venir — placeholder : #REMPLACER_AUDIO_REPETITION_MEDLEY_JT</span></div>
+      <audio id="audio-repet-medley-jt" controls preload="none">
+        <source src="https://www.dropbox.com/scl/fi/imb3bir7oohyrvdp4dmox/Medley-Justin-Timberlake-04-06-2026.mp3?rlkey=31trdpz4p05a5b0ov8osa5w9u&raw=1" type="audio/mpeg">
+        <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+      </audio>
+      <div class="audio-controls">
+        <span class="speed-lbl" data-fr="Vitesse :" data-es="Velocidad :">Vitesse :</span>
+        <button class="audio-speed" onclick="setSpeed('audio-repet-medley-jt',0.75,this)">0.75×</button>
+        <button class="audio-speed active" onclick="setSpeed('audio-repet-medley-jt',1,this)">1×</button>
+        <button class="audio-speed" onclick="setSpeed('audio-repet-medley-jt',1.25,this)">1.25×</button>
+        <a href="https://www.dropbox.com/scl/fi/imb3bir7oohyrvdp4dmox/Medley-Justin-Timberlake-04-06-2026.mp3?rlkey=31trdpz4p05a5b0ov8osa5w9u&dl=1" class="pdf-btn" style="margin-left:auto;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
+      </div>
     </div>
   </section>
 

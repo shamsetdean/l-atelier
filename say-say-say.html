@@ -100,9 +100,19 @@
 
     <div class="audio-block">
       <div class="audio-label">
-        <span data-fr="Audio répétition" data-es="Audio del ensayo">Audio répétition</span>
+        <span data-fr="Atelier du 4 juin" data-es="Ensayo del 4 de junio">Atelier du 4 juin</span>
       </div>
-      <div class="audio-placeholder"><span data-fr="Audio à venir — placeholder : #REMPLACER_AUDIO_REPETITION_SAY_SAY_SAY" data-es="Audio próximamente — placeholder: #REMPLACER_AUDIO_REPETITION_SAY_SAY_SAY">Audio à venir — placeholder : #REMPLACER_AUDIO_REPETITION_SAY_SAY_SAY</span></div>
+      <audio id="audio-repet-say-say-say" controls preload="none">
+        <source src="https://www.dropbox.com/scl/fi/lvfqdrytoffwgnpw4ria7/Say-Say-Say-04-06-2026.mp3?rlkey=2ttogvqhyq61cptrb0rx8mour&raw=1" type="audio/mpeg">
+        <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+      </audio>
+      <div class="audio-controls">
+        <span class="speed-lbl" data-fr="Vitesse :" data-es="Velocidad :">Vitesse :</span>
+        <button class="audio-speed" onclick="setSpeed('audio-repet-say-say-say',0.75,this)">0.75×</button>
+        <button class="audio-speed active" onclick="setSpeed('audio-repet-say-say-say',1,this)">1×</button>
+        <button class="audio-speed" onclick="setSpeed('audio-repet-say-say-say',1.25,this)">1.25×</button>
+        <a href="https://www.dropbox.com/scl/fi/lvfqdrytoffwgnpw4ria7/Say-Say-Say-04-06-2026.mp3?rlkey=2ttogvqhyq61cptrb0rx8mour&dl=1" class="pdf-btn" style="margin-left:auto;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
+      </div>
     </div>
   </section>
 
