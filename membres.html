@@ -166,6 +166,129 @@
   .members-stats{grid-template-columns:repeat(4,1fr);}
   .members-stat{padding:1.4rem 1rem;}
 }
+
+/* ════════════════════════════════════════════════════════════════
+   L'ATELIER EN CHIFFRES (bas de page Membres)
+   ════════════════════════════════════════════════════════════════ */
+.chiffres-block{
+  margin-top:3.5rem;padding-top:2.5rem;
+  border-top:1px solid var(--ink);
+}
+.chiffres-eyebrow{
+  display:flex;align-items:center;gap:.7rem;
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:.7rem;font-weight:500;
+}
+.chiffres-eyebrow .ch-bar{
+  display:inline-block;width:18px;height:1px;background:var(--accent);
+}
+.chiffres-title{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(2rem,7vw,3.2rem);line-height:.95;color:var(--ink);
+  letter-spacing:-.025em;margin:0 0 .35rem;
+}
+.chiffres-title .ch-pt{color:var(--accent);font-style:normal;}
+.chiffres-tagline{
+  font-family:var(--serif);font-style:italic;font-size:1.05rem;
+  color:var(--muted);margin:0 0 1.6rem;line-height:1.4;
+}
+
+/* 4 grandes cases */
+.chiffres-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
+  background:var(--ink);border:1px solid var(--ink);
+  margin-bottom:2rem;
+}
+.chiffre-cell{
+  background:var(--paper-3);padding:1.5rem 1rem;text-align:center;
+}
+.chiffre-num{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(2.4rem,9vw,3.6rem);line-height:1;
+  color:var(--accent);letter-spacing:-.02em;
+}
+.chiffre-num.loading{color:var(--muted);opacity:.4;}
+.chiffre-lbl{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);margin-top:.55rem;font-weight:500;
+}
+
+/* Classement morceaux */
+.chiffres-ranking{
+  background:var(--paper-3);border:1px solid var(--ink);
+  padding:1.3rem 1.4rem 1.1rem;margin-bottom:2rem;
+}
+.chiffres-h3{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink);margin:0 0 1.1rem;font-weight:500;
+  display:flex;align-items:center;gap:.55rem;
+}
+.chiffres-h3::before{
+  content:"";width:14px;height:1px;background:var(--accent);flex-shrink:0;
+}
+.ranking-list{
+  list-style:none;padding:0;margin:0;
+  display:flex;flex-direction:column;gap:.55rem;
+}
+.ranking-list li{
+  display:grid;grid-template-columns:1.6rem 1fr auto;
+  align-items:center;gap:.8rem;
+  padding:.55rem 0;
+  border-bottom:1px solid var(--line);
+}
+.ranking-list li:last-child{border-bottom:none;}
+.ranking-rank{
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  color:var(--muted);font-weight:500;
+}
+.ranking-name{
+  font-family:var(--serif);font-style:italic;font-size:1.1rem;
+  color:var(--ink);letter-spacing:-.01em;line-height:1.2;
+}
+.ranking-name a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s;}
+.ranking-name a:hover{border-bottom-color:var(--accent);}
+.ranking-count{
+  display:flex;align-items:center;gap:.5rem;
+  font-family:var(--mono);font-size:10px;letter-spacing:.04em;
+  color:var(--muted);white-space:nowrap;
+}
+.ranking-dots{display:inline-flex;gap:2px;}
+.ranking-dot{
+  display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--accent);
+}
+.ranking-dot.empty{background:var(--paper);border:1px solid var(--line);}
+.ranking-loading{
+  font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);
+  padding:1rem 0;font-style:italic;
+}
+
+/* Bilan textuel */
+.chiffres-bilan{
+  display:flex;flex-direction:column;gap:.5rem;
+  padding:1.2rem 1.4rem;background:var(--paper);
+  border:1px solid var(--line);
+}
+.bilan-row{
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  padding:.4rem 0;border-bottom:1px dashed var(--line);
+}
+.bilan-row:last-child{border-bottom:none;}
+.bilan-lbl{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;flex-shrink:0;
+}
+.bilan-val{
+  font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--ink);
+  text-align:right;letter-spacing:-.01em;
+}
+
+@media(min-width:768px){
+  .chiffres-grid{grid-template-columns:repeat(4,1fr);}
+  .chiffres-tagline{font-size:1.15rem;}
+  .ranking-name{font-size:1.2rem;}
+  .ranking-list li{grid-template-columns:2rem 1fr auto;gap:1.2rem;padding:.7rem 0;}
+}
 </style>
 </head>
 <body>
@@ -417,8 +540,259 @@ function toggleLang(){
   currentLang=(currentLang==='fr')?'es':'fr';
   localStorage.setItem('atelier-lang',currentLang);
   applyLang();
+  // Re-render stats (les labels textuels qui dépendent de la langue)
+  if(typeof renderChiffres === 'function' && window.__chiffresData){
+    renderChiffres(window.__chiffresData);
+  }
 }
 applyLang();
+
+/* ════════════════════════════════════════════════════════════════
+   L'ATELIER EN CHIFFRES — calcul automatique
+   ════════════════════════════════════════════════════════════════ */
+
+// Liste des pages morceaux (correspond aux 8 morceaux du répertoire)
+const MORCEAUX_PAGES = [
+  { slug: 'worth-it',        name: 'Worth It' },
+  { slug: 'still-a-friend',  name: 'Still a Friend of Mine' },
+  { slug: 'easy-lover',      name: 'Easy Lover' },
+  { slug: 'medley-jt',       name: 'Medley Justin Timberlake' },
+  { slug: 'medley-chaka',    name: 'Medley Chaka Khan' },
+  { slug: 'this-place-hotel',name: 'This Place Hotel' },
+  { slug: 'say-say-say',     name: 'Say Say Say' },
+  { slug: 'heyoka-chelles',  name: 'Heyoka Chelles' }
+];
+
+// Mois FR → numéro (pour parser le planning)
+const MOIS_FR = {
+  janvier:'01', février:'02', mars:'03', avril:'04', mai:'05', juin:'06',
+  juillet:'07', août:'08', septembre:'09', octobre:'10', novembre:'11', décembre:'12'
+};
+
+/* Récupère et compte les "Atelier du..." dans une page morceau */
+async function fetchMorceauStats(slug, name){
+  try {
+    const r = await fetch(slug + '.html', { cache: 'default' });
+    if(!r.ok) return { slug, name, sessions: 0, audios: [] };
+    const txt = await r.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(txt, 'text/html');
+
+    // Compter les audio-block qui contiennent "Atelier du" (donc une vraie session enregistrée)
+    const blocks = doc.querySelectorAll('.audio-block');
+    let sessions = 0;
+    const audios = [];
+    blocks.forEach(b => {
+      const lbl = b.querySelector('.audio-label');
+      if(!lbl) return;
+      const txt = lbl.textContent || '';
+      if(/Atelier du/i.test(txt)){
+        sessions++;
+        // Récupérer l'URL audio pour pouvoir lire sa durée
+        const src = b.querySelector('audio source');
+        if(src) audios.push(src.getAttribute('src'));
+      }
+    });
+    return { slug, name, sessions, audios };
+  } catch(e){
+    console.warn('Erreur fetch', slug, e);
+    return { slug, name, sessions: 0, audios: [] };
+  }
+}
+
+/* Récupère les stats du planning depuis l'index */
+async function fetchPlanningStats(){
+  try {
+    const r = await fetch('index.html', { cache: 'default' });
+    if(!r.ok) return { repetitions: 0, concerts: 0, premiere: null, prochainConcert: null };
+    const txt = await r.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(txt, 'text/html');
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    const repets = Array.from(doc.querySelectorAll('.event-row.repetition[data-date]'));
+    const concerts = Array.from(doc.querySelectorAll('.event-row.concert[data-date]'));
+
+    // Répétitions passées (compte celles déjà eu lieu)
+    const repetsPassees = repets.filter(el => new Date(el.dataset.date) <= today);
+    const concertsPasses = concerts.filter(el => new Date(el.dataset.date) <= today);
+
+    // Première date (la plus ancienne parmi répét passées)
+    let premiere = null;
+    if(repetsPassees.length){
+      const dates = repetsPassees.map(el => new Date(el.dataset.date));
+      premiere = new Date(Math.min(...dates));
+    }
+
+    // Prochain concert (premier concert futur)
+    const concertsFuturs = concerts.filter(el => new Date(el.dataset.date) > today);
+    concertsFuturs.sort((a,b) => new Date(a.dataset.date) - new Date(b.dataset.date));
+    const prochainConcert = concertsFuturs[0] ? new Date(concertsFuturs[0].dataset.date) : null;
+
+    return {
+      repetitions: repetsPassees.length,
+      concerts: concertsPasses.length,
+      premiere,
+      prochainConcert
+    };
+  } catch(e){
+    console.warn('Erreur fetch planning', e);
+    return { repetitions: 0, concerts: 0, premiere: null, prochainConcert: null };
+  }
+}
+
+/* Récupère la durée d'un audio sans le télécharger (juste métadonnées) */
+function getAudioDuration(url){
+  return new Promise((resolve) => {
+    const a = document.createElement('audio');
+    a.preload = 'metadata';
+    a.src = url;
+    const timeout = setTimeout(() => resolve(0), 6000); // au pire 6s d'attente
+    a.addEventListener('loadedmetadata', () => {
+      clearTimeout(timeout);
+      resolve(isFinite(a.duration) ? a.duration : 0);
+    }, { once: true });
+    a.addEventListener('error', () => {
+      clearTimeout(timeout);
+      resolve(0);
+    }, { once: true });
+  });
+}
+
+/* Formate une durée en secondes vers "Xh YYmin" ou "YYmin" */
+function formatDuration(seconds){
+  if(!seconds || seconds <= 0) return (currentLang==='fr') ? '—' : '—';
+  const h = Math.floor(seconds / 3600);
+  const m = Math.round((seconds % 3600) / 60);
+  if(h > 0){
+    return h + 'h ' + String(m).padStart(2,'0') + (currentLang==='fr' ? 'min' : 'min');
+  }
+  return m + (currentLang==='fr' ? 'min' : 'min');
+}
+
+/* Formate une date vers "JJ mois AAAA" en FR/ES */
+function formatDate(d){
+  if(!d) return '—';
+  const moisFr = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  const moisEs = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const mois = (currentLang==='es') ? moisEs : moisFr;
+  return d.getDate() + ' ' + mois[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+/* Calcule "depuis" en mois ou années */
+function formatDepuis(d){
+  if(!d){return (currentLang==='fr') ? 'avril 2024' : 'abril 2024';}
+  return formatDate(d);
+}
+
+/* Rendu visuel des dots dans le classement */
+function renderDots(n, max){
+  const filled = n;
+  const dots = [];
+  for(let i = 0; i < Math.min(filled, max); i++){
+    dots.push('<span class="ranking-dot"></span>');
+  }
+  return '<span class="ranking-dots">' + dots.join('') + '</span>';
+}
+
+/* Rendu final dans le DOM */
+function renderChiffres(data){
+  // 4 cases du haut
+  document.getElementById('stat-morceaux').textContent = data.morceaux;
+  document.getElementById('stat-morceaux').classList.remove('loading');
+  document.getElementById('stat-repetitions').textContent = data.repetitions;
+  document.getElementById('stat-repetitions').classList.remove('loading');
+  document.getElementById('stat-enregistrements').textContent = data.enregistrements;
+  document.getElementById('stat-enregistrements').classList.remove('loading');
+  document.getElementById('stat-concerts').textContent = data.concerts;
+  document.getElementById('stat-concerts').classList.remove('loading');
+
+  // Classement morceaux
+  const list = document.getElementById('ranking-list');
+  const sorted = [...data.morceauxList].sort((a,b) => b.sessions - a.sessions);
+  const maxSessions = Math.max(...sorted.map(m => m.sessions), 1);
+
+  list.innerHTML = sorted.map((m, idx) => {
+    const rank = String(idx + 1).padStart(2, '0');
+    const lbl = m.sessions === 0
+      ? ((currentLang==='fr') ? '<em>en travail</em>' : '<em>en proceso</em>')
+      : m.sessions + (currentLang==='fr'
+          ? (m.sessions > 1 ? ' enregistrements' : ' enregistrement')
+          : (m.sessions > 1 ? ' grabaciones' : ' grabación'));
+    return `<li>
+      <span class="ranking-rank">${rank}</span>
+      <span class="ranking-name"><a href="${m.slug}.html">${m.name}</a></span>
+      <span class="ranking-count">${renderDots(m.sessions, maxSessions)}<span>${lbl}</span></span>
+    </li>`;
+  }).join('');
+
+  // Bilan textuel
+  document.getElementById('stat-depuis').textContent = formatDepuis(data.premiere);
+  document.getElementById('stat-prochain').textContent = data.prochainConcert
+    ? formatDate(data.prochainConcert)
+    : ((currentLang==='fr') ? 'aucun programmé' : 'ninguno programado');
+  document.getElementById('stat-duree').textContent = formatDuration(data.dureeTotal);
+}
+
+/* Orchestration : charge tout en parallèle, puis rend */
+async function loadChiffres(){
+  try {
+    // Lance fetch des 8 morceaux + planning en parallèle
+    const [morceauxResults, planningStats] = await Promise.all([
+      Promise.all(MORCEAUX_PAGES.map(p => fetchMorceauStats(p.slug, p.name))),
+      fetchPlanningStats()
+    ]);
+
+    // Total enregistrements
+    const enregistrements = morceauxResults.reduce((s, m) => s + m.sessions, 0);
+
+    // Rendu initial (sans la durée)
+    const data = {
+      morceaux: MORCEAUX_PAGES.length,
+      morceauxList: morceauxResults,
+      repetitions: planningStats.repetitions,
+      enregistrements,
+      concerts: planningStats.concerts,
+      premiere: planningStats.premiere,
+      prochainConcert: planningStats.prochainConcert,
+      dureeTotal: 0
+    };
+    window.__chiffresData = data;
+    renderChiffres(data);
+
+    // Puis on charge les durées en arrière-plan (peut être long)
+    // Limité aux 3 premiers audios par morceau pour ne pas surcharger
+    const allUrls = [];
+    morceauxResults.forEach(m => {
+      m.audios.slice(0, 5).forEach(u => allUrls.push(u));
+    });
+    // Charge max 10 audios en parallèle pour ne pas saturer la connexion
+    const durations = [];
+    for(let i = 0; i < allUrls.length; i += 10){
+      const batch = allUrls.slice(i, i + 10);
+      const ds = await Promise.all(batch.map(getAudioDuration));
+      durations.push(...ds);
+    }
+    data.dureeTotal = durations.reduce((s, d) => s + d, 0);
+    window.__chiffresData = data;
+    document.getElementById('stat-duree').textContent = formatDuration(data.dureeTotal);
+  } catch(e){
+    console.error('Erreur loadChiffres:', e);
+    // Fallback : masquer les loaders avec un tiret
+    ['stat-morceaux','stat-repetitions','stat-enregistrements','stat-concerts'].forEach(id => {
+      const el = document.getElementById(id);
+      if(el && el.textContent === '—') el.textContent = '?';
+    });
+    document.getElementById('ranking-list').innerHTML =
+      '<li class="ranking-loading">' +
+      ((currentLang==='fr') ? 'Statistiques indisponibles' : 'Estadísticas no disponibles') +
+      '</li>';
+  }
+}
+
+// Lance le calcul au chargement de la page
+loadChiffres();
 </script>
 
 </body>
