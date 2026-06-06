@@ -275,6 +275,35 @@
   color:var(--muted);font-weight:500;
 }
 .track-proposer b{color:var(--ink);font-weight:500;}
+
+/* ── PASTILLES VOTANTS ── */
+.track-voters{
+  display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;
+  margin-top:.7rem;padding-top:.7rem;
+  border-top:1px solid var(--line);
+}
+.voters-label{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;flex-shrink:0;
+}
+.voters-list{
+  display:flex;flex-wrap:wrap;gap:.3rem;
+}
+.voter-chip{
+  display:inline-flex;align-items:center;justify-content:center;
+  height:24px;padding:0 .6rem;
+  background:var(--paper);border:1px solid var(--ink);
+  font-family:var(--mono);font-size:10px;letter-spacing:.04em;
+  color:var(--ink);font-weight:500;
+  cursor:default;user-select:none;white-space:nowrap;
+  transition:transform .15s, background .15s;
+}
+.voter-chip:hover{
+  transform:translateY(-1px);background:var(--paper-3);
+}
+.voter-chip.is-me{
+  background:var(--accent);color:var(--paper);border-color:var(--accent);
+}
 .track-progress-row{
   display:flex;align-items:center;gap:.6rem;
   margin-top:.8rem;padding-top:.8rem;border-top:1px solid var(--line);
@@ -864,6 +893,20 @@ function escapeHtml(s){
   return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
+/* ── INITIALES À PARTIR D'UN PRÉNOM ── */
+// Règles : prénom composé avec tiret/espace → première lettre de chaque partie ('Jean-Marc' → 'JM')
+// Sinon, 2 premières lettres avec la 2e en minuscule ('Shams' → 'Sh', 'Cédric' → 'Cd', 'Theythey' → 'Th')
+function getInitials(name){
+  if(!name) return '?';
+  // Si prénom composé (Jean-Marc, Marie-Claire)
+  if(/[-\s]/.test(name)){
+    const parts = name.split(/[-\s]+/).filter(Boolean);
+    return parts.slice(0, 2).map(p => (p[0] || '').toUpperCase()).join('');
+  }
+  // Sinon, première lettre majuscule + deuxième en minuscule
+  return (name[0] || '').toUpperCase() + (name[1] || '').toLowerCase();
+}
+
 /* ── LECTURE INLINE DE LA VIDÉO ── */
 let currentlyPlayingId = null; // id YouTube de la vidéo en cours de lecture (pour préserver l'iframe au re-render)
 
@@ -952,6 +995,13 @@ function render(){
           <div class="track-proposer">
             ${currentLang==='fr'?'Proposé par':'Propuesto por'} <b>${escapeHtml(t.proposed_by)}</b>
           </div>
+          ${t.votes.length > 0 ? `
+          <div class="track-voters">
+            <span class="voters-label">${currentLang==='fr'?'Ont voté':'Han votado'}</span>
+            <div class="voters-list">
+              ${t.votes.map(v => `<span class="voter-chip${v.voter_name === myName ? ' is-me' : ''}" title="${escapeHtml(v.voter_name)}" aria-label="${escapeHtml(v.voter_name)}">${escapeHtml(v.voter_name)}</span>`).join('')}
+            </div>
+          </div>` : ''}
           ${t.votes.length > 0 ? `
           <div class="track-progress-row">
             <div class="track-progress">
