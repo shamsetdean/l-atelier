@@ -284,7 +284,7 @@
 }
 
 @media(min-width:768px){
-  .chiffres-grid{grid-template-columns:repeat(4,1fr);}
+  .chiffres-grid{grid-template-columns:repeat(3,1fr);}
   .chiffres-tagline{font-size:1.15rem;}
   .ranking-name{font-size:1.2rem;}
   .ranking-list li{grid-template-columns:2rem 1fr auto;gap:1.2rem;padding:.7rem 0;}
@@ -470,15 +470,11 @@
       <span data-fr="Ce que les répétitions racontent." data-es="Lo que cuentan los ensayos.">Ce que les répétitions racontent.</span>
     </p>
 
-    <!-- 4 cases en haut -->
+    <!-- 3 cases en haut (Morceaux / Enregistrements / Concerts) -->
     <div class="chiffres-grid">
       <div class="chiffre-cell">
         <div class="chiffre-num" id="stat-morceaux">—</div>
         <div class="chiffre-lbl" data-fr="Morceaux" data-es="Canciones">Morceaux</div>
-      </div>
-      <div class="chiffre-cell">
-        <div class="chiffre-num" id="stat-repetitions">—</div>
-        <div class="chiffre-lbl" data-fr="Répétitions" data-es="Ensayos">Répétitions</div>
       </div>
       <div class="chiffre-cell">
         <div class="chiffre-num" id="stat-enregistrements">—</div>
@@ -602,43 +598,45 @@ async function fetchMorceauStats(slug, name){
 
 /* Récupère les stats du planning depuis l'index */
 async function fetchPlanningStats(){
+  // Concerts passés connus (en dur, car ils ne sont plus dans le planning courant)
+  // Concert 1 : 13 décembre 2025 (Say Say Say + Medley Chaka)
+  // Concert 2 : 20 mai 2026 (Worth It + Easy Lover + Still a Friend)
+  const concertsPassesConnus = [
+    new Date('2025-12-13'),
+    new Date('2026-05-20')
+  ];
+
   try {
     const r = await fetch('index.html', { cache: 'default' });
-    if(!r.ok) return { repetitions: 0, concerts: 0, premiere: null, prochainConcert: null };
+    if(!r.ok) return {
+      concertsPasses: concertsPassesConnus.length,
+      prochainConcert: null
+    };
     const txt = await r.text();
     const parser = new DOMParser();
     const doc = parser.parseFromString(txt, 'text/html');
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-    const repets = Array.from(doc.querySelectorAll('.event-row.repetition[data-date]'));
-    const concerts = Array.from(doc.querySelectorAll('.event-row.concert[data-date]'));
-
-    // Répétitions passées (compte celles déjà eu lieu)
-    const repetsPassees = repets.filter(el => new Date(el.dataset.date) <= today);
-    const concertsPasses = concerts.filter(el => new Date(el.dataset.date) <= today);
-
-    // Première date (la plus ancienne parmi répét passées)
-    let premiere = null;
-    if(repetsPassees.length){
-      const dates = repetsPassees.map(el => new Date(el.dataset.date));
-      premiere = new Date(Math.min(...dates));
-    }
-
-    // Prochain concert (premier concert futur)
-    const concertsFuturs = concerts.filter(el => new Date(el.dataset.date) > today);
+    // Lit les concerts depuis le planning (pour récupérer les futurs uniquement)
+    const concertsPlanning = Array.from(doc.querySelectorAll('.event-row.concert[data-date]'));
+    const concertsFuturs = concertsPlanning.filter(el => new Date(el.dataset.date) > today);
     concertsFuturs.sort((a,b) => new Date(a.dataset.date) - new Date(b.dataset.date));
     const prochainConcert = concertsFuturs[0] ? new Date(concertsFuturs[0].dataset.date) : null;
 
+    // Total concerts = passés connus + futurs (qu'ils soient passés ou non depuis l'évaluation)
+    const concertsTotal = concertsPassesConnus.length + concertsFuturs.length;
+
     return {
-      repetitions: repetsPassees.length,
-      concerts: concertsPasses.length,
-      premiere,
+      concertsPasses: concertsTotal,
       prochainConcert
     };
   } catch(e){
     console.warn('Erreur fetch planning', e);
-    return { repetitions: 0, concerts: 0, premiere: null, prochainConcert: null };
+    return {
+      concertsPasses: concertsPassesConnus.length,
+      prochainConcert: null
+    };
   }
 }
 
@@ -680,10 +678,9 @@ function formatDate(d){
   return d.getDate() + ' ' + mois[d.getMonth()] + ' ' + d.getFullYear();
 }
 
-/* Calcule "depuis" en mois ou années */
-function formatDepuis(d){
-  if(!d){return (currentLang==='fr') ? 'avril 2024' : 'abril 2024';}
-  return formatDate(d);
+/* Date de création réelle du groupe : septembre 2025 */
+function formatDepuis(){
+  return (currentLang==='es') ? 'septiembre 2025' : 'septembre 2025';
 }
 
 /* Rendu visuel des dots dans le classement */
@@ -698,11 +695,9 @@ function renderDots(n, max){
 
 /* Rendu final dans le DOM */
 function renderChiffres(data){
-  // 4 cases du haut
+  // 3 cases du haut
   document.getElementById('stat-morceaux').textContent = data.morceaux;
   document.getElementById('stat-morceaux').classList.remove('loading');
-  document.getElementById('stat-repetitions').textContent = data.repetitions;
-  document.getElementById('stat-repetitions').classList.remove('loading');
   document.getElementById('stat-enregistrements').textContent = data.enregistrements;
   document.getElementById('stat-enregistrements').classList.remove('loading');
   document.getElementById('stat-concerts').textContent = data.concerts;
@@ -728,7 +723,7 @@ function renderChiffres(data){
   }).join('');
 
   // Bilan textuel
-  document.getElementById('stat-depuis').textContent = formatDepuis(data.premiere);
+  document.getElementById('stat-depuis').textContent = formatDepuis();
   document.getElementById('stat-prochain').textContent = data.prochainConcert
     ? formatDate(data.prochainConcert)
     : ((currentLang==='fr') ? 'aucun programmé' : 'ninguno programado');
@@ -751,10 +746,8 @@ async function loadChiffres(){
     const data = {
       morceaux: MORCEAUX_PAGES.length,
       morceauxList: morceauxResults,
-      repetitions: planningStats.repetitions,
       enregistrements,
-      concerts: planningStats.concerts,
-      premiere: planningStats.premiere,
+      concerts: planningStats.concertsPasses,
       prochainConcert: planningStats.prochainConcert,
       dureeTotal: 0
     };
@@ -762,7 +755,7 @@ async function loadChiffres(){
     renderChiffres(data);
 
     // Puis on charge les durées en arrière-plan (peut être long)
-    // Limité aux 3 premiers audios par morceau pour ne pas surcharger
+    // Limité aux 5 premiers audios par morceau pour ne pas surcharger
     const allUrls = [];
     morceauxResults.forEach(m => {
       m.audios.slice(0, 5).forEach(u => allUrls.push(u));
@@ -780,7 +773,7 @@ async function loadChiffres(){
   } catch(e){
     console.error('Erreur loadChiffres:', e);
     // Fallback : masquer les loaders avec un tiret
-    ['stat-morceaux','stat-repetitions','stat-enregistrements','stat-concerts'].forEach(id => {
+    ['stat-morceaux','stat-enregistrements','stat-concerts'].forEach(id => {
       const el = document.getElementById(id);
       if(el && el.textContent === '—') el.textContent = '?';
     });
