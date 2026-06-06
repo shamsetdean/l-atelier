@@ -133,6 +133,41 @@
     // Tous les <audio> et toutes les <video class="video-native"> reçoivent le panneau
     const medias = document.querySelectorAll('audio, video.video-native');
     medias.forEach(attachABLoop);
+    injectDurations();
+  }
+
+  // Pour chaque <audio>, dès que ses métadonnées sont chargées, on affiche sa durée
+  // dans le <span class="audio-source"> situé dans le même bloc parent (.audio-block ou .video-stack).
+  function injectDurations(){
+    document.querySelectorAll('audio').forEach(function(audio){
+      const block = audio.closest('.audio-block') || audio.parentElement;
+      if(!block) return;
+      const target = block.querySelector('.audio-source');
+      if(!target || target.dataset.durationInjected === '1') return;
+
+      const writeDuration = function(){
+        const d = audio.duration;
+        if(isFinite(d) && d > 0){
+          target.textContent = ' · ' + fmt(d);
+          target.dataset.durationInjected = '1';
+        }
+      };
+
+      // Si déjà chargé (cache)
+      if(audio.readyState >= 1 && isFinite(audio.duration) && audio.duration > 0){
+        writeDuration();
+        return;
+      }
+
+      // Sinon, on écoute l'événement loadedmetadata
+      audio.addEventListener('loadedmetadata', writeDuration, { once: true });
+      // Forcer le chargement des métadonnées si l'audio est en preload="none"
+      // On change temporairement preload, l'audio reste non lu
+      if(audio.preload === 'none'){
+        audio.preload = 'metadata';
+        // Pas de .load() ici pour ne pas forcer le téléchargement du contenu
+      }
+    });
   }
 
   if(document.readyState === 'loading'){

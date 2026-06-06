@@ -344,6 +344,36 @@
 .vote-btn.maybe:hover{background:var(--maybe-soft);border-color:var(--maybe);}
 .vote-btn.skip:hover{background:var(--skip-soft);border-color:var(--skip);}
 
+/* ── ANIMATION PULSE SUR VOTE ── */
+.vote-btn.voting-pulse{
+  animation: votePulse .55s cubic-bezier(.4,0,.2,1);
+}
+@keyframes votePulse {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.08); box-shadow: 0 0 0 6px rgba(240,81,30,.15); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(240,81,30,0); }
+}
+
+/* ── TOAST DE CONFIRMATION ── */
+.vote-toast{
+  position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:var(--paper);
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:500;padding:.85rem 1.4rem;
+  border:1px solid var(--ink);box-shadow:0 6px 24px rgba(20,17,12,.25);
+  z-index:2000;opacity:0;pointer-events:none;
+  transition:opacity .25s, transform .25s;
+}
+.vote-toast.show{
+  opacity:1;transform:translateX(-50%) translateY(0);
+}
+.vote-toast.error{
+  background:#E53935;border-color:#E53935;color:#fff;
+}
+@media(max-width:480px){
+  .vote-toast{font-size:10px;padding:.7rem 1.1rem;bottom:1rem;}
+}
+
 .vote-btn.voted-like{background:var(--like);color:var(--paper);border-color:var(--like);}
 .vote-btn.voted-like .vote-count{color:var(--paper);}
 .vote-btn.voted-maybe{background:var(--maybe);color:var(--paper);border-color:var(--maybe);}
@@ -818,35 +848,81 @@ async function submitProposal(){
 }
 
 /* ── VOTER ── */
-async function vote(trackId, type){
+async function vote(trackId, type, btnEl){
   if(!ensureName()) return;
+
+  // Animation immédiate sur le bouton cliqué (avant même l'aller-retour Supabase)
+  if(btnEl){
+    btnEl.classList.remove('voting-pulse');
+    void btnEl.offsetWidth; // reset l'animation
+    btnEl.classList.add('voting-pulse');
+  }
 
   // Cherche si on a déjà voté pour ce morceau
   const track = tracks.find(t => t.id === trackId);
   if(!track) return;
   const existing = track.votes.find(v => v.voter_name === myName);
 
+  let action = 'add'; // add | change | remove
+
   if(existing && existing.vote_type === type){
     // Si on reclique le même vote → on retire
+    action = 'remove';
     const { error } = await sb.from('playlist_votes').delete()
       .eq('track_id', trackId).eq('voter_name', myName);
-    if(error) console.error(error);
-    return;
-  }
-
-  if(existing){
+    if(error){
+      console.error(error);
+      showToast(currentLang==='fr' ? 'Erreur lors du retrait du vote' : 'Error al quitar el voto', 'error');
+      return;
+    }
+  } else if(existing){
     // Changer le vote
+    action = 'change';
     const { error } = await sb.from('playlist_votes').update({ vote_type: type })
       .eq('track_id', trackId).eq('voter_name', myName);
-    if(error) console.error(error);
+    if(error){
+      console.error(error);
+      showToast(currentLang==='fr' ? 'Erreur lors du changement de vote' : 'Error al cambiar el voto', 'error');
+      return;
+    }
   } else {
     // Nouveau vote
     const { error } = await sb.from('playlist_votes').insert([{
       track_id: trackId, voter_name: myName, vote_type: type
     }]);
-    if(error) console.error(error);
+    if(error){
+      console.error(error);
+      showToast(currentLang==='fr' ? 'Erreur lors du vote' : 'Error al votar', 'error');
+      return;
+    }
   }
+
+  // Message confirmation discret
+  const labels = {
+    fr: { add: '✓ Vote enregistré', change: '✓ Vote modifié', remove: '✓ Vote retiré' },
+    es: { add: '✓ Voto registrado', change: '✓ Voto modificado', remove: '✓ Voto eliminado' }
+  };
+  showToast(labels[currentLang][action], 'success');
+
   // Le rendu se fera automatiquement via la souscription temps réel
+}
+
+/* ── TOAST DE CONFIRMATION ── */
+let toastTimeout = null;
+function showToast(message, type){
+  let toast = document.getElementById('vote-toast');
+  if(!toast){
+    toast = document.createElement('div');
+    toast.id = 'vote-toast';
+    toast.className = 'vote-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.className = 'vote-toast ' + (type || 'success') + ' show';
+  if(toastTimeout) clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2200);
 }
 
 /* ── SUPPRESSION (uniquement par le proposant) ── */
@@ -1011,15 +1087,15 @@ function render(){
           </div>` : ''}
         </div>
         <div class="vote-buttons">
-          <button class="vote-btn like ${myV==='like'?'voted-like':''}" onclick="vote(${t.id}, 'like')">
+          <button class="vote-btn like ${myV==='like'?'voted-like':''}" onclick="vote(${t.id}, 'like', this)">
             <span class="vote-count">${likes}</span>
             <span>${currentLang==='fr'?"J'aime":"Me gusta"}</span>
           </button>
-          <button class="vote-btn maybe ${myV==='maybe'?'voted-maybe':''}" onclick="vote(${t.id}, 'maybe')">
+          <button class="vote-btn maybe ${myV==='maybe'?'voted-maybe':''}" onclick="vote(${t.id}, 'maybe', this)">
             <span class="vote-count">${maybes}</span>
             <span>${currentLang==='fr'?'Pourquoi pas':'Tal vez'}</span>
           </button>
-          <button class="vote-btn skip ${myV==='skip'?'voted-skip':''}" onclick="vote(${t.id}, 'skip')">
+          <button class="vote-btn skip ${myV==='skip'?'voted-skip':''}" onclick="vote(${t.id}, 'skip', this)">
             <span class="vote-count">${skips}</span>
             <span>${currentLang==='fr'?"Pas d'avis":'Sin opinión'}</span>
           </button>
