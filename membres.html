@@ -618,17 +618,15 @@ async function fetchPlanningStats(){
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-    // Lit les concerts depuis le planning (pour récupérer les futurs uniquement)
+    // Lit les concerts FUTURS depuis le planning (pour récupérer le prochain seulement)
     const concertsPlanning = Array.from(doc.querySelectorAll('.event-row.concert[data-date]'));
     const concertsFuturs = concertsPlanning.filter(el => new Date(el.dataset.date) > today);
     concertsFuturs.sort((a,b) => new Date(a.dataset.date) - new Date(b.dataset.date));
     const prochainConcert = concertsFuturs[0] ? new Date(concertsFuturs[0].dataset.date) : null;
 
-    // Total concerts = passés connus + futurs (qu'ils soient passés ou non depuis l'évaluation)
-    const concertsTotal = concertsPassesConnus.length + concertsFuturs.length;
-
+    // Compte UNIQUEMENT les concerts passés (le futur ne compte pas, il n'a pas été joué)
     return {
-      concertsPasses: concertsTotal,
+      concertsPasses: concertsPassesConnus.length,
       prochainConcert
     };
   } catch(e){
