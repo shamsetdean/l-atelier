@@ -219,6 +219,36 @@
 .btn-move:hover:not(:disabled){background:var(--ink);color:var(--paper);}
 .btn-move:disabled{opacity:.25;cursor:not-allowed;}
 
+/* ── BOUTON CŒUR (préférence affective) ── */
+.btn-heart{
+  width:34px;height:34px;background:var(--paper);border:1px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  border-radius:0;color:var(--ink);transition:all .15s;padding:0;
+}
+.btn-heart svg{width:15px;height:15px;}
+.btn-heart:hover{background:var(--accent-soft);border-color:var(--accent);}
+.btn-heart.is-my-heart{
+  background:var(--accent);border-color:var(--accent);color:#fff;
+  box-shadow:2px 2px 0 var(--accent-deep);
+}
+.btn-heart.pulse{animation:heartpulse .5s ease;}
+@keyframes heartpulse{
+  0%{transform:scale(1);}
+  40%{transform:scale(1.25);}
+  100%{transform:scale(1);}
+}
+/* Badge cœur dans la setlist consensus */
+.consensus-item.has-hearts{border-color:var(--accent);}
+.heart-badge{
+  font-family:var(--mono);font-size:10px;letter-spacing:.04em;
+  color:var(--accent);font-weight:600;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:.25rem;
+}
+.heart-badge svg{width:11px;height:11px;}
+.consensus-meta{
+  display:flex;flex-direction:column;align-items:flex-end;gap:.2rem;
+}
+
 /* ── COMPTEUR DE VOTANTS ── */
 .voters-summary{
   background:var(--paper);border:1px solid var(--line);
@@ -409,7 +439,7 @@
     <span data-fr="Mon classement" data-es="Mi clasificación">Mon classement</span>
   </div>
   <div class="section-subtitle">
-    <span data-fr="Glisse les morceaux dans l'ordre où tu aimerais les jouer." data-es="Mueve las canciones en el orden en que te gustaría tocarlas.">Glisse les morceaux dans l'ordre où tu aimerais les jouer.</span>
+    <span data-fr="L'ordre, c'est l'ambiance qu'on veut créer. Le cœur ♥, c'est le morceau que tu préfères jouer (un seul)." data-es="El orden es el ambiente que queremos crear. El corazón ♥ es la canción que prefieres tocar (solo una).">L'ordre, c'est l'ambiance qu'on veut créer. Le cœur ♥, c'est le morceau que tu préfères jouer (un seul).</span>
   </div>
 
   <div class="my-ranking-block">
@@ -497,6 +527,7 @@ let myName = localStorage.getItem('atelier-playlist-name') || '';
 let selectedMemberName = null;
 let myRanking = []; // [{slug, position}]
 let allVotes = []; // [{voter_name, song_slug, position}]
+let allHearts = []; // [{voter_name, song_slug}] — 1 cœur max par membre
 
 /* ── TRADUCTION ── */
 let currentLang = localStorage.getItem('atelier-lang') || 'fr';
@@ -623,8 +654,9 @@ async function resetMyRanking(){
     : '¿Reiniciar tu clasificación personal?';
   if(!confirm(confirmMsg)) return;
   if(!myName) return;
-  const { error } = await sb.from('setlist_votes').delete().eq('voter_name', myName);
-  if(error){ console.error(error); return; }
+  await sb.from('setlist_votes').delete().eq('voter_name', myName);
+  await sb.from('setlist_hearts').delete().eq('voter_name', myName);
+  allHearts = allHearts.filter(x => x.voter_name !== myName);
   myRanking = SONGS.map(s => s.slug);
   renderMyRanking();
   showToast(currentLang==='fr' ? '✓ Classement réinitialisé' : '✓ Clasificación reiniciada');
@@ -657,10 +689,17 @@ function renderMyRanking(movingIndex){
     const isLast = i === myRanking.length - 1;
     // Note : Heyoka est en #01 fixe, donc le 1er ici devient #02 en setlist
     const displayPos = String(i + 2).padStart(2, '0');
+    const isMyHeart = getMyHeart() === slug;
+    const heartTitle = isMyHeart
+      ? (currentLang==='fr'?'Retirer mon coup de cœur':'Quitar mi favorito')
+      : (currentLang==='fr'?'Mon coup de cœur':'Mi favorito');
     return `<li class="my-ranking-item${isMoving ? ' is-moving' : ''}">
       <span class="ranking-num">#${displayPos}</span>
       <span class="ranking-song-name">${escapeHtml(song.name)}</span>
       <span class="ranking-actions">
+        <button class="btn-heart${isMyHeart ? ' is-my-heart' : ''}" onclick="toggleHeart('${slug}', this)" title="${heartTitle}" aria-label="${heartTitle}">
+          <svg viewBox="0 0 24 24" fill="${isMyHeart ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
         <button class="btn-move" onclick="moveUp(${i})" ${isFirst ? 'disabled' : ''} title="${currentLang==='fr'?'Monter':'Subir'}" aria-label="Monter">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
         </button>
@@ -672,10 +711,44 @@ function renderMyRanking(movingIndex){
   }).join('');
 }
 
+/* ── CŒURS (préférence affective, 1 par membre) ── */
+function getMyHeart(){
+  const h = allHearts.find(x => x.voter_name === myName);
+  return h ? h.song_slug : null;
+}
+function heartsForSong(slug){
+  return allHearts.filter(x => x.song_slug === slug);
+}
+async function toggleHeart(slug, btnEl){
+  if(!myName){ document.getElementById('name-prompt-overlay').classList.add('open'); return; }
+  if(btnEl){ btnEl.classList.remove('pulse'); void btnEl.offsetWidth; btnEl.classList.add('pulse'); }
+  const current = getMyHeart();
+  try {
+    if(current === slug){
+      // Retirer mon cœur
+      await sb.from('setlist_hearts').delete().eq('voter_name', myName);
+      allHearts = allHearts.filter(x => x.voter_name !== myName);
+      showToast(currentLang==='fr' ? '♡ Cœur retiré' : '♡ Corazón quitado');
+    } else {
+      // Déplacer/poser mon cœur : delete puis insert (UNIQUE voter_name)
+      await sb.from('setlist_hearts').delete().eq('voter_name', myName);
+      const { error } = await sb.from('setlist_hearts').insert([{ voter_name: myName, song_slug: slug }]);
+      if(error){ console.error('Erreur cœur', error); showToast(currentLang==='fr' ? '✕ Erreur' : '✕ Error'); return; }
+      allHearts = allHearts.filter(x => x.voter_name !== myName);
+      allHearts.push({ voter_name: myName, song_slug: slug });
+      showToast(currentLang==='fr' ? '♥ Coup de cœur enregistré' : '♥ Favorito guardado');
+    }
+    render();
+  } catch(e){
+    console.error('toggleHeart', e);
+    showToast(currentLang==='fr' ? '✕ Erreur' : '✕ Error');
+  }
+}
+
 /* ── CALCUL DU CONSENSUS (Borda) ── */
 function computeConsensus(){
   // Pour chaque morceau, somme des (N - position + 1) sur tous les votants
-  // où N = 7 (nombre de morceaux classables)
+  // où N = nombre de morceaux classables
   const N = SONGS.length;
   const scores = {};
   SONGS.forEach(s => { scores[s.slug] = { score: 0, voters: 0 }; });
@@ -688,12 +761,13 @@ function computeConsensus(){
     }
   });
 
-  // Tri par score décroissant
+  // Tri par score décroissant, puis par nombre de cœurs en cas d'égalité
   return SONGS.map(s => ({
     ...s,
     score: scores[s.slug].score,
-    voters: scores[s.slug].voters
-  })).sort((a,b) => b.score - a.score);
+    voters: scores[s.slug].voters,
+    hearts: heartsForSong(s.slug)
+  })).sort((a,b) => (b.score - a.score) || (b.hearts.length - a.hearts.length));
 }
 
 function renderConsensus(){
@@ -715,10 +789,18 @@ function renderConsensus(){
       : song.score + ' pts · ' + song.voters + ' ' + (currentLang==='fr'
           ? (song.voters > 1 ? 'votants' : 'votant')
           : (song.voters > 1 ? 'votantes' : 'votante'));
-    return `<li class="consensus-item">
+    const nbHearts = song.hearts.length;
+    const heartNames = song.hearts.map(h => escapeHtml(h.voter_name)).join(', ');
+    const heartBadge = nbHearts > 0
+      ? `<span class="heart-badge" title="${heartNames}"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>${nbHearts}</span>`
+      : '';
+    return `<li class="consensus-item${nbHearts > 0 ? ' has-hearts' : ''}">
       <span class="consensus-rank">#${displayPos}</span>
       <span class="consensus-name">${escapeHtml(song.name)}</span>
-      <span class="consensus-score">${lbl}</span>
+      <span class="consensus-meta">
+        <span class="consensus-score">${lbl}</span>
+        ${heartBadge}
+      </span>
     </li>`;
   }).join('');
 }
@@ -751,9 +833,13 @@ function render(){
 /* ── CHARGEMENT INITIAL ── */
 async function loadAll(){
   try {
-    const { data, error } = await sb.from('setlist_votes').select('*');
-    if(error){ console.error(error); setStatus(false); return; }
-    allVotes = data || [];
+    const [votesRes, heartsRes] = await Promise.all([
+      sb.from('setlist_votes').select('*'),
+      sb.from('setlist_hearts').select('*')
+    ]);
+    if(votesRes.error){ console.error(votesRes.error); setStatus(false); return; }
+    allVotes = votesRes.data || [];
+    allHearts = heartsRes.error ? [] : (heartsRes.data || []);
     setStatus(true);
     if(myName){
       initMyRanking();
@@ -777,6 +863,7 @@ function setStatus(online){
 function subscribeRealtime(){
   sb.channel('setlist-realtime')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'setlist_votes' }, () => loadAll())
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'setlist_hearts' }, () => loadAll())
     .subscribe();
 }
 
