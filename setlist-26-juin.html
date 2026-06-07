@@ -12,6 +12,18 @@
 <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512.png">
 
 <meta name="theme-color" content="#EFEAE0">
+
+<!-- OG / PARTAGE -->
+<meta property="og:title" content="Setlist 26 juin · L'Atelier" />
+<meta property="og:description" content="Concert · 26 juin 2026 · Extérieur Chelles — Compose l'ordre, on construit ensemble." />
+<meta property="og:image" content="https://shamsetdean.github.io/l-atelier/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="628" />
+<meta property="og:url" content="https://shamsetdean.github.io/l-atelier/setlist-26-juin.html" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://shamsetdean.github.io/l-atelier/og-image.png" />
+
 <title>Setlist 26 juin — L'Atelier</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -576,10 +588,10 @@ function renderMemberGrid(){
   grid.innerHTML = MEMBERS.map(m => {
     const isSelected = m.name === selectedMemberName;
     const role = (currentLang === 'fr') ? m.role_fr : m.role_es;
-    return `<button type="button" class="member-option ${isSelected?'selected':''}" onclick="selectMember('${escapeHtml(m.name)}')">
-      <span class="member-option-name">${escapeHtml(m.name)}</span>
-      <span class="member-option-role">${escapeHtml(role)}</span>
-    </button>`;
+    return '<button type="button" class="member-option ' + (isSelected?'selected':'') + '" onclick="selectMember(\'' + escapeHtml(m.name) + '\')">' +
+      '<span class="member-option-name">' + escapeHtml(m.name) + '</span>' +
+      '<span class="member-option-role">' + escapeHtml(role) + '</span>' +
+      '</button>';
   }).join('');
 }
 
@@ -616,18 +628,14 @@ function updateIdentity(){
 
 /* ── MON CLASSEMENT ── */
 function initMyRanking(){
-  // Si je n'ai pas encore voté → ordre par défaut (alphabétique ou ordre des SONGS)
-  const mine = allVotes.filter(v => v.voter_name === myName);
+  var mine = allVotes.filter(function(v){ return v.voter_name === myName; });
   if(mine.length > 0){
-    // J'ai déjà voté : reconstituer mon ordre
-    myRanking = [...mine].sort((a,b) => a.position - b.position).map(v => v.song_slug);
-    // Au cas où des morceaux manquent (nouveaux), on les ajoute à la fin
-    SONGS.forEach(s => {
+    myRanking = mine.slice().sort(function(a,b){ return a.position - b.position; }).map(function(v){ return v.song_slug; });
+    SONGS.forEach(function(s){
       if(!myRanking.includes(s.slug)) myRanking.push(s.slug);
     });
   } else {
-    // Ordre par défaut : ordre des SONGS
-    myRanking = SONGS.map(s => s.slug);
+    myRanking = SONGS.map(function(s){ return s.slug; });
   }
   renderMyRanking();
 }
@@ -637,7 +645,7 @@ async function moveUp(index){
   [myRanking[index-1], myRanking[index]] = [myRanking[index], myRanking[index-1]];
   renderMyRanking(index-1);
   await saveMyRanking();
-  showToast(currentLang==='fr' ? '✓ Classement mis à jour' : '✓ Clasificación actualizada');
+  showToast(currentLang==='fr' ? 'Classement mis a jour' : 'Clasificacion actualizada');
 }
 
 async function moveDown(index){
@@ -645,33 +653,30 @@ async function moveDown(index){
   [myRanking[index+1], myRanking[index]] = [myRanking[index], myRanking[index+1]];
   renderMyRanking(index+1);
   await saveMyRanking();
-  showToast(currentLang==='fr' ? '✓ Classement mis à jour' : '✓ Clasificación actualizada');
+  showToast(currentLang==='fr' ? 'Classement mis a jour' : 'Clasificacion actualizada');
 }
 
 async function resetMyRanking(){
   const confirmMsg = (currentLang==='fr')
-    ? 'Réinitialiser ton classement personnel ?'
-    : '¿Reiniciar tu clasificación personal?';
+    ? 'Reinitialiser ton classement personnel ?'
+    : 'Reiniciar tu clasificacion personal?';
   if(!confirm(confirmMsg)) return;
   if(!myName) return;
   await sb.from('setlist_votes').delete().eq('voter_name', myName);
   await sb.from('setlist_hearts').delete().eq('voter_name', myName);
-  allHearts = allHearts.filter(x => x.voter_name !== myName);
-  myRanking = SONGS.map(s => s.slug);
+  allHearts = allHearts.filter(function(x){ return x.voter_name !== myName; });
+  myRanking = SONGS.map(function(s){ return s.slug; });
   renderMyRanking();
-  showToast(currentLang==='fr' ? '✓ Classement réinitialisé' : '✓ Clasificación reiniciada');
+  showToast(currentLang==='fr' ? 'Classement reinitialise' : 'Clasificacion reiniciada');
 }
 
 async function saveMyRanking(){
   if(!myName) return;
-  // Stratégie simple : delete + insert
   try {
     await sb.from('setlist_votes').delete().eq('voter_name', myName);
-    const rows = myRanking.map((slug, i) => ({
-      voter_name: myName,
-      song_slug: slug,
-      position: i + 1
-    }));
+    const rows = myRanking.map(function(slug, i){
+      return { voter_name: myName, song_slug: slug, position: i + 1 };
+    });
     const { error } = await sb.from('setlist_votes').insert(rows);
     if(error){ console.error('Erreur save', error); }
   } catch(e){
@@ -681,43 +686,42 @@ async function saveMyRanking(){
 
 function renderMyRanking(movingIndex){
   const list = document.getElementById('my-ranking-list');
-  list.innerHTML = myRanking.map((slug, i) => {
-    const song = SONGS.find(s => s.slug === slug);
+  list.innerHTML = myRanking.map(function(slug, i){
+    const song = SONGS.find(function(s){ return s.slug === slug; });
     if(!song) return '';
     const isMoving = i === movingIndex;
     const isFirst = i === 0;
     const isLast = i === myRanking.length - 1;
-    // Note : Heyoka est en #01 fixe, donc le 1er ici devient #02 en setlist
     const displayPos = String(i + 2).padStart(2, '0');
     const isMyHeart = getMyHeart() === slug;
     const heartTitle = isMyHeart
-      ? (currentLang==='fr'?'Retirer mon coup de cœur':'Quitar mi favorito')
-      : (currentLang==='fr'?'Mon coup de cœur':'Mi favorito');
-    return `<li class="my-ranking-item${isMoving ? ' is-moving' : ''}">
-      <span class="ranking-num">#${displayPos}</span>
-      <span class="ranking-song-name">${escapeHtml(song.name)}</span>
-      <span class="ranking-actions">
-        <button class="btn-heart${isMyHeart ? ' is-my-heart' : ''}" onclick="toggleHeart('${slug}', this)" title="${heartTitle}" aria-label="${heartTitle}">
-          <svg viewBox="0 0 24 24" fill="${isMyHeart ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </button>
-        <button class="btn-move" onclick="moveUp(${i})" ${isFirst ? 'disabled' : ''} title="${currentLang==='fr'?'Monter':'Subir'}" aria-label="Monter">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
-        </button>
-        <button class="btn-move" onclick="moveDown(${i})" ${isLast ? 'disabled' : ''} title="${currentLang==='fr'?'Descendre':'Bajar'}" aria-label="Descendre">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-      </span>
-    </li>`;
+      ? (currentLang==='fr'?'Retirer mon coup de coeur':'Quitar mi favorito')
+      : (currentLang==='fr'?'Mon coup de coeur':'Mi favorito');
+    return '<li class="my-ranking-item' + (isMoving ? ' is-moving' : '') + '">' +
+      '<span class="ranking-num">#' + displayPos + '</span>' +
+      '<span class="ranking-song-name">' + escapeHtml(song.name) + '</span>' +
+      '<span class="ranking-actions">' +
+        '<button class="btn-heart' + (isMyHeart ? ' is-my-heart' : '') + '" onclick="toggleHeart(\'' + slug + '\', this)" title="' + heartTitle + '" aria-label="' + heartTitle + '">' +
+          '<svg viewBox="0 0 24 24" fill="' + (isMyHeart ? 'currentColor' : 'none') + '" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>' +
+        '</button>' +
+        '<button class="btn-move" onclick="moveUp(' + i + ')" ' + (isFirst ? 'disabled' : '') + ' title="' + (currentLang==='fr'?'Monter':'Subir') + '" aria-label="Monter">' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>' +
+        '</button>' +
+        '<button class="btn-move" onclick="moveDown(' + i + ')" ' + (isLast ? 'disabled' : '') + ' title="' + (currentLang==='fr'?'Descendre':'Bajar') + '" aria-label="Descendre">' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+        '</button>' +
+      '</span>' +
+    '</li>';
   }).join('');
 }
 
-/* ── CŒURS (préférence affective, 1 par membre) ── */
+/* ── CŒURS ── */
 function getMyHeart(){
-  const h = allHearts.find(x => x.voter_name === myName);
+  const h = allHearts.find(function(x){ return x.voter_name === myName; });
   return h ? h.song_slug : null;
 }
 function heartsForSong(slug){
-  return allHearts.filter(x => x.song_slug === slug);
+  return allHearts.filter(function(x){ return x.song_slug === slug; });
 }
 async function toggleHeart(slug, btnEl){
   if(!myName){ document.getElementById('name-prompt-overlay').classList.add('open'); return; }
@@ -725,102 +729,93 @@ async function toggleHeart(slug, btnEl){
   const current = getMyHeart();
   try {
     if(current === slug){
-      // Retirer mon cœur
       await sb.from('setlist_hearts').delete().eq('voter_name', myName);
-      allHearts = allHearts.filter(x => x.voter_name !== myName);
-      showToast(currentLang==='fr' ? '♡ Cœur retiré' : '♡ Corazón quitado');
+      allHearts = allHearts.filter(function(x){ return x.voter_name !== myName; });
+      showToast(currentLang==='fr' ? 'Coeur retire' : 'Corazon quitado');
     } else {
-      // Déplacer/poser mon cœur : delete puis insert (UNIQUE voter_name)
       await sb.from('setlist_hearts').delete().eq('voter_name', myName);
       const { error } = await sb.from('setlist_hearts').insert([{ voter_name: myName, song_slug: slug }]);
-      if(error){ console.error('Erreur cœur', error); showToast(currentLang==='fr' ? '✕ Erreur' : '✕ Error'); return; }
-      allHearts = allHearts.filter(x => x.voter_name !== myName);
+      if(error){ console.error('Erreur coeur', error); showToast('Erreur'); return; }
+      allHearts = allHearts.filter(function(x){ return x.voter_name !== myName; });
       allHearts.push({ voter_name: myName, song_slug: slug });
-      showToast(currentLang==='fr' ? '♥ Coup de cœur enregistré' : '♥ Favorito guardado');
+      showToast(currentLang==='fr' ? 'Coup de coeur enregistre' : 'Favorito guardado');
     }
     render();
   } catch(e){
     console.error('toggleHeart', e);
-    showToast(currentLang==='fr' ? '✕ Erreur' : '✕ Error');
+    showToast('Erreur');
   }
 }
 
-/* ── CALCUL DU CONSENSUS (Borda) ── */
+/* ── CONSENSUS (Borda) ── */
 function computeConsensus(){
-  // Pour chaque morceau, somme des (N - position + 1) sur tous les votants
-  // où N = nombre de morceaux classables
   const N = SONGS.length;
   const scores = {};
-  SONGS.forEach(s => { scores[s.slug] = { score: 0, voters: 0 }; });
-
-  allVotes.forEach(v => {
+  SONGS.forEach(function(s){ scores[s.slug] = { score: 0, voters: 0 }; });
+  allVotes.forEach(function(v){
     if(scores[v.song_slug]){
-      // Position 1 → N points, position N → 1 point
       scores[v.song_slug].score += (N - v.position + 1);
       scores[v.song_slug].voters++;
     }
   });
-
-  // Tri par score décroissant, puis par nombre de cœurs en cas d'égalité
-  return SONGS.map(s => ({
-    ...s,
-    score: scores[s.slug].score,
-    voters: scores[s.slug].voters,
-    hearts: heartsForSong(s.slug)
-  })).sort((a,b) => (b.score - a.score) || (b.hearts.length - a.hearts.length));
+  return SONGS.map(function(s){
+    return Object.assign({}, s, {
+      score: scores[s.slug].score,
+      voters: scores[s.slug].voters,
+      hearts: heartsForSong(s.slug)
+    });
+  }).sort(function(a,b){ return (b.score - a.score) || (b.hearts.length - a.hearts.length); });
 }
 
 function renderConsensus(){
   const list = document.getElementById('consensus-list');
-  const totalVoters = new Set(allVotes.map(v => v.voter_name)).size;
-
+  const totalVoters = new Set(allVotes.map(function(v){ return v.voter_name; })).size;
   if(totalVoters === 0){
-    list.innerHTML = '<li class="consensus-empty"><span>'+
-      (currentLang==='fr' ? 'En attente des premiers classements…' : 'Esperando los primeros rankings…')+
+    list.innerHTML = '<li class="consensus-empty"><span>' +
+      (currentLang==='fr' ? 'En attente des premiers classements...' : 'Esperando los primeros rankings...') +
       '</span></li>';
     return;
   }
-
   const consensus = computeConsensus();
-  list.innerHTML = consensus.map((song, i) => {
-    const displayPos = String(i + 2).padStart(2, '0'); // commence à #02 (Heyoka est #01)
+  list.innerHTML = consensus.map(function(song, i){
+    const displayPos = String(i + 2).padStart(2, '0');
     const lbl = song.voters === 0
       ? (currentLang==='fr' ? 'aucun vote' : 'sin votos')
-      : song.score + ' pts · ' + song.voters + ' ' + (currentLang==='fr'
+      : song.score + ' pts ' + song.voters + ' ' + (currentLang==='fr'
           ? (song.voters > 1 ? 'votants' : 'votant')
           : (song.voters > 1 ? 'votantes' : 'votante'));
     const nbHearts = song.hearts.length;
-    const heartNames = song.hearts.map(h => escapeHtml(h.voter_name)).join(', ');
+    const heartNames = song.hearts.map(function(h){ return escapeHtml(h.voter_name); }).join(', ');
     const heartBadge = nbHearts > 0
-      ? `<span class="heart-badge" title="${heartNames}"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>${nbHearts}</span>`
+      ? '<span class="heart-badge" title="' + heartNames + '"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>' + nbHearts + '</span>'
       : '';
-    return `<li class="consensus-item${nbHearts > 0 ? ' has-hearts' : ''}">
-      <span class="consensus-rank">#${displayPos}</span>
-      <span class="consensus-name">${escapeHtml(song.name)}</span>
-      <span class="consensus-meta">
-        <span class="consensus-score">${lbl}</span>
-        ${heartBadge}
-      </span>
-    </li>`;
+    return '<li class="consensus-item' + (nbHearts > 0 ? ' has-hearts' : '') + '">' +
+      '<span class="consensus-rank">#' + displayPos + '</span>' +
+      '<span class="consensus-name">' + escapeHtml(song.name) + '</span>' +
+      '<span class="consensus-meta">' +
+        '<span class="consensus-score">' + lbl + '</span>' +
+        heartBadge +
+      '</span>' +
+    '</li>';
   }).join('');
 }
 
 function renderVotersSummary(){
   const el = document.getElementById('voters-summary');
-  const voters = [...new Set(allVotes.map(v => v.voter_name))];
+  const voters = [...new Set(allVotes.map(function(v){ return v.voter_name; }))];
   if(voters.length === 0){
-    el.innerHTML = (currentLang==='fr'
-      ? 'Personne n\'a encore voté.'
-      : 'Nadie ha votado todavía.');
+    el.innerHTML = (currentLang==='fr' ? 'Personne n\'a encore vote.' : 'Nadie ha votado todavia.');
     return;
   }
   const total = MEMBERS.length;
   const intro = currentLang==='fr'
-    ? `<b>${voters.length}/${total}</b> membre${voters.length>1?'s':''} ont voté :`
-    : `<b>${voters.length}/${total}</b> miembro${voters.length>1?'s':''} han votado :`;
+    ? '<b>' + voters.length + '/' + total + '</b> membre' + (voters.length>1?'s':'') + ' ont vote :'
+    : '<b>' + voters.length + '/' + total + '</b> miembro' + (voters.length>1?'s':'') + ' han votado :';
   el.innerHTML = intro +
     '<div class="voters-list">' +
-    voters.map(v => `<span class="voter-chip-small${v === myName ? ' is-me' : ''}">${escapeHtml(v)}</span>`).join('') +
+    voters.map(function(v){
+      return '<span class="voter-chip-small' + (v === myName ? ' is-me' : '') + '">' + escapeHtml(v) + '</span>';
+    }).join('') +
     '</div>';
 }
 
@@ -855,15 +850,15 @@ async function loadAll(){
 function setStatus(online){
   const el = document.getElementById('connection-status');
   el.className = 'connection-status ' + (online ? 'online' : 'offline');
-  el.innerHTML = '<span class="dot"></span><span>'+
-    (online ? (currentLang==='fr' ? 'Temps réel actif' : 'Tiempo real activo')
-            : (currentLang==='fr' ? 'Connexion impossible' : 'Conexión imposible'))+'</span>';
+  el.innerHTML = '<span class="dot"></span><span>' +
+    (online ? (currentLang==='fr' ? 'Temps reel actif' : 'Tiempo real activo')
+            : (currentLang==='fr' ? 'Connexion impossible' : 'Conexion imposible')) + '</span>';
 }
 
 function subscribeRealtime(){
   sb.channel('setlist-realtime')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'setlist_votes' }, () => loadAll())
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'setlist_hearts' }, () => loadAll())
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'setlist_votes' }, function(){ loadAll(); })
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'setlist_hearts' }, function(){ loadAll(); })
     .subscribe();
 }
 
