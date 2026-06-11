@@ -3,19 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
-
-<!-- FAVICON & ÉCRAN D'ACCUEIL -->
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512.png">
-
 <meta name="theme-color" content="#EFEAE0">
-
-<!-- OG / PARTAGE -->
 <meta property="og:title" content="Setlist 26 juin · L'Atelier" />
-<meta property="og:description" content="Concert · 26 juin 2026 · Extérieur Chelles — Compose l'ordre, on construit ensemble." />
+<meta property="og:description" content="Concert · 26 juin 2026 · Extérieur Chelles" />
 <meta property="og:image" content="https://shamsetdean.github.io/l-atelier/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="628" />
@@ -23,7 +18,6 @@
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://shamsetdean.github.io/l-atelier/og-image.png" />
-
 <title>Setlist 26 juin — L'Atelier</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,347 +29,37 @@
   --accent-h:#D8400D;
   --accent-soft:#FFE0CD;
   --accent-deep:#7A2A0E;
-  --consensus:#2D7D4F;
-  --consensus-soft:#D7EBDD;
 }
-
-/* ── INTRO ── */
-.setlist-intro{
-  padding-bottom:1.1rem;margin-bottom:2rem;
-  border-bottom:1px solid var(--ink);
-}
-.setlist-eyebrow{
-  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
-}
-.setlist-eyebrow .num{
-  background:var(--ink);color:var(--paper);padding:.18rem .5rem;font-weight:500;letter-spacing:.08em;
-}
-.setlist-title{
-  font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:clamp(2.2rem,9vw,3.4rem);line-height:.9;letter-spacing:-.025em;color:var(--ink);
-}
+.setlist-intro{padding-bottom:1.1rem;margin-bottom:2rem;border-bottom:1px solid var(--ink);}
+.setlist-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
+.setlist-eyebrow .num{background:var(--ink);color:var(--paper);padding:.18rem .5rem;font-weight:500;letter-spacing:.08em;}
+.setlist-title{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.2rem,9vw,3.4rem);line-height:.9;letter-spacing:-.025em;color:var(--ink);}
 .setlist-title .pt{color:var(--accent);font-style:normal;}
-.setlist-tagline{
-  font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--muted);
-  margin-top:.4rem;line-height:1.4;
-}
-.setlist-date{
-  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--accent-deep);font-weight:500;margin-top:.6rem;
-}
-
-/* ── MESSAGE INTRO ÉQUIPE ── */
-.setlist-manifesto{
-  background:var(--paper-3);border-left:3px solid var(--accent);
-  padding:1.1rem 1.3rem;margin-bottom:2rem;
-  position:relative;
-}
-.setlist-manifesto::before{
-  content:"";position:absolute;top:0;left:-3px;width:3px;height:18px;
-  background:var(--ink);
-}
-.setlist-manifesto p{
-  font-family:var(--serif);font-style:italic;font-size:1rem;line-height:1.55;
-  color:var(--ink);margin:0;letter-spacing:0;
-}
-@media(min-width:768px){
-  .setlist-manifesto{padding:1.3rem 1.6rem;}
-  .setlist-manifesto p{font-size:1.08rem;line-height:1.6;}
-}
-
-/* ── CONNECTION STATUS ── */
-.connection-status{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--muted);padding:.4rem .7rem;border:1px solid var(--line);background:var(--paper);
-  margin-bottom:1.5rem;
-}
-.connection-status .dot{
-  width:7px;height:7px;border-radius:50%;background:#C5A572;
-  transition:background .3s;
-}
-.connection-status.online .dot{background:var(--consensus);box-shadow:0 0 0 0 var(--consensus);animation:pulse 2s infinite;}
-.connection-status.offline .dot{background:#E53935;}
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(45,125,79,.5);}
-  70%{box-shadow:0 0 0 5px rgba(45,125,79,0);}
-  100%{box-shadow:0 0 0 0 rgba(45,125,79,0);}
-}
-
-/* ── MON IDENTITÉ ── */
-.my-identity{
-  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:.8rem;display:flex;align-items:center;gap:.4rem;
-}
-.my-identity b{color:var(--ink);font-weight:500;}
-.change-member-btn{
-  background:transparent;border:none;color:var(--accent-deep);
-  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
-  cursor:pointer;padding:0 .3rem;margin-left:.5rem;font-weight:500;
-  border-bottom:1px dashed var(--accent-deep);
-}
-.change-member-btn:hover{color:var(--accent);border-bottom-color:var(--accent);}
-
-/* ── SECTION TITRE ── */
-.section-title-bar{
-  font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--ink);margin:2rem 0 1rem;font-weight:500;
-  display:flex;align-items:center;gap:.55rem;
-}
-.section-title-bar::before{
-  content:"";width:14px;height:1px;background:var(--accent);flex-shrink:0;
-}
-.section-subtitle{
-  font-family:var(--serif);font-style:italic;font-size:.95rem;color:var(--muted);
-  margin-top:-.7rem;margin-bottom:1rem;line-height:1.4;
-}
-
-/* ── HEYOKA ÉPINGLÉE (OUVERTURE) ── */
-.pinned-card{
-  background:var(--accent);color:var(--paper);
-  padding:1.1rem 1.3rem;border:1px solid var(--ink);
-  display:flex;align-items:center;gap:1rem;
-  margin-bottom:.7rem;position:relative;
-  box-shadow:4px 4px 0 var(--ink);
-}
-.pinned-rank{
-  font-family:var(--mono);font-size:11px;letter-spacing:.1em;font-weight:600;
-  background:var(--paper);color:var(--accent);padding:.25rem .55rem;flex-shrink:0;
-}
-.pinned-name{
-  flex:1;font-family:var(--serif);font-style:italic;font-size:1.3rem;line-height:1.1;
-  letter-spacing:-.02em;color:var(--paper);
-}
-.pinned-badge{
-  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
-  background:var(--paper);color:var(--accent-deep);padding:.25rem .55rem;font-weight:600;
-}
-
-/* ── SETLIST CONSENSUS (calculée) ── */
-.consensus-block{
-  background:var(--consensus-soft);border:1px solid var(--consensus);
-  padding:1.3rem 1.4rem 1.1rem;margin-bottom:2.5rem;
-}
-.consensus-title{
-  font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--consensus);font-weight:600;margin-bottom:1rem;
-  display:flex;align-items:center;gap:.55rem;
-}
-.consensus-title::before{
-  content:"";width:14px;height:1px;background:var(--consensus);flex-shrink:0;
-}
-.consensus-list{
-  list-style:none;padding:0;margin:0;
-  display:flex;flex-direction:column;gap:.45rem;
-}
-.consensus-item{
-  display:grid;grid-template-columns:auto 1fr auto;
-  align-items:center;gap:.9rem;
-  padding:.55rem .7rem;background:var(--paper);
-  border:1px solid var(--consensus);
-}
-.consensus-rank{
-  font-family:var(--mono);font-size:11px;letter-spacing:.06em;
-  color:var(--consensus);font-weight:600;
-}
-.consensus-name{
-  font-family:var(--serif);font-style:italic;font-size:1.1rem;
-  color:var(--ink);letter-spacing:-.01em;
-}
-.consensus-score{
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;
-  color:var(--muted);white-space:nowrap;
-}
-.consensus-empty{
-  font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);
-  padding:1rem 0;font-style:italic;text-align:center;
-}
-
-/* ── MON CLASSEMENT (interactif) ── */
-.my-ranking-block{
-  background:var(--paper-3);border:1px solid var(--ink);
-  padding:1.3rem 1.2rem 1.2rem;margin-bottom:2rem;
-}
-.my-ranking-list{
-  list-style:none;padding:0;margin:0;
-  display:flex;flex-direction:column;gap:.55rem;
-}
-.my-ranking-item{
-  display:grid;grid-template-columns:auto 1fr auto;
-  align-items:center;gap:.8rem;
-  padding:.7rem .8rem;background:var(--paper);
-  border:1px solid var(--ink);transition:transform .2s, box-shadow .2s;
-}
-.my-ranking-item.is-moving{
-  transform:scale(1.02);box-shadow:4px 4px 0 var(--accent);
-}
-.ranking-num{
-  font-family:var(--mono);font-size:11px;letter-spacing:.06em;
-  color:var(--ink);font-weight:600;
-  background:var(--paper-3);padding:.3rem .55rem;
-  min-width:30px;text-align:center;
-}
-.ranking-song-name{
-  font-family:var(--serif);font-style:italic;font-size:1.1rem;
-  color:var(--ink);letter-spacing:-.01em;line-height:1.2;
-}
-.ranking-actions{
-  display:flex;gap:.3rem;
-}
-.btn-move{
-  width:34px;height:34px;background:var(--paper);border:1px solid var(--ink);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  border-radius:0;color:var(--ink);transition:all .15s;padding:0;
-}
-.btn-move:hover:not(:disabled){background:var(--ink);color:var(--paper);}
-.btn-move:disabled{opacity:.25;cursor:not-allowed;}
-
-/* ── BOUTON CŒUR (préférence affective) ── */
-.btn-heart{
-  width:34px;height:34px;background:var(--paper);border:1px solid var(--ink);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  border-radius:0;color:var(--ink);transition:all .15s;padding:0;
-}
-.btn-heart svg{width:15px;height:15px;}
-.btn-heart:hover{background:var(--accent-soft);border-color:var(--accent);}
-.btn-heart.is-my-heart{
-  background:var(--accent);border-color:var(--accent);color:#fff;
-  box-shadow:2px 2px 0 var(--accent-deep);
-}
-.btn-heart.pulse{animation:heartpulse .5s ease;}
-@keyframes heartpulse{
-  0%{transform:scale(1);}
-  40%{transform:scale(1.25);}
-  100%{transform:scale(1);}
-}
-/* Badge cœur dans la setlist consensus */
-.consensus-item.has-hearts{border-color:var(--accent);}
-.heart-badge{
-  font-family:var(--mono);font-size:10px;letter-spacing:.04em;
-  color:var(--accent);font-weight:600;white-space:nowrap;
-  display:inline-flex;align-items:center;gap:.25rem;
-}
-.heart-badge svg{width:11px;height:11px;}
-.consensus-meta{
-  display:flex;flex-direction:column;align-items:flex-end;gap:.2rem;
-}
-
-/* ── COMPTEUR DE VOTANTS ── */
-.voters-summary{
-  background:var(--paper);border:1px solid var(--line);
-  padding:.9rem 1.2rem;margin-bottom:2rem;
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--ink);
-}
-.voters-summary b{color:var(--accent-deep);font-weight:600;}
-.voters-list{
-  display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem;
-}
-.voter-chip-small{
-  display:inline-flex;align-items:center;justify-content:center;
-  height:22px;padding:0 .55rem;background:var(--paper-3);border:1px solid var(--ink);
-  font-family:var(--mono);font-size:10px;color:var(--ink);font-weight:500;
-}
-.voter-chip-small.is-me{background:var(--accent);color:var(--paper);border-color:var(--accent);}
-
-/* ── BOUTON RESET ── */
-.reset-row{
-  text-align:right;margin-top:1rem;
-}
-.btn-reset{
-  background:transparent;border:1px dashed var(--muted);
-  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--muted);padding:.55rem .9rem;cursor:pointer;border-radius:0;
-  transition:all .15s;
-}
-.btn-reset:hover{color:#E53935;border-color:#E53935;border-style:solid;}
-
-/* ── MODALE MEMBRE ── */
-.name-prompt-overlay{
-  position:fixed;inset:0;background:rgba(20,17,12,.85);z-index:1000;
-  display:none;align-items:center;justify-content:center;padding:2rem 1.25rem;
-  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
-}
-.name-prompt-overlay.open{display:flex;}
-.name-prompt-box{
-  background:var(--paper-3);border:1px solid var(--ink);
-  padding:2rem 2rem 1.6rem;max-width:480px;width:100%;
-  box-shadow:8px 8px 0 var(--accent);max-height:90vh;overflow-y:auto;
-}
-.name-prompt-eyebrow{
-  font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--accent-deep);margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem;
-}
-.name-prompt-eyebrow::before{
-  content:"";width:6px;height:6px;background:var(--accent);border-radius:50%;
-}
-.name-prompt-title{
-  font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:1.8rem;color:var(--ink);line-height:1;margin-bottom:.8rem;letter-spacing:-.02em;
-}
-.name-prompt-desc{
-  font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);
-  margin-bottom:1.4rem;line-height:1.6;
-}
-.member-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:.45rem;
-  margin-bottom:1.2rem;max-height:46vh;overflow-y:auto;
-  padding-right:.2rem;
-}
-.member-option{
-  display:flex;flex-direction:column;align-items:flex-start;gap:.2rem;
-  padding:.7rem .8rem;background:var(--paper);border:1px solid var(--ink);
-  cursor:pointer;transition:all .15s;text-align:left;border-radius:0;
-  font-family:inherit;
-}
-.member-option:hover{background:var(--accent-soft);}
-.member-option.selected{
-  background:var(--ink);color:var(--paper);
-  box-shadow:3px 3px 0 var(--accent);
-}
-.member-option-name{
-  font-family:var(--serif);font-style:italic;font-size:1.15rem;line-height:1;font-weight:400;
-  letter-spacing:-.01em;color:inherit;
-}
-.member-option-role{
-  font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--muted);font-weight:500;
-}
-.member-option.selected .member-option-role{color:rgba(239,234,224,.7);}
-.name-prompt-submit{
-  font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-  background:var(--ink);color:var(--paper);border:none;border-radius:0;
-  padding:.85rem 1.5rem;width:100%;font-weight:500;cursor:pointer;transition:background .15s;
-}
-.name-prompt-submit:hover:not(:disabled){background:var(--accent-deep);}
-.name-prompt-submit:disabled{opacity:.4;cursor:not-allowed;}
-
-/* ── TOAST ── */
-.action-toast{
-  position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%) translateY(20px);
-  background:var(--ink);color:var(--paper);
-  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  font-weight:500;padding:.85rem 1.4rem;
-  border:1px solid var(--ink);box-shadow:0 6px 24px rgba(20,17,12,.25);
-  z-index:2000;opacity:0;pointer-events:none;
-  transition:opacity .25s, transform .25s;
-}
-.action-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-
-/* ── DESKTOP ── */
-@media(min-width:768px){
-  .setlist-eyebrow{font-size:11px;letter-spacing:.22em;}
-  .setlist-title{font-size:clamp(2.8rem,7vw,5rem);line-height:.85;}
-  .consensus-name,.ranking-song-name{font-size:1.25rem;}
-}
+.setlist-tagline{font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--muted);margin-top:.4rem;line-height:1.4;}
+.setlist-date{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-deep);font-weight:500;margin-top:.6rem;}
+.setlist-manifesto{background:var(--paper-3);border-left:3px solid var(--accent);padding:1.1rem 1.3rem;margin-bottom:2rem;position:relative;}
+.setlist-manifesto::before{content:"";position:absolute;top:0;left:-3px;width:3px;height:18px;background:var(--ink);}
+.setlist-manifesto p{font-family:var(--serif);font-style:italic;font-size:1rem;line-height:1.55;color:var(--ink);margin:0;}
+@media(min-width:768px){.setlist-manifesto{padding:1.3rem 1.6rem;}.setlist-manifesto p{font-size:1.08rem;line-height:1.6;}}
+.section-title-bar{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);margin:2rem 0 1rem;font-weight:500;display:flex;align-items:center;gap:.55rem;}
+.section-title-bar::before{content:"";width:14px;height:1px;background:var(--accent);flex-shrink:0;}
+.section-subtitle{font-family:var(--serif);font-style:italic;font-size:.95rem;color:var(--muted);margin-top:-.7rem;margin-bottom:1rem;line-height:1.4;}
+.pinned-card{background:var(--accent);color:var(--paper);padding:1.1rem 1.3rem;border:1px solid var(--ink);display:flex;align-items:center;gap:1rem;margin-bottom:.7rem;position:relative;box-shadow:4px 4px 0 var(--ink);}
+.pinned-rank{font-family:var(--mono);font-size:11px;letter-spacing:.1em;font-weight:600;background:var(--paper);color:var(--accent);padding:.25rem .55rem;flex-shrink:0;}
+.pinned-name{flex:1;font-family:var(--serif);font-style:italic;font-size:1.3rem;line-height:1.1;letter-spacing:-.02em;color:var(--paper);}
+.pinned-badge{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;background:var(--paper);color:var(--accent-deep);padding:.25rem .55rem;font-weight:600;}
+.setlist-finale{display:flex;flex-direction:column;gap:.55rem;margin-bottom:2.5rem;}
+.setlist-item{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.9rem;padding:.65rem .9rem;background:var(--paper);border:1px solid var(--ink);}
+.setlist-item:nth-child(odd){background:var(--paper-3);}
+.setlist-num{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);font-weight:600;min-width:28px;}
+.setlist-song{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--ink);letter-spacing:-.01em;}
+@media(min-width:768px){.setlist-song{font-size:1.3rem;}}
 </style>
 </head>
 <body>
 
 <header class="atelier-header">
-  <a class="header-logo" href="index.html">
-    L'Atelier<span class="tick">private</span>
-  </a>
+  <a class="header-logo" href="index.html">L'Atelier<span class="tick">private</span></a>
   <div class="header-actions">
     <a class="btn-back" href="index.html"><span data-fr="← Accueil" data-es="← Inicio">← Accueil</span></a>
     <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
@@ -384,493 +68,83 @@
 
 <main class="atelier-main">
 
-  <!-- INTRO -->
   <div class="setlist-intro">
     <div class="setlist-eyebrow">
       <span class="num accent">06</span>
-      <span data-fr="L'Atelier · Setlist collaborative" data-es="L'Atelier · Setlist colaborativa">L'Atelier · Setlist collaborative</span>
+      <span data-fr="L'Atelier · Setlist officielle" data-es="L'Atelier · Setlist oficial">L'Atelier · Setlist officielle</span>
     </div>
     <h1 class="setlist-title"><span data-fr="Setlist 26 juin" data-es="Setlist 26 de junio">Setlist 26 juin</span><span class="pt">.</span></h1>
     <div class="setlist-tagline">
-      <span data-fr="Compose l'ordre, on construit ensemble" data-es="Compón el orden, lo construimos juntos">Compose l'ordre, on construit ensemble</span>
+      <span data-fr="Ordre définitif du concert" data-es="Orden definitivo del concierto">Ordre définitif du concert</span>
     </div>
     <div class="setlist-date">
       <span data-fr="Concert · 26 juin 2026 · Extérieur Chelles" data-es="Concierto · 26 de junio de 2026 · Exterior Chelles">Concert · 26 juin 2026 · Extérieur Chelles</span>
     </div>
   </div>
 
-  <!-- MESSAGE INTRO ÉQUIPE -->
   <div class="setlist-manifesto">
     <p>
-      <span data-fr="On compose ensemble cette setlist. Vos classements nourrissent la réflexion, font émerger les morceaux qui parlent au groupe. La décision finale revient à Cédric, garant de la cohérence et de la dynamique du concert."
-            data-es="Componemos juntos esta setlist. Vuestras clasificaciones alimentan la reflexión, hacen emerger las canciones que hablan al grupo. La decisión final corresponde a Cédric, garante de la coherencia y de la dinámica del concierto.">On compose ensemble cette setlist. Vos classements nourrissent la réflexion, font émerger les morceaux qui parlent au groupe. La décision finale revient à Cédric, garant de la cohérence et de la dynamique du concert.</span>
+      <span data-fr="La setlist est arrêtée. Voici l'ordre du concert tel que décidé par le groupe avec Cédric."
+            data-es="La setlist está cerrada. Este es el orden del concierto tal como fue decidido por el grupo con Cédric.">La setlist est arrêtée. Voici l'ordre du concert tel que décidé par le groupe avec Cédric.</span>
     </p>
   </div>
 
-  <!-- STATUT CONNEXION -->
-  <div class="connection-status" id="connection-status">
-    <span class="dot"></span>
-    <span data-fr="Connexion…" data-es="Conexión…">Connexion…</span>
-  </div>
-
-  <!-- IDENTITÉ -->
-  <div class="my-identity" id="my-identity"></div>
-
-  <!-- SETLIST CONSENSUS -->
   <div class="section-title-bar">
-    <span data-fr="Setlist consensuelle" data-es="Setlist consensuada">Setlist consensuelle</span>
+    <span data-fr="Programme du concert" data-es="Programa del concierto">Programme du concert</span>
   </div>
   <div class="section-subtitle">
-    <span data-fr="L'ordre du concert, calculé d'après tous les classements." data-es="El orden del concierto, calculado a partir de todos los rankings.">L'ordre du concert, calculé d'après tous les classements.</span>
+    <span data-fr="6 morceaux · Heyoka Chelles en ouverture" data-es="6 canciones · Heyoka Chelles en apertura">6 morceaux · Heyoka Chelles en ouverture</span>
   </div>
 
-  <!-- Heyoka épinglée -->
   <div class="pinned-card">
     <span class="pinned-rank">01</span>
     <span class="pinned-name">Heyoka Chelles</span>
     <span class="pinned-badge" data-fr="Ouverture" data-es="Apertura">Ouverture</span>
   </div>
 
-  <!-- Classement consensuel calculé -->
-  <div class="consensus-block">
-    <div class="consensus-title">
-      <span data-fr="Suite du concert" data-es="Continuación del concierto">Suite du concert</span>
+  <div class="setlist-finale">
+    <div class="setlist-item">
+      <span class="setlist-num">#02</span>
+      <span class="setlist-song">Worth It</span>
     </div>
-    <ol class="consensus-list" id="consensus-list">
-      <li class="consensus-empty"><span data-fr="Chargement…" data-es="Cargando…">Chargement…</span></li>
-    </ol>
-  </div>
-
-  <!-- COMPTEUR DE VOTANTS -->
-  <div class="voters-summary" id="voters-summary">
-    <span data-fr="Personne n'a encore voté." data-es="Nadie ha votado todavía.">Personne n'a encore voté.</span>
-  </div>
-
-  <!-- MON CLASSEMENT (interactif) -->
-  <div class="section-title-bar">
-    <span data-fr="Mon classement" data-es="Mi clasificación">Mon classement</span>
-  </div>
-  <div class="section-subtitle">
-    <span data-fr="L'ordre, c'est l'ambiance qu'on veut créer. Le cœur ♥, c'est le morceau que tu préfères jouer (un seul)." data-es="El orden es el ambiente que queremos crear. El corazón ♥ es la canción que prefieres tocar (solo una).">L'ordre, c'est l'ambiance qu'on veut créer. Le cœur ♥, c'est le morceau que tu préfères jouer (un seul).</span>
-  </div>
-
-  <div class="my-ranking-block">
-    <ol class="my-ranking-list" id="my-ranking-list">
-      <li class="consensus-empty"><span data-fr="Chargement…" data-es="Cargando…">Chargement…</span></li>
-    </ol>
-    <div class="reset-row">
-      <button class="btn-reset" onclick="resetMyRanking()">
-        <span data-fr="↻ Réinitialiser" data-es="↻ Reiniciar">↻ Réinitialiser</span>
-      </button>
+    <div class="setlist-item">
+      <span class="setlist-num">#03</span>
+      <span class="setlist-song">Say Say Say</span>
+    </div>
+    <div class="setlist-item">
+      <span class="setlist-num">#04</span>
+      <span class="setlist-song">Easy Lover</span>
+    </div>
+    <div class="setlist-item">
+      <span class="setlist-num">#05</span>
+      <span class="setlist-song">Still a Friend of Mine</span>
+    </div>
+    <div class="setlist-item">
+      <span class="setlist-num">#06</span>
+      <span class="setlist-song">Medley Justin Timberlake</span>
     </div>
   </div>
 
 </main>
 
-<!-- MODALE MEMBRE -->
-<div id="name-prompt-overlay" class="name-prompt-overlay">
-  <div class="name-prompt-box">
-    <div class="name-prompt-eyebrow">
-      <span data-fr="Identification" data-es="Identificación">Identification</span>
-    </div>
-    <div class="name-prompt-title">
-      <span data-fr="Qui es-tu ?" data-es="¿Quién eres?">Qui es-tu ?</span>
-    </div>
-    <div class="name-prompt-desc">
-      <span data-fr="Sélectionne ton prénom dans la liste des membres de L'Atelier." data-es="Selecciona tu nombre en la lista de miembros de L'Atelier.">Sélectionne ton prénom dans la liste des membres de L'Atelier.</span>
-    </div>
-    <div id="member-grid" class="member-grid"></div>
-    <button id="member-confirm" class="name-prompt-submit" onclick="confirmMember()" disabled>
-      <span data-fr="Entrer dans la setlist →" data-es="Entrar en la setlist →">Entrer dans la setlist →</span>
-    </button>
-  </div>
-</div>
-
-<!-- AUTH GATE -->
 <script>
-if(sessionStorage.getItem('atelier-auth')!=='1'){
-  window.location.href='index.html';
-}
-</script>
-
-<!-- SUPABASE CLIENT -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-
-<!-- APP -->
-<script>
-/* ════════════════════════════════════════════════════════════════
-   CONFIGURATION SUPABASE
-   ════════════════════════════════════════════════════════════════ */
-const SUPABASE_URL  = 'https://atsbhmvjungckpknkbxw.supabase.co';
-const SUPABASE_KEY  = 'sb_publishable_5NtVvQKSMnhQRijrWcW2hA_hwWKGW9j';
-
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-/* ════════════════════════════════════════════════════════════════
-   DONNÉES
-   ════════════════════════════════════════════════════════════════ */
-
-// 11 membres officiels
-const MEMBERS = [
-  { name: 'Cédric',     role_fr: 'Direction',      role_es: 'Dirección' },
-  { name: 'Jean-Marc',  role_fr: 'Saxophone',      role_es: 'Saxofón' },
-  { name: 'Marine',     role_fr: 'Chant',          role_es: 'Voz' },
-  { name: 'Nata',       role_fr: 'Basse',          role_es: 'Bajo' },
-  { name: 'Nico',       role_fr: 'Guitare',        role_es: 'Guitarra' },
-  { name: 'Pablo',      role_fr: 'Clavier',        role_es: 'Teclado' },
-  { name: 'Patrice',    role_fr: 'Guitare',        role_es: 'Guitarra' },
-  { name: 'Patricia',   role_fr: 'Chant',          role_es: 'Voz' },
-  { name: 'Roselyne',   role_fr: 'Chant',          role_es: 'Voz' },
-  { name: 'Shams',      role_fr: 'Batterie',       role_es: 'Batería' },
-  { name: 'Theythey',   role_fr: 'Chant',          role_es: 'Voz' }
-];
-
-// 6 morceaux à classer (Heyoka est exclue, épinglée à part)
-const SONGS = [
-  { slug: 'worth-it',         name: 'Worth It' },
-  { slug: 'still-a-friend',   name: 'Still a Friend of Mine' },
-  { slug: 'easy-lover',       name: 'Easy Lover' },
-  { slug: 'medley-jt',        name: 'Medley Justin Timberlake' },
-  { slug: 'say-say-say',      name: 'Say Say Say' }
-];
-
-let myName = localStorage.getItem('atelier-playlist-name') || '';
-let selectedMemberName = null;
-let myRanking = []; // [{slug, position}]
-let allVotes = []; // [{voter_name, song_slug, position}]
-let allHearts = []; // [{voter_name, song_slug}] — 1 cœur max par membre
-
-/* ── TRADUCTION ── */
-let currentLang = localStorage.getItem('atelier-lang') || 'fr';
+if(sessionStorage.getItem('atelier-auth')!=='1'){window.location.href='index.html';}
+let currentLang=localStorage.getItem('atelier-lang')||'fr';
 function applyLang(){
   document.querySelectorAll('[data-fr]').forEach(el=>{
-    const hasChild = el.querySelector('[data-fr]');
-    if(!hasChild) el.textContent = (currentLang==='fr') ? el.dataset.fr : el.dataset.es;
+    const hasChild=el.querySelector('[data-fr]');
+    if(!hasChild) el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;
   });
-  const btn = document.getElementById('lang-toggle');
-  if(btn) btn.textContent = (currentLang==='fr') ? 'ES' : 'FR';
-  document.documentElement.lang = currentLang;
+  const btn=document.getElementById('lang-toggle');
+  if(btn) btn.textContent=(currentLang==='fr')?'ES':'FR';
+  document.documentElement.lang=currentLang;
 }
 function toggleLang(){
-  currentLang = (currentLang==='fr') ? 'es' : 'fr';
-  localStorage.setItem('atelier-lang', currentLang);
+  currentLang=(currentLang==='fr')?'es':'fr';
+  localStorage.setItem('atelier-lang',currentLang);
   applyLang();
-  renderMemberGrid();
-  render();
 }
-
-/* ── ÉCHAPPEMENT HTML ── */
-function escapeHtml(s){
-  if(!s) return '';
-  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-/* ── TOAST ── */
-let toastTimeout = null;
-function showToast(message){
-  let toast = document.getElementById('action-toast');
-  if(!toast){
-    toast = document.createElement('div');
-    toast.id = 'action-toast';
-    toast.className = 'action-toast';
-    document.body.appendChild(toast);
-  }
-  toast.textContent = message;
-  toast.classList.add('show');
-  if(toastTimeout) clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(() => toast.classList.remove('show'), 1800);
-}
-
-/* ── MODALE MEMBRE ── */
-function renderMemberGrid(){
-  const grid = document.getElementById('member-grid');
-  grid.innerHTML = MEMBERS.map(m => {
-    const isSelected = m.name === selectedMemberName;
-    const role = (currentLang === 'fr') ? m.role_fr : m.role_es;
-    return '<button type="button" class="member-option ' + (isSelected?'selected':'') + '" onclick="selectMember(\'' + escapeHtml(m.name) + '\')">' +
-      '<span class="member-option-name">' + escapeHtml(m.name) + '</span>' +
-      '<span class="member-option-role">' + escapeHtml(role) + '</span>' +
-      '</button>';
-  }).join('');
-}
-
-function selectMember(name){
-  selectedMemberName = name;
-  renderMemberGrid();
-  document.getElementById('member-confirm').disabled = false;
-}
-
-function confirmMember(){
-  if(!selectedMemberName) return;
-  myName = selectedMemberName;
-  localStorage.setItem('atelier-playlist-name', myName);
-  document.getElementById('name-prompt-overlay').classList.remove('open');
-  initMyRanking();
-  updateIdentity();
-}
-
-function changeMember(){
-  selectedMemberName = myName;
-  renderMemberGrid();
-  document.getElementById('member-confirm').disabled = false;
-  document.getElementById('name-prompt-overlay').classList.add('open');
-}
-
-function updateIdentity(){
-  const el = document.getElementById('my-identity');
-  if(!myName){ el.innerHTML = ''; return; }
-  const lbl = (currentLang==='fr') ? 'Connecté : ' : 'Conectado : ';
-  const chg = (currentLang==='fr') ? 'changer' : 'cambiar';
-  el.innerHTML = '<span>'+lbl+'</span><b>'+escapeHtml(myName)+'</b>'+
-    '<button class="change-member-btn" onclick="changeMember()">'+chg+'</button>';
-}
-
-/* ── MON CLASSEMENT ── */
-function initMyRanking(){
-  var mine = allVotes.filter(function(v){ return v.voter_name === myName; });
-  if(mine.length > 0){
-    myRanking = mine.slice().sort(function(a,b){ return a.position - b.position; }).map(function(v){ return v.song_slug; });
-    SONGS.forEach(function(s){
-      if(!myRanking.includes(s.slug)) myRanking.push(s.slug);
-    });
-  } else {
-    myRanking = SONGS.map(function(s){ return s.slug; });
-  }
-  renderMyRanking();
-}
-
-async function moveUp(index){
-  if(index === 0) return;
-  [myRanking[index-1], myRanking[index]] = [myRanking[index], myRanking[index-1]];
-  renderMyRanking(index-1);
-  await saveMyRanking();
-  showToast(currentLang==='fr' ? 'Classement mis a jour' : 'Clasificacion actualizada');
-}
-
-async function moveDown(index){
-  if(index === myRanking.length - 1) return;
-  [myRanking[index+1], myRanking[index]] = [myRanking[index], myRanking[index+1]];
-  renderMyRanking(index+1);
-  await saveMyRanking();
-  showToast(currentLang==='fr' ? 'Classement mis a jour' : 'Clasificacion actualizada');
-}
-
-async function resetMyRanking(){
-  const confirmMsg = (currentLang==='fr')
-    ? 'Reinitialiser ton classement personnel ?'
-    : 'Reiniciar tu clasificacion personal?';
-  if(!confirm(confirmMsg)) return;
-  if(!myName) return;
-  await sb.from('setlist_votes').delete().eq('voter_name', myName);
-  await sb.from('setlist_hearts').delete().eq('voter_name', myName);
-  allHearts = allHearts.filter(function(x){ return x.voter_name !== myName; });
-  myRanking = SONGS.map(function(s){ return s.slug; });
-  renderMyRanking();
-  showToast(currentLang==='fr' ? 'Classement reinitialise' : 'Clasificacion reiniciada');
-}
-
-async function saveMyRanking(){
-  if(!myName) return;
-  try {
-    await sb.from('setlist_votes').delete().eq('voter_name', myName);
-    const rows = myRanking.map(function(slug, i){
-      return { voter_name: myName, song_slug: slug, position: i + 1 };
-    });
-    const { error } = await sb.from('setlist_votes').insert(rows);
-    if(error){ console.error('Erreur save', error); }
-  } catch(e){
-    console.error('Erreur saveMyRanking', e);
-  }
-}
-
-function renderMyRanking(movingIndex){
-  const list = document.getElementById('my-ranking-list');
-  list.innerHTML = myRanking.map(function(slug, i){
-    const song = SONGS.find(function(s){ return s.slug === slug; });
-    if(!song) return '';
-    const isMoving = i === movingIndex;
-    const isFirst = i === 0;
-    const isLast = i === myRanking.length - 1;
-    const displayPos = String(i + 2).padStart(2, '0');
-    const isMyHeart = getMyHeart() === slug;
-    const heartTitle = isMyHeart
-      ? (currentLang==='fr'?'Retirer mon coup de coeur':'Quitar mi favorito')
-      : (currentLang==='fr'?'Mon coup de coeur':'Mi favorito');
-    return '<li class="my-ranking-item' + (isMoving ? ' is-moving' : '') + '">' +
-      '<span class="ranking-num">#' + displayPos + '</span>' +
-      '<span class="ranking-song-name">' + escapeHtml(song.name) + '</span>' +
-      '<span class="ranking-actions">' +
-        '<button class="btn-heart' + (isMyHeart ? ' is-my-heart' : '') + '" onclick="toggleHeart(\'' + slug + '\', this)" title="' + heartTitle + '" aria-label="' + heartTitle + '">' +
-          '<svg viewBox="0 0 24 24" fill="' + (isMyHeart ? 'currentColor' : 'none') + '" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>' +
-        '</button>' +
-        '<button class="btn-move" onclick="moveUp(' + i + ')" ' + (isFirst ? 'disabled' : '') + ' title="' + (currentLang==='fr'?'Monter':'Subir') + '" aria-label="Monter">' +
-          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>' +
-        '</button>' +
-        '<button class="btn-move" onclick="moveDown(' + i + ')" ' + (isLast ? 'disabled' : '') + ' title="' + (currentLang==='fr'?'Descendre':'Bajar') + '" aria-label="Descendre">' +
-          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
-        '</button>' +
-      '</span>' +
-    '</li>';
-  }).join('');
-}
-
-/* ── CŒURS ── */
-function getMyHeart(){
-  const h = allHearts.find(function(x){ return x.voter_name === myName; });
-  return h ? h.song_slug : null;
-}
-function heartsForSong(slug){
-  return allHearts.filter(function(x){ return x.song_slug === slug; });
-}
-async function toggleHeart(slug, btnEl){
-  if(!myName){ document.getElementById('name-prompt-overlay').classList.add('open'); return; }
-  if(btnEl){ btnEl.classList.remove('pulse'); void btnEl.offsetWidth; btnEl.classList.add('pulse'); }
-  const current = getMyHeart();
-  try {
-    if(current === slug){
-      await sb.from('setlist_hearts').delete().eq('voter_name', myName);
-      allHearts = allHearts.filter(function(x){ return x.voter_name !== myName; });
-      showToast(currentLang==='fr' ? 'Coeur retire' : 'Corazon quitado');
-    } else {
-      await sb.from('setlist_hearts').delete().eq('voter_name', myName);
-      const { error } = await sb.from('setlist_hearts').insert([{ voter_name: myName, song_slug: slug }]);
-      if(error){ console.error('Erreur coeur', error); showToast('Erreur'); return; }
-      allHearts = allHearts.filter(function(x){ return x.voter_name !== myName; });
-      allHearts.push({ voter_name: myName, song_slug: slug });
-      showToast(currentLang==='fr' ? 'Coup de coeur enregistre' : 'Favorito guardado');
-    }
-    render();
-  } catch(e){
-    console.error('toggleHeart', e);
-    showToast('Erreur');
-  }
-}
-
-/* ── CONSENSUS (Borda) ── */
-function computeConsensus(){
-  const N = SONGS.length;
-  const scores = {};
-  SONGS.forEach(function(s){ scores[s.slug] = { score: 0, voters: 0 }; });
-  allVotes.forEach(function(v){
-    if(scores[v.song_slug]){
-      scores[v.song_slug].score += (N - v.position + 1);
-      scores[v.song_slug].voters++;
-    }
-  });
-  return SONGS.map(function(s){
-    return Object.assign({}, s, {
-      score: scores[s.slug].score,
-      voters: scores[s.slug].voters,
-      hearts: heartsForSong(s.slug)
-    });
-  }).sort(function(a,b){ return (b.score - a.score) || (b.hearts.length - a.hearts.length); });
-}
-
-function renderConsensus(){
-  const list = document.getElementById('consensus-list');
-  const totalVoters = new Set(allVotes.map(function(v){ return v.voter_name; })).size;
-  if(totalVoters === 0){
-    list.innerHTML = '<li class="consensus-empty"><span>' +
-      (currentLang==='fr' ? 'En attente des premiers classements...' : 'Esperando los primeros rankings...') +
-      '</span></li>';
-    return;
-  }
-  const consensus = computeConsensus();
-  list.innerHTML = consensus.map(function(song, i){
-    const displayPos = String(i + 2).padStart(2, '0');
-    const lbl = song.voters === 0
-      ? (currentLang==='fr' ? 'aucun vote' : 'sin votos')
-      : song.score + ' pts ' + song.voters + ' ' + (currentLang==='fr'
-          ? (song.voters > 1 ? 'votants' : 'votant')
-          : (song.voters > 1 ? 'votantes' : 'votante'));
-    const nbHearts = song.hearts.length;
-    const heartNames = song.hearts.map(function(h){ return escapeHtml(h.voter_name); }).join(', ');
-    const heartBadge = nbHearts > 0
-      ? '<span class="heart-badge" title="' + heartNames + '"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>' + nbHearts + '</span>'
-      : '';
-    return '<li class="consensus-item' + (nbHearts > 0 ? ' has-hearts' : '') + '">' +
-      '<span class="consensus-rank">#' + displayPos + '</span>' +
-      '<span class="consensus-name">' + escapeHtml(song.name) + '</span>' +
-      '<span class="consensus-meta">' +
-        '<span class="consensus-score">' + lbl + '</span>' +
-        heartBadge +
-      '</span>' +
-    '</li>';
-  }).join('');
-}
-
-function renderVotersSummary(){
-  const el = document.getElementById('voters-summary');
-  const voters = [...new Set(allVotes.map(function(v){ return v.voter_name; }))];
-  if(voters.length === 0){
-    el.innerHTML = (currentLang==='fr' ? 'Personne n\'a encore vote.' : 'Nadie ha votado todavia.');
-    return;
-  }
-  const total = MEMBERS.length;
-  const intro = currentLang==='fr'
-    ? '<b>' + voters.length + '/' + total + '</b> membre' + (voters.length>1?'s':'') + ' ont vote :'
-    : '<b>' + voters.length + '/' + total + '</b> miembro' + (voters.length>1?'s':'') + ' han votado :';
-  el.innerHTML = intro +
-    '<div class="voters-list">' +
-    voters.map(function(v){
-      return '<span class="voter-chip-small' + (v === myName ? ' is-me' : '') + '">' + escapeHtml(v) + '</span>';
-    }).join('') +
-    '</div>';
-}
-
-function render(){
-  renderConsensus();
-  renderVotersSummary();
-  if(myName) renderMyRanking();
-}
-
-/* ── CHARGEMENT INITIAL ── */
-async function loadAll(){
-  try {
-    const [votesRes, heartsRes] = await Promise.all([
-      sb.from('setlist_votes').select('*'),
-      sb.from('setlist_hearts').select('*')
-    ]);
-    if(votesRes.error){ console.error(votesRes.error); setStatus(false); return; }
-    allVotes = votesRes.data || [];
-    allHearts = heartsRes.error ? [] : (heartsRes.data || []);
-    setStatus(true);
-    if(myName){
-      initMyRanking();
-      updateIdentity();
-    }
-    render();
-  } catch(e){
-    console.error(e);
-    setStatus(false);
-  }
-}
-
-function setStatus(online){
-  const el = document.getElementById('connection-status');
-  el.className = 'connection-status ' + (online ? 'online' : 'offline');
-  el.innerHTML = '<span class="dot"></span><span>' +
-    (online ? (currentLang==='fr' ? 'Temps reel actif' : 'Tiempo real activo')
-            : (currentLang==='fr' ? 'Connexion impossible' : 'Conexion imposible')) + '</span>';
-}
-
-function subscribeRealtime(){
-  sb.channel('setlist-realtime')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'setlist_votes' }, function(){ loadAll(); })
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'setlist_hearts' }, function(){ loadAll(); })
-    .subscribe();
-}
-
-/* ── INIT ── */
 applyLang();
-renderMemberGrid();
-if(!myName){
-  document.getElementById('member-confirm').disabled = true;
-  document.getElementById('name-prompt-overlay').classList.add('open');
-}
-loadAll();
-subscribeRealtime();
 </script>
-
 </body>
 </html>
