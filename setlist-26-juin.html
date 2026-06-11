@@ -54,6 +54,14 @@
 .setlist-num{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);font-weight:600;min-width:28px;}
 .setlist-song{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--ink);letter-spacing:-.01em;}
 @media(min-width:768px){.setlist-song{font-size:1.3rem;}}
+
+.setlist-interlude{
+  display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.9rem;
+  padding:.55rem .9rem;background:var(--paper);border:1px solid var(--line);
+  border-left:3px solid #4CAF50;
+}
+.setlist-interlude-num{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);font-weight:500;min-width:28px;}
+.setlist-interlude-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#2E7D32;display:flex;align-items:center;gap:.5rem;}
 </style>
 </head>
 <body>
@@ -84,8 +92,8 @@
 
   <div class="setlist-manifesto">
     <p>
-      <span data-fr="La setlist est arrêtée. Voici l'ordre du concert tel que décidé par le groupe avec Cédric."
-            data-es="La setlist está cerrada. Este es el orden del concierto tal como fue decidido por el grupo con Cédric.">La setlist est arrêtée. Voici l'ordre du concert tel que décidé par le groupe avec Cédric.</span>
+      <span data-fr="La setlist est désormais finalisée. Voici l'ordre du concert tel qu'il a été défini par le groupe et fermement entériné par el Jefe, Cédric."
+            data-es="La setlist está cerrada. Este es el orden del concierto tal como fue decidido por el grupo con Cédric.">La setlist est désormais finalisée. Voici l'ordre du concert tel qu'il a été défini par le groupe et fermement entériné par el Jefe, Cédric.</span>
     </p>
   </div>
 
@@ -107,6 +115,10 @@
       <span class="setlist-num">#02</span>
       <span class="setlist-song">Worth It</span>
     </div>
+    <div class="setlist-interlude">
+      <span class="setlist-interlude-num" style="color:#4CAF50;font-size:9px;letter-spacing:.1em;font-family:var(--mono);font-weight:600;">PASTÈQUE</span>
+      <span class="setlist-interlude-label"><span data-fr="Intervention · Théo" data-es="Intervención · Théo">Intervention · Théo</span></span>
+    </div>
     <div class="setlist-item">
       <span class="setlist-num">#03</span>
       <span class="setlist-song">Say Say Say</span>
@@ -115,9 +127,17 @@
       <span class="setlist-num">#04</span>
       <span class="setlist-song">Easy Lover</span>
     </div>
+    <div class="setlist-interlude">
+      <span class="setlist-interlude-num" style="color:#4CAF50;font-size:9px;letter-spacing:.1em;font-family:var(--mono);font-weight:600;">PASTÈQUE</span>
+      <span class="setlist-interlude-label"><span data-fr="Intervention · Patricia" data-es="Intervención · Patricia">Intervention · Patricia</span></span>
+    </div>
     <div class="setlist-item">
       <span class="setlist-num">#05</span>
       <span class="setlist-song">Still a Friend of Mine</span>
+    </div>
+    <div class="setlist-interlude">
+      <span class="setlist-interlude-num" style="color:#4CAF50;font-size:9px;letter-spacing:.1em;font-family:var(--mono);font-weight:600;">PASTÈQUE</span>
+      <span class="setlist-interlude-label"><span data-fr="Intervention · Marine" data-es="Intervención · Marine">Intervention · Marine</span></span>
     </div>
     <div class="setlist-item">
       <span class="setlist-num">#06</span>
