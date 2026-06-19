@@ -62,6 +62,35 @@
 }
 .setlist-interlude-num{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);font-weight:500;min-width:28px;}
 .setlist-interlude-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#2E7D32;display:flex;align-items:center;gap:.5rem;}
+
+/* RENDEZ-VOUS — bloc géant très visible */
+.rdv-hero{
+  background:var(--ink);color:var(--paper);
+  border:1px solid var(--ink);
+  padding:2.4rem 1.6rem;margin-bottom:2.5rem;
+  text-align:center;position:relative;overflow:hidden;
+  box-shadow:6px 6px 0 var(--accent);
+}
+.rdv-hero::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at center, rgba(240,81,30,.12) 0%, transparent 70%);
+  pointer-events:none;
+}
+.rdv-pin{font-size:2.4rem;line-height:1;margin-bottom:.6rem;position:relative;}
+.rdv-text{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(1.8rem,7vw,3rem);line-height:1.05;letter-spacing:-.02em;
+  color:var(--paper);margin-bottom:.5rem;position:relative;
+}
+.rdv-location{
+  font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);font-weight:600;position:relative;
+}
+@media(min-width:768px){
+  .rdv-hero{padding:3.2rem 2rem;}
+  .rdv-pin{font-size:3rem;}
+  .rdv-location{font-size:15px;}
+}
 </style>
 </head>
 <body>
@@ -98,6 +127,23 @@
     <p style="margin-top:.75rem;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep);font-weight:500;">
       <span data-fr="Être prêts à 18h00 — balances roots sur place" data-es="Estar listos a las 18h00 — balances roots in situ">Être prêts à 18h00 — balances roots sur place</span>
     </p>
+  </div>
+
+  <div class="setlist-manifesto" style="border-left-color:#2E7D32;">
+    <p>
+      <span data-fr="Lors de la prochaine répétition, chaque participant devra choisir son segment." data-es="En el próximo ensayo, cada participante deberá elegir su segmento.">Lors de la prochaine répétition, chaque participant devra choisir son segment.</span>
+    </p>
+  </div>
+
+  <!-- RENDEZ-VOUS — bloc géant -->
+  <div class="rdv-hero">
+    <div class="rdv-pin"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+    <div class="rdv-text">
+      <span data-fr="Rendez-vous le 26 à 18h00" data-es="Cita el 26 a las 18h00">Rendez-vous le 26 à 18h00</span>
+    </div>
+    <div class="rdv-location">
+      <span data-fr="Parc de la Victoire · Chelles" data-es="Parc de la Victoire · Chelles">Parc de la Victoire · Chelles</span>
+    </div>
   </div>
 
   <div class="section-title-bar">

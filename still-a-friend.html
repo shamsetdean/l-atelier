@@ -3,13 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
-<!-- FAVICON & ÉCRAN D'ACCUEIL -->
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512.png">
-
 <meta name="theme-color" content="#FFF8E7">
 <title>Still a Friend of Mine — L'Atelier</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,170 +15,97 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="atelier.css">
 <style>
-:root{
-  --accent:#3447B5;
-  --accent-h:#27358A;
-  --accent-soft:#D9DDF3;
-  --accent-deep:#1A2466;
-}
-
+:root{--accent:#3447B5;--accent-h:#27358A;--accent-soft:#D9DDF3;--accent-deep:#1A2466;}
 .tuto-grid{display:grid;grid-template-columns:1fr;gap:1.2rem;}
 .tuto-card{background:var(--paper);border:1px solid var(--ink);overflow:hidden;}
-.tuto-header{
-  padding:.7rem 1rem;border-bottom:1px solid var(--line);
-  display:flex;align-items:center;gap:.5rem;
-  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--ink);font-weight:500;
-}
+.tuto-header{padding:.7rem 1rem;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);font-weight:500;}
 .tuto-ico{display:inline-flex;align-items:center;color:var(--accent);flex-shrink:0;}
 .tuto-ico svg{display:block;}
 .tuto-video-wrapper{position:relative;width:100%;padding-bottom:56.25%;background:var(--ink-2);}
 .tuto-video-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
-@media(min-width:768px){
-  .tuto-grid{grid-template-columns:repeat(2,1fr);gap:1.4rem;}
-}
+@media(min-width:768px){.tuto-grid{grid-template-columns:repeat(2,1fr);gap:1.4rem;}}
+.dl-archive-list{display:flex;flex-direction:column;gap:.5rem;}
+.dl-archive-item{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem .9rem;background:var(--paper);border:1px solid var(--line);}
+.dl-archive-name{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink);}
+.dl-archive-name b{font-weight:600;}
 </style>
 </head>
 <body>
-
 <header class="atelier-header">
-  <a class="header-logo" href="index.html">
-    L'Atelier<span class="tick">private</span>
-  </a>
+  <a class="header-logo" href="index.html">L'Atelier<span class="tick">private</span></a>
   <div class="header-actions">
     <a class="btn-back" href="index.html"><span data-fr="← Accueil" data-es="← Inicio">← Accueil</span></a>
     <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
   </div>
 </header>
-
 <main class="atelier-main">
-
-  <!-- PAGE HEAD -->
   <div class="page-head">
     <div>
-      <div class="page-eyebrow">
-        <span class="num accent">01</span>
-        <span data-fr="Morceau du répertoire" data-es="Canción del repertorio">Morceau du répertoire</span>
-      </div>
+      <div class="page-eyebrow"><span class="num accent">01</span><span data-fr="Morceau du répertoire" data-es="Canción del repertorio">Morceau du répertoire</span></div>
       <h1 class="page-title">Still a Friend of Mine</h1>
     </div>
-    <div class="page-meta">
-      <div><b>Incognito</b></div>
-      <div>· 1993 ·</div>
-    </div>
+    <div class="page-meta"><div><b>Incognito</b></div><div>· 1993 ·</div></div>
   </div>
-
-  <!-- HERO -->
   <div class="hero">
     <div class="hero-inner">
       <div class="hero-meta"><span class="dot"></span><span data-fr="Ambiance / clé / tempo" data-es="Ambiente / tonalidad / tempo">Ambiance / clé / tempo</span></div>
       <div class="hero-title">Still a Friend of Mine</div>
       <div class="hero-artist">Incognito — 1993</div>
-      <div class="hero-musical">
-        <span>87 BPM</span>
-        <span data-fr="La majeur" data-es="La mayor">La majeur</span>
-      </div>
+      <div class="hero-musical"><span>88 BPM</span><span data-fr="La majeur" data-es="La mayor">La majeur</span></div>
     </div>
-    <div class="hero-side">
-      <span data-fr="Référence" data-es="Referencia">Référence</span>
-      <div class="num">01</div>
-    </div>
+    <div class="hero-side"><span data-fr="Référence" data-es="Referencia">Référence</span><div class="num">01</div></div>
   </div>
-
-  <!-- VIDEO YOUTUBE -->
   <section class="section-block">
     <h2 class="section-title"><span data-fr="Vidéo originale" data-es="Vídeo original">Vidéo originale</span></h2>
     <div class="video-wrapper">
       <iframe src="https://www.youtube-nocookie.com/embed/-syIJvQAW8Q" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
   </section>
-
-  <!-- AUDIOS -->
   <section class="section-block">
     <h2 class="section-title"><span data-fr="Audios" data-es="Audios">Audios</span></h2>
-
     <div class="audio-block">
-      <div class="audio-label">
-        <span data-fr="Audio original" data-es="Audio original">Audio original</span>
-        <span class="audio-source" id="src-original-still-a-friend"></span>
-      </div>
-      <div class="audio-placeholder"><span data-fr="Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_STILL_A_FRIEND" data-es="Audio próximamente — placeholder: #REMPLACER_AUDIO_ORIGINAL_STILL_A_FRIEND">Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_STILL_A_FRIEND</span></div>
+      <div class="audio-label"><span data-fr="Audio original" data-es="Audio original">Audio original</span></div>
+      <div class="audio-placeholder"><span data-fr="Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_STILL_A_FRIEND" data-es="Audio próximamente">Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_STILL_A_FRIEND</span></div>
     </div>
-
     <div class="audio-block">
-      <div class="audio-label">
-        <span data-fr="Atelier du 11 juin" data-es="Ensayo del 11 de junio">Atelier du 11 juin</span>
-        <span class="audio-source" id="src-repet11juin-still-a-friend"></span>
-      </div>
-      <audio id="audio-repet11juin-still-a-friend" controls preload="none">
-        <source src="https://www.dropbox.com/scl/fi/deg5oqzsh8qe533zoddos/atelier-funk-11-06-2026-still.mp3?rlkey=iyrylkbbha95stxkry7bzsgqk&raw=1" type="audio/mpeg">
+      <div class="audio-label"><span data-fr="Atelier du 18 juin" data-es="Ensayo del 18 de junio">Atelier du 18 juin</span></div>
+      <audio id="audio-repet5-still-a-friend" controls preload="none">
+        <source src="https://www.dropbox.com/scl/fi/dbyehrjmsz0b645qy4ghg/Still-a-friend-of-mine-88-bpm-18-juin.mp3?rlkey=s9elh784swgutdc27pnfvhomu&raw=1" type="audio/mpeg">
         <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
       </audio>
       <div class="audio-controls">
         <span class="speed-lbl" data-fr="Vitesse :" data-es="Velocidad :">Vitesse :</span>
-        <button class="audio-speed" onclick="setSpeed('audio-repet11juin-still-a-friend',0.75,this)">0.75×</button>
-        <button class="audio-speed active" onclick="setSpeed('audio-repet11juin-still-a-friend',1,this)">1×</button>
-        <button class="audio-speed" onclick="setSpeed('audio-repet11juin-still-a-friend',1.25,this)">1.25×</button>
-        <a href="https://www.dropbox.com/scl/fi/deg5oqzsh8qe533zoddos/atelier-funk-11-06-2026-still.mp3?rlkey=iyrylkbbha95stxkry7bzsgqk&dl=1" class="pdf-btn" style="margin-left:auto;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-      </div>
-    </div>
-
-    <div class="audio-block">
-      <div class="audio-label">
-        <span data-fr="Atelier du 4 juin" data-es="Ensayo del 4 de junio">Atelier du 4 juin</span>
-        <span class="audio-source" id="src-repet3-still-a-friend"></span>
-      </div>
-      <audio id="audio-repet3-still-a-friend" controls preload="none">
-        <source src="https://www.dropbox.com/scl/fi/xebhpijd5xyzh1stidbz2/Still-a-Friend-of-Mine-04-06-2026.mp3?rlkey=x5rig3d8vl6dz64vrsuxb510c&raw=1" type="audio/mpeg">
-        <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
-      </audio>
-      <div class="audio-controls">
-        <span class="speed-lbl" data-fr="Vitesse :" data-es="Velocidad :">Vitesse :</span>
-        <button class="audio-speed" onclick="setSpeed('audio-repet3-still-a-friend',0.75,this)">0.75×</button>
-        <button class="audio-speed active" onclick="setSpeed('audio-repet3-still-a-friend',1,this)">1×</button>
-        <button class="audio-speed" onclick="setSpeed('audio-repet3-still-a-friend',1.25,this)">1.25×</button>
-        <a href="https://www.dropbox.com/scl/fi/xebhpijd5xyzh1stidbz2/Still-a-Friend-of-Mine-04-06-2026.mp3?rlkey=x5rig3d8vl6dz64vrsuxb510c&dl=1" class="pdf-btn" style="margin-left:auto;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-      </div>
-    </div>
-
-    <div class="audio-block">
-      <div class="audio-label">
-        <span data-fr="Atelier du 28 mai" data-es="Ensayo del 28 de mayo">Atelier du 28 mai</span>
-        <span class="audio-source" id="src-repet2-still-a-friend"></span>
-      </div>
-      <audio id="audio-repet2-still-a-friend" controls preload="none">
-        <source src="https://www.dropbox.com/scl/fi/auysxpjf05cb8li6x9cd3/Still-a-friend-of-mine-atelier-du-jeudi-28-mai.m4a?rlkey=4p7fifovmohbxpw3ljll1w41g&raw=1" type="audio/mp4">
-        <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
-      </audio>
-      <div class="audio-controls">
-        <span class="speed-lbl" data-fr="Vitesse :" data-es="Velocidad :">Vitesse :</span>
-        <button class="audio-speed" onclick="setSpeed('audio-repet2-still-a-friend',0.75,this)">0.75×</button>
-        <button class="audio-speed active" onclick="setSpeed('audio-repet2-still-a-friend',1,this)">1×</button>
-        <button class="audio-speed" onclick="setSpeed('audio-repet2-still-a-friend',1.25,this)">1.25×</button>
-        <a href="https://www.dropbox.com/scl/fi/auysxpjf05cb8li6x9cd3/Still-a-friend-of-mine-atelier-du-jeudi-28-mai.m4a?rlkey=4p7fifovmohbxpw3ljll1w41g&dl=1" class="pdf-btn" style="margin-left:auto;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-      </div>
-    </div>
-
-    <div class="audio-block">
-      <div class="audio-label">
-        <span data-fr="Atelier du 2 avril" data-es="Ensayo del 2 de abril">Atelier du 2 avril</span>
-        <span class="audio-source" id="src-repet-still-a-friend"></span>
-      </div>
-      <audio id="audio-repet-still-a-friend" controls preload="none">
-        <source src="https://www.dropbox.com/scl/fi/2sjea6ru57cco9v69fj6n/still-a-friend-of-mind-atelier-du-2-avril.mp3?rlkey=odow6dieej551oz5gir8o0ohl&raw=1" type="audio/mpeg">
-        <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
-      </audio>
-      <div class="audio-controls">
-        <span class="speed-lbl" data-fr="Vitesse :" data-es="Velocidad :">Vitesse :</span>
-        <button class="audio-speed" onclick="setSpeed('audio-repet-still-a-friend',0.75,this)">0.75×</button>
-        <button class="audio-speed active" onclick="setSpeed('audio-repet-still-a-friend',1,this)">1×</button>
-        <button class="audio-speed" onclick="setSpeed('audio-repet-still-a-friend',1.25,this)">1.25×</button>
-        <a href="https://www.dropbox.com/scl/fi/2sjea6ru57cco9v69fj6n/still-a-friend-of-mind-atelier-du-2-avril.mp3?rlkey=odow6dieej551oz5gir8o0ohl&dl=1" class="pdf-btn" style="margin-left:auto;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
+        <button class="audio-speed" onclick="setSpeed('audio-repet5-still-a-friend',0.75,this)">0.75×</button>
+        <button class="audio-speed active" onclick="setSpeed('audio-repet5-still-a-friend',1,this)">1×</button>
+        <button class="audio-speed" onclick="setSpeed('audio-repet5-still-a-friend',1.25,this)">1.25×</button>
+        <a href="https://www.dropbox.com/scl/fi/dbyehrjmsz0b645qy4ghg/Still-a-friend-of-mine-88-bpm-18-juin.mp3?rlkey=s9elh784swgutdc27pnfvhomu&dl=1" class="pdf-btn" style="margin-left:auto;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
       </div>
     </div>
   </section>
 
-    <!-- TUTOS -->
+  <!-- TELECHARGEMENTS (anciennes repetitions) -->
+  <section class="section-block">
+    <h2 class="section-title"><span data-fr="Téléchargements — historique" data-es="Descargas — historial">Téléchargements — historique</span></h2>
+    <div class="dl-archive-list">
+      <div class="dl-archive-item">
+        <span class="dl-archive-name"><b data-fr="Atelier du 11 juin" data-es="Ensayo del 11 de junio">Atelier du 11 juin</b></span>
+        <a href="https://www.dropbox.com/scl/fi/deg5oqzsh8qe533zoddos/atelier-funk-11-06-2026-still.mp3?rlkey=iyrylkbbha95stxkry7bzsgqk&dl=1" class="pdf-btn"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
+      </div>
+      <div class="dl-archive-item">
+        <span class="dl-archive-name"><b data-fr="Atelier du 4 juin" data-es="Ensayo del 4 de junio">Atelier du 4 juin</b></span>
+        <a href="https://www.dropbox.com/scl/fi/xebhpijd5xyzh1stidbz2/Still-a-Friend-of-Mine-04-06-2026.mp3?rlkey=x5rig3d8vl6dz64vrsuxb510c&dl=1" class="pdf-btn"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
+      </div>
+      <div class="dl-archive-item">
+        <span class="dl-archive-name"><b data-fr="Atelier du 28 mai" data-es="Ensayo del 28 de mayo">Atelier du 28 mai</b></span>
+        <a href="https://www.dropbox.com/scl/fi/auysxpjf05cb8li6x9cd3/Still-a-friend-of-mine-atelier-du-jeudi-28-mai.m4a?rlkey=4p7fifovmohbxpw3ljll1w41g&dl=1" class="pdf-btn"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
+      </div>
+      <div class="dl-archive-item">
+        <span class="dl-archive-name"><b data-fr="Atelier du 2 avril" data-es="Ensayo del 2 de abril">Atelier du 2 avril</b></span>
+        <a href="https://www.dropbox.com/scl/fi/2sjea6ru57cco9v69fj6n/still-a-friend-of-mind-atelier-du-2-avril.mp3?rlkey=odow6dieej551oz5gir8o0ohl&dl=1" class="pdf-btn"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
+      </div>
+    </div>
+  </section>
+
   <section class="section-block">
     <h2 class="section-title"><span data-fr="Tutos" data-es="Tutoriales">Tutos</span></h2>
     <div class="tuto-grid">
@@ -205,7 +130,6 @@
     </div>
   </section>
 
-  <!-- PARTITIONS -->
   <section class="section-block">
     <h2 class="section-title"><span data-fr="Partitions" data-es="Partituras">Partitions</span></h2>
     <div class="tabs">
@@ -215,13 +139,13 @@
       <button class="tab" onclick="switchTab('batterie',this)"><span data-fr="Batterie" data-es="Batería">Batterie</span></button>
       <button class="tab" onclick="switchTab('clavier',this)"><span data-fr="Clavier" data-es="Teclado">Clavier</span></button>
     </div>
-
-    <div class="tab-content active" id="tab-guitare"><div class="pdf-empty"><span data-fr="Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_STILL_A_FRIEND" data-es="Partitura Guitarra próximamente — placeholder: #REMPLACER_PDF_GUITARE_STILL_A_FRIEND">Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_STILL_A_FRIEND</span></div></div>
-    <div class="tab-content" id="tab-basse"><div class="pdf-empty"><span data-fr="Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_STILL_A_FRIEND" data-es="Partitura Bajo próximamente — placeholder: #REMPLACER_PDF_BASSE_STILL_A_FRIEND">Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_STILL_A_FRIEND</span></div></div>
-    <div class="tab-content" id="tab-chant"><div class="pdf-frame-wrapper">
+    <div class="tab-content active" id="tab-guitare"><div class="pdf-empty"><span data-fr="Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_STILL_A_FRIEND" data-es="Partitura Guitarra próximamente">Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_STILL_A_FRIEND</span></div></div>
+    <div class="tab-content" id="tab-basse"><div class="pdf-empty"><span data-fr="Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_STILL_A_FRIEND" data-es="Partitura Bajo próximamente">Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_STILL_A_FRIEND</span></div></div>
+    <div class="tab-content" id="tab-chant">
+      <div class="pdf-frame-wrapper">
         <object data="https://dl.dropboxusercontent.com/scl/fi/z33jb8fblyyiuw2hqcyrk/STILL-A-FRIEND-OF-MINE-LYRICS.pdf?rlkey=wi1dnr5rb4bryyijntjemyuqd&raw=1" type="application/pdf">
           <div class="pdf-fallback">
-            <span data-fr="Le viewer PDF n'est pas disponible sur cet appareil." data-es="El visor de PDF no está disponible en este dispositivo.">Le viewer PDF n'est pas disponible sur cet appareil.</span>
+            <span data-fr="Le viewer PDF n'est pas disponible sur cet appareil." data-es="El visor de PDF no está disponible.">Le viewer PDF n'est pas disponible sur cet appareil.</span>
             <a href="https://www.dropbox.com/scl/fi/z33jb8fblyyiuw2hqcyrk/STILL-A-FRIEND-OF-MINE-LYRICS.pdf?rlkey=wi1dnr5rb4bryyijntjemyuqd&dl=1" class="pdf-btn primary" target="_blank" rel="noopener"><span data-fr="↓ Télécharger PDF" data-es="↓ Descargar PDF">↓ Télécharger PDF</span></a>
           </div>
         </object>
@@ -229,84 +153,25 @@
       <div class="pdf-actions">
         <a href="https://www.dropbox.com/scl/fi/z33jb8fblyyiuw2hqcyrk/STILL-A-FRIEND-OF-MINE-LYRICS.pdf?rlkey=wi1dnr5rb4bryyijntjemyuqd&dl=1" class="pdf-btn primary" target="_blank" rel="noopener"><span data-fr="↓ Télécharger PDF" data-es="↓ Descargar PDF">↓ Télécharger PDF</span></a>
         <a href="https://www.dropbox.com/scl/fi/z33jb8fblyyiuw2hqcyrk/STILL-A-FRIEND-OF-MINE-LYRICS.pdf?rlkey=wi1dnr5rb4bryyijntjemyuqd&raw=1" class="pdf-btn" target="_blank" rel="noopener"><span data-fr="↗ Ouvrir dans Dropbox" data-es="↗ Abrir en Dropbox">↗ Ouvrir dans Dropbox</span></a>
-      </div></div>
-    <div class="tab-content" id="tab-batterie"><div class="pdf-empty"><span data-fr="Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_STILL_A_FRIEND" data-es="Partitura Batería próximamente — placeholder: #REMPLACER_PDF_BATTERIE_STILL_A_FRIEND">Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_STILL_A_FRIEND</span></div></div>
-    <div class="tab-content" id="tab-clavier"><div class="pdf-empty"><span data-fr="Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_STILL_A_FRIEND" data-es="Partitura Teclado próximamente — placeholder: #REMPLACER_PDF_CLAVIER_STILL_A_FRIEND">Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_STILL_A_FRIEND</span></div></div>
+      </div>
+    </div>
+    <div class="tab-content" id="tab-batterie"><div class="pdf-empty"><span data-fr="Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_STILL_A_FRIEND" data-es="Partitura Batería próximamente">Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_STILL_A_FRIEND</span></div></div>
+    <div class="tab-content" id="tab-clavier"><div class="pdf-empty"><span data-fr="Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_STILL_A_FRIEND" data-es="Partitura Teclado próximamente">Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_STILL_A_FRIEND</span></div></div>
   </section>
-
 </main>
-
 <script>
 const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
-if(sessionStorage.getItem('atelier-auth')!=='1'){
-  window.location.href='index.html';
-}
-
-/* TRADUCTION */
+if(sessionStorage.getItem('atelier-auth')!=='1'){window.location.href='index.html';}
 let currentLang=localStorage.getItem('atelier-lang')||'fr';
-function applyLang(){
-  document.querySelectorAll('[data-fr]').forEach(el=>{
-    const hasChild=el.querySelector('[data-fr]');
-    if(!hasChild) el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;
-  });
-  const btn=document.getElementById('lang-toggle');
-  if(btn) btn.textContent=(currentLang==='fr')?'ES':'FR';
-  document.documentElement.lang=currentLang;
-}
-function toggleLang(){
-  currentLang=(currentLang==='fr')?'es':'fr';
-  localStorage.setItem('atelier-lang',currentLang);
-  applyLang();
-}
-
-/* TABS PARTITIONS */
-function switchTab(name,btn){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('tab-'+name).classList.add('active');
-}
-
-/* VITESSE AUDIO */
-function setSpeed(audioId, speed, btn){
-  const audio=document.getElementById(audioId);
-  if(!audio) return;
-  audio.playbackRate=speed;
-  // Mettre à jour les boutons du même groupe
-  btn.parentElement.querySelectorAll('.audio-speed').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-}
-
+function applyLang(){document.querySelectorAll('[data-fr]').forEach(el=>{const hasChild=el.querySelector('[data-fr]');if(!hasChild)el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;});const btn=document.getElementById('lang-toggle');if(btn)btn.textContent=(currentLang==='fr')?'ES':'FR';document.documentElement.lang=currentLang;}
+function toggleLang(){currentLang=(currentLang==='fr')?'es':'fr';localStorage.setItem('atelier-lang',currentLang);applyLang();}
+function switchTab(name,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById('tab-'+name).classList.add('active');}
+function setSpeed(audioId,speed,btn){const audio=document.getElementById(audioId);if(!audio)return;audio.playbackRate=speed;btn.parentElement.querySelectorAll('.audio-speed').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
 applyLang();
 </script>
-
 <script src="loop-ab.js" defer></script>
 <script>
-/* Indicateur partition disponible sur les onglets */
-(function(){
-  function markTabs(){
-    var tabs = document.querySelectorAll('.tab');
-    tabs.forEach(function(tab){
-      var onclick = tab.getAttribute('onclick') || '';
-      var match = onclick.match(/switchTab\(['"]([^'"]+)['"]/);
-      if(!match) return;
-      var name = match[1];
-      var content = document.getElementById('tab-' + name);
-      if(!content) return;
-      var isEmpty = content.querySelector('.pdf-empty') !== null;
-      if(!isEmpty){
-        tab.classList.add('has-pdf');
-      } else {
-        tab.classList.remove('has-pdf');
-      }
-    });
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', markTabs);
-  } else {
-    markTabs();
-  }
-})();
+(function(){function markTabs(){var tabs=document.querySelectorAll('.tab');tabs.forEach(function(tab){var onclick=tab.getAttribute('onclick')||'';var match=onclick.match(/switchTab\(['"]([^'"]+)['"]/);if(!match)return;var name=match[1];var content=document.getElementById('tab-'+name);if(!content)return;var isEmpty=content.querySelector('.pdf-empty')!==null;if(!isEmpty){tab.classList.add('has-pdf');}else{tab.classList.remove('has-pdf');}});}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',markTabs);}else{markTabs();}})();
 </script>
 </body>
 </html>
