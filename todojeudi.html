@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512.png">
+<meta name="theme-color" content="#EFEAE0">
+<title>TodoJeudi — L'Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="atelier.css">
+<style>
+:root{
+  --accent:#1F6B4A;
+  --accent-h:#175238;
+  --accent-soft:#DDE9DF;
+  --accent-deep:#0D3B26;
+}
+
+.todo-intro{padding-bottom:1.1rem;margin-bottom:2rem;border-bottom:1px solid var(--ink);}
+.todo-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem;}
+.todo-eyebrow .num{background:var(--ink);color:var(--paper);padding:.18rem .5rem;font-weight:500;letter-spacing:.08em;}
+.todo-title{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.4rem,9vw,3.6rem);line-height:.9;letter-spacing:-.025em;color:var(--ink);}
+.todo-title .pt{color:var(--accent);font-style:normal;}
+.todo-tagline{font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--muted);margin-top:.4rem;line-height:1.4;}
+.todo-date{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-deep);font-weight:500;margin-top:.6rem;}
+
+.todo-list{display:flex;flex-direction:column;gap:.6rem;margin-bottom:2.5rem;}
+.todo-item{
+  display:grid;grid-template-columns:auto 1fr;align-items:start;gap:1rem;
+  padding:1rem 1.1rem;background:var(--paper);border:1px solid var(--ink);
+  transition:background .15s;
+}
+.todo-item:hover{background:var(--paper-3);}
+.todo-check{
+  width:24px;height:24px;border:1.5px solid var(--ink);flex-shrink:0;margin-top:.1rem;
+  display:flex;align-items:center;justify-content:center;background:var(--paper);
+}
+.todo-check svg{width:14px;height:14px;color:var(--accent);opacity:0;}
+.todo-item.done .todo-check{background:var(--accent);border-color:var(--accent);}
+.todo-item.done .todo-check svg{opacity:1;color:#fff;}
+.todo-item.done .todo-label{text-decoration:line-through;color:var(--muted);}
+.todo-body{display:flex;flex-direction:column;gap:.2rem;}
+.todo-label{font-family:var(--serif);font-style:italic;font-size:1.2rem;line-height:1.25;color:var(--ink);letter-spacing:-.01em;cursor:pointer;}
+.todo-sub{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5;}
+.todo-tag{
+  display:inline-flex;align-items:center;gap:.3rem;
+  font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  padding:.2rem .5rem;margin-top:.4rem;width:fit-content;
+  border:1px solid var(--accent);color:var(--accent-deep);background:var(--accent-soft);
+}
+
+.todo-reset-row{text-align:right;}
+.btn-reset{
+  background:transparent;border:1px dashed var(--muted);
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);padding:.55rem .9rem;cursor:pointer;border-radius:0;
+  transition:all .15s;
+}
+.btn-reset:hover{color:#E53935;border-color:#E53935;border-style:solid;}
+
+@media(min-width:768px){
+  .todo-label{font-size:1.3rem;}
+}
+</style>
+</head>
+<body>
+
+<header class="atelier-header">
+  <a class="header-logo" href="index.html">
+    L'Atelier<span class="tick">private</span>
+  </a>
+  <div class="header-actions">
+    <a class="btn-back" href="index.html"><span data-fr="← Accueil" data-es="← Inicio">← Accueil</span></a>
+    <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
+  </div>
+</header>
+
+<main class="atelier-main">
+
+  <div class="todo-intro">
+    <div class="todo-eyebrow">
+      <span class="num accent">09</span>
+      <span data-fr="L'Atelier · À préparer" data-es="L'Atelier · Por preparar">L'Atelier · À préparer</span>
+    </div>
+    <h1 class="todo-title"><span data-fr="TodoJeudi" data-es="TodoJueves">TodoJeudi</span><span class="pt">.</span></h1>
+    <div class="todo-tagline">
+      <span data-fr="Ce qu'on prend le temps de faire jeudi" data-es="Lo que nos tomamos el tiempo de hacer el jueves">Ce qu'on prend le temps de faire jeudi</span>
+    </div>
+    <div class="todo-date">
+      <span data-fr="Prochaine répétition · jeudi" data-es="Próximo ensayo · jueves">Prochaine répétition · jeudi</span>
+    </div>
+  </div>
+
+  <div class="todo-list" id="todo-list">
+
+    <div class="todo-item" data-id="pasteques" onclick="toggleTodo('pasteques')">
+      <div class="todo-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="todo-body">
+        <span class="todo-label" data-fr="Pastèques" data-es="Sandías">Pastèques</span>
+      </div>
+    </div>
+
+    <div class="todo-item" data-id="balances-voix" onclick="toggleTodo('balances-voix')">
+      <div class="todo-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="todo-body">
+        <span class="todo-label" data-fr="Balances voix" data-es="Pruebas de voz">Balances voix</span>
+        <span class="todo-sub" data-fr="Proposer 1 segment de morceau par personne" data-es="Proponer 1 segmento de canción por persona">Proposer 1 segment de morceau par personne</span>
+      </div>
+    </div>
+
+    <div class="todo-item" data-id="balance-groupe" onclick="toggleTodo('balance-groupe')">
+      <div class="todo-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="todo-body">
+        <span class="todo-label" data-fr="Balance groupe" data-es="Prueba de grupo">Balance groupe</span>
+        <span class="todo-sub">Easy Lover</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="todo-reset-row">
+    <button class="btn-reset" onclick="resetTodos()">
+      <span data-fr="↻ Réinitialiser" data-es="↻ Reiniciar">↻ Réinitialiser</span>
+    </button>
+  </div>
+
+</main>
+
+<script>
+if(sessionStorage.getItem('atelier-auth')!=='1'){
+  window.location.href='index.html';
+}
+
+let currentLang=localStorage.getItem('atelier-lang')||'fr';
+function applyLang(){
+  document.querySelectorAll('[data-fr]').forEach(el=>{
+    const hasChild=el.querySelector('[data-fr]');
+    if(!hasChild) el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;
+  });
+  const btn=document.getElementById('lang-toggle');
+  if(btn) btn.textContent=(currentLang==='fr')?'ES':'FR';
+  document.documentElement.lang=currentLang;
+}
+function toggleLang(){
+  currentLang=(currentLang==='fr')?'es':'fr';
+  localStorage.setItem('atelier-lang',currentLang);
+  applyLang();
+}
+
+const STORAGE_KEY='atelier-todojeudi-state';
+
+function loadTodoState(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  }catch(e){ return {}; }
+}
+function saveTodoState(state){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+function renderTodoState(){
+  const state=loadTodoState();
+  document.querySelectorAll('.todo-item').forEach(item=>{
+    const id=item.dataset.id;
+    item.classList.toggle('done', !!state[id]);
+  });
+}
+function toggleTodo(id){
+  const state=loadTodoState();
+  state[id]=!state[id];
+  saveTodoState(state);
+  renderTodoState();
+}
+function resetTodos(){
+  const confirmMsg=(currentLang==='fr')
+    ? 'Réinitialiser la liste TodoJeudi ?'
+    : '¿Reiniciar la lista TodoJueves?';
+  if(!confirm(confirmMsg)) return;
+  localStorage.removeItem(STORAGE_KEY);
+  renderTodoState();
+}
+
+applyLang();
+renderTodoState();
+</script>
+
+</body>
+</html>
