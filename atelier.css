@@ -78,7 +78,8 @@ header.atelier-header{
   display:flex;align-items:center;justify-content:space-between;gap:1rem;
   padding:.6rem .7rem .6rem 1.3rem;border-radius:var(--r-pill);
 }
-.header-logo{display:flex;align-items:center;gap:.6rem;cursor:pointer;}
+.header-logo{display:flex;align-items:center;gap:.55rem;cursor:pointer;}
+.header-logo img{width:32px;height:32px;flex-shrink:0;}
 .header-logo .word{font-family:var(--serif);font-style:italic;font-size:1.7rem;line-height:1;letter-spacing:-.02em;color:var(--ink);}
 .header-logo .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft);}
 .header-logo:hover .word{color:var(--accent-deep);}
