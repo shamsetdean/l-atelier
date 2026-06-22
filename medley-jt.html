@@ -2,9 +2,10 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="phenix-slug" content="medley-jt">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
 <meta name="theme-color" content="#FFF8E7">
-<title>Medley Justin Timberlake — les Phénix</title>
+<title>Medley Justin Timberlake — PHÉNIX</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -18,6 +19,9 @@
   --accent-soft:rgba(46,155,214,0.12);
   --accent-blob:#8FD0F0;
 }
+
+/* Masquer audio original si placeholder */
+.audio-block:has(.audio-placeholder) { display: none; }
 </style>
 </head>
 <body>
@@ -25,9 +29,7 @@
 <div class="aurora"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
 
 <header class="atelier-header glass">
-  <a class="header-logo" href="index.html">
-    <span class="dot"></span><span class="word">les Phénix</span>
-  </a>
+  <a class="header-logo" href="index.html"><span class="dot"></span><span class="word"><span style="display:block;font-family:var(--mono);font-style:normal;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);line-height:1;margin-bottom:2px;">Atelier Funk</span>PHÉNIX</span></a>
   <div class="header-actions">
     <a class="btn-back" href="index.html"><span data-lucide="arrow-left"></span><span data-fr="Accueil" data-es="Inicio">Accueil</span></a>
     <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
@@ -154,6 +156,11 @@ function toggleLang(){
   currentLang=(currentLang==='fr')?'es':'fr';
   localStorage.setItem('atelier-lang',currentLang);
   applyLang();
+/* Masquer blocs audio-original avec #REMPLACER */
+document.querySelectorAll('.audio-block').forEach(function(block){
+  var ph = block.querySelector('.audio-placeholder');
+  if(ph && ph.textContent.indexOf('#REMPLACER') > -1) block.style.display = 'none';
+});
 }
 
 /* TABS PARTITIONS */
@@ -179,5 +186,6 @@ applyLang();
 
 <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
 <script>if(window.lucide&&lucide.createIcons)lucide.createIcons();</script>
+<script src="planning-sync.js" defer></script>
 </body>
 </html>

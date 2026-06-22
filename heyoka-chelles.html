@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="phenix-slug" content="heyoka-chelles">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
 <!-- FAVICON & ÉCRAN D'ACCUEIL -->
 <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -11,7 +12,7 @@
 <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512.png">
 
 <meta name="theme-color" content="#FFF8E7">
-<title>Heyoka Chelles — les Phénix</title>
+<title>Heyoka Chelles — PHÉNIX</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -23,14 +24,15 @@
   --accent-soft:#F0E5F8;
   --accent-deep:#3B1A5E;
 }
+
+/* Masquer audio original si placeholder */
+.audio-block:has(.audio-placeholder) { display: none; }
 </style>
 </head>
 <body>
 
 <header class="atelier-header">
-  <a class="header-logo" href="index.html">
-    les Phénix<span class="tick">private</span>
-  </a>
+  <a class="header-logo" href="index.html"><span style="display:block;font-family:var(--mono);font-style:normal;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);line-height:1;margin-bottom:2px;">Atelier Funk</span>PHÉNIX<span class="tick">private</span></a>
   <div class="header-actions">
     <a class="btn-back" href="index.html"><span data-fr="← Accueil" data-es="← Inicio">← Accueil</span></a>
     <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
@@ -50,7 +52,7 @@
     </div>
     <div class="page-meta">
       <div><b>Composition · Frank Gervais</b></div>
-      <div><span data-fr="· Création les Phénix ·" data-es="· Creación les Phénix ·">· Création les Phénix ·</span></div>
+      <div><span data-fr="· Création PHÉNIX ·" data-es="· Creación les Phénix ·">· Création PHÉNIX ·</span></div>
     </div>
   </div>
 
@@ -62,7 +64,7 @@
       <div class="hero-artist">Composition Frank Gervais</div>
       <div class="hero-musical">
         <span data-fr="Création" data-es="Creación">Création</span>
-        <span data-fr="les Phénix" data-es="les Phénix">les Phénix</span>
+        <span data-fr="les Phénix" data-es="les Phénix">PHÉNIX</span>
       </div>
     </div>
     <div class="hero-side">
@@ -75,7 +77,7 @@
   <section class="section-block">
     <h2 class="section-title"><span data-fr="Vidéo" data-es="Vídeo">Vidéo</span></h2>
     <div class="video-empty">
-      <span data-fr="Vidéo non disponible — Heyoka Chelles est une composition originale de Frank Gervais, créée par les Phénix." data-es="Vídeo no disponible — Heyoka Chelles es una composición original de Frank Gervais, creada por les Phénix.">Vidéo non disponible — Heyoka Chelles est une composition originale de Frank Gervais, créée par les Phénix.</span>
+      <span data-fr="Vidéo non disponible — Heyoka Chelles est une composition originale de Frank Gervais, créée par les Phénix." data-es="Vídeo no disponible — Heyoka Chelles es una composición original de Frank Gervais, creada por PHÉNIX.">Vidéo non disponible — Heyoka Chelles est une composition originale de Frank Gervais, créée par les Phénix.</span>
     </div>
   </section>
 
@@ -189,6 +191,11 @@ function toggleLang(){
   currentLang=(currentLang==='fr')?'es':'fr';
   localStorage.setItem('atelier-lang',currentLang);
   applyLang();
+/* Masquer blocs audio-original avec #REMPLACER */
+document.querySelectorAll('.audio-block').forEach(function(block){
+  var ph = block.querySelector('.audio-placeholder');
+  if(ph && ph.textContent.indexOf('#REMPLACER') > -1) block.style.display = 'none';
+});
 }
 
 /* TABS PARTITIONS */
@@ -240,5 +247,6 @@ applyLang();
   }
 })();
 </script>
+<script src="planning-sync.js" defer></script>
 </body>
 </html>
