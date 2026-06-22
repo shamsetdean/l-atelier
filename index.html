@@ -2,752 +2,427 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- FAVICON & ÉCRAN D'ACCUEIL -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512.png">
-
-<title>L'Atelier — Espace Membres</title>
+<title>les Phénix — Espace Membres</title>
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#ECEAF6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="les Phénix">
 
-<!-- Open Graph (WhatsApp, Slack, Messages, Facebook…) -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="L'Atelier">
-<meta property="og:title" content="L'Atelier — Espace Membres">
-<meta property="og:description" content="Funk · Groove · Soul · Live. Espace privé du groupe L'Atelier, Conservatoire Jacques-Higelin de Chelles.">
+<meta property="og:site_name" content="les Phénix">
+<meta property="og:title" content="les Phénix — Espace Membres">
+<meta property="og:description" content="Funk · Groove · Soul · Live. Espace privé du groupe les Phénix, Conservatoire Jacques-Higelin de Chelles.">
 <meta property="og:image" content="og-image.png">
 <meta property="og:image:width" content="1700">
 <meta property="og:image:height" content="956">
-<meta property="og:image:alt" content="L'Atelier — phénix de feu, Funk Groove Soul Live">
 <meta property="og:locale" content="fr_FR">
-
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="L'Atelier — Espace Membres">
-<meta name="twitter:description" content="Funk · Groove · Soul · Live. Espace privé du groupe L'Atelier.">
 <meta name="twitter:image" content="og-image.png">
 
-<!--
-  Espace strictement privé — usage pédagogique interne au Conservatoire de Chelles.
-  Voir le bas de page pour les mentions complètes (art. L122-5 CPI, licence SACEM).
--->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
 <style>
 :root{
-  --paper:#EFEAE0;
-  --paper-2:#E5DFD2;
-  --paper-3:#F7F3EA;
-  --ink:#14110C;
-  --ink-2:#2A251D;
-  --muted:#857A66;
-  --muted-2:#A99E89;
-  --line:rgba(20,17,12,.14);
-  --line-soft:rgba(20,17,12,.08);
-  --groove:#F0511E;
-  --groove-h:#D8400D;
-  --groove-soft:#FFE0CD;
-  --green:#1F6B4A;
-  --green-soft:#DDE9DF;
-  --plum:#5A2A4A;
-  --plum-soft:#F0DDE8;
-  --serif:'Instrument Serif',ui-serif,Georgia,serif;
+  --bg:#ECEAF6;
+  --ink:#1A1726;
+  --ink-2:#3A3550;
+  --muted:#736E86;
+  --muted-2:#9C97AC;
+  --accent:#6A5AE0;
+  --accent-2:#8B7BFF;
+  --accent-deep:#4A3CB8;
+  --accent-soft:rgba(106,90,224,.12);
+  --warm:#FF7A59;
+  --mint:#22B89B;
+  /* alias pour loop-ab.js */
+  --paper-3:rgba(255,255,255,.5);
+  --line:rgba(26,23,38,.08);
+
+  --glass:rgba(255,255,255,.55);
+  --glass-2:rgba(255,255,255,.42);
+  --glass-strong:rgba(255,255,255,.74);
+  --glass-border:rgba(255,255,255,.7);
+  --glass-line:rgba(26,23,38,.08);
+  --glass-shadow:0 10px 40px rgba(40,33,90,.12);
+  --glass-shadow-lg:0 24px 70px rgba(40,33,90,.20);
+  --glass-inset:inset 0 1px 0 rgba(255,255,255,.7);
+
+  --r-lg:30px;--r-md:22px;--r-sm:16px;--r-pill:999px;
   --sans:'Geist','Inter Tight',system-ui,-apple-system,sans-serif;
-  --mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --serif:'Instrument Serif',ui-serif,Georgia,serif;
+  --safe-b:env(safe-area-inset-bottom,0px);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{
-  background:var(--paper);
-  color:var(--ink);
-  font-family:var(--sans);
-  font-weight:400;
-  font-size:15px;
-  line-height:1.5;
-  min-height:100vh;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:400;font-size:15px;line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;position:relative;overflow-x:hidden;}
 button{font-family:inherit;color:inherit;}
 a{color:inherit;text-decoration:none;}
+[data-lucide]{width:18px;height:18px;stroke-width:1.75;vertical-align:middle;}
 
-/* TYPE PRIMITIVES ───────────────────────────────────────── */
-.serif{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em;}
-.mono{font-family:var(--mono);font-weight:400;}
-.eyebrow{
-  font-family:var(--mono);font-size:11px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--muted);
-}
-.rule{height:1px;background:var(--ink);opacity:.85;width:100%;}
+/* AURORA */
+.aurora{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none;background:var(--bg);}
+.aurora span{position:absolute;border-radius:50%;filter:blur(90px);opacity:.6;}
+.aurora .b1{width:60vw;height:60vw;background:#9C8BFF;top:-18vw;left:-12vw;animation:drift1 26s ease-in-out infinite;}
+.aurora .b2{width:55vw;height:55vw;background:#FF9E7D;bottom:-20vw;right:-10vw;animation:drift2 30s ease-in-out infinite;}
+.aurora .b3{width:46vw;height:46vw;background:#6FE0C6;top:34vh;right:14vw;opacity:.42;animation:drift3 34s ease-in-out infinite;}
+.aurora::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 0%,transparent 40%,rgba(236,234,246,.6) 100%);}
+@keyframes drift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(6vw,4vh) scale(1.12);}}
+@keyframes drift2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-5vw,-5vh) scale(1.1);}}
+@keyframes drift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-4vw,6vh) scale(1.15);}}
+@media(prefers-reduced-motion:reduce){.aurora span{animation:none;}}
 
-/* ── LOGIN ─────────────────────────────────────────────── */
-#login-screen{
-  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:#0A0805;
-  position:relative;overflow:hidden;
-  padding:2rem 1.25rem;
-}
-#login-screen::before{
-  content:"";position:absolute;inset:0;z-index:0;
-  background-image:url('og-image.png');
-  background-size:cover;background-position:center;background-repeat:no-repeat;
-  opacity:.55;
-}
-#login-screen::after{
-  content:"";position:absolute;inset:0;z-index:0;
-  background:radial-gradient(ellipse at center, rgba(10,8,5,.15) 0%, rgba(10,8,5,.6) 75%, rgba(10,8,5,.85) 100%);
-  pointer-events:none;
-}
+.glass{background:var(--glass);backdrop-filter:blur(26px) saturate(165%);-webkit-backdrop-filter:blur(26px) saturate(165%);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow),var(--glass-inset);}
+.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;display:inline-flex;align-items:center;gap:.5rem;}
+
+/* ═══ LOGIN (phénix) ═══ */
+#login-screen{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:2rem 1.1rem calc(2rem + var(--safe-b));position:relative;overflow:hidden;background:#0B0710;}
+#login-screen::before{content:"";position:absolute;inset:0;z-index:0;background:url('og-image.png') center/cover no-repeat;opacity:.6;}
+#login-screen::after{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse at center,rgba(11,7,16,.2) 0%,rgba(11,7,16,.72) 78%,rgba(11,7,16,.92) 100%);}
 @media(max-width:640px){
-  #login-screen::before{
-    background-size:contain;
-    background-position:center top;
-  }
-  #login-screen::after{
-    background:linear-gradient(to bottom, rgba(10,8,5,.15) 0%, rgba(10,8,5,.35) 35%, rgba(10,8,5,.85) 70%, rgba(10,8,5,.95) 100%);
-  }
+  #login-screen::before{background-size:contain;background-position:center 18%;}
+  #login-screen::after{background:linear-gradient(to bottom,rgba(11,7,16,.2) 0%,rgba(11,7,16,.45) 38%,rgba(11,7,16,.9) 72%,rgba(11,7,16,.97) 100%);}
 }
-.login-deco{display:none;}
-.login-marquee{
-  position:absolute;top:0;left:0;right:0;z-index:5;
-  border-bottom:1px solid rgba(239,234,224,.18);
-  background:rgba(10,8,5,.6);overflow:hidden;
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--paper);padding:.7rem 0;
-}
-.login-marquee-track{display:inline-flex;gap:3rem;white-space:nowrap;animation:slide 38s linear infinite;padding-left:3rem;}
-.login-marquee span{display:inline-flex;align-items:center;gap:1rem;}
-.login-marquee .dot{width:6px;height:6px;background:var(--groove);border-radius:50%;display:inline-block;}
-@keyframes slide{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-.login-topbar{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.5rem;z-index:10;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(239,234,224,.7);}
-.login-topbar .left{display:flex;gap:1.5rem;align-items:center;}
-.login-topbar .left b{color:var(--paper);font-weight:500;}
-.login-box{
-  position:relative;z-index:1;width:440px;max-width:94vw;
-  background:var(--paper-3);
-  border:1px solid var(--ink);
-  padding:2.4rem 2.4rem 2rem;
-  box-shadow:8px 8px 0 rgba(240,81,30,.55), 0 0 60px rgba(0,0,0,.5);
-}
-.login-mark{
-  display:flex;align-items:baseline;justify-content:space-between;
-  border-bottom:1px solid var(--line);padding-bottom:1.1rem;margin-bottom:1.6rem;
-}
-.login-logo{
-  font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:3.6rem;line-height:.85;color:var(--ink);letter-spacing:-.02em;
-}
-.login-logo .amp{color:var(--groove);}
-.login-meta{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-align:right;line-height:1.6;}
-.login-meta b{color:var(--ink);font-weight:500;}
-.login-sub{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:1.8rem;display:flex;align-items:center;gap:.7rem;}
-.login-sub::before{content:"";width:18px;height:1px;background:var(--ink);}
-.login-label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:.5rem;text-align:left;}
-.login-input{
-  width:100%;background:var(--paper);border:none;border-bottom:1.5px solid var(--ink);
-  color:var(--ink);font-family:var(--mono);font-size:1rem;letter-spacing:.18em;
-  padding:.7rem .25rem;outline:none;transition:border-color .2s;margin-bottom:1.4rem;
-  border-radius:0;
-}
-.login-input:focus{border-bottom-color:var(--groove);}
-.login-btn{
-  width:100%;background:var(--ink);color:var(--paper);border:1px solid var(--ink);
-  font-family:var(--serif);font-style:italic;font-weight:400;font-size:1.6rem;
-  padding:.7rem 1rem .85rem;cursor:pointer;transition:all .15s;letter-spacing:-.01em;
-  border-radius:0;display:flex;align-items:center;justify-content:center;gap:.6rem;
-}
-.login-btn:hover{background:var(--groove);border-color:var(--groove);color:#fff;}
-.login-btn:active{transform:translate(2px,2px);}
-.login-btn .arrow{font-family:var(--mono);font-size:1rem;font-style:normal;}
-.login-error{margin-top:.9rem;font-family:var(--mono);font-size:11px;color:#C03030;letter-spacing:.05em;min-height:1.2rem;text-transform:uppercase;}
-.login-divider{display:flex;align-items:center;gap:.75rem;margin:1.4rem 0;color:var(--muted);font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;}
-.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--line);}
-.bio-btn{
-  width:100%;background:var(--paper);color:var(--ink);border:1px solid var(--ink);
-  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-  padding:.85rem 1rem;cursor:pointer;transition:all .15s;
-  display:flex;align-items:center;justify-content:center;gap:.7rem;border-radius:0;
-}
-.bio-btn:hover{background:var(--ink);color:var(--paper);}
-.bio-btn svg{flex-shrink:0;}
-.bio-register-banner{margin-top:1.4rem;background:var(--paper);border:1px solid var(--ink);padding:1rem 1.1rem;text-align:left;}
-.bio-register-banner p{font-family:var(--sans);font-size:13px;color:var(--ink);line-height:1.55;margin-bottom:.85rem;}
-.bio-register-banner .bio-register-actions{display:flex;gap:.5rem;}
-.bio-register-btn,.bio-register-skip{
-  flex:1;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  padding:.6rem .5rem;cursor:pointer;border-radius:0;transition:all .15s;
-}
-.bio-register-btn{background:var(--ink);color:var(--paper);border:1px solid var(--ink);}
-.bio-register-btn:hover{background:var(--groove);border-color:var(--groove);color:#fff;}
-.bio-register-skip{background:transparent;color:var(--ink);border:1px solid var(--ink);}
-.bio-register-skip:hover{background:var(--ink);color:var(--paper);}
+.login-topbar{position:absolute;top:calc(1rem + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(440px,92vw);display:flex;justify-content:space-between;align-items:center;z-index:10;color:rgba(255,255,255,.85);font-size:12px;font-weight:600;letter-spacing:.04em;}
+.login-topbar .brand{display:flex;align-items:center;gap:.55rem;}
+.login-topbar .brand img{width:26px;height:26px;}
+.login-topbar .lang-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.06em;height:36px;padding:0 .8rem;border-radius:var(--r-pill);cursor:pointer;backdrop-filter:blur(8px);}
+.login-box{position:relative;z-index:1;width:430px;max-width:94vw;border-radius:var(--r-lg);padding:2.3rem 2.1rem 1.9rem;background:var(--glass-strong);backdrop-filter:blur(34px) saturate(180%);-webkit-backdrop-filter:blur(34px) saturate(180%);border:1px solid var(--glass-border);box-shadow:0 30px 80px rgba(0,0,0,.5),var(--glass-inset);}
+.login-mark{display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:1.7rem;}
+.login-mark img{width:72px;height:72px;margin-bottom:.4rem;filter:drop-shadow(0 6px 18px rgba(240,81,30,.45));}
+.login-logo{font-family:var(--serif);font-style:italic;font-size:3.4rem;line-height:.9;letter-spacing:-.02em;color:var(--ink);}
+.login-logo .amp{color:var(--warm);}
+.login-tagline{margin-top:.5rem;font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent-deep);font-weight:700;}
+.login-sub{margin-top:1.3rem;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:.5rem;justify-content:center;}
+.login-sub [data-lucide]{width:14px;height:14px;}
+.login-label{display:block;font-size:12px;font-weight:600;color:var(--ink-2);margin-bottom:.5rem;margin-top:1.3rem;}
+.input-wrap{position:relative;margin-bottom:1.1rem;}
+.input-wrap > [data-lucide]{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--muted);width:18px;height:18px;}
+.login-input{width:100%;background:rgba(255,255,255,.6);border:1px solid var(--glass-line);color:var(--ink);font-family:var(--sans);font-size:16px;padding:.95rem 1rem .95rem 2.7rem;outline:none;transition:all .2s;border-radius:var(--r-sm);}
+.login-input::placeholder{color:var(--muted-2);letter-spacing:.1em;}
+.login-input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(106,90,224,.16);background:rgba(255,255,255,.9);}
+.login-btn{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border:none;font-weight:600;font-size:1rem;padding:1.05rem;cursor:pointer;transition:all .2s;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;gap:.5rem;box-shadow:0 10px 26px rgba(106,90,224,.4);min-height:52px;}
+.login-btn:active{transform:scale(.985);}
+.login-btn [data-lucide]{width:18px;height:18px;}
+.login-error{margin-top:.9rem;font-size:13px;color:#E0455E;text-align:center;min-height:1.2rem;display:flex;align-items:center;justify-content:center;gap:.4rem;}
+.login-error:empty{display:none;}
+.login-divider{display:flex;align-items:center;gap:.8rem;margin:1.3rem 0;color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;}
+.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--glass-line);}
+.bio-btn{width:100%;background:rgba(255,255,255,.55);color:var(--ink);border:1px solid var(--glass-line);font-size:.9rem;font-weight:500;padding:1rem;cursor:pointer;transition:all .2s;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;gap:.6rem;min-height:52px;}
+.bio-btn:active{background:rgba(255,255,255,.85);}
+.bio-btn [data-lucide]{width:18px;height:18px;}
+.bio-register-banner{margin-top:1.3rem;background:rgba(106,90,224,.08);border:1px solid rgba(106,90,224,.2);border-radius:var(--r-sm);padding:1rem;text-align:left;}
+.bio-register-banner p{font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:.85rem;display:flex;gap:.5rem;align-items:flex-start;}
+.bio-register-banner p [data-lucide]{color:var(--accent);flex-shrink:0;margin-top:1px;}
+.bio-register-actions{display:flex;gap:.5rem;}
+.bio-register-btn,.bio-register-skip{flex:1;font-size:13px;font-weight:600;padding:.7rem .5rem;cursor:pointer;border-radius:var(--r-sm);transition:all .15s;min-height:44px;}
+.bio-register-btn{background:var(--accent);color:#fff;border:none;}
+.bio-register-skip{background:transparent;color:var(--ink-2);border:1px solid var(--glass-line);}
 
-/* ── APP ───────────────────────────────────────────────── */
+/* ═══ APP ═══ */
 #app{display:none;}
+.shell{max-width:1180px;margin:0 auto;padding:1rem 1.4rem calc(2.5rem + var(--safe-b));}
 
 /* HEADER */
-header{
-  background:var(--paper);
-  border-bottom:1px solid var(--ink);
-  padding:0 2rem;display:flex;align-items:center;justify-content:space-between;
-  height:68px;position:sticky;top:0;z-index:100;
-}
-.header-logo{
-  font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:2rem;color:var(--ink);cursor:pointer;letter-spacing:-.02em;line-height:1;
-  display:inline-flex;align-items:center;gap:.4rem;
-  position:relative;padding-left:3rem;
-}
-.header-logo::before{
-  content:"";position:absolute;left:-.5rem;top:50%;transform:translateY(-50%);
-  width:3.2rem;height:3.2rem;
-  background:url('apple-touch-icon.png') center/contain no-repeat;
-  opacity:.55;z-index:0;pointer-events:none;
-  filter:drop-shadow(0 1px 1px rgba(0,0,0,.08));
-}
-.header-logo > *{position:relative;z-index:1;}
-.header-logo:hover{color:var(--groove);}
-.header-logo:hover::before{opacity:.85;transition:opacity .2s;}
-.header-logo .tick{font-family:var(--mono);font-style:normal;font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;}
-.header-nav{display:flex;list-style:none;gap:0;align-items:center;}
-.header-nav button,.header-nav .nav-link{
-  background:none;border:none;color:var(--muted);
-  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  padding:.55rem .9rem;cursor:pointer;transition:color .15s;
-  position:relative;font-weight:500;text-decoration:none;display:inline-block;
-}
-.header-nav button:hover,.header-nav .nav-link:hover{color:var(--ink);}
-.header-nav button.active{color:var(--ink);}
-.header-nav button.active::after{
-  content:"";position:absolute;left:.9rem;right:.9rem;bottom:-1px;height:2px;background:var(--groove);
-}
-.header-actions{display:flex;align-items:center;gap:.5rem;}
-.lang-btn,.logout-btn{
-  background:transparent;border:1px solid var(--ink);color:var(--ink);
-  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  padding:.45rem .8rem;cursor:pointer;transition:all .15s;border-radius:0;
-}
-.lang-btn:hover,.logout-btn:hover{background:var(--ink);color:var(--paper);}
+header.app-header{position:sticky;top:calc(.8rem + env(safe-area-inset-top,0px));z-index:100;margin:.8rem auto 1.8rem;max-width:1180px;width:calc(100% - 2.4rem);display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .65rem .55rem 1rem;border-radius:var(--r-pill);}
+.header-logo{display:flex;align-items:center;gap:.55rem;cursor:pointer;}
+.header-logo img{width:34px;height:34px;flex-shrink:0;}
+.header-logo .word{font-family:var(--serif);font-style:italic;font-size:1.65rem;line-height:1;letter-spacing:-.02em;color:var(--ink);}
+.header-nav{display:flex;gap:.15rem;background:rgba(255,255,255,.4);padding:.25rem;border-radius:var(--r-pill);border:1px solid var(--glass-line);}
+.header-nav button,.header-nav a{background:none;border:none;color:var(--muted);cursor:pointer;font-family:var(--sans);font-size:.8rem;font-weight:600;letter-spacing:-.01em;padding:.55rem .95rem;border-radius:var(--r-pill);transition:all .2s;display:flex;align-items:center;gap:.4rem;white-space:nowrap;}
+.header-nav [data-lucide]{width:16px;height:16px;}
+.header-nav button:hover,.header-nav a:hover{color:var(--ink);}
+.header-nav button.active{background:#fff;color:var(--accent-deep);box-shadow:0 4px 14px rgba(40,33,90,.12);}
+.header-actions{display:flex;align-items:center;gap:.4rem;}
+.icon-btn{background:rgba(255,255,255,.5);border:1px solid var(--glass-line);color:var(--ink-2);width:42px;height:42px;border-radius:50%;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.icon-btn:hover{background:#fff;color:var(--accent);}
+.icon-btn [data-lucide]{width:18px;height:18px;}
+.lang-btn{background:rgba(255,255,255,.5);border:1px solid var(--glass-line);color:var(--ink-2);font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.05em;height:42px;padding:0 .9rem;border-radius:var(--r-pill);cursor:pointer;transition:all .2s;}
+.lang-btn:hover{background:#fff;color:var(--accent);}
+.desktop-only{display:inline-flex;}
+.mobile-only{display:none;}
 
-/* MAIN */
-main{max-width:1180px;margin:0 auto;padding:2.5rem 2rem 4rem;}
-.section{display:none;animation:fadeIn .25s ease;}
+/* SECTIONS */
+.section{display:none;animation:rise .4s cubic-bezier(.22,1,.36,1);}
 .section.active{display:block;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+@keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;margin-bottom:1.5rem;padding:0 .3rem;}
+.section-title{font-family:var(--serif);font-style:italic;font-size:clamp(2.6rem,6vw,3.8rem);line-height:.9;letter-spacing:-.02em;color:var(--ink);}
+.section-eyebrow{margin-bottom:.5rem;}
+.section-meta{text-align:right;font-size:12px;color:var(--muted);line-height:1.6;}
+.section-meta b{color:var(--ink);font-weight:600;}
 
-/* SECTION HEADER ─ giant editorial */
-.section-head{
-  display:grid;grid-template-columns:1fr auto;align-items:end;
-  gap:2rem;padding-bottom:1.25rem;margin-bottom:2rem;
-  border-bottom:1px solid var(--ink);
-}
-.section-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;display:flex;align-items:center;gap:.7rem;}
-.section-eyebrow .num{
-  background:var(--ink);color:var(--paper);padding:.2rem .55rem;font-weight:500;letter-spacing:.1em;
-}
-.section-title{
-  font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:clamp(3.2rem,9vw,6rem);line-height:.85;letter-spacing:-.025em;color:var(--ink);
-}
-.section-title .pt{color:var(--groove);font-style:normal;}
-.section-meta{
-  text-align:right;font-family:var(--mono);font-size:11px;letter-spacing:.16em;
-  color:var(--muted);text-transform:uppercase;line-height:1.7;
-}
-.section-meta b{color:var(--ink);font-weight:500;}
+/* CONCERT HERO */
+.concert-hero{border-radius:var(--r-lg);padding:1.7rem;margin-bottom:2rem;display:grid;grid-template-columns:1.25fr .85fr .85fr 1fr;gap:1.3rem;align-items:center;position:relative;overflow:hidden;}
+.concert-hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(120deg,rgba(106,90,224,.16),rgba(139,123,255,.04) 50%,rgba(255,122,89,.13));}
+.cc-label{margin-bottom:.6rem;}
+.cc-venue{font-family:var(--serif);font-style:italic;font-size:1.65rem;line-height:1.02;color:var(--ink);margin-bottom:.5rem;}
+.cc-date{display:flex;align-items:center;gap:.45rem;font-size:.82rem;color:var(--ink-2);font-weight:500;}
+.cc-date [data-lucide]{width:15px;height:15px;color:var(--accent);flex-shrink:0;}
+.cc-stat{text-align:center;padding:0 .5rem;border-left:1px solid var(--glass-line);}
+.cc-jminus{font-family:var(--serif);font-style:italic;font-size:3.8rem;line-height:.85;letter-spacing:-.03em;background:linear-gradient(135deg,var(--accent),var(--warm));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.cc-stat .num{font-family:var(--serif);font-style:italic;font-size:3.8rem;line-height:.85;color:var(--accent-deep);}
+.cc-jminus-label,.cc-stat .lbl{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:.35rem;display:block;}
+.cc-actions{display:flex;flex-direction:column;gap:.55rem;}
+.cc-btn{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.85rem 1.05rem;border-radius:var(--r-sm);font-size:.84rem;font-weight:600;cursor:pointer;transition:all .2s;border:1px solid transparent;text-align:left;min-height:48px;}
+.cc-btn [data-lucide]{width:17px;height:17px;flex-shrink:0;}
+.cc-btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 8px 22px rgba(106,90,224,.3);}
+.cc-btn-primary:active{transform:scale(.98);}
+.cc-btn-secondary{background:rgba(255,255,255,.55);color:var(--ink);border-color:var(--glass-line);}
+.concert-hero.j-zero .cc-jminus{font-size:2rem;}
+.concert-hero.passed{opacity:.6;}
 
-/* COMPTEUR CONCERT ─ ticker hero */
-.concert-hero{
-  background:var(--ink);color:var(--paper);
-  margin-bottom:2.5rem;
-  border:1px solid var(--ink);
-  position:relative;overflow:hidden;
-}
-.concert-ticker{
-  border-bottom:1px solid rgba(239,234,224,.18);
-  padding:.7rem 0;overflow:hidden;
-  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--paper);background:var(--ink);
-}
-.concert-ticker-track{display:inline-flex;gap:3rem;white-space:nowrap;animation:slide 32s linear infinite;padding-left:3rem;}
-.concert-ticker .star{color:var(--groove);}
-.concert-body{
-  display:grid;grid-template-columns:1.2fr 1fr 1fr 1.1fr;
-  gap:0;align-items:stretch;
-}
-.concert-cell{padding:1.6rem 1.8rem;display:flex;flex-direction:column;justify-content:center;gap:.5rem;}
-.concert-cell + .concert-cell{border-left:1px solid rgba(239,234,224,.18);}
-.concert-cell .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted-2);}
-.concert-cell .val{font-family:var(--serif);font-style:italic;font-size:1.7rem;line-height:1;letter-spacing:-.01em;color:var(--paper);}
-.concert-cell .sub{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted-2);}
-.concert-jminus{
-  text-align:center;align-items:center;
-  background:linear-gradient(180deg,transparent,rgba(240,81,30,.08));
-}
-.concert-jminus .cc-jminus{
-  font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:5.5rem;line-height:.85;color:var(--groove);letter-spacing:-.04em;
-}
-.concert-jminus .cc-jminus-label{
-  font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted-2);margin-top:.3rem;
-}
-.concert-actions{display:flex;flex-direction:column;gap:.55rem;}
-.cc-btn{
-  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-  padding:.7rem 1rem;cursor:pointer;border-radius:0;text-align:center;
-  display:flex;align-items:center;justify-content:space-between;gap:.5rem;
-  transition:all .15s;border:1px solid;
-}
-.cc-btn-primary{background:var(--groove);border-color:var(--groove);color:#fff;}
-.cc-btn-primary:hover{background:#fff;color:var(--ink);border-color:#fff;}
-.cc-btn-secondary{background:transparent;border-color:rgba(239,234,224,.4);color:var(--paper);}
-.cc-btn-secondary:hover{background:var(--paper);color:var(--ink);border-color:var(--paper);}
-.cc-btn .arr{font-family:var(--mono);font-style:normal;}
-.concert-hero.j-zero .concert-jminus .cc-jminus{font-size:2.2rem;}
-.concert-hero.passed{opacity:.55;}
+/* MORCEAUX */
+.morceaux-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
+.morceau-card{border-radius:var(--r-md);overflow:hidden;cursor:pointer;display:flex;flex-direction:column;position:relative;transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s;}
+.morceau-card:active{transform:scale(.99);}
+@media(hover:hover){.morceau-card:hover{transform:translateY(-5px);box-shadow:var(--glass-shadow-lg),var(--glass-inset);}.morceau-card:hover .morceau-name{color:var(--accent);}.morceau-card:hover .morceau-play{transform:scale(1.08);background:#fff;color:var(--accent);}}
+.morceau-thumb{aspect-ratio:16/10;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--glass-line);}
+.morceau-thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(255,255,255,.35));}
+.morceau-play{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.8);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;color:var(--accent-deep);position:relative;z-index:2;transition:all .25s;box-shadow:0 8px 22px rgba(40,33,90,.18);}
+.morceau-play [data-lucide]{width:24px;height:24px;fill:currentColor;stroke-width:0;margin-left:2px;}
+.morceau-num{position:absolute;top:.85rem;left:1rem;z-index:3;font-size:11px;font-weight:700;letter-spacing:.1em;color:rgba(26,23,38,.5);}
+.tag-nouveau{position:absolute;top:.8rem;right:.85rem;z-index:3;background:var(--accent);color:#fff;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .55rem;border-radius:var(--r-pill);box-shadow:0 4px 12px rgba(106,90,224,.35);display:flex;align-items:center;gap:.3rem;}
+.tag-nouveau [data-lucide]{width:12px;height:12px;}
+.morceau-info{padding:1.05rem 1.15rem 1.25rem;display:flex;flex-direction:column;gap:.5rem;flex:1;}
+.morceau-artist{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+.morceau-name{font-family:var(--serif);font-style:italic;font-size:1.5rem;line-height:1;color:var(--ink);letter-spacing:-.01em;transition:color .15s;}
+.morceau-musical{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.1rem;}
+.morceau-musical span{display:inline-flex;align-items:center;gap:.3rem;font-size:11px;font-weight:600;color:var(--ink-2);background:rgba(255,255,255,.5);border:1px solid var(--glass-line);padding:.25rem .6rem;border-radius:var(--r-pill);}
+.morceau-musical span [data-lucide]{width:13px;height:13px;color:var(--muted);}
+.morceau-chips{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:auto;padding-top:.5rem;}
+.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.3rem .6rem;border-radius:var(--r-pill);border:1px solid transparent;}
+.chip [data-lucide]{width:12px;height:12px;}
+.chip-video{background:rgba(106,90,224,.1);color:var(--accent-deep);border-color:rgba(106,90,224,.2);}
+.chip-audio{background:rgba(34,184,155,.12);color:#0F7A63;border-color:rgba(34,184,155,.25);}
+.chip-pdf{background:rgba(255,122,89,.12);color:#C9462A;border-color:rgba(255,122,89,.25);}
+.chip-tuto{background:rgba(214,156,42,.14);color:#9A6E18;border-color:rgba(214,156,42,.3);}
+.chip-soon{background:rgba(115,110,134,.1);color:var(--muted);border-color:var(--glass-line);}
 
-/* MORCEAUX ─ editorial card grid */
-.morceaux-grid{
-  display:grid;grid-template-columns:repeat(12,1fr);gap:1px;
-  background:var(--ink);border:1px solid var(--ink);
-}
-.morceau-card{
-  grid-column:span 4;
-  background:var(--paper-3);
-  cursor:pointer;display:flex;flex-direction:column;
-  text-decoration:none;color:inherit;position:relative;
-  transition:background .2s;
-  min-height:340px;
-}
-.morceau-card:hover{background:var(--paper);}
-.morceau-card:hover .morceau-name{color:var(--groove);}
-.morceau-card:hover .morceau-thumb-play{transform:scale(1.08);background:var(--groove);}
-.morceau-card .num{
-  position:absolute;top:1rem;left:1rem;z-index:3;
-  font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--muted);
-}
-.morceau-thumb{
-  width:100%;aspect-ratio:5/3;
-  display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden;border-bottom:1px solid var(--ink);
-}
-.morceau-thumb-play{
-  width:54px;height:54px;background:var(--ink);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;transition:all .25s ease;
-  position:relative;z-index:2;
-}
-.morceau-thumb-play::after{
-  content:'';width:0;height:0;
-  border-top:9px solid transparent;border-bottom:9px solid transparent;
-  border-left:14px solid var(--paper);margin-left:3px;
-}
-.morceau-thumb-title{
-  position:absolute;bottom:.85rem;left:1rem;right:1rem;
-  font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:1.6rem;line-height:.95;color:var(--ink);letter-spacing:-.02em;
-  pointer-events:none;
-}
-.morceau-info{padding:1.1rem 1.1rem 1.2rem;display:flex;flex-direction:column;gap:.55rem;flex:1;}
-.morceau-artist{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
-.morceau-name{
-  font-family:var(--sans);font-size:1.1rem;font-weight:600;color:var(--ink);
-  line-height:1.2;letter-spacing:-.01em;transition:color .15s;
-}
-.morceau-musical{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:auto;padding-top:.4rem;}
-.morceau-musical span{
-  font-family:var(--mono);font-size:10px;letter-spacing:.06em;
-  color:var(--ink);background:transparent;border:1px solid var(--line);
-  padding:.2rem .5rem;
-}
-.morceau-chips{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.2rem;}
-.tag-nouveau{
-  position:absolute;top:1rem;right:1rem;
-  background:var(--groove);color:#fff;
-  font-family:var(--mono);font-size:9px;letter-spacing:.18em;
-  padding:.25rem .55rem;font-weight:500;text-transform:uppercase;z-index:3;
-}
-.chip{
-  font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
-  padding:.22rem .55rem;font-weight:500;border:1px solid;
-}
-.chip-video{background:transparent;color:var(--ink);border-color:var(--ink);}
-.chip-audio{background:var(--green-soft);color:var(--green);border-color:var(--green);}
-.chip-tuto{background:#F4EBD8;color:#7A5A20;border-color:#C5A572;}
-.chip-pdf{background:var(--groove-soft);color:var(--groove-h);border-color:var(--groove);}
-
-/* PLANNING ─ editorial event list */
-.planning-list{display:flex;flex-direction:column;border-top:1px solid var(--ink);}
-.event-row{
-  border-bottom:1px solid var(--ink);
-  padding:1.5rem 1.5rem 1.6rem;display:grid;
-  grid-template-columns:140px 1fr auto;align-items:start;gap:1.5rem;
-  background:var(--paper);
-  transition:background .15s;position:relative;
-}
-.event-row:hover{background:var(--paper-3);}
-.event-row::before{
-  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;
-}
-.event-row.concert::before{background:var(--groove);}
-.event-row.repetition::before{background:var(--green);}
-.event-row.option::before{background:var(--plum);}
-
-.event-date-block{display:flex;flex-direction:column;gap:.15rem;}
-.event-day{
-  font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:3.6rem;line-height:.82;letter-spacing:-.03em;color:var(--ink);
-}
-.event-row.concert .event-day{color:var(--groove);}
-.event-row.repetition .event-day{color:var(--green);}
-.event-month{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:.2rem;}
-.event-time{font-family:var(--mono);font-size:11px;color:var(--ink);letter-spacing:.04em;margin-top:.15rem;}
-.event-body{display:flex;flex-direction:column;gap:.3rem;padding-top:.4rem;}
-.event-name{
-  font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:1.6rem;line-height:1;letter-spacing:-.01em;color:var(--ink);margin-bottom:.15rem;
-}
-.event-lieu{font-family:var(--sans);font-size:13px;color:var(--muted);}
-.event-badge{
-  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  padding:.3rem .6rem;font-weight:500;white-space:nowrap;border:1px solid;align-self:flex-start;margin-top:.4rem;
-}
-.event-badge.concert{color:#fff;background:var(--groove);border-color:var(--groove);}
-.event-badge.repetition{color:var(--green);background:var(--green-soft);border-color:var(--green);}
-.event-badge.option{color:var(--plum);background:var(--plum-soft);border-color:var(--plum);}
-
-.event-extra{
-  grid-column:1 / -1;margin-top:1.1rem;padding-top:1.1rem;
-  border-top:1px solid var(--line);
-}
-.event-extra-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem;}
-.event-extra audio{width:100%;height:38px;}
-.event-extra audio::-webkit-media-controls-panel{background:var(--paper-3);}
-.event-extra .dl-link{
-  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:1px;
-  display:inline-flex;align-items:center;gap:.4rem;margin-top:.7rem;
-}
-.event-extra .dl-link:hover{color:var(--groove);border-color:var(--groove);}
-.setlist-row{
-  display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;
-}
-.setlist-row .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
-.setlist-chip{
-  font-family:var(--mono);font-size:10px;letter-spacing:.08em;
-  padding:.25rem .6rem;border:1px solid var(--ink);color:var(--ink);background:var(--paper-3);
-}
-.event-cta-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem;}
-.event-cta{
-  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  padding:.55rem .9rem;border:1px solid var(--ink);background:transparent;color:var(--ink);
-  cursor:pointer;border-radius:0;transition:all .15s;display:inline-flex;align-items:center;gap:.4rem;
-}
-.event-cta:hover{background:var(--ink);color:var(--paper);}
-.event-cta.primary{background:var(--ink);color:var(--paper);}
-.event-cta.primary:hover{background:var(--groove);border-color:var(--groove);color:#fff;}
+/* PLANNING */
+.planning-list{display:flex;flex-direction:column;gap:.85rem;}
+.event-row{border-radius:var(--r-md);padding:1.2rem 1.4rem;position:relative;overflow:hidden;}
+.event-grid{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1.2rem;}
+.event-icon{width:52px;height:52px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.event-icon [data-lucide]{width:23px;height:23px;}
+.event-row.concert .event-icon{background:linear-gradient(135deg,rgba(106,90,224,.18),rgba(139,123,255,.1));color:var(--accent-deep);}
+.event-row.repetition .event-icon{background:rgba(34,184,155,.14);color:#0F7A63;}
+.event-date-line{display:flex;align-items:baseline;gap:.55rem;margin-bottom:.2rem;flex-wrap:wrap;}
+.event-day{font-family:var(--serif);font-style:italic;font-size:1.8rem;line-height:1;color:var(--ink);letter-spacing:-.02em;}
+.event-month{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+.event-name{font-size:.95rem;font-weight:600;color:var(--ink);margin-bottom:.12rem;}
+.event-lieu{font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:.35rem;}
+.event-lieu [data-lucide]{width:13px;height:13px;flex-shrink:0;}
+.event-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.4rem .75rem;border-radius:var(--r-pill);white-space:nowrap;}
+.event-badge [data-lucide]{width:13px;height:13px;}
+.event-badge.concert{background:rgba(106,90,224,.12);color:var(--accent-deep);}
+.event-badge.repetition{background:rgba(34,184,155,.14);color:#0F7A63;}
+.event-badge.nouveau{background:var(--accent);color:#fff;}
+.event-badge.archive{background:rgba(115,110,134,.1);color:var(--muted);}
+.event-time{font-size:.78rem;color:var(--muted);margin-top:.08rem;}
+.event-extra{margin-top:1.1rem;padding-top:1.1rem;border-top:1px solid var(--glass-line);}
+.event-extra-lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem;}
+.event-extra-lbl [data-lucide]{width:14px;height:14px;color:var(--accent);}
+.audio-track{margin-bottom:1.1rem;}
+.audio-track:last-child{margin-bottom:0;}
+.audio-track .t-name{font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:.4rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.audio-track .t-name .bpm{font-size:11px;color:var(--muted);font-weight:500;}
+.audio-track .t-name .audio-source{font-size:11px;color:var(--accent-deep);font-weight:600;}
+.event-extra audio{width:100%;height:42px;border-radius:var(--r-pill);}
+.dl-link{display:inline-flex;align-items:center;gap:.35rem;font-size:12px;font-weight:600;color:var(--accent-deep);transition:color .15s;}
+.dl-link [data-lucide]{width:14px;height:14px;}
+.setlist-row{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;}
+.setlist-row .lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+.setlist-chip{font-size:12px;font-weight:500;color:var(--ink-2);background:rgba(255,255,255,.55);border:1px solid var(--glass-line);padding:.3rem .7rem;border-radius:var(--r-pill);}
+.event-cta-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.9rem;}
+.event-cta{display:inline-flex;align-items:center;gap:.4rem;font-size:12.5px;font-weight:600;padding:.65rem 1rem;border-radius:var(--r-sm);cursor:pointer;transition:all .2s;border:1px solid var(--glass-line);background:rgba(255,255,255,.55);color:var(--ink);min-height:44px;}
+.event-cta [data-lucide]{width:15px;height:15px;}
+.event-cta.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border-color:transparent;box-shadow:0 6px 16px rgba(106,90,224,.28);}
+/* Archives accordion */
+.archive-acc{margin-top:.6rem;border:1px solid var(--glass-line);border-radius:var(--r-sm);overflow:hidden;background:rgba(255,255,255,.35);}
+.archive-acc summary{list-style:none;cursor:pointer;padding:.7rem .9rem;font-size:12px;font-weight:600;color:var(--ink-2);display:flex;align-items:center;gap:.5rem;}
+.archive-acc summary::-webkit-details-marker{display:none;}
+.archive-acc summary [data-lucide]{width:15px;height:15px;color:var(--accent);transition:transform .2s;}
+.archive-acc[open] summary [data-lucide].chev{transform:rotate(180deg);}
+.archive-day{padding:0 .9rem;}
+.archive-day-lbl{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:.8rem 0 .4rem;}
+.dl-item{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem .8rem;background:rgba(255,255,255,.5);border:1px solid var(--glass-line);border-radius:var(--r-sm);margin-bottom:.4rem;}
+.dl-item .nm{font-size:12px;color:var(--ink);}
+.dl-item:last-child{margin-bottom:.9rem;}
 
 /* VIDEOS */
-.videos-sub{
-  font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--muted);margin:2.5rem 0 1.2rem;padding-bottom:.6rem;
-  border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;
-}
-.videos-sub .count{color:var(--ink);}
-.videos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:var(--ink);border:1px solid var(--ink);}
-.video-card{background:var(--paper-3);overflow:hidden;display:flex;flex-direction:column;}
-.video-embed,.video-native{width:100%;aspect-ratio:16/9;border:none;display:block;background:var(--ink-2);flex-shrink:0;}
-.video-info{padding:.9rem 1rem .7rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex:1;}
-.video-title{font-family:var(--serif);font-style:italic;font-size:1.2rem;line-height:1.1;color:var(--ink);}
-.video-subtitle{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--muted);margin-top:.35rem;line-height:1.5;}
-.video-actions{padding:.5rem 1rem 1rem;border-top:1px solid var(--line-soft);margin-top:auto;display:flex;gap:.5rem;}
-.video-dl{
-  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--ink);border:1px solid var(--ink);background:transparent;
-  padding:.45rem .8rem;font-weight:500;text-decoration:none;
-  display:inline-flex;align-items:center;gap:.3rem;transition:all .15s;border-radius:0;
-  min-height:36px;
-}
-.video-dl:hover{background:var(--ink);color:var(--paper);}
-.video-tag{
-  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
-  padding:.22rem .5rem;border:1px solid;font-weight:500;flex-shrink:0;
-  display:inline-flex;align-items:center;gap:.35rem;
-}
-.video-tag.live::before{
-  content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
-  background:#E53935;box-shadow:0 0 0 0 rgba(229,57,53,.7);
-  animation:livePulse 1.4s infinite;
-}
-@keyframes livePulse{
-  0%{box-shadow:0 0 0 0 rgba(229,57,53,.7);}
-  70%{box-shadow:0 0 0 6px rgba(229,57,53,0);}
-  100%{box-shadow:0 0 0 0 rgba(229,57,53,0);}
-}
+.videos-sub{display:flex;align-items:center;justify-content:space-between;margin:2rem .3rem 1rem;}
+.videos-sub .t{display:flex;align-items:center;gap:.5rem;font-size:.95rem;font-weight:600;color:var(--ink);}
+.videos-sub .t [data-lucide]{width:18px;height:18px;color:var(--accent);}
+.videos-sub .count{font-size:12px;color:var(--muted);font-weight:600;}
+.videos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1rem;}
+.video-card{border-radius:var(--r-md);overflow:hidden;display:flex;flex-direction:column;}
+.video-embed,.video-native{width:100%;aspect-ratio:16/9;border:none;display:block;background:#0F0D18;}
+.video-info{padding:.85rem 1.05rem .7rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
+.video-title{font-family:var(--serif);font-style:italic;font-size:1.2rem;color:var(--ink);line-height:1.05;}
+.video-subtitle{font-size:11px;color:var(--muted);margin-top:.3rem;line-height:1.4;}
+.video-tag{display:inline-flex;align-items:center;gap:.3rem;font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.3rem .6rem;border-radius:var(--r-pill);flex-shrink:0;}
+.video-tag [data-lucide]{width:12px;height:12px;}
+.video-tag.live{background:rgba(229,57,53,.12);color:#D32F2F;}
+.video-tag.live .dot{width:7px;height:7px;border-radius:50%;background:#E53935;animation:livePulse 1.4s infinite;}
+@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(229,57,53,.7);}70%{box-shadow:0 0 0 6px rgba(229,57,53,0);}100%{box-shadow:0 0 0 0 rgba(229,57,53,0);}}
+.video-tag.ref{background:rgba(255,122,89,.12);color:#C9462A;}
+.video-actions{padding:.4rem 1.05rem 1rem;margin-top:auto;}
+.video-dl{display:inline-flex;align-items:center;gap:.4rem;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);background:rgba(255,255,255,.55);border:1px solid var(--glass-line);padding:.5rem .85rem;border-radius:var(--r-pill);min-height:40px;}
+.video-dl [data-lucide]{width:14px;height:14px;}
 
-/* MODALE PDF */
-.pdf-overlay{position:fixed;inset:0;background:rgba(20,17,12,.7);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+/* A↔B LOOP (loop-ab.js) — glass */
+.ab-loop-panel{display:flex;gap:.35rem;margin-top:.55rem;flex-wrap:wrap;align-items:stretch;}
+.video-card .ab-loop-panel{padding:0 1.05rem 1rem;margin-top:0;}
+.ab-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .7rem;background:rgba(255,255,255,.55);border:1px solid var(--glass-line);font-family:var(--sans);font-size:11px;color:var(--ink-2);font-weight:600;cursor:pointer;transition:all .15s;border-radius:var(--r-pill);min-height:40px;}
+.ab-btn:hover:not(:disabled){background:#fff;}
+.ab-btn:disabled{opacity:.4;cursor:not-allowed;}
+.ab-btn .ab-label{letter-spacing:.06em;text-transform:uppercase;font-weight:700;font-size:10px;}
+.ab-btn .ab-time{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;}
+.ab-btn.set{background:var(--accent-soft);border-color:rgba(106,90,224,.3);}
+.ab-btn.set .ab-time,.ab-btn.set .ab-label{color:var(--accent-deep);}
+.ab-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.ab-btn.active .ab-label,.ab-btn.active .ab-time{color:#fff;}
+.ab-btn svg{flex-shrink:0;}
+.ab-clear{padding:.45rem .6rem;}
+
+/* PDF MODAL */
+.pdf-overlay{position:fixed;inset:0;background:rgba(26,23,38,.45);z-index:600;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px);padding:1.5rem;}
 .pdf-overlay.open{display:flex;}
-.pdf-modal{background:var(--paper);border:1px solid var(--ink);border-radius:0;width:94vw;max-width:960px;height:92vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:8px 8px 0 var(--ink);}
-.pdf-modal-header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.2rem;border-bottom:1px solid var(--ink);flex-shrink:0;background:var(--paper-3);}
-.pdf-modal-title{font-family:var(--serif);font-style:italic;font-weight:400;font-size:1.4rem;color:var(--ink);}
-.pdf-modal-close{
-  background:transparent;border:1px solid var(--ink);color:var(--ink);
-  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-  padding:.4rem .8rem;cursor:pointer;border-radius:0;transition:all .15s;
-}
-.pdf-modal-close:hover{background:var(--ink);color:var(--paper);}
-.pdf-modal-body{flex:1;overflow:hidden;position:relative;background:var(--ink-2);}
+.pdf-modal{border-radius:var(--r-lg);width:94vw;max-width:960px;height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--glass-shadow-lg);background:var(--glass-strong);backdrop-filter:blur(30px) saturate(160%);border:1px solid var(--glass-border);}
+.pdf-modal-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.3rem;border-bottom:1px solid var(--glass-line);flex-shrink:0;}
+.pdf-modal-title{font-family:var(--serif);font-style:italic;font-size:1.3rem;color:var(--ink);}
+.pdf-modal-close{display:flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.5);border:1px solid var(--glass-line);color:var(--ink-2);font-size:12px;font-weight:600;padding:.5rem .9rem;cursor:pointer;border-radius:var(--r-pill);}
+.pdf-modal-close [data-lucide]{width:14px;height:14px;}
+.pdf-modal-body{flex:1;overflow:hidden;background:#2A2535;}
 .pdf-modal-body iframe{width:100%;height:100%;border:none;display:block;}
 
 /* FOOTER */
-footer{
-  max-width:1180px;margin:4rem auto 0;padding:2.5rem 2rem 4rem;
-  border-top:1px solid var(--ink);
-  display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:2.5rem;align-items:start;
-}
-.footer-mark{font-family:var(--serif);font-style:italic;font-size:4.5rem;line-height:.85;letter-spacing:-.03em;color:var(--ink);}
-.footer-mark .pt{color:var(--groove);}
-.footer-mark + .sub{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:.6rem;}
-footer h4{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);margin-bottom:.8rem;font-weight:500;}
-footer p{font-family:var(--sans);font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:.6rem;}
-footer p strong{color:var(--ink);font-weight:500;}
-footer .legal-row{display:flex;gap:.5rem;align-items:flex-start;margin-bottom:.4rem;}
-footer .legal-row .mark{font-family:var(--mono);font-size:10px;width:14px;flex-shrink:0;font-weight:600;}
-footer .legal-row .mark.plus{color:var(--green);}
-footer .legal-row .mark.bang{color:var(--groove);}
-footer .legal-row .mark.x{color:#C03030;}
-footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted);line-height:1.6;}
+footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg);padding:2rem;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:2rem;}
+.footer-brand{display:flex;flex-direction:column;}
+.footer-brand img{width:48px;height:48px;margin-bottom:.6rem;}
+.footer-brand .word{font-family:var(--serif);font-style:italic;font-size:2.4rem;line-height:.9;color:var(--ink);}
+.footer-brand .sub{font-size:12px;color:var(--muted);margin-top:.5rem;display:flex;align-items:center;gap:.4rem;}
+.footer-brand .sub [data-lucide]{width:14px;height:14px;color:var(--accent);}
+.app-footer h4{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.8rem;}
+.app-footer p{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:.6rem;}
+.legal-row{display:flex;gap:.5rem;align-items:flex-start;margin-bottom:.5rem;}
+.legal-row [data-lucide]{width:15px;height:15px;flex-shrink:0;margin-top:1px;}
+.legal-row.ok [data-lucide]{color:var(--mint);}
+.legal-row.warn [data-lucide]{color:var(--warm);}
+.legal-row.no [data-lucide]{color:#E0455E;}
+.legal-row .txt{font-size:12px;color:var(--muted);line-height:1.55;}
 
-/* MOBILE */
-@media(max-width:860px){
-  .concert-body{grid-template-columns:1fr;}
-  .concert-cell + .concert-cell{border-left:none;border-top:1px solid rgba(239,234,224,.18);}
-  .morceau-card{grid-column:span 6;}
-  footer{grid-template-columns:1fr;gap:1.5rem;}
-}
-@media(max-width:640px){
-  .header-nav{display:none;}
-  main{padding:1.5rem 1.1rem 2.5rem;}
-  header{padding:0 1.1rem;}
-  .header-actions{gap:.35rem;}
-  .header-logo{font-size:1.6rem;}
-  .header-logo .tick{display:none;}
-  .section-head{grid-template-columns:1fr;gap:.6rem;}
-  .section-meta{text-align:left;}
-  .section-title{font-size:3.4rem;}
-  .morceau-card{grid-column:span 12;min-height:auto;}
-  .videos-grid{grid-template-columns:1fr;}
-  .event-row{grid-template-columns:90px 1fr;padding:1.1rem;}
-  .event-badge{display:none;}
-  .event-day{font-size:2.6rem;}
-  .event-name{font-size:1.3rem;}
-  .footer-mark{font-size:3.5rem;}
-  .login-box{padding:1.6rem 1.4rem 1.4rem;box-shadow:5px 5px 0 var(--ink);}
-  .login-logo{font-size:2.6rem;}
-  .login-topbar{font-size:9px;padding:1rem;}
-  .login-topbar .left span:nth-child(2){display:none;}
-}
+/* ═══ MOBILE BOTTOM NAV + SHEET ═══ */
+.bottom-nav{display:none;}
+.sheet-overlay{position:fixed;inset:0;background:rgba(26,23,38,.4);z-index:300;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;backdrop-filter:blur(4px);}
+.sheet-overlay.open{opacity:1;visibility:visible;}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:301;transform:translateY(110%);transition:transform .38s cubic-bezier(.22,1,.36,1);border-radius:var(--r-lg) var(--r-lg) 0 0;padding:1rem 1.1rem calc(1.4rem + var(--safe-b));background:var(--glass-strong);backdrop-filter:blur(34px) saturate(180%);-webkit-backdrop-filter:blur(34px) saturate(180%);border-top:1px solid var(--glass-border);box-shadow:0 -20px 60px rgba(40,33,90,.25);}
+.sheet.open{transform:translateY(0);}
+.sheet-grip{width:42px;height:5px;border-radius:99px;background:var(--muted-2);margin:0 auto .9rem;}
+.sheet h3{font-family:var(--serif);font-style:italic;font-size:1.5rem;color:var(--ink);margin-bottom:.9rem;padding-left:.3rem;}
+.sheet-links{display:flex;flex-direction:column;gap:.45rem;}
+.sheet-link{display:flex;align-items:center;gap:.9rem;padding:1rem 1.1rem;border-radius:var(--r-sm);background:rgba(255,255,255,.55);border:1px solid var(--glass-line);font-size:1rem;font-weight:600;color:var(--ink);min-height:56px;transition:background .15s;}
+.sheet-link:active{background:#fff;}
+.sheet-link [data-lucide]{width:20px;height:20px;color:var(--accent);flex-shrink:0;}
+.sheet-link .chev{margin-left:auto;color:var(--muted-2);width:17px;height:17px;}
+.sheet-foot{display:flex;gap:.5rem;margin-top:.9rem;}
+.sheet-foot button{flex:1;display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.85rem;border-radius:var(--r-sm);background:rgba(255,255,255,.55);border:1px solid var(--glass-line);font-size:13px;font-weight:600;color:var(--ink);min-height:48px;cursor:pointer;}
+.sheet-foot button [data-lucide]{width:16px;height:16px;}
 
-/* ── HAMBURGER & DRAWER MOBILE ── */
-.mobile-only{display:none;}
-.desktop-only{display:inline-flex;}
-@media(max-width:640px){
+@media(max-width:920px){
+  .concert-hero{grid-template-columns:1fr 1fr;}
+  .cc-left{grid-column:1 / -1;}
+  .cc-actions{grid-column:1 / -1;flex-direction:row;}
+  .cc-actions .cc-btn{flex:1;}
+  .cc-stat{border-left:none;border-top:1px solid var(--glass-line);padding-top:1rem;}
+  footer.app-footer{grid-template-columns:1fr;gap:1.5rem;}
+}
+@media(max-width:1024px){
+  .desktop-only{display:none !important;}
   .mobile-only{display:inline-flex;}
-  .desktop-only{display:none;}
+  .header-nav{display:none;}
+  .bottom-nav{display:flex;position:fixed;bottom:calc(.7rem + var(--safe-b));left:50%;transform:translateX(-50%);width:calc(100% - 1.6rem);max-width:440px;z-index:200;padding:.35rem;border-radius:var(--r-pill);gap:.15rem;}
+  .bottom-nav button{flex:1;background:none;border:none;color:var(--muted);cursor:pointer;font-family:var(--sans);font-size:10.5px;font-weight:600;padding:.55rem .3rem;border-radius:var(--r-pill);transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:.22rem;min-height:54px;}
+  .bottom-nav button [data-lucide]{width:21px;height:21px;}
+  .bottom-nav button.active{background:#fff;color:var(--accent-deep);box-shadow:0 4px 14px rgba(40,33,90,.16);}
+  .shell{padding:.4rem 1.4rem calc(6.5rem + var(--safe-b));}
 }
-.hamburger-btn{
-  background:transparent;border:1px solid var(--ink);
-  width:42px;height:42px;
-  display:inline-flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:5px;cursor:pointer;padding:0;border-radius:0;
-  transition:background .15s;
+@media(max-width:640px){
+  .shell{padding:.4rem 1rem calc(6.5rem + var(--safe-b));}
+  header.app-header{width:calc(100% - 1.6rem);top:calc(.5rem + env(safe-area-inset-top,0px));margin:.5rem auto 1.2rem;padding:.5rem .5rem .5rem .9rem;}
+  .header-logo .word{font-size:1.5rem;}
+  .header-logo img{width:30px;height:30px;}
+  .section-head{flex-direction:column;align-items:flex-start;gap:.4rem;}
+  .section-meta{text-align:left;}
+  .section-title{font-size:2.7rem;}
+  .concert-hero{grid-template-columns:1fr;padding:1.4rem;gap:1.1rem;}
+  .cc-actions{flex-direction:column;}
+  .cc-stat{display:flex;align-items:baseline;justify-content:center;gap:.6rem;border-top:1px solid var(--glass-line);padding-top:.9rem;}
+  .cc-stat .lbl,.cc-jminus-label{margin-top:0;}
+  .morceaux-grid{grid-template-columns:1fr;}
+  .videos-grid{grid-template-columns:1fr;}
+  .event-grid{grid-template-columns:auto 1fr;gap:.9rem;}
+  .event-badge{display:none;}
+  /* Bottom nav */
+  .bottom-nav{display:flex;position:fixed;bottom:calc(.7rem + var(--safe-b));left:50%;transform:translateX(-50%);width:calc(100% - 1.6rem);max-width:440px;z-index:200;padding:.35rem;border-radius:var(--r-pill);gap:.15rem;}
+  .bottom-nav button{flex:1;background:none;border:none;color:var(--muted);cursor:pointer;font-family:var(--sans);font-size:10.5px;font-weight:600;padding:.55rem .3rem;border-radius:var(--r-pill);transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:.22rem;min-height:54px;}
+  .bottom-nav button [data-lucide]{width:21px;height:21px;}
+  .bottom-nav button.active{background:#fff;color:var(--accent-deep);box-shadow:0 4px 14px rgba(40,33,90,.16);}
+  .footer-brand .word{font-size:2rem;}
+  .login-logo{font-size:3rem;}
 }
-.hamburger-btn:hover,.hamburger-btn:active{background:var(--ink);}
-.hamburger-btn:hover .hamburger-line,.hamburger-btn:active .hamburger-line{background:var(--paper);}
-.hamburger-line{
-  width:18px;height:2px;background:var(--ink);
-  transition:background .15s;
-}
-
-/* Overlay derrière le drawer */
-.mobile-drawer-overlay{
-  position:fixed;inset:0;background:rgba(20,17,12,.5);
-  z-index:999;opacity:0;visibility:hidden;
-  transition:opacity .3s, visibility .3s;
-  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
-}
-.mobile-drawer-overlay.open{opacity:1;visibility:visible;}
-
-/* Drawer plein écran qui glisse depuis la droite */
-.mobile-drawer{
-  position:fixed;top:0;right:0;bottom:0;
-  width:88%;max-width:380px;
-  background:var(--paper);
-  z-index:1000;
-  transform:translateX(100%);
-  transition:transform .35s cubic-bezier(.4,0,.2,1);
-  display:flex;flex-direction:column;
-  box-shadow:-12px 0 32px rgba(20,17,12,.15);
-}
-.mobile-drawer.open{transform:translateX(0);}
-
-.mobile-drawer-head{
-  display:flex;justify-content:flex-end;
-  padding:1rem 1.25rem .8rem;
-}
-.mobile-drawer-close{
-  background:transparent;border:1px solid var(--ink);
-  width:42px;height:42px;border-radius:0;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--ink);transition:all .15s;
-}
-.mobile-drawer-close:hover{background:var(--ink);color:var(--paper);}
-
-.mobile-drawer-nav{
-  flex:1;display:flex;flex-direction:column;gap:0;
-  padding:1rem 0 0;overflow-y:auto;
-}
-.drawer-link{
-  display:flex;align-items:baseline;gap:1.2rem;
-  padding:1.25rem 1.8rem;
-  background:transparent;border:none;border-bottom:1px solid var(--line);
-  text-align:left;cursor:pointer;text-decoration:none;
-  font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:2rem;line-height:1;color:var(--ink);letter-spacing:-.02em;
-  transition:background .15s, padding-left .2s;
-  position:relative;
-}
-.drawer-link:active,.drawer-link:hover{
-  background:var(--paper-2);padding-left:2.2rem;
-}
-.drawer-link.active{background:var(--paper-3);}
-.drawer-link.active::before{
-  content:"";position:absolute;left:0;top:0;bottom:0;
-  width:3px;background:var(--accent);
-}
-.drawer-num{
-  font-family:var(--mono);font-style:normal;font-size:11px;letter-spacing:.16em;
-  color:var(--muted);font-weight:500;
-  text-transform:uppercase;flex-shrink:0;width:1.6rem;
-}
-.drawer-link.active .drawer-num{color:var(--accent);}
-.drawer-label{flex:1;}
-
-.mobile-drawer-footer{
-  border-top:1px solid var(--ink);
-  padding:1.2rem 1.8rem 1.5rem;
-  background:var(--paper-3);
-}
-.drawer-footer-row{
-  display:flex;gap:.55rem;margin-bottom:.9rem;
-}
-.drawer-lang,.drawer-logout{
-  flex:1;background:transparent;border:1px solid var(--ink);
-  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  padding:.75rem 1rem;font-weight:500;cursor:pointer;color:var(--ink);
-  transition:all .15s;border-radius:0;min-height:44px;
-}
-.drawer-lang:hover,.drawer-logout:hover{background:var(--ink);color:var(--paper);}
-.drawer-footer-meta{
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
-  color:var(--muted);text-transform:uppercase;text-align:center;
-}
-
-/* Hamburger devient une croix quand drawer ouvert */
-.hamburger-btn[aria-expanded="true"] .hamburger-line:nth-child(1){
-  transform:translateY(7px) rotate(45deg);
-}
-.hamburger-btn[aria-expanded="true"] .hamburger-line:nth-child(2){
-  opacity:0;
-}
-.hamburger-btn[aria-expanded="true"] .hamburger-line:nth-child(3){
-  transform:translateY(-7px) rotate(-45deg);
-}
-.hamburger-line{
-  transform-origin:center;transition:transform .25s, opacity .15s, background .15s;
-}
-/* ════════════════════════════════════════════════════════════════
-   BOUCLE A↔B — panneau de contrôle pour audio/video
-   Inséré automatiquement par loop-ab.js
-   ════════════════════════════════════════════════════════════════ */
-.ab-loop-panel{
-  display:flex;gap:.35rem;margin-top:.55rem;flex-wrap:wrap;align-items:stretch;
-}
-.ab-btn{
-  display:inline-flex;align-items:center;gap:.4rem;
-  padding:.4rem .65rem;background:var(--paper-3);border:1px solid var(--ink);
-  font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--ink);
-  font-weight:500;cursor:pointer;transition:all .15s;border-radius:0;
-  min-height:36px;
-}
-.ab-btn:hover:not(:disabled){background:var(--accent-soft);}
-.ab-btn:disabled{opacity:.4;cursor:not-allowed;}
-.ab-btn .ab-label{
-  letter-spacing:.1em;text-transform:uppercase;font-weight:600;font-size:10px;
-}
-.ab-btn .ab-time{
-  font-size:10px;letter-spacing:.04em;color:var(--muted);
-  font-variant-numeric:tabular-nums;
-}
-.ab-btn.set{background:var(--accent-soft);border-color:var(--accent);}
-.ab-btn.set .ab-time{color:var(--accent-deep);font-weight:500;}
-.ab-btn.set .ab-label{color:var(--accent-deep);}
-.ab-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
-.ab-btn.active .ab-label,.ab-btn.active .ab-time{color:var(--paper);}
-.ab-btn svg{flex-shrink:0;}
-.ab-clear{padding:.4rem .55rem;}
-
-/* Panneau sur fond sombre (vidéos lives sur fond noir) */
-.video-card .ab-loop-panel{padding:0 1rem 1rem;}
 </style>
 </head>
 <body>
 
+<div class="aurora"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
 <!-- ═════════ LOGIN ═════════ -->
 <div id="login-screen">
-  <div class="login-deco">L'A</div>
-
   <div class="login-topbar">
-    <div class="left">
-      <span><b>L'Atelier</b></span>
-      <span data-fr="Espace privé" data-es="Espacio privado">Espace privé</span>
-    </div>
+    <div class="brand"><img src="phenix-logo.png" alt=""> les Phénix</div>
     <button class="lang-btn" id="lang-toggle-login" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
   </div>
 
   <div class="login-box">
     <div class="login-mark">
-      <div class="login-logo">L'Atelier<span class="amp">.</span></div>
-      <div class="login-meta">
-        <div><b>EST. 2024</b></div>
-        <div data-fr="Chelles · FR" data-es="Chelles · FR">Chelles · FR</div>
-      </div>
+      <img src="phenix-logo.png" alt="les Phénix">
+      <div class="login-logo">les Phénix<span class="amp">.</span></div>
+      <div class="login-tagline">Funk · Groove · Soul · Live</div>
     </div>
-    <div class="login-sub" data-fr="Accès membres" data-es="Acceso miembros">Accès membres</div>
+    <div class="login-sub"><span data-lucide="lock"></span><span data-fr="Espace membres privé" data-es="Espacio miembros privado">Espace membres privé</span></div>
 
     <div id="bio-login-zone" style="display:none;">
       <button class="bio-btn" onclick="loginWithBio()" id="bio-login-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 11c1.66 0 3 1.34 3 3v3M9 17v-3a3 3 0 0 1 .29-1.29M5 13a7 7 0 0 1 7-7 7 7 0 0 1 5 2M2 16c.5-1 1-2 1-4M19 17a7 7 0 0 0 1-4 7 7 0 0 0-1.46-4.3M22 13c0 6-3 9-3 9M12 3v.5M9 9.5A3 3 0 0 1 12 8a3 3 0 0 1 3 3v3M6 17a8 8 0 0 1-1-4M19 22c-2-2-2-5-2-5"/></svg>
-        <span data-fr="Face ID / Touch ID" data-es="Face ID / Touch ID">Face ID / Touch ID</span>
+        <span data-lucide="scan-face"></span>
+        <span data-fr="Continuer avec Face ID / Touch ID" data-es="Continuar con Face ID / Touch ID">Continuer avec Face ID / Touch ID</span>
       </button>
       <div class="login-divider"><span data-fr="ou mot de passe" data-es="o contraseña">ou mot de passe</span></div>
     </div>
 
     <label class="login-label" for="pwd" data-fr="Mot de passe" data-es="Contraseña">Mot de passe</label>
-    <input class="login-input" type="password" id="pwd" autocomplete="current-password" placeholder="••••••••">
+    <div class="input-wrap">
+      <span data-lucide="key-round"></span>
+      <input class="login-input" type="password" id="pwd" autocomplete="current-password" placeholder="••••••••">
+    </div>
     <button class="login-btn" onclick="checkPassword()">
       <span data-fr="Entrer" data-es="Entrar">Entrer</span>
-      <span class="arrow">→</span>
+      <span data-lucide="arrow-right"></span>
     </button>
     <div class="login-error" id="login-error"></div>
 
     <div class="bio-register-banner" id="bio-register-banner" style="display:none;">
-      <p data-fr="Activer Face ID / Touch ID pour la prochaine connexion ?" data-es="¿Activar Face ID / Touch ID para la próxima conexión ?">Activer Face ID / Touch ID pour la prochaine connexion ?</p>
+      <p><span data-lucide="sparkles"></span><span data-fr="Activer Face ID / Touch ID pour la prochaine connexion ?" data-es="¿Activar Face ID / Touch ID para la próxima conexión ?">Activer Face ID / Touch ID pour la prochaine connexion ?</span></p>
       <div class="bio-register-actions">
         <button class="bio-register-btn" onclick="registerBio()" data-fr="Activer" data-es="Activar">Activer</button>
         <button class="bio-register-skip" onclick="skipBio()" data-fr="Plus tard" data-es="Más tarde">Plus tard</button>
@@ -758,61 +433,46 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
 
 <!-- ═════════ APP ═════════ -->
 <div id="app">
-  <header>
-    <span class="header-logo" onclick="showSection('morceaux')" title="Accueil">L'Atelier<span class="tick">/ESPACE MEMBRES</span></span>
-    <nav>
-      <ul class="header-nav">
-        <li><button class="active" onclick="showSection('morceaux',this)"><span data-fr="Morceaux" data-es="Canciones">Morceaux</span></button></li>
-        <li><button onclick="showSection('planning',this)"><span data-fr="Planning" data-es="Agenda">Planning</span></button></li>
-        <li><button onclick="showSection('videos',this)"><span data-fr="Vidéos" data-es="Vídeos">Vidéos</span></button></li>
-        <li><a href="membres.html" class="nav-link"><span data-fr="Membres" data-es="Miembros">Membres</span></a></li>
-        <li><a href="playlist.html" class="nav-link"><span data-fr="Playlist" data-es="Lista">Playlist</span></a></li>
-        <li><a href="setlist-26-juin.html" class="nav-link"><span data-fr="Setlist" data-es="Setlist">Setlist</span></a></li>
-        <li><a href="todojeudi.html" class="nav-link"><span data-fr="TodoJeudi" data-es="TodoJueves">TodoJeudi</span></a></li>
-      </ul>
+  <header class="app-header glass">
+    <div class="header-logo" onclick="showSection('morceaux')" title="Accueil">
+      <img src="phenix-logo.png" alt=""><span class="word">les Phénix</span>
+    </div>
+    <nav class="header-nav">
+      <button class="active" onclick="showSection('morceaux',this)"><span data-lucide="disc-3"></span><span data-fr="Morceaux" data-es="Canciones">Morceaux</span></button>
+      <button onclick="showSection('planning',this)"><span data-lucide="calendar-days"></span><span data-fr="Planning" data-es="Agenda">Planning</span></button>
+      <button onclick="showSection('videos',this)"><span data-lucide="play-circle"></span><span data-fr="Vidéos" data-es="Vídeos">Vidéos</span></button>
+      <a href="membres.html"><span data-lucide="users"></span><span data-fr="Membres" data-es="Miembros">Membres</span></a>
+      <a href="playlist.html"><span data-lucide="list-music"></span>Playlist</a>
+      <a href="setlist-26-juin.html"><span data-lucide="clipboard-list"></span>Setlist</a>
+      <a href="todojeudi.html"><span data-lucide="check-check"></span>TodoJeudi</a>
     </nav>
     <div class="header-actions">
       <button class="lang-btn desktop-only" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
-      <button class="logout-btn desktop-only" onclick="logout()" data-fr="Sortir" data-es="Salir">Sortir</button>
-      <button class="hamburger-btn mobile-only" onclick="toggleDrawer()" aria-label="Ouvrir le menu" aria-expanded="false">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-      </button>
+      <button class="icon-btn desktop-only" onclick="logout()" title="Déconnexion"><span data-lucide="log-out"></span></button>
+      <button class="icon-btn mobile-only" onclick="openSheet()" aria-label="Menu"><span data-lucide="menu"></span></button>
     </div>
   </header>
 
-  <main>
+  <div class="shell">
 
-    <!-- COMPTEUR CONCERT -->
-    <div class="concert-hero" id="concert-countdown">
-      <div class="concert-ticker">
-        <div class="concert-ticker-track">
-          <span><span class="star">✱</span> Prochain concert · 26 juin 2026 · Extérieur Chelles · 1 répétition à venir</span>
-          <span><span class="star">✱</span> Conservatoire Jacques Higelin · Chelles · FR</span>
-          <span><span class="star">✱</span> Prochain concert · 26 juin 2026 · Extérieur Chelles · 1 répétition à venir</span>
-          <span><span class="star">✱</span> Conservatoire Jacques Higelin · Chelles · FR</span>
-        </div>
+    <!-- CONCERT HERO -->
+    <div class="concert-hero glass" id="concert-countdown">
+      <div class="cc-left">
+        <div class="cc-label eyebrow"><span data-lucide="sparkles"></span><span data-fr="Prochain concert" data-es="Próximo concierto">Prochain concert</span></div>
+        <div class="cc-venue" data-fr="Extérieur · Ville de Chelles" data-es="Exterior · Ciudad de Chelles">Extérieur · Ville de Chelles</div>
+        <div class="cc-date"><span data-lucide="calendar"></span> 26 juin 2026 · <span data-fr="balances 18h00 — 18h30" data-es="pruebas 18h00 — 18h30">balances 18h00 — 18h30</span></div>
       </div>
-      <div class="concert-body">
-        <div class="concert-cell">
-          <span class="lbl" data-fr="Prochain concert" data-es="Próximo concierto">Prochain concert</span>
-          <span class="val" data-fr="Extérieur · Ville de Chelles" data-es="Exterior · Ciudad de Chelles">Extérieur · Ville de Chelles</span>
-          <span class="sub">26.06.2026 · <span data-fr="balances 18h00 — 18h30" data-es="pruebas 18h00 — 18h30">balances 18h00 — 18h30</span></span>
-        </div>
-        <div class="concert-cell concert-jminus">
-          <span class="lbl" data-fr="Compte à rebours" data-es="Cuenta regresiva">Compte à rebours</span>
-          <div class="cc-jminus" id="cc-jminus">J-?</div>
-          <div class="cc-jminus-label" id="cc-jminus-label" data-fr="jours" data-es="días">jours</div>
-        </div>
-        <div class="concert-cell concert-jminus">
-          <span class="lbl" data-fr="Répétitions à venir" data-es="Ensayos por venir">Répétitions à venir</span>
-          <div class="cc-jminus">1</div>
-          <div class="cc-jminus-label" data-fr="répétition" data-es="ensayo">répétition</div>
-        </div>
-        <div class="concert-cell concert-actions">
-          <button class="cc-btn cc-btn-primary" onclick="downloadConcertICS()"><span data-fr="Ajouter au calendrier" data-es="Añadir al calendario">Ajouter au calendrier</span><span class="arr">↓</span></button>
-        </div>
+      <div class="cc-stat">
+        <div class="cc-jminus" id="cc-jminus">J−?</div>
+        <span class="cc-jminus-label" id="cc-jminus-label" data-fr="jours" data-es="días">jours</span>
+      </div>
+      <div class="cc-stat">
+        <div class="num">1</div>
+        <span class="lbl" data-fr="répétition à venir" data-es="ensayo por venir">répétition à venir</span>
+      </div>
+      <div class="cc-actions">
+        <button class="cc-btn cc-btn-primary" onclick="downloadConcertICS()"><span data-fr="Ajouter au calendrier" data-es="Añadir al calendario">Ajouter au calendrier</span><span data-lucide="calendar-plus"></span></button>
+        <a href="setlist-26-juin.html" class="cc-btn cc-btn-secondary"><span data-fr="Voir la setlist" data-es="Ver setlist">Voir la setlist</span><span data-lucide="arrow-right"></span></a>
       </div>
     </div>
 
@@ -820,178 +480,118 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
     <section id="morceaux" class="section active">
       <div class="section-head">
         <div>
-          <div class="section-eyebrow"><span class="num">01</span> <span data-fr="Catalogue · 6 titres" data-es="Catálogo · 6 títulos">Catalogue · 6 titres</span></div>
-          <h1 class="section-title"><span data-fr="Morceaux" data-es="Canciones">Morceaux</span><span class="pt">.</span></h1>
+          <div class="section-eyebrow eyebrow"><span data-lucide="disc-3"></span><span data-fr="Catalogue · 8 titres" data-es="Catálogo · 8 títulos">Catalogue · 8 titres</span></div>
+          <h1 class="section-title"><span data-fr="Morceaux" data-es="Canciones">Morceaux</span></h1>
         </div>
         <div class="section-meta">
-          <div data-fr="Cliquer un morceau" data-es="Haz clic un tema">Cliquer un morceau</div>
-          <div><b data-fr="pour les ressources" data-es="para los recursos">pour les ressources</b></div>
+          <div data-fr="Touchez un morceau" data-es="Toca un tema">Touchez un morceau</div>
+          <div><b data-fr="pour ses ressources" data-es="para sus recursos">pour ses ressources</b></div>
         </div>
       </div>
 
       <div class="morceaux-grid">
 
-        <a class="morceau-card" href="worth-it.html" data-added="2026-04-01">
-          <span class="num">N° 01</span>
-          <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFE4D6 0%,#FFCBA8 100%);">
-            <div class="morceau-thumb-play"></div>
-            <div class="morceau-thumb-title">Worth It</div>
+        <a class="morceau-card glass" href="worth-it.html" data-added="2026-04-01">
+          <span class="morceau-num">01</span>
+          <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFD9C2,#FFB39A);">
+            <div class="morceau-play"><span data-lucide="play"></span></div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">RAYE</div>
             <div class="morceau-name">Worth It</div>
-            <div class="morceau-musical">
-              <span title="Tempo">110 BPM</span>
-              <span title="Tonalité">A♭ majeur</span>
-            </div>
-            <div class="morceau-chips">
-              <span class="chip chip-audio">Audio</span>
-              <span class="chip chip-video">Vidéo</span>
-              <span class="chip chip-pdf">PDF</span>
-            </div>
+            <div class="morceau-musical"><span><span data-lucide="gauge"></span>110 BPM</span><span><span data-lucide="music"></span>A♭ majeur</span></div>
+            <div class="morceau-chips"><span class="chip chip-audio"><span data-lucide="headphones"></span>Audio</span><span class="chip chip-video"><span data-lucide="video"></span>Vidéo</span><span class="chip chip-pdf"><span data-lucide="file-text"></span>PDF</span></div>
           </div>
         </a>
 
-        <a class="morceau-card" href="easy-lover.html" data-added="2026-03-15">
-          <span class="num">N° 02</span>
-          <div class="morceau-thumb" style="background:linear-gradient(135deg,#DDE9DF 0%,#B8D4BF 100%);">
-            <div class="morceau-thumb-play"></div>
-            <div class="morceau-thumb-title">Easy Lover</div>
+        <a class="morceau-card glass" href="easy-lover.html" data-added="2026-03-15">
+          <span class="morceau-num">02</span>
+          <div class="morceau-thumb" style="background:linear-gradient(135deg,#C6E8D6,#9CD8BC);">
+            <div class="morceau-play"><span data-lucide="play"></span></div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">Phil Collins / Philip Bailey</div>
             <div class="morceau-name">Easy Lover</div>
-            <div class="morceau-musical">
-              <span title="Tempo">128 BPM</span>
-              <span title="Tonalité">D♭ majeur</span>
-            </div>
-            <div class="morceau-chips">
-              <span class="chip chip-audio">Audio</span>
-              <span class="chip chip-video">Vidéo</span>
-              <span class="chip chip-tuto">Tuto</span>
-            </div>
+            <div class="morceau-musical"><span><span data-lucide="gauge"></span>128 BPM</span><span><span data-lucide="music"></span>D♭ majeur</span></div>
+            <div class="morceau-chips"><span class="chip chip-audio"><span data-lucide="headphones"></span>Audio</span><span class="chip chip-video"><span data-lucide="video"></span>Vidéo</span><span class="chip chip-tuto"><span data-lucide="graduation-cap"></span>Tuto</span></div>
           </div>
         </a>
 
-        <a class="morceau-card" href="still-a-friend.html" data-added="2026-03-15">
-          <span class="num">N° 03</span>
-          <div class="morceau-thumb" style="background:linear-gradient(135deg,#E5E0F0 0%,#B8B0D4 100%);">
-            <div class="morceau-thumb-play"></div>
-            <div class="morceau-thumb-title">Still a Friend<br>of Mine</div>
+        <a class="morceau-card glass" href="still-a-friend.html" data-added="2026-03-15">
+          <span class="morceau-num">03</span>
+          <div class="morceau-thumb" style="background:linear-gradient(135deg,#D6D2F5,#B3ABEC);">
+            <div class="morceau-play"><span data-lucide="play"></span></div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">Incognito</div>
             <div class="morceau-name">Still a Friend of Mine</div>
-            <div class="morceau-musical">
-              <span title="Tempo">87 BPM</span>
-              <span title="Tonalité">A majeur</span>
-            </div>
-            <div class="morceau-chips">
-              <span class="chip chip-audio">Audio</span>
-              <span class="chip chip-video">Vidéo</span>
-              <span class="chip chip-pdf">PDF</span>
-              <span class="chip chip-tuto">Tuto</span>
-            </div>
+            <div class="morceau-musical"><span><span data-lucide="gauge"></span>87 BPM</span><span><span data-lucide="music"></span>A majeur</span></div>
+            <div class="morceau-chips"><span class="chip chip-audio"><span data-lucide="headphones"></span>Audio</span><span class="chip chip-video"><span data-lucide="video"></span>Vidéo</span><span class="chip chip-pdf"><span data-lucide="file-text"></span>PDF</span><span class="chip chip-tuto"><span data-lucide="graduation-cap"></span>Tuto</span></div>
           </div>
         </a>
 
-        <a class="morceau-card" href="medley-jt.html" data-added="2026-03-20">
-          <span class="num">N° 04</span>
-          <div class="morceau-thumb" style="background:linear-gradient(135deg,#F5DCC8 0%,#D9B084 100%);">
-            <div class="morceau-thumb-play"></div>
-            <div class="morceau-thumb-title">Medley<br>J. Timberlake</div>
+        <a class="morceau-card glass" href="medley-jt.html" data-added="2026-03-20">
+          <span class="morceau-num">04</span>
+          <div class="morceau-thumb" style="background:linear-gradient(135deg,#F3DCC2,#E3BD92);">
+            <div class="morceau-play"><span data-lucide="play"></span></div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">Justin Timberlake</div>
-            <div class="morceau-name">Medley Justin Timberlake</div>
-            <div class="morceau-musical">
-              <span title="Tempo">~ 105 BPM</span>
-              <span title="Tonalité">E mineur</span>
-            </div>
-            <div class="morceau-chips">
-              <span class="chip chip-audio">Audio</span>
-              <span class="chip chip-video">Vidéo</span>
-              <span class="chip chip-pdf">PDF</span>
-            </div>
+            <div class="morceau-name">Medley J. Timberlake</div>
+            <div class="morceau-musical"><span><span data-lucide="gauge"></span>~ 105 BPM</span><span><span data-lucide="music"></span>E mineur</span></div>
+            <div class="morceau-chips"><span class="chip chip-audio"><span data-lucide="headphones"></span>Audio</span><span class="chip chip-video"><span data-lucide="video"></span>Vidéo</span><span class="chip chip-pdf"><span data-lucide="file-text"></span>PDF</span></div>
           </div>
         </a>
 
-        <a class="morceau-card" href="medley-chaka.html" data-added="2026-04-20">
-          <span class="num">N° 05</span>
-          <div class="morceau-thumb" style="background:linear-gradient(135deg,#F0DDE8 0%,#D8A8C2 100%);">
-            <div class="morceau-thumb-play" style="opacity:.45;"></div>
-            <div class="morceau-thumb-title">Medley<br>Chaka Khan</div>
+        <a class="morceau-card glass" href="medley-chaka.html" data-added="2026-04-20">
+          <span class="morceau-num">05</span>
+          <div class="morceau-thumb" style="background:linear-gradient(135deg,#F3D6E8,#E3A8CC);">
+            <div class="morceau-play"><span data-lucide="play"></span></div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">Chaka Khan</div>
             <div class="morceau-name">Medley Chaka Khan</div>
-            <div class="morceau-musical">
-              <span title="Tempo">~ 120 BPM</span>
-              <span title="Tonalité">G mineur</span>
-            </div>
-            <div class="morceau-chips">
-              <span class="chip chip-video">Vidéo</span>
-              <span class="chip chip-pdf">PDF</span>
-            </div>
+            <div class="morceau-musical"><span><span data-lucide="gauge"></span>~ 120 BPM</span><span><span data-lucide="music"></span>G mineur</span></div>
+            <div class="morceau-chips"><span class="chip chip-video"><span data-lucide="video"></span>Vidéo</span><span class="chip chip-pdf"><span data-lucide="file-text"></span>PDF</span></div>
           </div>
         </a>
 
-        <a class="morceau-card" href="this-place-hotel.html" data-added="2026-05-04">
-          <span class="num">N° 06</span>
-          <div class="morceau-thumb" style="background:linear-gradient(135deg,#D8E5F0 0%,#A8C0D8 100%);">
-            <div class="morceau-thumb-play"></div>
-            <div class="morceau-thumb-title">This Place<br>Hotel</div>
+        <a class="morceau-card glass" href="this-place-hotel.html" data-added="2026-05-04">
+          <span class="morceau-num">06</span>
+          <div class="morceau-thumb" style="background:linear-gradient(135deg,#C8DEF3,#9CC0E3);">
+            <div class="morceau-play"><span data-lucide="play"></span></div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">The Jacksons</div>
             <div class="morceau-name">This Place Hotel</div>
-            <div class="morceau-musical">
-              <span title="Tempo">120 BPM</span>
-              <span title="Tonalité">G mineur</span>
-            </div>
-            <div class="morceau-chips">
-              <span class="chip chip-audio">Audio</span>
-              <span class="chip chip-video">Vidéo</span>
-              <span class="chip chip-tuto">Tuto</span>
-            </div>
+            <div class="morceau-musical"><span><span data-lucide="gauge"></span>120 BPM</span><span><span data-lucide="music"></span>G mineur</span></div>
+            <div class="morceau-chips"><span class="chip chip-audio"><span data-lucide="headphones"></span>Audio</span><span class="chip chip-video"><span data-lucide="video"></span>Vidéo</span><span class="chip chip-tuto"><span data-lucide="graduation-cap"></span>Tuto</span></div>
           </div>
         </a>
 
-        <a class="morceau-card" href="say-say-say.html" data-added="2026-05-21">
-          <span class="num">N° 07</span>
-          <div class="morceau-thumb" style="background:linear-gradient(135deg,#F0D8E5 0%,#D8A8C0 100%);">
-            <div class="morceau-thumb-play"></div>
-            <div class="morceau-thumb-title">Say Say<br>Say</div>
+        <a class="morceau-card glass" href="say-say-say.html" data-added="2026-05-21">
+          <span class="morceau-num">07</span>
+          <div class="morceau-thumb" style="background:linear-gradient(135deg,#F3D2E5,#DBA2C8);">
+            <div class="morceau-play"><span data-lucide="play"></span></div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist">Paul McCartney &amp; Michael Jackson</div>
             <div class="morceau-name">Say Say Say</div>
-            <div class="morceau-musical">
-              <span title="Tempo">118 BPM</span>
-              <span title="Tonalité">Si♭ mineur</span>
-            </div>
-            <div class="morceau-chips">
-              <span class="chip chip-audio">Audio</span>
-              <span class="chip chip-video">Vidéo</span>
-            </div>
+            <div class="morceau-musical"><span><span data-lucide="gauge"></span>118 BPM</span><span><span data-lucide="music"></span>Si♭ mineur</span></div>
+            <div class="morceau-chips"><span class="chip chip-audio"><span data-lucide="headphones"></span>Audio</span><span class="chip chip-video"><span data-lucide="video"></span>Vidéo</span></div>
           </div>
         </a>
 
-        <a class="morceau-card" href="heyoka-chelles.html" data-added="2026-05-21">
-          <span class="num">N° 08</span>
-          <div class="morceau-thumb" style="background:linear-gradient(135deg,#E8DCF5 0%,#B89AD8 100%);">
-            <div class="morceau-thumb-play"></div>
-            <div class="morceau-thumb-title">Heyoka<br>Chelles</div>
+        <a class="morceau-card glass" href="heyoka-chelles.html" data-added="2026-05-21">
+          <span class="morceau-num">08</span>
+          <div class="morceau-thumb" style="background:linear-gradient(135deg,#E2D2F5,#BFA2E3);">
+            <div class="morceau-play"><span data-lucide="play"></span></div>
           </div>
           <div class="morceau-info">
             <div class="morceau-artist"><span data-fr="Composition Frank Gervais" data-es="Composición Frank Gervais">Composition Frank Gervais</span></div>
             <div class="morceau-name">Heyoka Chelles</div>
-            <div class="morceau-musical">
-              <span data-fr="Création L'Atelier" data-es="Creación L'Atelier">Création L'Atelier</span>
-            </div>
-            <div class="morceau-chips">
-              <span class="chip chip-audio">Audio</span>
-            </div>
+            <div class="morceau-musical"><span><span data-lucide="star"></span><span data-fr="Création les Phénix" data-es="Creación les Phénix">Création les Phénix</span></span></div>
+            <div class="morceau-chips"><span class="chip chip-audio"><span data-lucide="headphones"></span>Audio</span></div>
           </div>
         </a>
 
@@ -1002,8 +602,8 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
     <section id="planning" class="section">
       <div class="section-head">
         <div>
-          <div class="section-eyebrow"><span class="num">02</span> <span data-fr="Répétitions &amp; concerts" data-es="Ensayos &amp; conciertos">Répétitions &amp; concerts</span></div>
-          <h1 class="section-title"><span data-fr="Planning" data-es="Agenda">Planning</span><span class="pt">.</span></h1>
+          <div class="section-eyebrow eyebrow"><span data-lucide="calendar-days"></span><span data-fr="Répétitions &amp; concerts" data-es="Ensayos &amp; conciertos">Répétitions &amp; concerts</span></div>
+          <h1 class="section-title"><span data-fr="Planning" data-es="Agenda">Planning</span></h1>
         </div>
         <div class="section-meta">
           <div data-fr="Saison" data-es="Temporada">Saison</div>
@@ -1013,211 +613,139 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
 
       <div class="planning-list">
 
-        
-
-        <div class="event-row concert" data-date="2026-06-26">
-          <div class="event-date-block">
-            <div class="event-day">26</div>
-            <div class="event-month">Juin 2026</div>
-            <div class="event-time" data-fr="heure à déterminer" data-es="hora por determinar">heure à déterminer</div>
-          </div>
-          <div class="event-body">
-            <div class="event-name"><span data-fr="Concert" data-es="Concierto">Concert</span></div>
-            <div class="event-lieu" data-fr="Extérieur · Ville de Chelles" data-es="Exterior · Ciudad de Chelles">Extérieur · Ville de Chelles</div>
-          </div>
-          <span class="event-badge concert">Concert</span>
-          <div class="event-extra">
-            <div class="event-extra-lbl" data-fr="Balances" data-es="Pruebas de sonido">Balances</div>
-            <div style="font-size:11px;color:var(--muted);line-height:1.7;margin-top:.2rem;">
-              <span data-fr="Balances prévues entre 18h00 et 18h30 sur place" data-es="Pruebas de sonido previstas entre 18h00 y 18h30 in situ">Balances prévues entre 18h00 et 18h30 sur place</span>
+        <!-- Concert 26 juin -->
+        <div class="event-row concert glass" data-date="2026-06-26">
+          <div class="event-grid">
+            <div class="event-icon"><span data-lucide="sparkles"></span></div>
+            <div>
+              <div class="event-date-line"><span class="event-day">26</span><span class="event-month">Juin 2026</span></div>
+              <div class="event-name"><span data-fr="Concert" data-es="Concierto">Concert</span></div>
+              <div class="event-lieu"><span data-lucide="map-pin"></span><span data-fr="Extérieur · Ville de Chelles" data-es="Exterior · Ciudad de Chelles">Extérieur · Ville de Chelles</span></div>
             </div>
-            <div class="event-cta-row" style="margin-top:.7rem;">
-              <button class="event-cta primary" onclick="downloadConcertICS()"><span data-fr="Ajouter au calendrier" data-es="Añadir al calendario">Ajouter au calendrier</span> ↓</button>
+            <span class="event-badge concert"><span data-lucide="star"></span>Concert</span>
+          </div>
+          <div class="event-extra">
+            <div class="event-extra-lbl"><span data-lucide="volume-2"></span><span data-fr="Balances" data-es="Pruebas de sonido">Balances</span></div>
+            <div style="font-size:12.5px;color:var(--muted);line-height:1.6;"><span data-fr="Balances prévues entre 18h00 et 18h30 sur place · horaire du concert à confirmer." data-es="Pruebas de sonido previstas entre 18h00 y 18h30 in situ · hora del concierto por confirmar.">Balances prévues entre 18h00 et 18h30 sur place · horaire du concert à confirmer.</span></div>
+            <div class="event-cta-row">
+              <a href="setlist-26-juin.html" class="event-cta primary"><span data-lucide="list-music"></span><span data-fr="Voir la setlist" data-es="Ver setlist">Voir la setlist</span></a>
+              <button class="event-cta" onclick="downloadConcertICS()"><span data-lucide="calendar-plus"></span><span data-fr="Ajouter au calendrier" data-es="Añadir al calendario">Ajouter au calendrier</span></button>
             </div>
           </div>
         </div>
 
-        <div class="event-row repetition" data-date="2026-06-18">
-          <div class="event-date-block">
-            <div class="event-day">18</div>
-            <div class="event-month">Juin 2026</div>
-            <div class="event-time">19h30</div>
+        <!-- Répétition 18 juin (5 audios) -->
+        <div class="event-row repetition glass" data-date="2026-06-18">
+          <div class="event-grid">
+            <div class="event-icon"><span data-lucide="mic-vocal"></span></div>
+            <div>
+              <div class="event-date-line"><span class="event-day">18</span><span class="event-month">Juin 2026</span></div>
+              <div class="event-name"><span data-fr="Répétition complète" data-es="Ensayo completo">Répétition complète</span></div>
+              <div class="event-lieu"><span data-lucide="map-pin"></span>Salle A2 · Conservatoire de Chelles · 19h30</div>
+            </div>
+            <span class="event-badge nouveau"><span data-lucide="sparkle"></span><span data-fr="Nouveau" data-es="Nuevo">Nouveau</span></span>
           </div>
-          <div class="event-body">
-            <div class="event-name"><span data-fr="Répétition complète" data-es="Ensayo completo">Répétition complète</span></div>
-            <div class="event-lieu">Salle A2 · Conservatoire de Chelles · Jacques Higelin</div>
-          </div>
-          <span class="event-badge repetition"><span data-fr="Audio dispo" data-es="Audio disponible">Audio dispo</span></span>
           <div class="event-extra">
-            <div class="event-extra-lbl" data-fr="5 morceaux · 5 enregistrements" data-es="5 canciones · 5 grabaciones">5 morceaux · 5 enregistrements</div>
+            <div class="event-extra-lbl"><span data-lucide="audio-lines"></span><span data-fr="5 morceaux · 5 enregistrements" data-es="5 canciones · 5 grabaciones">5 morceaux · 5 enregistrements</span></div>
 
-            <div style="font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-top:.8rem;margin-bottom:.3rem;">Worth It <span style="font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:0;color:var(--muted);">· 110 bpm</span></div>
-            <audio controls preload="none">
-              <source src="https://www.dropbox.com/scl/fi/kgqlfxitqafqt4rs1tdkb/Worth-It-110-bpm-18-juin.mp3?rlkey=k34pmhv7mcdtjmrumb8wbyzha&raw=1" type="audio/mpeg">
-              <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
-            </audio>
-
-            <div style="font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-top:.8rem;margin-bottom:.3rem;">Say Say Say <span style="font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:0;color:var(--muted);">· 120 bpm</span></div>
-            <audio controls preload="none">
-              <source src="https://www.dropbox.com/scl/fi/ybhp24lb6u5te00e3ae58/Say-Say-Say-120-bpm-18-juin.mp3?rlkey=uxeb8cl62ws8x2onx5sm3mf7e&raw=1" type="audio/mpeg">
-              <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
-            </audio>
-
-            <div style="font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-top:.8rem;margin-bottom:.3rem;">Easy Lover <span style="font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:0;color:var(--muted);">· 132 bpm</span></div>
-            <audio controls preload="none">
-              <source src="https://www.dropbox.com/scl/fi/on2vm7a6iaaalrvosa5qa/Easy-Lover-132-bpm-18-juin.mp3?rlkey=8ybky4qrmaon5y16q422avhlz&raw=1" type="audio/mpeg">
-              <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
-            </audio>
-
-            <div style="font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-top:.8rem;margin-bottom:.3rem;">Still a Friend of Mine <span style="font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:0;color:var(--muted);">· 88 bpm</span></div>
-            <audio controls preload="none">
-              <source src="https://www.dropbox.com/scl/fi/dbyehrjmsz0b645qy4ghg/Still-a-friend-of-mine-88-bpm-18-juin.mp3?rlkey=s9elh784swgutdc27pnfvhomu&raw=1" type="audio/mpeg">
-              <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
-            </audio>
-
-            <div style="font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-top:.8rem;margin-bottom:.3rem;">Medley Justin Timberlake <span style="font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:0;color:var(--muted);">· 110 bpm</span></div>
-            <audio controls preload="none">
-              <source src="https://www.dropbox.com/scl/fi/raikdj0ut50re6kg4qt3m/Medley-Justin-18-juin.mp3?rlkey=hkagkfgvolsd8xuxitc1vm66l&raw=1" type="audio/mpeg">
-              <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
-            </audio>
+            <div class="audio-track">
+              <div class="t-name">Worth It <span class="bpm">· 110 bpm</span><span class="audio-source"></span></div>
+              <audio controls preload="none"><source src="https://www.dropbox.com/scl/fi/kgqlfxitqafqt4rs1tdkb/Worth-It-110-bpm-18-juin.mp3?rlkey=k34pmhv7mcdtjmrumb8wbyzha&raw=1" type="audio/mpeg"></audio>
+            </div>
+            <div class="audio-track">
+              <div class="t-name">Say Say Say <span class="bpm">· 120 bpm</span><span class="audio-source"></span></div>
+              <audio controls preload="none"><source src="https://www.dropbox.com/scl/fi/ybhp24lb6u5te00e3ae58/Say-Say-Say-120-bpm-18-juin.mp3?rlkey=uxeb8cl62ws8x2onx5sm3mf7e&raw=1" type="audio/mpeg"></audio>
+            </div>
+            <div class="audio-track">
+              <div class="t-name">Easy Lover <span class="bpm">· 132 bpm</span><span class="audio-source"></span></div>
+              <audio controls preload="none"><source src="https://www.dropbox.com/scl/fi/on2vm7a6iaaalrvosa5qa/Easy-Lover-132-bpm-18-juin.mp3?rlkey=8ybky4qrmaon5y16q422avhlz&raw=1" type="audio/mpeg"></audio>
+            </div>
+            <div class="audio-track">
+              <div class="t-name">Still a Friend of Mine <span class="bpm">· 88 bpm</span><span class="audio-source"></span></div>
+              <audio controls preload="none"><source src="https://www.dropbox.com/scl/fi/dbyehrjmsz0b645qy4ghg/Still-a-friend-of-mine-88-bpm-18-juin.mp3?rlkey=s9elh784swgutdc27pnfvhomu&raw=1" type="audio/mpeg"></audio>
+            </div>
+            <div class="audio-track">
+              <div class="t-name">Medley Justin Timberlake <span class="bpm">· 110 bpm</span><span class="audio-source"></span></div>
+              <audio controls preload="none"><source src="https://www.dropbox.com/scl/fi/raikdj0ut50re6kg4qt3m/Medley-Justin-18-juin.mp3?rlkey=hkagkfgvolsd8xuxitc1vm66l&raw=1" type="audio/mpeg"></audio>
+            </div>
           </div>
         </div>
 
-        <div class="event-row repetition" style="cursor:default;">
-          <div class="event-date-block">
-            <div class="event-day serif" style="font-size:2rem;line-height:1;">&#8595;</div>
-            <div class="event-month" data-fr="Archives" data-es="Archivos">Archives</div>
+        <!-- Archives -->
+        <div class="event-row repetition glass">
+          <div class="event-grid">
+            <div class="event-icon"><span data-lucide="archive"></span></div>
+            <div>
+              <div class="event-date-line"><span class="event-month" data-fr="Archives" data-es="Archivos">Archives</span></div>
+              <div class="event-name" data-fr="Téléchargements — historique" data-es="Descargas — historial">Téléchargements — historique</div>
+              <div class="event-lieu" data-fr="Anciennes répétitions" data-es="Ensayos anteriores">Anciennes répétitions</div>
+            </div>
+            <span class="event-badge archive"><span data-lucide="archive"></span>Archive</span>
           </div>
-          <div class="event-body">
-            <div class="event-name" data-fr="Téléchargements — historique" data-es="Descargas — historial">Téléchargements — historique</div>
-            <div class="event-lieu" data-fr="Anciennes répétitions, sans lecteur intégré" data-es="Ensayos anteriores, sin reproductor integrado">Anciennes répétitions, sans lecteur intégré</div>
-          </div>
-          <span class="event-badge repetition" style="background:transparent;color:var(--muted);border-color:var(--line);" data-fr="Archive" data-es="Archivo">Archive</span>
-          <div class="event-extra">
+          <details class="archive-acc">
+            <summary><span data-lucide="folder-down"></span><span data-fr="Ouvrir les téléchargements" data-es="Abrir las descargas">Ouvrir les téléchargements</span><span data-lucide="chevron-down" class="chev" style="margin-left:auto;"></span></summary>
 
-            <div class="event-extra-lbl" data-fr="Atelier du 11 juin" data-es="Ensayo del 11 de junio">Atelier du 11 juin</div>
-            <div class="dl-archive-list" style="display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem;">
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Worth It</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/nbc82zrdsmox1zcnpslpb/atelier-funk-11-06-2026-whort-it.mp3?rlkey=3xtw48kxkgtfp6wjg6iyhuhsk&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Still a Friend of Mine</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/deg5oqzsh8qe533zoddos/atelier-funk-11-06-2026-still.mp3?rlkey=iyrylkbbha95stxkry7bzsgqk&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Easy Lover</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/it46l71klnvyondjwm64w/atelier-funk-11-06-2026-easy-lover.mp3?rlkey=vebta1bhpgjzybftamdsl4wnk&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Medley Justin Timberlake</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/8sjvll0gegwp1c2ldkfck/atelier-funk-11-06-2026-Justin.mp3?rlkey=sbrp51b0pgxiehuae6jnm07u9&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Say Say Say</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/v5ihmqqvuq7lhlhmqe0y7/atelier-funk-11-06-2026-say-say-say.mp3?rlkey=op8v8cgcxd6fzagzjj0qirmc9&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Heyoka Chelles · version complète</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/3jig5lv3sxvokfu4njstx/HEYOKA-CHELLES-11-6.m4a?rlkey=r0yzghet5z6sieor3qsfwu60u&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
+            <div class="archive-day-lbl" data-fr="Atelier du 11 juin" data-es="Ensayo del 11 de junio">Atelier du 11 juin</div>
+            <div class="archive-day">
+              <div class="dl-item"><span class="nm">Worth It</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/nbc82zrdsmox1zcnpslpb/atelier-funk-11-06-2026-whort-it.mp3?rlkey=3xtw48kxkgtfp6wjg6iyhuhsk&dl=1"><span data-lucide="download"></span></a></div>
+              <div class="dl-item"><span class="nm">Still a Friend of Mine</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/deg5oqzsh8qe533zoddos/atelier-funk-11-06-2026-still.mp3?rlkey=iyrylkbbha95stxkry7bzsgqk&dl=1"><span data-lucide="download"></span></a></div>
+              <div class="dl-item"><span class="nm">Easy Lover</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/it46l71klnvyondjwm64w/atelier-funk-11-06-2026-easy-lover.mp3?rlkey=vebta1bhpgjzybftamdsl4wnk&dl=1"><span data-lucide="download"></span></a></div>
+              <div class="dl-item"><span class="nm">Medley Justin Timberlake</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/8sjvll0gegwp1c2ldkfck/atelier-funk-11-06-2026-Justin.mp3?rlkey=sbrp51b0pgxiehuae6jnm07u9&dl=1"><span data-lucide="download"></span></a></div>
+              <div class="dl-item"><span class="nm">Say Say Say</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/v5ihmqqvuq7lhlhmqe0y7/atelier-funk-11-06-2026-say-say-say.mp3?rlkey=op8v8cgcxd6fzagzjj0qirmc9&dl=1"><span data-lucide="download"></span></a></div>
+              <div class="dl-item"><span class="nm">Heyoka Chelles · version complète</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/3jig5lv3sxvokfu4njstx/HEYOKA-CHELLES-11-6.m4a?rlkey=r0yzghet5z6sieor3qsfwu60u&dl=1"><span data-lucide="download"></span></a></div>
             </div>
 
-            <div class="event-extra-lbl" data-fr="Atelier du 4 juin" data-es="Ensayo del 4 de junio">Atelier du 4 juin</div>
-            <div class="dl-archive-list" style="display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem;">
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Worth It</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/21a14gt9k8wqayzmq63vw/Worth-It-04-06-2026.mp3?rlkey=p48shky7fxdds0doz22s6oyg4&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Still a Friend of Mine</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/xebhpijd5xyzh1stidbz2/Still-a-Friend-of-Mine-04-06-2026.mp3?rlkey=x5rig3d8vl6dz64vrsuxb510c&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Easy Lover</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/ettb1j30iqxdmtfxakc2x/Easy-Lover-04-06-2026.mp3?rlkey=r3f0gh45amneeck3ij9x5hn7i&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Medley Justin Timberlake</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/imb3bir7oohyrvdp4dmox/Medley-Justin-Timberlake-04-06-2026.mp3?rlkey=31trdpz4p05a5b0ov8osa5w9u&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Say Say Say</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/lvfqdrytoffwgnpw4ria7/Say-Say-Say-04-06-2026.mp3?rlkey=2ttogvqhyq61cptrb0rx8mour&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Heyoka Chelles · version complète</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/hsmqvryynifvgpq3eie8h/HEYOKA-CHELLES-4-6.m4a?rlkey=ae8y4qbj90vzlbkk0iujo5f5b&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Heyoka Chelles · voix uniquement</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/8cwzr2cne6w0l28efirro/HEYOKA-CHELLES-4-6-Voix-uniquement..m4a?rlkey=qclrf8howbz7t9g1kep6ta8nc&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
+            <div class="archive-day-lbl" data-fr="Atelier du 4 juin" data-es="Ensayo del 4 de junio">Atelier du 4 juin</div>
+            <div class="archive-day">
+              <div class="dl-item"><span class="nm">Worth It</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/21a14gt9k8wqayzmq63vw/Worth-It-04-06-2026.mp3?rlkey=p48shky7fxdds0doz22s6oyg4&dl=1"><span data-lucide="download"></span></a></div>
+              <div class="dl-item"><span class="nm">Still a Friend of Mine</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/xebhpijd5xyzh1stidbz2/Still-a-Friend-of-Mine-04-06-2026.mp3?rlkey=x5rig3d8vl6dz64vrsuxb510c&dl=1"><span data-lucide="download"></span></a></div>
+              <div class="dl-item"><span class="nm">Easy Lover</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/ettb1j30iqxdmtfxakc2x/Easy-Lover-04-06-2026.mp3?rlkey=r3f0gh45amneeck3ij9x5hn7i&dl=1"><span data-lucide="download"></span></a></div>
+              <div class="dl-item"><span class="nm">Medley Justin Timberlake</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/imb3bir7oohyrvdp4dmox/Medley-Justin-Timberlake-04-06-2026.mp3?rlkey=31trdpz4p05a5b0ov8osa5w9u&dl=1"><span data-lucide="download"></span></a></div>
+              <div class="dl-item"><span class="nm">Say Say Say</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/lvfqdrytoffwgnpw4ria7/Say-Say-Say-04-06-2026.mp3?rlkey=2ttogvqhyq61cptrb0rx8mour&dl=1"><span data-lucide="download"></span></a></div>
+              <div class="dl-item"><span class="nm">Heyoka Chelles · version complète</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/hsmqvryynifvgpq3eie8h/HEYOKA-CHELLES-4-6.m4a?rlkey=ae8y4qbj90vzlbkk0iujo5f5b&dl=1"><span data-lucide="download"></span></a></div>
+              <div class="dl-item"><span class="nm">Heyoka Chelles · voix uniquement</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/8cwzr2cne6w0l28efirro/HEYOKA-CHELLES-4-6-Voix-uniquement..m4a?rlkey=qclrf8howbz7t9g1kep6ta8nc&dl=1"><span data-lucide="download"></span></a></div>
             </div>
 
-            <div class="event-extra-lbl" data-fr="Atelier du 28 mai" data-es="Ensayo del 28 de mayo">Atelier du 28 mai</div>
-            <div class="dl-archive-list" style="display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem;">
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Worth It</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/iq9sv8ghs0pibso4uunjo/Worth-it-atelier-du-28-mai.m4a?rlkey=3t65n6l36q3ciql5mvsx8ebo0&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Still a Friend of Mine</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/auysxpjf05cb8li6x9cd3/Still-a-friend-of-mine-atelier-du-jeudi-28-mai.m4a?rlkey=4p7fifovmohbxpw3ljll1w41g&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);">Easy Lover</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/9wou9mtd8ex225l5lrys1/Easy-Lover-Still-atelier-du-jeudi-28-mai.m4a?rlkey=2bg6om2m5j6ia0y0i7lekyjj0&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
+            <div class="archive-day-lbl" data-fr="Atelier du 28 mai" data-es="Ensayo del 28 de mayo">Atelier du 28 mai</div>
+            <div class="archive-day">
+              <div class="dl-item"><span class="nm">Worth It</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/iq9sv8ghs0pibso4uunjo/Worth-it-atelier-du-28-mai.m4a?rlkey=3t65n6l36q3ciql5mvsx8ebo0&dl=1"><span data-lucide="download"></span></a></div>
+              <div class="dl-item"><span class="nm">Still a Friend of Mine</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/auysxpjf05cb8li6x9cd3/Still-a-friend-of-mine-atelier-du-jeudi-28-mai.m4a?rlkey=4p7fifovmohbxpw3ljll1w41g&dl=1"><span data-lucide="download"></span></a></div>
+              <div class="dl-item"><span class="nm">Easy Lover</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/9wou9mtd8ex225l5lrys1/Easy-Lover-Still-atelier-du-jeudi-28-mai.m4a?rlkey=2bg6om2m5j6ia0y0i7lekyjj0&dl=1"><span data-lucide="download"></span></a></div>
             </div>
 
-            <div class="event-extra-lbl" data-fr="Atelier du 21 mai" data-es="Ensayo del 21 de mayo">Atelier du 21 mai</div>
-            <div class="dl-archive-list" style="display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem;">
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);" data-fr="Heyoka Chelles · Composition Frank Gervais" data-es="Heyoka Chelles · Composición Frank Gervais">Heyoka Chelles · Composition Frank Gervais</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/r79x28fr9x0uvfkjbhe2l/HEYOKA-CHELLES.m4a?rlkey=fd8yhtlo0luenw15vzrgd4y2j&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
+            <div class="archive-day-lbl" data-fr="Atelier du 21 mai" data-es="Ensayo del 21 de mayo">Atelier du 21 mai</div>
+            <div class="archive-day">
+              <div class="dl-item"><span class="nm" data-fr="Heyoka Chelles · Composition Frank Gervais" data-es="Heyoka Chelles · Composición Frank Gervais">Heyoka Chelles · Composition Frank Gervais</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/r79x28fr9x0uvfkjbhe2l/HEYOKA-CHELLES.m4a?rlkey=fd8yhtlo0luenw15vzrgd4y2j&dl=1"><span data-lucide="download"></span></a></div>
             </div>
 
-            <div class="event-extra-lbl" data-fr="Atelier du 16 mai" data-es="Ensayo del 16 de mayo">Atelier du 16 mai</div>
-            <div class="dl-archive-list" style="display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem;">
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);" data-fr="Enregistrement de la répétition" data-es="Grabación del ensayo">Enregistrement de la répétition</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/5aeadfn8dik6vw6ko8245/R-p-tion-16-mai.m4a?rlkey=qk60bw35tkqb19hrdflnt9v26&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
+            <div class="archive-day-lbl" data-fr="Atelier du 16 mai" data-es="Ensayo del 16 de mayo">Atelier du 16 mai</div>
+            <div class="archive-day">
+              <div class="dl-item"><span class="nm" data-fr="Enregistrement de la répétition" data-es="Grabación del ensayo">Enregistrement de la répétition</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/5aeadfn8dik6vw6ko8245/R-p-tion-16-mai.m4a?rlkey=qk60bw35tkqb19hrdflnt9v26&dl=1"><span data-lucide="download"></span></a></div>
             </div>
 
-            <div class="event-extra-lbl" data-fr="Atelier du 7 mai" data-es="Ensayo del 7 de mayo">Atelier du 7 mai</div>
-            <div class="dl-archive-list" style="display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem;">
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);" data-fr="Enregistrement de la répétition" data-es="Grabación del ensayo">Enregistrement de la répétition</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/4suc3l7idy76hf0tp2pbn/Conservatoire-Jacques-Higelin-repetition-complete-7-mai.m4a?rlkey=5q2ea6f03xq27we7hq65lwd17&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
+            <div class="archive-day-lbl" data-fr="Atelier du 7 mai" data-es="Ensayo del 7 de mayo">Atelier du 7 mai</div>
+            <div class="archive-day">
+              <div class="dl-item"><span class="nm" data-fr="Enregistrement de la répétition" data-es="Grabación del ensayo">Enregistrement de la répétition</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/4suc3l7idy76hf0tp2pbn/Conservatoire-Jacques-Higelin-repetition-complete-7-mai.m4a?rlkey=5q2ea6f03xq27we7hq65lwd17&dl=1"><span data-lucide="download"></span></a></div>
             </div>
 
-            <div class="event-extra-lbl" data-fr="Atelier du 17 avril" data-es="Ensayo del 17 de abril">Atelier du 17 avril</div>
-            <div class="dl-archive-list" style="display:flex;flex-direction:column;gap:.4rem;">
-              <div class="dl-archive-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;background:var(--paper-3);border:1px solid var(--line);">
-                <span style="font-family:var(--mono);font-size:10px;color:var(--ink);" data-fr="Enregistrement de la répétition" data-es="Grabación del ensayo">Enregistrement de la répétition</span>
-                <a class="dl-link" style="margin-top:0;" href="https://www.dropbox.com/scl/fi/xgwtzm7gjhsq9bdu4d24l/Conservatoire-Jacques-Higelin-repetition-complete-17-avril.m4a?rlkey=8ru3kee21lnf6we4o02x6zr0r&dl=1"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-              </div>
+            <div class="archive-day-lbl" data-fr="Atelier du 17 avril" data-es="Ensayo del 17 de abril">Atelier du 17 avril</div>
+            <div class="archive-day">
+              <div class="dl-item"><span class="nm" data-fr="Enregistrement de la répétition" data-es="Grabación del ensayo">Enregistrement de la répétition</span><a class="dl-link" href="https://www.dropbox.com/scl/fi/xgwtzm7gjhsq9bdu4d24l/Conservatoire-Jacques-Higelin-repetition-complete-17-avril.m4a?rlkey=8ru3kee21lnf6we4o02x6zr0r&dl=1"><span data-lucide="download"></span></a></div>
             </div>
-
-          </div>
+          </details>
         </div>
 
-
-        <div class="event-row repetition">
-          <div class="event-date-block">
-            <div class="event-day serif" style="font-size:2rem;line-height:1;">Jeu.</div>
-            <div class="event-month" data-fr="Hebdomadaire" data-es="Semanal">Hebdomadaire</div>
-            <div class="event-time">19h30 — 21h00</div>
+        <!-- Récurrent -->
+        <div class="event-row repetition glass">
+          <div class="event-grid">
+            <div class="event-icon"><span data-lucide="repeat"></span></div>
+            <div>
+              <div class="event-date-line"><span class="event-day" style="font-size:1.4rem;">Jeu.</span><span class="event-month" data-fr="Hebdomadaire" data-es="Semanal">Hebdomadaire</span></div>
+              <div class="event-name" data-fr="Répétition" data-es="Ensayo">Répétition</div>
+              <div class="event-lieu"><span data-lucide="map-pin"></span>Salle A2 · Conservatoire de Chelles · 19h30 — 21h00</div>
+            </div>
+            <span class="event-badge repetition"><span data-lucide="repeat"></span><span data-fr="Récurrent" data-es="Recurrente">Récurrent</span></span>
           </div>
-          <div class="event-body">
-            <div class="event-name" data-fr="Répétition" data-es="Ensayo">Répétition</div>
-            <div class="event-lieu">Salle A2 · Conservatoire de Chelles</div>
-          </div>
-          <span class="event-badge repetition" data-fr="Récurrent" data-es="Recurrente">Récurrent</span>
         </div>
 
       </div>
@@ -1227,214 +755,153 @@ footer .legal-row .txt{font-family:var(--sans);font-size:12px;color:var(--muted)
     <section id="videos" class="section">
       <div class="section-head">
         <div>
-          <div class="section-eyebrow"><span class="num">03</span> <span data-fr="Lives &amp; références" data-es="Directos &amp; referencias">Lives &amp; références</span></div>
-          <h1 class="section-title"><span data-fr="Vidéos" data-es="Vídeos">Vidéos</span><span class="pt">.</span></h1>
+          <div class="section-eyebrow eyebrow"><span data-lucide="play-circle"></span><span data-fr="Lives &amp; références" data-es="Directos &amp; referencias">Lives &amp; références</span></div>
+          <h1 class="section-title"><span data-fr="Vidéos" data-es="Vídeos">Vidéos</span></h1>
         </div>
         <div class="section-meta">
           <div data-fr="3 lives · 7 réfs" data-es="3 directos · 7 refs">3 lives · 7 réfs</div>
-          <div><b data-fr="Dropbox + Drive + YouTube" data-es="Dropbox + Drive + YouTube">Dropbox + Drive + YouTube</b></div>
+          <div><b>Dropbox + YouTube</b></div>
         </div>
       </div>
 
       <div class="videos-sub">
-        <span data-fr="Lives — L'Atelier" data-es="Directos — L'Atelier">Lives — L'Atelier</span>
+        <span class="t"><span data-lucide="radio"></span><span data-fr="Lives — les Phénix" data-es="Directos — les Phénix">Lives — les Phénix</span></span>
         <span class="count">03</span>
       </div>
       <div class="videos-grid">
-        <div class="video-card">
+        <div class="video-card glass">
           <video class="video-native" controls preload="none" poster="poster-live-03.png">
             <source src="https://www.dropbox.com/scl/fi/2fzb0hm9fqompc1zo77b2/concert-du-20-mai.mov?rlkey=bnhtzartx8bsrlu2i71he0k33&raw=1" type="video/quicktime">
             <source src="https://www.dropbox.com/scl/fi/2fzb0hm9fqompc1zo77b2/concert-du-20-mai.mov?rlkey=bnhtzartx8bsrlu2i71he0k33&raw=1" type="video/mp4">
           </video>
-          <div class="video-info">
-            <div>
-              <div class="video-title">Live · L'Atelier #03</div>
-              <div class="video-subtitle">Worth It · Easy Lover · Still a Friend of Mine</div>
-            </div>
-            <span class="video-tag live" style="color:#E53935;background:#FFE8E8;border-color:#E53935;">Live</span>
-          </div>
-          <div class="video-actions">
-            <a href="https://www.dropbox.com/scl/fi/2fzb0hm9fqompc1zo77b2/concert-du-20-mai.mov?rlkey=bnhtzartx8bsrlu2i71he0k33&dl=1" class="video-dl"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-          </div>
+          <div class="video-info"><div><div class="video-title">Live · les Phénix #03</div><div class="video-subtitle">Worth It · Easy Lover · Still a Friend of Mine</div></div><span class="video-tag live"><span class="dot"></span>Live</span></div>
+          <div class="video-actions"><a href="https://www.dropbox.com/scl/fi/2fzb0hm9fqompc1zo77b2/concert-du-20-mai.mov?rlkey=bnhtzartx8bsrlu2i71he0k33&dl=1" class="video-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a></div>
         </div>
-        <div class="video-card">
+        <div class="video-card glass">
           <video class="video-native" controls preload="none" poster="poster-live-02.png">
             <source src="https://www.dropbox.com/scl/fi/cp63o33qednwlc4f6kdj6/9d213374-893f-4e80-946e-237d6b55f31d.MP4?rlkey=qqx6hnocmf759n980noacnvi8&raw=1" type="video/mp4">
           </video>
-          <div class="video-info">
-            <div>
-              <div class="video-title">Live · L'Atelier #02</div>
-              <div class="video-subtitle">Medley Chaka Khan</div>
-            </div>
-            <span class="video-tag live" style="color:#E53935;background:#FFE8E8;border-color:#E53935;">Live</span>
-          </div>
-          <div class="video-actions">
-            <a href="https://www.dropbox.com/scl/fi/cp63o33qednwlc4f6kdj6/9d213374-893f-4e80-946e-237d6b55f31d.MP4?rlkey=qqx6hnocmf759n980noacnvi8&dl=1" class="video-dl"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-          </div>
+          <div class="video-info"><div><div class="video-title">Live · les Phénix #02</div><div class="video-subtitle">Medley Chaka Khan</div></div><span class="video-tag live"><span class="dot"></span>Live</span></div>
+          <div class="video-actions"><a href="https://www.dropbox.com/scl/fi/cp63o33qednwlc4f6kdj6/9d213374-893f-4e80-946e-237d6b55f31d.MP4?rlkey=qqx6hnocmf759n980noacnvi8&dl=1" class="video-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a></div>
         </div>
-        <div class="video-card">
+        <div class="video-card glass">
           <video class="video-native" controls preload="none" poster="poster-live-01.png">
             <source src="https://www.dropbox.com/scl/fi/93mt8e36zv24agyisneqj/ae8c3b56-692e-4795-9318-697efeec674c.MP4?rlkey=0huavlqdd1256gark1xjq9s05&raw=1" type="video/mp4">
           </video>
-          <div class="video-info">
-            <div>
-              <div class="video-title">Live · L'Atelier #01</div>
-              <div class="video-subtitle">Say Say Say</div>
-            </div>
-            <span class="video-tag live" style="color:#E53935;background:#FFE8E8;border-color:#E53935;">Live</span>
-          </div>
-          <div class="video-actions">
-            <a href="https://www.dropbox.com/scl/fi/93mt8e36zv24agyisneqj/ae8c3b56-692e-4795-9318-697efeec674c.MP4?rlkey=0huavlqdd1256gark1xjq9s05&dl=1" class="video-dl"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-          </div>
+          <div class="video-info"><div><div class="video-title">Live · les Phénix #01</div><div class="video-subtitle">Say Say Say</div></div><span class="video-tag live"><span class="dot"></span>Live</span></div>
+          <div class="video-actions"><a href="https://www.dropbox.com/scl/fi/93mt8e36zv24agyisneqj/ae8c3b56-692e-4795-9318-697efeec674c.MP4?rlkey=0huavlqdd1256gark1xjq9s05&dl=1" class="video-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a></div>
         </div>
       </div>
 
       <div class="videos-sub">
-        <span data-fr="Références YouTube" data-es="Referencias YouTube">Références YouTube</span>
+        <span class="t"><span data-lucide="youtube"></span><span data-fr="Références YouTube" data-es="Referencias YouTube">Références YouTube</span></span>
         <span class="count">07</span>
       </div>
       <div class="videos-grid">
-        <div class="video-card">
+        <div class="video-card glass">
           <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/uoAzWUHCRpU?rel=0&modestbranding=1" title="Worth It" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          <div class="video-info"><div class="video-title">Worth It</div><span class="video-tag" style="color:var(--groove-h);background:var(--groove-soft);border-color:var(--groove);">Référence</span></div>
+          <div class="video-info"><div class="video-title">Worth It</div><span class="video-tag ref"><span data-lucide="bookmark"></span>Réf</span></div>
         </div>
-        <div class="video-card">
+        <div class="video-card glass">
           <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/H0o6kAixIqE?rel=0&modestbranding=1" title="Easy Lover" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          <div class="video-info"><div class="video-title">Easy Lover</div><span class="video-tag" style="color:var(--groove-h);background:var(--groove-soft);border-color:var(--groove);">Référence</span></div>
+          <div class="video-info"><div class="video-title">Easy Lover</div><span class="video-tag ref"><span data-lucide="bookmark"></span>Réf</span></div>
         </div>
-        <div class="video-card">
+        <div class="video-card glass">
           <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/-syIJvQAW8Q?rel=0&modestbranding=1" title="Still a Friend of Mine" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          <div class="video-info"><div class="video-title">Still a Friend of Mine</div><span class="video-tag" style="color:var(--groove-h);background:var(--groove-soft);border-color:var(--groove);">Référence</span></div>
+          <div class="video-info"><div class="video-title">Still a Friend of Mine</div><span class="video-tag ref"><span data-lucide="bookmark"></span>Réf</span></div>
         </div>
-        <div class="video-card">
+        <div class="video-card glass">
           <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/cMIJsoaxRjk?rel=0&modestbranding=1" title="Medley JT" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          <div class="video-info"><div class="video-title">Medley J. Timberlake</div><span class="video-tag" style="color:var(--groove-h);background:var(--groove-soft);border-color:var(--groove);">Référence</span></div>
+          <div class="video-info"><div class="video-title">Medley J. Timberlake</div><span class="video-tag ref"><span data-lucide="bookmark"></span>Réf</span></div>
         </div>
-        <div class="video-card">
+        <div class="video-card glass">
           <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/-wHW3zsRK04?rel=0&modestbranding=1" title="This Place Hotel" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          <div class="video-info"><div class="video-title">This Place Hotel</div><span class="video-tag" style="color:var(--groove-h);background:var(--groove-soft);border-color:var(--groove);">Référence</span></div>
+          <div class="video-info"><div class="video-title">This Place Hotel</div><span class="video-tag ref"><span data-lucide="bookmark"></span>Réf</span></div>
         </div>
-        <div class="video-card">
+        <div class="video-card glass">
           <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/RRhY8A-OAgc?rel=0&modestbranding=1" title="Medley Chaka Khan" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          <div class="video-info"><div class="video-title">Medley Chaka Khan</div><span class="video-tag" style="color:var(--groove-h);background:var(--groove-soft);border-color:var(--groove);">Référence</span></div>
+          <div class="video-info"><div class="video-title">Medley Chaka Khan</div><span class="video-tag ref"><span data-lucide="bookmark"></span>Réf</span></div>
         </div>
-        <div class="video-card">
+        <div class="video-card glass">
           <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/iSRbINhFqGE?rel=0&modestbranding=1" title="Say Say Say" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          <div class="video-info"><div class="video-title">Say Say Say</div><span class="video-tag" style="color:var(--groove-h);background:var(--groove-soft);border-color:var(--groove);">Référence</span></div>
+          <div class="video-info"><div class="video-title">Say Say Say</div><span class="video-tag ref"><span data-lucide="bookmark"></span>Réf</span></div>
         </div>
       </div>
     </section>
 
-  </main>
+  </div>
 
-  <!-- ═══ MODALE PDF ═══ -->
+  <!-- MODALE PDF -->
   <div class="pdf-overlay" id="pdf-overlay" onclick="closePDF(event)">
     <div class="pdf-modal">
       <div class="pdf-modal-header">
         <span class="pdf-modal-title" id="pdf-modal-title">Partition</span>
-        <button class="pdf-modal-close" onclick="closePDFBtn()" data-fr="Fermer ✕" data-es="Cerrar ✕">Fermer ✕</button>
+        <button class="pdf-modal-close" onclick="closePDFBtn()"><span data-lucide="x"></span><span data-fr="Fermer" data-es="Cerrar">Fermer</span></button>
       </div>
-      <div class="pdf-modal-body">
-        <iframe id="pdf-frame" src="" title="Partition PDF"></iframe>
-      </div>
+      <div class="pdf-modal-body"><iframe id="pdf-frame" src="" title="Partition PDF"></iframe></div>
     </div>
   </div>
 
-  <!-- ═══ FOOTER ═══ -->
-  <footer>
-    <div>
-      <div class="footer-mark">L'Atelier<span class="pt">.</span></div>
-      <div class="sub" data-fr="Espace privé · Chelles" data-es="Espacio privado · Chelles">Espace privé · Chelles</div>
+  <!-- FOOTER -->
+  <footer class="app-footer glass">
+    <div class="footer-brand">
+      <img src="phenix-logo.png" alt="">
+      <div class="word">les Phénix<span style="color:var(--warm);">.</span></div>
+      <div class="sub"><span data-lucide="lock"></span><span data-fr="Espace privé · Chelles" data-es="Espacio privado · Chelles">Espace privé · Chelles</span></div>
     </div>
     <div>
       <h4 data-fr="Avis droits d'auteur" data-es="Aviso de derechos de autor">Avis droits d'auteur</h4>
-      <p data-fr="Espace strictement privé, réservé aux membres du groupe L'Atelier." data-es="Espacio estrictamente privado, reservado a los miembros del grupo L'Atelier.">Espace strictement privé, réservé aux membres du groupe L'Atelier.</p>
-      <p data-fr="Audios, vidéos et partitions utilisés dans un cadre exclusivement privé et pédagogique (art. L122-5 CPI). Toute diffusion hors de ce cercle est interdite. Les droits restent la propriété exclusive de leurs auteurs et ayants droit." data-es="Audios, vídeos y partituras utilizados en un marco exclusivamente privado y pedagógico (art. L122-5 CPI). Toda difusión fuera de este círculo está prohibida. Los derechos siguen siendo propiedad exclusiva de sus autores y titulares.">Audios, vidéos et partitions utilisés dans un cadre exclusivement privé et pédagogique (art. L122-5 CPI). Toute diffusion hors de ce cercle est interdite. Les droits restent la propriété exclusive de leurs auteurs et ayants droit.</p>
+      <p data-fr="Espace strictement privé, réservé aux membres du groupe les Phénix." data-es="Espacio estrictamente privado, reservado a los miembros del grupo les Phénix.">Espace strictement privé, réservé aux membres du groupe les Phénix.</p>
+      <p data-fr="Audios, vidéos et partitions utilisés dans un cadre exclusivement privé et pédagogique (art. L122-5 CPI). Les droits restent la propriété exclusive de leurs auteurs et ayants droit." data-es="Audios, vídeos y partituras utilizados en un marco exclusivamente privado y pedagógico (art. L122-5 CPI). Los derechos siguen siendo propiedad exclusiva de sus autores y titulares.">Audios, vidéos et partitions utilisés dans un cadre exclusivement privé et pédagogique (art. L122-5 CPI). Les droits restent la propriété exclusive de leurs auteurs et ayants droit.</p>
     </div>
     <div>
       <h4 data-fr="Statut des enregistrements" data-es="Estado de las grabaciones">Statut des enregistrements</h4>
-      <div class="legal-row">
-        <span class="mark plus">+</span>
-        <span class="txt" data-fr="Les enregistrements sont ceux de nos propres répétitions — les membres du groupe en sont les interprètes." data-es="Las grabaciones son las de nuestros propios ensayos — los miembros del grupo son sus intérpretes.">Les enregistrements sont ceux de nos propres répétitions — les membres du groupe en sont les interprètes.</span>
-      </div>
-      <div class="legal-row">
-        <span class="mark bang">!</span>
-        <span class="txt" data-fr="Les œuvres interprétées sont protégées — usage couvert par la licence SACEM du Conservatoire de Chelles (enseignement musical)." data-es="Las obras interpretadas están protegidas — uso cubierto por la licencia SACEM del Conservatorio de Chelles (enseñanza musical).">Les œuvres interprétées sont protégées — usage couvert par la licence SACEM du Conservatoire de Chelles (enseignement musical).</span>
-      </div>
-      <div class="legal-row">
-        <span class="mark x">×</span>
-        <span class="txt" data-fr="Aucune diffusion publique. Site protégé par mot de passe, réservé aux membres." data-es="Ninguna difusión pública. Sitio protegido por contraseña, reservado a los miembros.">Aucune diffusion publique. Site protégé par mot de passe, réservé aux membres.</span>
-      </div>
+      <div class="legal-row ok"><span data-lucide="check-circle-2"></span><span class="txt" data-fr="Enregistrements de nos propres répétitions — les membres en sont les interprètes." data-es="Grabaciones de nuestros propios ensayos — los miembros son sus intérpretes.">Enregistrements de nos propres répétitions — les membres en sont les interprètes.</span></div>
+      <div class="legal-row warn"><span data-lucide="alert-circle"></span><span class="txt" data-fr="Œuvres protégées — usage couvert par la licence SACEM du Conservatoire de Chelles." data-es="Obras protegidas — uso cubierto por la licencia SACEM del Conservatorio de Chelles.">Œuvres protégées — usage couvert par la licence SACEM du Conservatoire de Chelles.</span></div>
+      <div class="legal-row no"><span data-lucide="x-circle"></span><span class="txt" data-fr="Aucune diffusion publique. Site protégé par mot de passe, réservé aux membres." data-es="Ninguna difusión pública. Sitio protegido por contraseña, reservado a los miembros.">Aucune diffusion publique. Site protégé par mot de passe, réservé aux membres.</span></div>
     </div>
   </footer>
 
-  <!-- DRAWER HAMBURGER (mobile) -->
-  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay" onclick="closeDrawer(event)"></div>
-  <aside id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
-    <div class="mobile-drawer-head">
-      <button class="mobile-drawer-close" onclick="toggleDrawer()" aria-label="Fermer le menu">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+  <!-- BOTTOM NAV (mobile) -->
+  <nav class="bottom-nav glass">
+    <button class="active" onclick="showSection('morceaux',this)"><span data-lucide="disc-3"></span><span data-fr="Morceaux" data-es="Canciones">Morceaux</span></button>
+    <button onclick="showSection('planning',this)"><span data-lucide="calendar-days"></span><span data-fr="Planning" data-es="Agenda">Planning</span></button>
+    <button onclick="showSection('videos',this)"><span data-lucide="play-circle"></span><span data-fr="Vidéos" data-es="Vídeos">Vidéos</span></button>
+    <button onclick="openSheet()"><span data-lucide="layout-grid"></span><span data-fr="Plus" data-es="Más">Plus</span></button>
+  </nav>
+
+  <!-- SHEET (mobile menu) -->
+  <div class="sheet-overlay" id="sheet-overlay" onclick="closeSheet(event)"></div>
+  <div class="sheet" id="sheet">
+    <div class="sheet-grip"></div>
+    <h3 data-fr="Navigation" data-es="Navegación">Navigation</h3>
+    <div class="sheet-links">
+      <a class="sheet-link" href="membres.html"><span data-lucide="users"></span><span data-fr="Membres" data-es="Miembros">Membres</span><span data-lucide="chevron-right" class="chev"></span></a>
+      <a class="sheet-link" href="playlist.html"><span data-lucide="list-music"></span>Playlist<span data-lucide="chevron-right" class="chev"></span></a>
+      <a class="sheet-link" href="setlist-26-juin.html"><span data-lucide="clipboard-list"></span>Setlist · 26 juin<span data-lucide="chevron-right" class="chev"></span></a>
+      <a class="sheet-link" href="todojeudi.html"><span data-lucide="check-check"></span>TodoJeudi<span data-lucide="chevron-right" class="chev"></span></a>
     </div>
-    <nav class="mobile-drawer-nav">
-      <button class="drawer-link active" data-section="morceaux" onclick="navigateFromDrawer('morceaux', this)">
-        <span class="drawer-num">01</span>
-        <span class="drawer-label" data-fr="Morceaux" data-es="Canciones">Morceaux</span>
-      </button>
-      <button class="drawer-link" data-section="planning" onclick="navigateFromDrawer('planning', this)">
-        <span class="drawer-num">02</span>
-        <span class="drawer-label" data-fr="Planning" data-es="Agenda">Planning</span>
-      </button>
-      <button class="drawer-link" data-section="videos" onclick="navigateFromDrawer('videos', this)">
-        <span class="drawer-num">03</span>
-        <span class="drawer-label" data-fr="Vidéos" data-es="Vídeos">Vidéos</span>
-      </button>
-      <a class="drawer-link" href="membres.html">
-        <span class="drawer-num">04</span>
-        <span class="drawer-label" data-fr="Membres" data-es="Miembros">Membres</span>
-      </a>
-      <a class="drawer-link" href="playlist.html">
-        <span class="drawer-num">05</span>
-        <span class="drawer-label" data-fr="Playlist" data-es="Lista">Playlist</span>
-      </a>
-      <a class="drawer-link" href="setlist-26-juin.html">
-        <span class="drawer-num">06</span>
-        <span class="drawer-label" data-fr="Setlist" data-es="Setlist">Setlist</span>
-      </a>
-      <a class="drawer-link" href="todojeudi.html">
-        <span class="drawer-num">07</span>
-        <span class="drawer-label" data-fr="TodoJeudi" data-es="TodoJueves">TodoJeudi</span>
-      </a>
-    </nav>
-    <div class="mobile-drawer-footer">
-      <div class="drawer-footer-row">
-        <button class="drawer-lang" onclick="toggleLang()"><span id="drawer-lang-label">ES</span></button>
-        <button class="drawer-logout" onclick="logout()" data-fr="Sortir" data-es="Salir">Sortir</button>
-      </div>
-      <div class="drawer-footer-meta">
-        <span data-fr="L'Atelier · Conservatoire Jacques Higelin" data-es="L'Atelier · Conservatorio Jacques Higelin">L'Atelier · Conservatoire Jacques Higelin</span>
-      </div>
+    <div class="sheet-foot">
+      <button onclick="toggleLang()"><span data-lucide="languages"></span><span id="sheet-lang-label">ES</span></button>
+      <button onclick="logout()"><span data-lucide="log-out"></span><span data-fr="Sortir" data-es="Salir">Sortir</span></button>
     </div>
-  </aside>
+  </div>
 </div>
 
 <script>
 const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
 const RP_ID=location.hostname||'localhost';
-const RP_NAME="L'Atelier";
+const RP_NAME="les Phénix";
 const USER_ID=new Uint8Array([76,65,84,69,76,73,69,82]);
 let currentLang=localStorage.getItem('atelier-lang')||'fr';
+
+function refreshIcons(){ if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
 
 window.addEventListener('error', e => {
   try {
     let box = document.getElementById('js-error-box');
-    if(!box){
-      box = document.createElement('div');
-      box.id = 'js-error-box';
-      box.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#C03030;color:#FFF;padding:10px 14px;font-family:monospace;font-size:11px;z-index:9999;line-height:1.4;border-bottom:2px solid #FFF;';
-      document.body.insertBefore(box, document.body.firstChild);
-    }
-    box.innerHTML += '<div>⚠ ' + (e.message||'erreur') + ' — ' + (e.filename||'').split('/').pop() + ':' + (e.lineno||'?') + '</div>';
+    if(!box){ box=document.createElement('div'); box.id='js-error-box'; box.style.cssText='position:fixed;top:0;left:0;right:0;background:#E0455E;color:#FFF;padding:10px 14px;font-family:monospace;font-size:11px;z-index:9999;line-height:1.4;'; document.body.insertBefore(box, document.body.firstChild); }
+    box.innerHTML += '<div>⚠ ' + (e.message||'erreur') + '</div>';
   } catch(_){}
 });
 
@@ -1448,15 +915,10 @@ function openApp(){
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app').style.display='block';
   document.getElementById('bio-register-banner').style.display='none';
-  try {
-    const morceaux = document.getElementById('morceaux');
-    if(morceaux && !morceaux.classList.contains('active')){
-      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-      morceaux.classList.add('active');
-    }
-  } catch(e){}
-  if(typeof applyLang === 'function') applyLang();
-  if(typeof postLoginInit === 'function') postLoginInit();
+  try { const m=document.getElementById('morceaux'); if(m&&!m.classList.contains('active')){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));m.classList.add('active');} } catch(e){}
+  if(typeof applyLang==='function') applyLang();
+  if(typeof postLoginInit==='function') postLoginInit();
+  refreshIcons();
 }
 function showLoginScreen(){
   document.getElementById('app').style.display='none';
@@ -1464,157 +926,81 @@ function showLoginScreen(){
   document.getElementById('pwd').value='';
   document.getElementById('login-error').textContent='';
   document.getElementById('bio-register-banner').style.display='none';
+  refreshIcons();
 }
-function logout(){sessionStorage.removeItem('atelier-auth');showLoginScreen();}
+function logout(){sessionStorage.removeItem('atelier-auth');closeSheet();showLoginScreen();}
 document.getElementById('pwd').addEventListener('keydown',e=>{if(e.key==='Enter')checkPassword();});
 
 async function checkPassword(){
-  const v=document.getElementById('pwd').value;
-  if(!v)return;
+  const v=document.getElementById('pwd').value; if(!v)return;
   const h=await sha256(v);
   if(h===PASSWORD_HASH){
     sessionStorage.setItem('atelier-auth','1');
     if(bioAvailable()&&!localStorage.getItem('atelier-bio-cred')){
       PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().then(ok=>{
-        if(ok){
-          document.getElementById('login-screen').style.display='grid';
-          document.getElementById('bio-register-banner').style.display='block';
-        }else{openApp();}
+        if(ok){document.getElementById('login-screen').style.display='grid';document.getElementById('bio-register-banner').style.display='block';refreshIcons();}else{openApp();}
       });
     }else{openApp();}
   }else{
     const err=document.getElementById('login-error');
-    err.textContent=(currentLang==='fr')?'Mot de passe incorrect.':'Contraseña incorrecta.';
-    document.getElementById('pwd').value='';
-    setTimeout(()=>err.textContent='',3000);
+    err.innerHTML='<span data-lucide="alert-triangle" style="width:15px;height:15px;"></span> '+((currentLang==='fr')?'Mot de passe incorrect.':'Contraseña incorrecta.');
+    refreshIcons(); document.getElementById('pwd').value=''; setTimeout(()=>{err.textContent='';},3000);
   }
 }
 
 async function registerBio(){
   try{
     const challenge=getRandom(32);
-    const cred=await navigator.credentials.create({publicKey:{
-      challenge,
-      rp:{id:RP_ID,name:RP_NAME},
-      user:{id:USER_ID,name:'membre',displayName:"Membre L'Atelier"},
-      pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],
-      authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},
-      timeout:60000,
-      attestation:'none'
-    }});
-    localStorage.setItem('atelier-bio-cred',b64url(cred.rawId));
-    showBioButton(true);
-    openApp();
+    const cred=await navigator.credentials.create({publicKey:{challenge,rp:{id:RP_ID,name:RP_NAME},user:{id:USER_ID,name:'membre',displayName:"Membre les Phénix"},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000,attestation:'none'}});
+    localStorage.setItem('atelier-bio-cred',b64url(cred.rawId)); showBioButton(true); openApp();
   }catch(e){openApp();}
 }
-
-function skipBio(){
-  localStorage.setItem('atelier-bio-skip','1');
-  openApp();
-}
-
+function skipBio(){localStorage.setItem('atelier-bio-skip','1');openApp();}
 async function loginWithBio(){
-  const credId=localStorage.getItem('atelier-bio-cred');
-  if(!credId)return;
+  const credId=localStorage.getItem('atelier-bio-cred'); if(!credId)return;
   try{
     const challenge=getRandom(32);
-    const assertion=await navigator.credentials.get({publicKey:{
-      challenge,
-      rpId:RP_ID,
-      allowCredentials:[{type:'public-key',id:fromB64url(credId)}],
-      userVerification:'required',
-      timeout:60000
-    }});
-    if(assertion){
-      sessionStorage.setItem('atelier-auth','1');
-      openApp();
-    }
-  }catch(e){
-    const err=document.getElementById('login-error');
-    err.textContent=(currentLang==='fr')?'Authentification annulée.':'Autenticación cancelada.';
-    setTimeout(()=>err.textContent='',3000);
-  }
+    const assertion=await navigator.credentials.get({publicKey:{challenge,rpId:RP_ID,allowCredentials:[{type:'public-key',id:fromB64url(credId)}],userVerification:'required',timeout:60000}});
+    if(assertion){sessionStorage.setItem('atelier-auth','1');openApp();}
+  }catch(e){const err=document.getElementById('login-error');err.textContent=(currentLang==='fr')?'Authentification annulée.':'Autenticación cancelada.';setTimeout(()=>err.textContent='',3000);}
 }
-
 function showBioButton(force=false){
   const stored=localStorage.getItem('atelier-bio-cred');
-  if((stored||force)&&bioAvailable()){
-    PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().then(ok=>{
-      if(ok)document.getElementById('bio-login-zone').style.display='block';
-    });
-  }
+  if((stored||force)&&bioAvailable()){PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().then(ok=>{if(ok){document.getElementById('bio-login-zone').style.display='block';refreshIcons();}});}
 }
 
 function applyLang(){
   const label=(currentLang==='fr')?'ES':'FR';
-  ['lang-toggle','lang-toggle-login','drawer-lang-label'].forEach(id=>{const b=document.getElementById(id);if(b)b.textContent=label;});
-  document.querySelectorAll('[data-fr]').forEach(el=>{
-    const hasTranslatableChild=el.querySelector('[data-fr]');
-    if(!hasTranslatableChild){el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;}
-  });
+  ['lang-toggle','lang-toggle-login','sheet-lang-label'].forEach(id=>{const b=document.getElementById(id);if(b)b.textContent=label;});
+  document.querySelectorAll('[data-fr]').forEach(el=>{const c=el.querySelector('[data-fr]');if(!c){el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;}});
   document.documentElement.lang=currentLang;
 }
 function toggleLang(){
   currentLang=(currentLang==='fr')?'es':'fr';
   localStorage.setItem('atelier-lang',currentLang);
   applyLang();
-  if(typeof updateCountdown === 'function') updateCountdown();
-  if(typeof tagNouveauxMorceaux === 'function') tagNouveauxMorceaux();
-  if(typeof tagNouvelleRepetition === 'function') tagNouvelleRepetition();
+  if(typeof updateCountdown==='function') updateCountdown();
+  if(typeof tagNouveauxMorceaux==='function') tagNouveauxMorceaux();
+  try{window.dispatchEvent(new Event('atelier-lang-change'));}catch(e){}
 }
 
 function showSection(id,btn){
-  const sec=document.getElementById(id);
-  if(!sec)return;
+  const sec=document.getElementById(id); if(!sec)return;
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   sec.classList.add('active');
-  // Sync nav desktop
-  document.querySelectorAll('.header-nav button').forEach(b=>{
-    const onclickAttr=b.getAttribute('onclick')||'';
-    const isMatch=onclickAttr.includes("showSection('"+id+"'");
-    b.classList.toggle('active',isMatch);
+  document.querySelectorAll('.header-nav button,.bottom-nav button').forEach(b=>{
+    const a=b.getAttribute('onclick')||''; b.classList.toggle('active',a.includes("showSection('"+id+"'"));
   });
-  // Sync drawer mobile
-  document.querySelectorAll('.drawer-link[data-section]').forEach(b=>{
-    b.classList.toggle('active', b.getAttribute('data-section')===id);
-  });
+  closeSheet();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* ── DRAWER MOBILE ── */
-function toggleDrawer(){
-  const drawer=document.getElementById('mobile-drawer');
-  const overlay=document.getElementById('mobile-drawer-overlay');
-  const btn=document.querySelector('.hamburger-btn');
-  const isOpen=drawer.classList.toggle('open');
-  overlay.classList.toggle('open',isOpen);
-  drawer.setAttribute('aria-hidden', isOpen?'false':'true');
-  if(btn) btn.setAttribute('aria-expanded', isOpen?'true':'false');
-  document.body.style.overflow=isOpen?'hidden':'';
+/* SHEET */
+function openSheet(){document.getElementById('sheet').classList.add('open');document.getElementById('sheet-overlay').classList.add('open');document.body.style.overflow='hidden';refreshIcons();}
+function closeSheet(e){
+  if(e&&e.target&&e.target.id!=='sheet-overlay')return;
+  document.getElementById('sheet').classList.remove('open');document.getElementById('sheet-overlay').classList.remove('open');document.body.style.overflow='';
 }
-function closeDrawer(e){
-  // Ne ferme que si on a cliqué sur l'overlay lui-même (pas sur le drawer)
-  if(e && e.target.id!=='mobile-drawer-overlay') return;
-  const drawer=document.getElementById('mobile-drawer');
-  const overlay=document.getElementById('mobile-drawer-overlay');
-  const btn=document.querySelector('.hamburger-btn');
-  drawer.classList.remove('open');
-  overlay.classList.remove('open');
-  drawer.setAttribute('aria-hidden','true');
-  if(btn) btn.setAttribute('aria-expanded','false');
-  document.body.style.overflow='';
-}
-function navigateFromDrawer(id, btn){
-  showSection(id, btn);
-  closeDrawer();
-}
-// Touche Escape ferme le drawer
-document.addEventListener('keydown', function(e){
-  if(e.key==='Escape'){
-    const drawer=document.getElementById('mobile-drawer');
-    if(drawer && drawer.classList.contains('open')) closeDrawer();
-  }
-});
 
 function openPDF(titre,rawUrl){
   const viewerUrl='https://mozilla.github.io/pdf.js/web/viewer.html?file='+encodeURIComponent(rawUrl);
@@ -1624,165 +1010,48 @@ function openPDF(titre,rawUrl){
   document.body.style.overflow='hidden';
 }
 function closePDF(e){if(e.target===document.getElementById('pdf-overlay'))closePDFBtn();}
-function closePDFBtn(){
-  document.getElementById('pdf-overlay').classList.remove('open');
-  document.getElementById('pdf-frame').src='';
-  document.body.style.overflow='';
-}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDFBtn();});
+function closePDFBtn(){document.getElementById('pdf-overlay').classList.remove('open');document.getElementById('pdf-frame').src='';document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePDFBtn();closeSheet();}});
 
 function updateCountdown(){
-  const block = document.getElementById('concert-countdown');
-  const jminus = document.getElementById('cc-jminus');
-  const lbl = document.getElementById('cc-jminus-label');
-  if(!block || !jminus || !lbl) return;
-  const concertDate = new Date('2026-06-26T19:00:00+02:00');
-  const now = new Date();
-  const diff = concertDate - now;
-  const dayMs = 1000 * 60 * 60 * 24;
-  const days = Math.ceil(diff / dayMs);
+  const block=document.getElementById('concert-countdown'),jminus=document.getElementById('cc-jminus'),lbl=document.getElementById('cc-jminus-label');
+  if(!block||!jminus||!lbl)return;
+  const concertDate=new Date('2026-06-26T19:00:00+02:00'),now=new Date(),diff=concertDate-now,dayMs=864e5,days=Math.ceil(diff/dayMs);
   block.classList.remove('j-zero','passed');
-  jminus.style.fontSize = '';
-  jminus.style.fontFamily = '';
-  jminus.style.fontStyle = '';
-  if(diff < -dayMs){
-    block.classList.add('passed');
-    jminus.textContent = (currentLang === 'es') ? 'Pasado' : 'Passé';
-    lbl.style.display = 'none';
-  } else if(days <= 0){
-    block.classList.add('j-zero');
-    jminus.textContent = (currentLang === 'es') ? '¡Hoy !' : "Ce soir";
-    lbl.style.display = 'none';
-  } else {
-    jminus.textContent = 'J−' + days;
-    lbl.style.display = '';
-    const isEs = (currentLang === 'es');
-    if(isEs) lbl.textContent = days > 1 ? 'días' : 'día';
-    else lbl.textContent = days > 1 ? 'jours' : 'jour';
-  }
+  if(diff<-dayMs){block.classList.add('passed');jminus.textContent=(currentLang==='es')?'Pasado':'Passé';lbl.style.display='none';}
+  else if(days<=0){block.classList.add('j-zero');jminus.textContent=(currentLang==='es')?'¡Hoy !':"Ce soir";lbl.style.display='none';}
+  else{jminus.textContent='J−'+days;lbl.style.display='';lbl.textContent=(currentLang==='es')?(days>1?'días':'día'):(days>1?'jours':'jour');}
 }
 
 function downloadConcertICS(){
-  const now = new Date();
-  const dtStamp = now.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
-  // Heure du concert non encore déterminée → événement "journée entière"
-  const ics = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    "PRODID:-//L'Atelier//Concert//FR",
-    'CALSCALE:GREGORIAN',
-    'METHOD:PUBLISH',
-    'BEGIN:VEVENT',
-    'UID:atelier-concert-26juin2026@latelier',
-    'DTSTAMP:' + dtStamp,
-    'DTSTART;VALUE=DATE:20260626',
-    'DTEND;VALUE=DATE:20260627',
-    "SUMMARY:Concert L'Atelier — 26 juin 2026",
-    'LOCATION:Extérieur — Ville de Chelles\\, France',
-    "DESCRIPTION:Concert de L'Atelier en extérieur — Ville de Chelles.\\nBalances entre 18h00 et 18h30 sur place.\\nHoraire concert à confirmer.",
-    'STATUS:CONFIRMED',
-    'BEGIN:VALARM',
-    'ACTION:DISPLAY',
-    "DESCRIPTION:Concert de L'Atelier demain",
-    'TRIGGER:-P1D',
-    'END:VALARM',
-    'END:VEVENT',
-    'END:VCALENDAR'
-  ].join('\r\n');
-  const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'concert-latelier-20mai2026.ics';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  const now=new Date(),dtStamp=now.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0',"PRODID:-//les Phénix//Concert//FR",'CALSCALE:GREGORIAN','METHOD:PUBLISH','BEGIN:VEVENT','UID:atelier-concert-26juin2026@latelier','DTSTAMP:'+dtStamp,'DTSTART;VALUE=DATE:20260626','DTEND;VALUE=DATE:20260627',"SUMMARY:Concert les Phénix — 26 juin 2026",'LOCATION:Extérieur — Ville de Chelles\\, France',"DESCRIPTION:Concert de les Phénix en extérieur — Ville de Chelles.\\nBalances entre 18h00 et 18h30 sur place.\\nHoraire concert à confirmer.",'STATUS:CONFIRMED','BEGIN:VALARM','ACTION:DISPLAY',"DESCRIPTION:Concert de les Phénix demain",'TRIGGER:-P1D','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const blob=new Blob([ics],{type:'text/calendar;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download='concert-latelier-26juin2026.ics';document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
 function tagNouveauxMorceaux(){
-  const seuil = 5;
-  const now = new Date();
-  document.querySelectorAll('.morceau-card[data-added]').forEach(card => {
-    const addedStr = card.dataset.added;
-    if(!addedStr) return;
-    const added = new Date(addedStr);
-    const diff = (now - added) / (1000 * 60 * 60 * 24);
-    card.querySelectorAll('.tag-nouveau').forEach(t => t.remove());
-    if(diff >= 0 && diff <= seuil){
-      const thumb = card.querySelector('.morceau-thumb');
-      if(thumb){
-        const tag = document.createElement('div');
-        tag.className = 'tag-nouveau';
-        tag.textContent = (currentLang === 'es') ? 'Nuevo' : 'Nouveau';
-        thumb.appendChild(tag);
-      }
-    }
+  const seuil=5,now=new Date();
+  document.querySelectorAll('.morceau-card[data-added]').forEach(card=>{
+    const s=card.dataset.added; if(!s)return;
+    const diff=(now-new Date(s))/864e5;
+    card.querySelectorAll('.tag-nouveau').forEach(t=>t.remove());
+    if(diff>=0&&diff<=seuil){const thumb=card.querySelector('.morceau-thumb');if(thumb){const tag=document.createElement('div');tag.className='tag-nouveau';tag.innerHTML='<span data-lucide="sparkle"></span>'+((currentLang==='es')?'Nuevo':'Nouveau');thumb.appendChild(tag);}}
   });
-}
-
-/* ── BADGE "NOUVEAU" SUR LA RÉPÉTITION LA PLUS RÉCENTE ── */
-function tagNouvelleRepetition(){
-  const now = new Date();
-  // Récupère toutes les répétitions avec une data-date
-  const repets = Array.from(document.querySelectorAll('.event-row.repetition[data-date]'));
-  if(repets.length === 0) return;
-
-  // Filtre celles dont la date est passée ou égale à aujourd'hui (on ne tag pas une répét future)
-  const pastRepets = repets.filter(el => {
-    const d = new Date(el.dataset.date);
-    return d <= now;
-  });
-  if(pastRepets.length === 0) return;
-
-  // Trouve la plus récente (date max)
-  pastRepets.sort((a,b) => new Date(b.dataset.date) - new Date(a.dataset.date));
-  const latest = pastRepets[0];
-
-  // Pour chaque répétition, on met à jour le badge :
-  // - la plus récente → "Nouveau" (style orange accent)
-  // - les autres avec audio → "Audio dispo" (style vert)
-  repets.forEach(el => {
-    const badge = el.querySelector('.event-badge.repetition');
-    if(!badge) return;
-    const hasAudio = el.querySelector('audio') !== null;
-    const isLatest = el === latest;
-
-    if(isLatest){
-      // Style "Nouveau" orange
-      badge.style.background = '#FFE0CD';
-      badge.style.color = '#7A2A0E';
-      badge.style.borderColor = '#F0511E';
-      badge.innerHTML = '<span data-fr="Nouveau" data-es="Nuevo">'+(currentLang==='es'?'Nuevo':'Nouveau')+'</span>';
-    } else if(hasAudio){
-      // Style "Audio dispo" vert (vide les inline styles pour reprendre celui par défaut)
-      badge.style.background = '';
-      badge.style.color = '';
-      badge.style.borderColor = '';
-      badge.innerHTML = '<span data-fr="Audio dispo" data-es="Audio disponible">'+(currentLang==='es'?'Audio disponible':'Audio dispo')+'</span>';
-    }
-    // Si pas d'audio, on laisse le badge tel quel
-  });
+  refreshIcons();
 }
 
 function postLoginInit(){
-  try { updateCountdown(); } catch(e){ console.error('updateCountdown error:', e); }
-  try { tagNouveauxMorceaux(); } catch(e){ console.error('tagNouveauxMorceaux error:', e); }
-  try { tagNouvelleRepetition(); } catch(e){ console.error('tagNouvelleRepetition error:', e); }
-  try { setInterval(updateCountdown, 1000 * 60 * 60); } catch(e){}
+  try{updateCountdown();}catch(e){}
+  try{tagNouveauxMorceaux();}catch(e){}
+  try{setInterval(updateCountdown,36e5);}catch(e){}
+  refreshIcons();
 }
 
+refreshIcons();
 if(sessionStorage.getItem('atelier-auth')==='1'){openApp();}
 else{showBioButton();}
-
-/* Auto-open app for preview environments without a real password (dev/preview only). */
-(function(){
-  try{
-    if(location.hostname.endsWith('webcontainer.io')||location.hostname.endsWith('preview-app')||location.hostname.includes('localhost')||location.protocol==='file:'){
-      // no-op : on respecte l'auth normale
-    }
-  }catch(e){}
-})();
 </script>
 <script src="loop-ab.js" defer></script>
 </body>

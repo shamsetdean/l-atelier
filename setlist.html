@@ -3,317 +3,229 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
-<!-- FAVICON & ÉCRAN D'ACCUEIL -->
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512.png">
-
-<meta name="theme-color" content="#EFEAE0">
-<title>Setlist — Concert 20 mai 2026 — L'Atelier</title>
+<meta name="theme-color" content="#ECEAF6">
+<title>Setlist — Concert 20 mai 2026 — les Phénix</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="atelier.css">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
 <style>
 :root{
-  --accent:#F0511E;
-  --accent-h:#D8400D;
-  --accent-soft:#FFE0CD;
-  --accent-deep:#7A2A0E;
+  --accent:#6A5AE0;
+  --accent-2:#8B7BFF;
+  --accent-deep:#4A3CB8;
+  --accent-soft:rgba(106,90,224,.12);
+  --accent-blob:#9C8BFF;
 }
 
-/* ── PAGE CONTAINER (A4 noir/orange, conserve l'identité scénique) ── */
+/* ── A4 SETLIST CARD (dark “ticket”, printable) ── */
 .setlist-page{
-  max-width:780px;
-  margin:2rem auto;
-  background:var(--ink);
-  color:var(--paper);
-  border:1px solid var(--ink);
-  padding:3.2rem 3rem 2.6rem;
-  position:relative;
-  overflow:hidden;
+  max-width:780px;margin:0 auto 1.4rem;
+  background:linear-gradient(160deg,#211C36 0%,#171327 60%,#1C1730 100%);
+  color:#F3F1FB;border-radius:var(--r-lg);
+  padding:3rem 3rem 2.6rem;position:relative;overflow:hidden;
+  box-shadow:var(--glass-shadow-lg);border:1px solid rgba(255,255,255,.08);
 }
-.setlist-page::before{
-  content:"";position:absolute;top:-30%;right:-15%;
-  width:55%;height:160%;
-  background:radial-gradient(circle,var(--accent) 0%,transparent 60%);
-  opacity:.15;pointer-events:none;
-}
+.setlist-page::before{content:"";position:absolute;top:-25%;right:-15%;width:55%;height:150%;background:radial-gradient(circle,var(--accent) 0%,transparent 62%);opacity:.3;pointer-events:none;}
+.setlist-page::after{content:"";position:absolute;bottom:-30%;left:-15%;width:50%;height:130%;background:radial-gradient(circle,#FF7A59 0%,transparent 62%);opacity:.16;pointer-events:none;}
 
-/* ── EN-TÊTE SETLIST ── */
-.setlist-head{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end;padding-bottom:1.4rem;border-bottom:1px solid rgba(239,234,224,.18);margin-bottom:2rem;position:relative;z-index:1;}
-.setlist-eyebrow{
-  font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--accent);font-weight:500;margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem;
-}
-.setlist-eyebrow .num{
-  background:var(--accent);color:var(--ink);padding:.2rem .55rem;font-weight:500;letter-spacing:.1em;
-}
-.setlist-title{
-  font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:clamp(2.4rem,5.5vw,3.6rem);line-height:.88;letter-spacing:-.025em;color:var(--paper);
-}
-.setlist-title .pt{color:var(--accent);font-style:normal;}
-.setlist-meta{
-  text-align:right;font-family:var(--mono);font-size:10px;letter-spacing:.18em;
-  color:rgba(239,234,224,.6);text-transform:uppercase;line-height:1.8;
-}
-.setlist-meta b{color:var(--paper);font-weight:500;}
-.setlist-meta .sep{color:var(--accent);}
+.setlist-head{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end;padding-bottom:1.5rem;border-bottom:1px solid rgba(243,241,251,.16);margin-bottom:2rem;position:relative;z-index:1;}
+.setlist-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);font-weight:600;margin-bottom:.8rem;}
+.setlist-eyebrow [data-lucide]{width:15px;height:15px;}
+.setlist-eyebrow .num{background:var(--accent);color:#fff;padding:.15rem .6rem;border-radius:var(--r-pill);font-weight:700;letter-spacing:.05em;}
+.setlist-title{font-family:var(--serif);font-style:italic;font-size:clamp(2.4rem,5.5vw,3.6rem);line-height:.9;letter-spacing:-.02em;color:#fff;}
+.setlist-title .pt{color:var(--accent-2);}
+.setlist-meta{text-align:right;font-size:12px;letter-spacing:.04em;color:rgba(243,241,251,.6);line-height:1.9;}
+.setlist-meta b{color:#fff;font-weight:600;}
+.setlist-meta .row{display:flex;align-items:center;justify-content:flex-end;gap:.4rem;}
+.setlist-meta .row [data-lucide]{width:14px;height:14px;color:var(--accent-2);}
 
-/* ── MORCEAUX ── */
 .setlist-songs{position:relative;z-index:1;}
-.song-block{
-  margin-bottom:1.6rem;padding-bottom:1.6rem;
-  border-bottom:1px solid rgba(239,234,224,.14);
-}
+.song-block{margin-bottom:1.6rem;padding-bottom:1.6rem;border-bottom:1px solid rgba(243,241,251,.12);}
 .song-block:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-.song-header{display:grid;grid-template-columns:80px 1fr auto;gap:1.4rem;align-items:baseline;margin-bottom:.7rem;}
-.song-number{
-  font-family:var(--serif);font-style:italic;font-size:3.4rem;line-height:.85;
-  color:var(--accent);letter-spacing:-.04em;
-}
-.song-info{}
-.song-title{
-  font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:1.7rem;line-height:1;letter-spacing:-.015em;color:var(--paper);margin-bottom:.35rem;
-}
-.song-artist{
-  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(239,234,224,.6);font-weight:500;
-}
-.song-musical{display:flex;flex-direction:column;gap:.25rem;text-align:right;}
-.song-musical-item{
-  font-family:var(--mono);font-size:10px;letter-spacing:.12em;
-  color:var(--accent);font-weight:500;text-transform:uppercase;
-}
-.song-presentation{
-  margin-top:.5rem;padding-left:96px;
-  font-family:var(--serif);font-style:italic;
-  font-size:.95rem;line-height:1.55;color:rgba(239,234,224,.86);
-  text-wrap:pretty;
-}
-.song-duration{
-  margin-top:.7rem;padding-left:96px;
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(239,234,224,.5);font-weight:500;
-  display:flex;align-items:center;gap:.6rem;
-}
-.song-duration::before{content:"";width:14px;height:1px;background:var(--accent);display:inline-block;}
+.song-header{display:grid;grid-template-columns:74px 1fr auto;gap:1.4rem;align-items:baseline;margin-bottom:.7rem;}
+.song-number{font-family:var(--serif);font-style:italic;font-size:3.2rem;line-height:.85;color:var(--accent-2);letter-spacing:-.03em;}
+.song-title{font-family:var(--serif);font-style:italic;font-size:1.7rem;line-height:1;letter-spacing:-.015em;color:#fff;margin-bottom:.35rem;}
+.song-artist{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(243,241,251,.55);font-weight:600;}
+.song-musical{display:flex;flex-direction:column;gap:.3rem;text-align:right;}
+.song-musical-item{display:inline-flex;align-items:center;justify-content:flex-end;gap:.35rem;font-size:11px;letter-spacing:.06em;color:var(--accent-2);font-weight:600;}
+.song-musical-item [data-lucide]{width:13px;height:13px;}
+.song-presentation{margin-top:.5rem;padding-left:88px;font-family:var(--serif);font-style:italic;font-size:1rem;line-height:1.55;color:rgba(243,241,251,.84);text-wrap:pretty;}
+.song-duration{margin-top:.7rem;padding-left:88px;display:flex;align-items:center;gap:.5rem;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(243,241,251,.5);font-weight:600;}
+.song-duration [data-lucide]{width:13px;height:13px;color:var(--accent-2);}
 
-/* ── PIED ── */
-.setlist-footer{
-  margin-top:2rem;padding-top:1.4rem;
-  border-top:1px solid rgba(239,234,224,.18);
-  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:.6rem 1rem;
-  position:relative;z-index:1;font-family:var(--mono);font-size:10px;letter-spacing:.22em;
-  text-transform:uppercase;color:rgba(239,234,224,.55);
-}
-.setlist-total b{color:var(--accent);font-weight:500;letter-spacing:.18em;}
-.setlist-tagline{
-  font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--paper);
-  letter-spacing:0;text-transform:none;
-}
-.setlist-reserve{
-  width:100%;border-top:1px dashed rgba(239,234,224,.2);
-  padding-top:.7rem;margin-top:.2rem;
-  font-family:var(--mono);font-size:9px;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--accent);
-}
+.setlist-footer{margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(243,241,251,.16);display:flex;justify-content:space-between;align-items:center;gap:1rem;position:relative;z-index:1;}
+.setlist-total{display:inline-flex;align-items:center;gap:.5rem;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:rgba(243,241,251,.6);font-weight:600;}
+.setlist-total [data-lucide]{width:15px;height:15px;color:var(--accent-2);}
+.setlist-total b{color:var(--accent-2);font-weight:700;}
+.setlist-tagline{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:#fff;}
 
-/* ── LOGISTIQUE (écran uniquement) ── */
-.logistics{
-  max-width:780px;margin:1.2rem auto 4rem;
-  background:var(--paper-3);border:1px solid var(--ink);
-  padding:1.6rem 1.8rem 1.8rem;
-}
-.logistics h2{
-  font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--ink);margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem;font-weight:500;
-}
-.logistics h2::before{content:"";width:14px;height:1px;background:var(--accent);}
-.logistics h2::after{content:"";flex:1;height:1px;background:var(--line);margin-left:.4rem;}
-.logistics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.4rem 1.6rem;}
+/* ── LOGISTIQUE (écran) ── */
+.logistics{max-width:780px;margin:0 auto 4rem;border-radius:var(--r-md);padding:1.7rem 1.9rem 1.9rem;background:var(--glass);backdrop-filter:blur(26px) saturate(165%);-webkit-backdrop-filter:blur(26px) saturate(165%);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow),var(--glass-inset);}
+.logistics h2{display:flex;align-items:center;gap:.6rem;font-size:.95rem;font-weight:600;color:var(--ink);margin-bottom:1.3rem;}
+.logistics h2 [data-lucide]{width:18px;height:18px;color:var(--accent);}
+.logistics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.3rem 1.6rem;}
 .logistics-item{font-size:.92rem;line-height:1.55;}
-.logistics-item strong{
-  display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;font-weight:500;
-}
+.logistics-item strong{display:flex;align-items:center;gap:.4rem;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:.45rem;font-weight:600;}
+.logistics-item strong [data-lucide]{width:14px;height:14px;}
 .logistics-item span{color:var(--ink-2);}
 
-/* ── MOBILE ── */
 @media(max-width:640px){
-  .setlist-page{margin:1rem;padding:2rem 1.4rem;}
+  .setlist-page{padding:2rem 1.4rem;margin-bottom:1rem;}
   .setlist-head{grid-template-columns:1fr;gap:.8rem;align-items:start;}
   .setlist-meta{text-align:left;}
-  .song-header{grid-template-columns:55px 1fr;gap:1rem;}
-  .song-number{font-size:2.4rem;}
+  .setlist-meta .row{justify-content:flex-start;}
+  .song-header{grid-template-columns:52px 1fr;gap:1rem;}
+  .song-number{font-size:2.3rem;}
   .song-title{font-size:1.3rem;}
-  .song-musical{grid-column:1/3;flex-direction:row;gap:1rem;text-align:left;margin-top:.5rem;flex-wrap:wrap;padding-left:71px;}
-  .song-presentation{padding-left:0;font-size:.92rem;margin-top:.6rem;}
-  .song-duration{padding-left:0;}
-  .setlist-footer{flex-direction:column;align-items:flex-start;gap:.6rem;}
-  .logistics{margin:1rem;padding:1.3rem 1.2rem;}
-  .logistics-grid{grid-template-columns:1fr;}
+  .song-musical{grid-column:1/3;flex-direction:row;gap:1rem;text-align:left;margin-top:.5rem;flex-wrap:wrap;padding-left:68px;}
+  .song-musical-item{justify-content:flex-start;}
+  .song-presentation,.song-duration{padding-left:0;}
+  .setlist-footer{flex-direction:column;align-items:flex-start;gap:.7rem;}
 }
 
 /* ── PRINT A4 — UNE SEULE PAGE ── */
 @media print{
   @page{size:A4 portrait;margin:0.8cm;}
   html,body{background:#FFF !important;height:auto;overflow:hidden;}
-  header.atelier-header,.logistics,.btn-back,.btn-print,.btn-lang{display:none !important;}
-
+  .aurora,header.atelier-header,.logistics{display:none !important;}
   .setlist-page{
-    margin:0 !important;padding:.9cm 1.3cm !important;
-    background:var(--ink) !important;color:var(--paper) !important;
-    border:none !important;
-    -webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;
-    page-break-inside:avoid !important;page-break-after:avoid !important;
-    max-width:100% !important;width:100% !important;height:auto !important;box-sizing:border-box;
+    margin:0 !important;padding:.9cm 1.3cm !important;border:none !important;box-shadow:none !important;
+    border-radius:0 !important;-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;
+    page-break-inside:avoid !important;page-break-after:avoid !important;max-width:100% !important;width:100% !important;height:auto !important;
   }
-
   .setlist-head{padding-bottom:.7rem !important;margin-bottom:1rem !important;}
   .setlist-eyebrow{font-size:8px !important;margin-bottom:.4rem !important;}
   .setlist-title{font-size:1.7rem !important;line-height:.95 !important;}
-  .setlist-meta{font-size:8.5px !important;line-height:1.5 !important;}
-
+  .setlist-meta{font-size:8.5px !important;line-height:1.6 !important;}
   .song-block{margin-bottom:.65rem !important;padding-bottom:.6rem !important;page-break-inside:avoid !important;}
-  .song-header{grid-template-columns:55px 1fr auto !important;gap:.8rem !important;margin-bottom:.3rem !important;}
+  .song-header{grid-template-columns:52px 1fr auto !important;gap:.8rem !important;margin-bottom:.3rem !important;}
   .song-number{font-size:1.85rem !important;}
   .song-title{font-size:1.05rem !important;margin-bottom:.1rem !important;}
   .song-artist{font-size:8px !important;}
   .song-musical-item{font-size:8px !important;}
-  .song-presentation{padding-left:65px !important;font-size:.7rem !important;line-height:1.4 !important;margin-top:.3rem !important;}
-  .song-duration{padding-left:65px !important;font-size:7.5px !important;margin-top:.3rem !important;}
-
-  .setlist-footer{margin-top:.8rem !important;padding-top:.6rem !important;font-size:8px !important;}
-  .setlist-tagline{font-size:.85rem !important;}
-
+  .song-presentation{padding-left:62px !important;font-size:.72rem !important;line-height:1.4 !important;margin-top:.3rem !important;}
+  .song-duration{padding-left:62px !important;font-size:7.5px !important;margin-top:.3rem !important;}
+  .setlist-footer{margin-top:.8rem !important;padding-top:.6rem !important;}
+  .setlist-tagline{font-size:.9rem !important;}
   .setlist-page > *{page-break-inside:avoid !important;}
 }
 </style>
 </head>
 <body>
 
-<header class="atelier-header">
+<div class="aurora"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
+<header class="atelier-header glass">
   <a class="header-logo" href="index.html">
-    L'Atelier<span class="tick">setlist</span>
+    <span class="dot"></span><span class="word">les Phénix</span>
   </a>
   <div class="header-actions">
-    <a class="btn-back" href="index.html"><span data-fr="← Accueil" data-es="← Inicio">← Accueil</span></a>
+    <a class="btn-back" href="index.html"><span data-lucide="arrow-left"></span><span data-fr="Accueil" data-es="Inicio">Accueil</span></a>
     <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
-    <button class="btn-print" onclick="window.print()"><span data-fr="Imprimer A4" data-es="Imprimir A4">Imprimer A4</span></button>
+    <button class="btn-print" onclick="window.print()"><span data-lucide="printer"></span><span data-fr="Imprimer" data-es="Imprimir">Imprimer</span></button>
   </div>
 </header>
+
+<main class="atelier-main">
 
 <div class="setlist-page">
 
   <div class="setlist-head">
     <div>
-      <div class="setlist-eyebrow">
-        <span class="num">20.05.26</span>
-        <span data-fr="Programme du concert" data-es="Programa del concierto">Programme du concert</span>
-      </div>
-      <h1 class="setlist-title">
-        <span data-fr="Soirée Funk" data-es="Velada Funk">Soirée Funk</span><span class="pt"> &amp; </span><span data-fr="Soul" data-es="Soul">Soul</span>
-      </h1>
+      <div class="setlist-eyebrow"><span class="num">20.05.26</span><span data-lucide="list-music"></span><span data-fr="Programme du concert" data-es="Programa del concierto">Programme du concert</span></div>
+      <h1 class="setlist-title"><span data-fr="Soirée Funk" data-es="Velada Funk">Soirée Funk</span><span class="pt"> &amp; </span><span data-fr="Soul" data-es="Soul">Soul</span></h1>
     </div>
     <div class="setlist-meta">
-      <div><b>Médiathèque Jean-Pierre-Vernant</b></div>
-      <div>9 Pl. des Martyrs de Châteaubriant · Chelles</div>
-      <div><span data-fr="Heure à déterminer" data-es="Hora por determinar">Heure à déterminer</span></div>
-      <div><span data-fr="Mercredi 20 mai 2026" data-es="Miércoles 20 mayo 2026">Mercredi 20 mai 2026</span></div>
+      <div class="row"><span data-lucide="map-pin"></span><b>Auditorium de Chelles</b></div>
+      <div class="row"><span data-lucide="clock"></span>19h00 — 20h00</div>
+      <div class="row"><span data-lucide="calendar"></span><span data-fr="Mer. 20 mai 2026" data-es="Mié. 20 mayo 2026">Mer. 20 mai 2026</span></div>
     </div>
   </div>
 
   <div class="setlist-songs">
 
-    <!-- I. Worth It -->
     <div class="song-block">
       <div class="song-header">
         <div class="song-number">I</div>
-        <div class="song-info">
-          <div class="song-title">Worth It</div>
-          <div class="song-artist">RAYE · 2023</div>
-        </div>
-        <div class="song-musical">
-          <span class="song-musical-item">110 BPM</span>
-          <span class="song-musical-item"><span data-fr="La♭ majeur" data-es="La♭ mayor">La♭ majeur</span></span>
-        </div>
-      </div>
-      <div class="song-presentation"><span data-fr="Pour ouvrir cette soirée, un titre contemporain. RAYE, voix londonienne d'une nouvelle génération soul, livre une ballade puissante sur l'effort qui paie. Une entrée en matière qui pose le ton : oui, ça en vaut la peine." data-es="Para abrir esta velada, un título contemporáneo. RAYE, voz londinense de una nueva generación soul, ofrece una balada poderosa sobre el esfuerzo que vale la pena. Una entrada que marca el tono: sí, vale la pena.">Pour ouvrir cette soirée, un titre contemporain. RAYE, voix londonienne d'une nouvelle génération soul, livre une ballade puissante sur l'effort qui paie. Une entrée en matière qui pose le ton : oui, ça en vaut la peine.</span></div>
-      <div class="song-duration"><span data-fr="≈ 4 min · ouverture posée" data-es="≈ 4 min · apertura serena">≈ 4 min · ouverture posée</span></div>
-    </div>
-
-    <!-- II. Still a Friend of Mine -->
-    <div class="song-block">
-      <div class="song-header">
-        <div class="song-number">II</div>
         <div class="song-info">
           <div class="song-title">Still a Friend of Mine</div>
           <div class="song-artist">Incognito · 1993</div>
         </div>
         <div class="song-musical">
-          <span class="song-musical-item">87 BPM</span>
-          <span class="song-musical-item"><span data-fr="La majeur" data-es="La mayor">La majeur</span></span>
+          <span class="song-musical-item"><span data-lucide="gauge"></span>87 BPM</span>
+          <span class="song-musical-item"><span data-lucide="music"></span><span data-fr="La majeur" data-es="La mayor">La majeur</span></span>
         </div>
       </div>
-      <div class="song-presentation"><span data-fr="On poursuit avec un standard de l'acid jazz britannique. Incognito, depuis Londres, signe ici un groove soyeux qui invite à la complicité. Une déclaration d'amitié musicale — la nôtre, et celle qu'on espère partager avec vous ce soir." data-es="Continuamos con un clásico del acid jazz británico. Incognito, desde Londres, firma aquí un groove sedoso que invita a la complicidad. Una declaración de amistad musical — la nuestra, y la que esperamos compartir con ustedes esta noche.">On poursuit avec un standard de l'acid jazz britannique. Incognito, depuis Londres, signe ici un groove soyeux qui invite à la complicité. Une déclaration d'amitié musicale — la nôtre, et celle qu'on espère partager avec vous ce soir.</span></div>
-      <div class="song-duration"><span data-fr="≈ 5 min 30 · groove en complicité" data-es="≈ 5 min 30 · groove en complicidad">≈ 5 min 30 · groove en complicité</span></div>
+      <div class="song-presentation"><span data-fr="Pour ouvrir cette soirée, un standard de l'acid jazz britannique. Incognito, depuis Londres, signe ici un groove soyeux qui invite à la complicité. Une déclaration d'amitié musicale — la nôtre, et celle qu'on espère partager avec vous ce soir." data-es="Para abrir esta velada, un clásico del acid jazz británico. Incognito, desde Londres, firma aquí un groove sedoso que invita a la complicidad. Una declaración de amistad musical — la nuestra, y la que esperamos compartir con ustedes esta noche.">Pour ouvrir cette soirée, un standard de l'acid jazz britannique. Incognito, depuis Londres, signe ici un groove soyeux qui invite à la complicité. Une déclaration d'amitié musicale — la nôtre, et celle qu'on espère partager avec vous ce soir.</span></div>
+      <div class="song-duration"><span data-lucide="timer"></span><span data-fr="≈ 5 min 30 · ouverture en douceur" data-es="≈ 5 min 30 · apertura suave">≈ 5 min 30 · ouverture en douceur</span></div>
     </div>
 
-    <!-- III. Easy Lover -->
     <div class="song-block">
       <div class="song-header">
-        <div class="song-number">III</div>
+        <div class="song-number">II</div>
         <div class="song-info">
           <div class="song-title">Easy Lover</div>
           <div class="song-artist">Phil Collins &amp; Philip Bailey · 1984</div>
         </div>
         <div class="song-musical">
-          <span class="song-musical-item">128 BPM</span>
-          <span class="song-musical-item"><span data-fr="Ré♭ majeur" data-es="Re♭ mayor">Ré♭ majeur</span></span>
+          <span class="song-musical-item"><span data-lucide="gauge"></span>128 BPM</span>
+          <span class="song-musical-item"><span data-lucide="music"></span><span data-fr="Ré♭ majeur" data-es="Re♭ mayor">Ré♭ majeur</span></span>
         </div>
       </div>
-      <div class="song-presentation"><span data-fr="Pour conclure, on accélère. Quand le batteur de Genesis rencontre la voix d'Earth, Wind &amp; Fire, ça donne un classique imparable. Une mise en garde dansante contre les amours faciles — un final pour vous faire taper du pied." data-es="Para concluir, aceleramos. Cuando el batería de Genesis se encuentra con la voz de Earth, Wind &amp; Fire, sale un clásico imparable. Una advertencia bailable contra los amores fáciles — un final para hacerles mover los pies.">Pour conclure, on accélère. Quand le batteur de Genesis rencontre la voix d'Earth, Wind &amp; Fire, ça donne un classique imparable. Une mise en garde dansante contre les amours faciles — un final pour vous faire taper du pied.</span></div>
-      <div class="song-duration"><span data-fr="≈ 5 min · final en énergie" data-es="≈ 5 min · final con energía">≈ 5 min · final en énergie</span></div>
+      <div class="song-presentation"><span data-fr="On change de tempo. Quand le batteur de Genesis rencontre la voix d'Earth, Wind &amp; Fire, ça donne un classique imparable. Une mise en garde dansante contre les amours faciles — préparez-vous à taper du pied." data-es="Cambiamos de tempo. Cuando el batería de Genesis se encuentra con la voz de Earth, Wind &amp; Fire, sale un clásico imparable. Una advertencia bailable contra los amores fáciles — preparen los pies.">On change de tempo. Quand le batteur de Genesis rencontre la voix d'Earth, Wind &amp; Fire, ça donne un classique imparable. Une mise en garde dansante contre les amours faciles — préparez-vous à taper du pied.</span></div>
+      <div class="song-duration"><span data-lucide="timer"></span><span data-fr="≈ 5 min · montée en énergie" data-es="≈ 5 min · subida de energía">≈ 5 min · montée en énergie</span></div>
+    </div>
+
+    <div class="song-block">
+      <div class="song-header">
+        <div class="song-number">III</div>
+        <div class="song-info">
+          <div class="song-title">Worth It</div>
+          <div class="song-artist">RAYE · 2023</div>
+        </div>
+        <div class="song-musical">
+          <span class="song-musical-item"><span data-lucide="gauge"></span>110 BPM</span>
+          <span class="song-musical-item"><span data-lucide="music"></span><span data-fr="La♭ majeur" data-es="La♭ mayor">La♭ majeur</span></span>
+        </div>
+      </div>
+      <div class="song-presentation"><span data-fr="Pour conclure, un titre contemporain. RAYE, voix londonienne d'une nouvelle génération soul, livre une ballade puissante sur l'effort qui paie. Notre clin d'œil à ce soir : oui, ça en valait la peine." data-es="Para concluir, un título contemporáneo. RAYE, voz londinense de una nueva generación soul, ofrece una balada poderosa sobre el esfuerzo que vale la pena. Nuestro guiño a esta noche: sí, valió la pena.">Pour conclure, un titre contemporain. RAYE, voix londonienne d'une nouvelle génération soul, livre une ballade puissante sur l'effort qui paie. Notre clin d'œil à ce soir : oui, ça en valait la peine.</span></div>
+      <div class="song-duration"><span data-lucide="timer"></span><span data-fr="≈ 4 min · final intense" data-es="≈ 4 min · final intenso">≈ 4 min · final intense</span></div>
     </div>
 
   </div>
 
   <div class="setlist-footer">
-    <div class="setlist-total"><b><span data-fr="≈ 15 min" data-es="≈ 15 min">≈ 15 min</span></b> <span data-fr="de musique" data-es="de música">de musique</span></div>
+    <div class="setlist-total"><span data-lucide="clock"></span><b><span data-fr="≈ 15 min" data-es="≈ 15 min">≈ 15 min</span></b> <span data-fr="de musique" data-es="de música">de musique</span></div>
     <div class="setlist-tagline"><span data-fr="Merci à vous" data-es="Gracias a ustedes">Merci à vous</span></div>
-    <div class="setlist-reserve"><span data-fr="Ordre des morceaux sous réserve de validation de Cédric" data-es="Orden de las canciones sujeto a validación de Cédric">Ordre des morceaux sous réserve de validation de Cédric</span></div>
   </div>
 </div>
 
-<!-- LOGISTIQUE (écran uniquement) -->
 <div class="logistics">
-  <h2><span data-fr="Repères logistiques" data-es="Información logística">Repères logistiques</span></h2>
+  <h2><span data-lucide="clipboard-list"></span><span data-fr="Repères logistiques" data-es="Información logística">Repères logistiques</span></h2>
   <div class="logistics-grid">
     <div class="logistics-item">
-      <strong><span data-fr="Heure d'arrivée" data-es="Hora de llegada">Heure d'arrivée</span></strong>
-      <span data-fr="Balances à 18h00 sur place." data-es="Pruebas de sonido a las 18h00 in situ.">Balances à 18h00 sur place.</span>
+      <strong><span data-lucide="clock-4"></span><span data-fr="Heure d'arrivée" data-es="Hora de llegada">Heure d'arrivée</span></strong>
+      <span data-fr="À voir lors de la prochaine répétition." data-es="A confirmar en el próximo ensayo.">À voir lors de la prochaine répétition.</span>
     </div>
     <div class="logistics-item">
-      <strong><span data-fr="Tenue" data-es="Vestuario">Tenue</span></strong>
-      <span data-fr="Tenue noire avec une couleur au choix." data-es="Vestimenta negra con un color a elección.">Tenue noire avec une couleur au choix.</span>
+      <strong><span data-lucide="shirt"></span><span data-fr="Tenue" data-es="Vestuario">Tenue</span></strong>
+      <span data-fr="À voir lors de la prochaine répétition." data-es="A confirmar en el próximo ensayo.">À voir lors de la prochaine répétition.</span>
     </div>
     <div class="logistics-item">
-      <strong><span data-fr="Présentation au public" data-es="Presentación al público">Présentation au public</span></strong>
+      <strong><span data-lucide="megaphone"></span><span data-fr="Présentation au public" data-es="Presentación al público">Présentation au public</span></strong>
       <span data-fr="Mots d'accueil entre les morceaux — à répartir lors de la dernière répétition." data-es="Palabras de bienvenida entre canciones — a repartir en el último ensayo.">Mots d'accueil entre les morceaux — à répartir lors de la dernière répétition.</span>
     </div>
     <div class="logistics-item">
-      <strong><span data-fr="Matériel" data-es="Material">Matériel</span></strong>
-      <span data-fr="Sono fournie par la Médiathèque. Apporter ses instruments, partitions et câbles personnels." data-es="Sonido proporcionado por la Mediateca. Traer instrumentos, partituras y cables personales.">Sono fournie par la Médiathèque. Apporter ses instruments, partitions et câbles personnels.</span>
+      <strong><span data-lucide="speaker"></span><span data-fr="Matériel" data-es="Material">Matériel</span></strong>
+      <span data-fr="Sono fournie par l'Auditorium. Apporter ses instruments, partitions et câbles personnels." data-es="Sonido proporcionado por el Auditorio. Traer instrumentos, partituras y cables personales.">Sono fournie par l'Auditorium. Apporter ses instruments, partitions et câbles personnels.</span>
     </div>
   </div>
 </div>
 
-<!-- AUTH + LANGUE -->
+</main>
+
 <script>
 const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
 if(sessionStorage.getItem('atelier-auth')!=='1'){
@@ -321,26 +233,22 @@ if(sessionStorage.getItem('atelier-auth')!=='1'){
 }
 
 let currentLang = localStorage.getItem('atelier-lang') || 'fr';
-
 function applyLang(){
   document.querySelectorAll('[data-fr]').forEach(el => {
     const hasTranslatableChild = el.querySelector('[data-fr]');
-    if(!hasTranslatableChild){
-      el.textContent = (currentLang === 'fr') ? el.dataset.fr : el.dataset.es;
-    }
+    if(!hasTranslatableChild){ el.textContent = (currentLang === 'fr') ? el.dataset.fr : el.dataset.es; }
   });
   const btn = document.getElementById('lang-toggle');
   if(btn) btn.textContent = (currentLang === 'fr') ? 'ES' : 'FR';
   document.documentElement.lang = currentLang;
 }
-
 function toggleLang(){
   currentLang = (currentLang === 'fr') ? 'es' : 'fr';
   localStorage.setItem('atelier-lang', currentLang);
   applyLang();
 }
-
 applyLang();
+if(window.lucide&&lucide.createIcons) lucide.createIcons();
 </script>
 
 </body>

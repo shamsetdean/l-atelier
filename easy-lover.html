@@ -3,149 +3,165 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512.png">
 <meta name="theme-color" content="#FFF8E7">
-<title>Easy Lover — L'Atelier</title>
+<title>Easy Lover — les Phénix</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
 <link rel="stylesheet" href="atelier.css">
 <style>
-:root{--accent:#1F6B4A;--accent-h:#175238;--accent-soft:#DDE9DF;--accent-deep:#0D3B26;}
-.tuto-grid{display:grid;grid-template-columns:1fr;gap:1.2rem;}
-.tuto-card{background:var(--paper);border:1px solid var(--ink);overflow:hidden;}
-.tuto-header{padding:.7rem 1rem;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);font-weight:500;}
-.tuto-ico{display:inline-flex;align-items:center;color:var(--accent);flex-shrink:0;}
-.tuto-ico svg{display:block;}
-.tuto-video-wrapper{position:relative;width:100%;padding-bottom:56.25%;background:var(--ink-2);}
-.tuto-video-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
-@media(min-width:768px){.tuto-grid{grid-template-columns:repeat(2,1fr);gap:1.4rem;}}
-.dl-archive-list{display:flex;flex-direction:column;gap:.5rem;}
-.dl-archive-item{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem .9rem;background:var(--paper);border:1px solid var(--line);}
-.dl-archive-name{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink);}
-.dl-archive-name b{font-weight:600;}
+:root{
+  --accent:#22B89B;
+  --accent-2:#5FD8BE;
+  --accent-deep:#0F7A63;
+  --accent-soft:rgba(34,184,155,0.12);
+  --accent-blob:#6FE0C6;
+}
 </style>
 </head>
 <body>
-<header class="atelier-header">
-  <a class="header-logo" href="index.html">L'Atelier<span class="tick">private</span></a>
+
+<div class="aurora"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
+<header class="atelier-header glass">
+  <a class="header-logo" href="index.html">
+    <span class="dot"></span><span class="word">les Phénix</span>
+  </a>
   <div class="header-actions">
-    <a class="btn-back" href="index.html"><span data-fr="← Accueil" data-es="← Inicio">← Accueil</span></a>
+    <a class="btn-back" href="index.html"><span data-lucide="arrow-left"></span><span data-fr="Accueil" data-es="Inicio">Accueil</span></a>
     <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
   </div>
 </header>
+
 <main class="atelier-main">
+
+  <!-- PAGE HEAD -->
   <div class="page-head">
     <div>
-      <div class="page-eyebrow"><span class="num accent">02</span><span data-fr="Morceau du répertoire" data-es="Canción del repertorio">Morceau du répertoire</span></div>
+      <div class="page-eyebrow">
+        <span class="num">02</span>
+        <span data-fr="Morceau du répertoire" data-es="Canción del repertorio">Morceau du répertoire</span>
+      </div>
       <h1 class="page-title">Easy Lover</h1>
     </div>
-    <div class="page-meta"><div><b>Phil Collins &amp; Philip Bailey</b></div><div>· 1984 ·</div></div>
+    <div class="page-meta">
+      <div><b>Phil Collins & Philip Bailey</b></div>
+      <div>· 1984 ·</div>
+    </div>
   </div>
+
+  <!-- HERO -->
   <div class="hero">
     <div class="hero-inner">
-      <div class="hero-meta"><span class="dot"></span><span data-fr="Ambiance / clé / tempo" data-es="Ambiente / tonalidad / tempo">Ambiance / clé / tempo</span></div>
+      <div class="hero-meta"><span data-lucide="disc-3"></span><span data-fr="Tempo · tonalité" data-es="Tempo · tonalidad">Tempo · tonalité</span></div>
       <div class="hero-title">Easy Lover</div>
-      <div class="hero-artist">Phil Collins &amp; Philip Bailey — 1984</div>
-      <div class="hero-musical"><span>132 BPM</span><span data-fr="Ré♭ majeur" data-es="Re♭ mayor">Ré♭ majeur</span></div>
+      <div class="hero-artist">Phil Collins & Philip Bailey — 1984</div>
+      <div class="hero-musical">
+        <span><span data-lucide="gauge"></span>128 BPM</span>
+        <span><span data-lucide="music"></span><span data-fr="Ré♭ majeur" data-es="Re♭ mayor">Ré♭ majeur</span></span>
+      </div>
     </div>
-    <div class="hero-side"><span data-fr="Référence" data-es="Referencia">Référence</span><div class="num">02</div></div>
+    <div class="hero-side">
+      <span data-fr="Référence" data-es="Referencia">Référence</span>
+      <div class="num">02</div>
+    </div>
   </div>
+
+  <!-- VIDEO YOUTUBE -->
   <section class="section-block">
-    <h2 class="section-title"><span data-fr="Vidéo originale" data-es="Vídeo original">Vidéo originale</span></h2>
+    <h2 class="section-title"><span data-lucide="youtube"></span><span data-fr="Vidéo originale" data-es="Vídeo original">Vidéo originale</span></h2>
     <div class="video-wrapper">
       <iframe src="https://www.youtube-nocookie.com/embed/H0o6kAixIqE" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
   </section>
+
+  <!-- AUDIOS -->
   <section class="section-block">
-    <h2 class="section-title"><span data-fr="Audios" data-es="Audios">Audios</span></h2>
+    <h2 class="section-title"><span data-lucide="audio-lines"></span><span data-fr="Audios" data-es="Audios">Audios</span></h2>
+
     <div class="audio-block">
-      <div class="audio-label"><span data-fr="Audio original" data-es="Audio original">Audio original</span></div>
-      <div class="audio-placeholder"><span data-fr="Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_EASY_LOVER" data-es="Audio próximamente">Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_EASY_LOVER</span></div>
+      <div class="audio-label">
+        <span class="audio-label-main"><span data-lucide="disc-2"></span><span data-fr="Audio original" data-es="Audio original">Audio original</span></span>
+        <span class="audio-source" id="src-original-easy-lover"></span>
+      </div>
+      <div class="audio-placeholder"><span data-lucide="clock"></span><span data-fr="Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_EASY_LOVER" data-es="Audio próximamente — placeholder: #REMPLACER_AUDIO_ORIGINAL_EASY_LOVER">Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_EASY_LOVER</span></div>
     </div>
+
     <div class="audio-block">
-      <div class="audio-label"><span data-fr="Atelier du 18 juin" data-es="Ensayo del 18 de junio">Atelier du 18 juin</span></div>
-      <audio id="audio-repet4-easy-lover" controls preload="none">
-        <source src="https://www.dropbox.com/scl/fi/on2vm7a6iaaalrvosa5qa/Easy-Lover-132-bpm-18-juin.mp3?rlkey=8ybky4qrmaon5y16q422avhlz&raw=1" type="audio/mpeg">
-        <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
-      </audio>
-      <div class="audio-controls">
-        <span class="speed-lbl" data-fr="Vitesse :" data-es="Velocidad :">Vitesse :</span>
-        <button class="audio-speed" onclick="setSpeed('audio-repet4-easy-lover',0.75,this)">0.75×</button>
-        <button class="audio-speed active" onclick="setSpeed('audio-repet4-easy-lover',1,this)">1×</button>
-        <button class="audio-speed" onclick="setSpeed('audio-repet4-easy-lover',1.25,this)">1.25×</button>
-        <a href="https://www.dropbox.com/scl/fi/on2vm7a6iaaalrvosa5qa/Easy-Lover-132-bpm-18-juin.mp3?rlkey=8ybky4qrmaon5y16q422avhlz&dl=1" class="pdf-btn" style="margin-left:auto;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
+      <div class="audio-label">
+        <span class="audio-label-main"><span data-lucide="mic-vocal"></span><span data-fr="Audio répétition" data-es="Audio del ensayo">Audio répétition</span></span>
+        <span class="audio-source" id="src-repet-easy-lover"></span>
       </div>
+      <div class="audio-placeholder"><span data-lucide="clock"></span><span data-fr="Audio à venir — placeholder : #REMPLACER_AUDIO_REPETITION_EASY_LOVER" data-es="Audio próximamente — placeholder: #REMPLACER_AUDIO_REPETITION_EASY_LOVER">Audio à venir — placeholder : #REMPLACER_AUDIO_REPETITION_EASY_LOVER</span></div>
     </div>
   </section>
 
-  <!-- TELECHARGEMENTS (anciennes repetitions) -->
+  <!-- PARTITIONS -->
   <section class="section-block">
-    <h2 class="section-title"><span data-fr="Téléchargements — historique" data-es="Descargas — historial">Téléchargements — historique</span></h2>
-    <div class="dl-archive-list">
-      <div class="dl-archive-item">
-        <span class="dl-archive-name"><b data-fr="Atelier du 11 juin" data-es="Ensayo del 11 de junio">Atelier du 11 juin</b></span>
-        <a href="https://www.dropbox.com/scl/fi/it46l71klnvyondjwm64w/atelier-funk-11-06-2026-easy-lover.mp3?rlkey=vebta1bhpgjzybftamdsl4wnk&dl=1" class="pdf-btn"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-      </div>
-      <div class="dl-archive-item">
-        <span class="dl-archive-name"><b data-fr="Atelier du 4 juin" data-es="Ensayo del 4 de junio">Atelier du 4 juin</b></span>
-        <a href="https://www.dropbox.com/scl/fi/ettb1j30iqxdmtfxakc2x/Easy-Lover-04-06-2026.mp3?rlkey=r3f0gh45amneeck3ij9x5hn7i&dl=1" class="pdf-btn"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-      </div>
-      <div class="dl-archive-item">
-        <span class="dl-archive-name"><b data-fr="Atelier du 28 mai" data-es="Ensayo del 28 de mayo">Atelier du 28 mai</b></span>
-        <a href="https://www.dropbox.com/scl/fi/9wou9mtd8ex225l5lrys1/Easy-Lover-Still-atelier-du-jeudi-28-mai.m4a?rlkey=2bg6om2m5j6ia0y0i7lekyjj0&dl=1" class="pdf-btn"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-block">
-    <h2 class="section-title"><span data-fr="Tutos" data-es="Tutoriales">Tutos</span></h2>
-    <div class="tuto-grid">
-      <div class="tuto-card">
-        <div class="tuto-header">
-          <span class="tuto-ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 2 8 8"/><path d="m22 2-8 8"/><ellipse cx="12" cy="9" rx="10" ry="5"/><path d="M7 13.4v7.9"/><path d="M12 14v8"/><path d="M17 13.4v7.9"/><path d="M2 9v8a10 5 0 0 0 20 0V9"/></svg></span>
-          <span class="tuto-label" data-fr="Tuto batterie" data-es="Tutorial batería">Tuto batterie</span>
-        </div>
-        <div class="tuto-video-wrapper">
-          <iframe src="https://www.youtube-nocookie.com/embed/n--ABs_jHY8" title="Tuto batterie" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-block">
-    <h2 class="section-title"><span data-fr="Partitions" data-es="Partituras">Partitions</span></h2>
+    <h2 class="section-title"><span data-lucide="file-music"></span><span data-fr="Partitions" data-es="Partituras">Partitions</span></h2>
     <div class="tabs">
-      <button class="tab active" onclick="switchTab('guitare',this)"><span data-fr="Guitare" data-es="Guitarra">Guitare</span></button>
-      <button class="tab" onclick="switchTab('basse',this)"><span data-fr="Basse" data-es="Bajo">Basse</span></button>
-      <button class="tab" onclick="switchTab('chant',this)"><span data-fr="Chant" data-es="Voz">Chant</span></button>
-      <button class="tab" onclick="switchTab('batterie',this)"><span data-fr="Batterie" data-es="Batería">Batterie</span></button>
-      <button class="tab" onclick="switchTab('clavier',this)"><span data-fr="Clavier" data-es="Teclado">Clavier</span></button>
+      <button class="tab active" onclick="switchTab('guitare',this)"><span data-lucide="guitar"></span><span data-fr="Guitare" data-es="Guitarra">Guitare</span></button>
+      <button class="tab" onclick="switchTab('basse',this)"><span data-lucide="guitar"></span><span data-fr="Basse" data-es="Bajo">Basse</span></button>
+      <button class="tab" onclick="switchTab('chant',this)"><span data-lucide="mic-vocal"></span><span data-fr="Chant" data-es="Voz">Chant</span></button>
+      <button class="tab" onclick="switchTab('batterie',this)"><span data-lucide="drum"></span><span data-fr="Batterie" data-es="Batería">Batterie</span></button>
+      <button class="tab" onclick="switchTab('clavier',this)"><span data-lucide="piano"></span><span data-fr="Clavier" data-es="Teclado">Clavier</span></button>
     </div>
-    <div class="tab-content active" id="tab-guitare"><div class="pdf-empty"><span data-fr="Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_EASY_LOVER" data-es="Partitura Guitarra próximamente">Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_EASY_LOVER</span></div></div>
-    <div class="tab-content" id="tab-basse"><div class="pdf-empty"><span data-fr="Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_EASY_LOVER" data-es="Partitura Bajo próximamente">Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_EASY_LOVER</span></div></div>
-    <div class="tab-content" id="tab-chant"><div class="pdf-empty"><span data-fr="Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_EASY_LOVER" data-es="Partitura Voz próximamente">Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_EASY_LOVER</span></div></div>
-    <div class="tab-content" id="tab-batterie"><div class="pdf-empty"><span data-fr="Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_EASY_LOVER" data-es="Partitura Batería próximamente">Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_EASY_LOVER</span></div></div>
-    <div class="tab-content" id="tab-clavier"><div class="pdf-empty"><span data-fr="Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_EASY_LOVER" data-es="Partitura Teclado próximamente">Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_EASY_LOVER</span></div></div>
+
+    <div class="tab-content active" id="tab-guitare"><div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_EASY_LOVER" data-es="Partitura Guitarra próximamente — placeholder: #REMPLACER_PDF_GUITARE_EASY_LOVER">Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_EASY_LOVER</span></div></div>
+    <div class="tab-content" id="tab-basse"><div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_EASY_LOVER" data-es="Partitura Bajo próximamente — placeholder: #REMPLACER_PDF_BASSE_EASY_LOVER">Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_EASY_LOVER</span></div></div>
+    <div class="tab-content" id="tab-chant"><div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_EASY_LOVER" data-es="Partitura Voz próximamente — placeholder: #REMPLACER_PDF_CHANT_EASY_LOVER">Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_EASY_LOVER</span></div></div>
+    <div class="tab-content" id="tab-batterie"><div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_EASY_LOVER" data-es="Partitura Batería próximamente — placeholder: #REMPLACER_PDF_BATTERIE_EASY_LOVER">Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_EASY_LOVER</span></div></div>
+    <div class="tab-content" id="tab-clavier"><div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_EASY_LOVER" data-es="Partitura Teclado próximamente — placeholder: #REMPLACER_PDF_CLAVIER_EASY_LOVER">Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_EASY_LOVER</span></div></div>
   </section>
+
 </main>
+
 <script>
 const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
-if(sessionStorage.getItem('atelier-auth')!=='1'){window.location.href='index.html';}
+if(sessionStorage.getItem('atelier-auth')!=='1'){
+  window.location.href='index.html';
+}
+
+/* TRADUCTION */
 let currentLang=localStorage.getItem('atelier-lang')||'fr';
-function applyLang(){document.querySelectorAll('[data-fr]').forEach(el=>{const hasChild=el.querySelector('[data-fr]');if(!hasChild)el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;});const btn=document.getElementById('lang-toggle');if(btn)btn.textContent=(currentLang==='fr')?'ES':'FR';document.documentElement.lang=currentLang;}
-function toggleLang(){currentLang=(currentLang==='fr')?'es':'fr';localStorage.setItem('atelier-lang',currentLang);applyLang();}
-function switchTab(name,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById('tab-'+name).classList.add('active');}
-function setSpeed(audioId,speed,btn){const audio=document.getElementById(audioId);if(!audio)return;audio.playbackRate=speed;btn.parentElement.querySelectorAll('.audio-speed').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+function applyLang(){
+  document.querySelectorAll('[data-fr]').forEach(el=>{
+    const hasChild=el.querySelector('[data-fr]');
+    if(!hasChild) el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;
+  });
+  const btn=document.getElementById('lang-toggle');
+  if(btn) btn.textContent=(currentLang==='fr')?'ES':'FR';
+  document.documentElement.lang=currentLang;
+}
+function toggleLang(){
+  currentLang=(currentLang==='fr')?'es':'fr';
+  localStorage.setItem('atelier-lang',currentLang);
+  applyLang();
+}
+
+/* TABS PARTITIONS */
+function switchTab(name,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+/* VITESSE AUDIO */
+function setSpeed(audioId, speed, btn){
+  const audio=document.getElementById(audioId);
+  if(!audio) return;
+  audio.playbackRate=speed;
+  // Mettre à jour les boutons du même groupe
+  btn.parentElement.querySelectorAll('.audio-speed').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
 applyLang();
 </script>
-<script src="loop-ab.js" defer></script>
-<script>
-(function(){function markTabs(){var tabs=document.querySelectorAll('.tab');tabs.forEach(function(tab){var onclick=tab.getAttribute('onclick')||'';var match=onclick.match(/switchTab\(['"]([^'"]+)['"]/);if(!match)return;var name=match[1];var content=document.getElementById('tab-'+name);if(!content)return;var isEmpty=content.querySelector('.pdf-empty')!==null;if(!isEmpty){tab.classList.add('has-pdf');}else{tab.classList.remove('has-pdf');}});}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',markTabs);}else{markTabs();}})();
-</script>
+
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<script>if(window.lucide&&lucide.createIcons)lucide.createIcons();</script>
 </body>
 </html>

@@ -3,52 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
-<!-- FAVICON & ÉCRAN D'ACCUEIL -->
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512.png">
-
 <meta name="theme-color" content="#FFF8E7">
-<title>This Place Hotel — L'Atelier</title>
+<title>This Place Hotel — les Phénix</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
 <link rel="stylesheet" href="atelier.css">
 <style>
 :root{
-  --accent:#5A2A4A;
-  --accent-h:#421E36;
-  --accent-soft:#F0DDE8;
-  --accent-deep:#33172A;
-}
-
-.tuto-grid{display:grid;grid-template-columns:1fr;gap:1.2rem;}
-.tuto-card{background:var(--paper);border:1px solid var(--ink);overflow:hidden;}
-.tuto-header{
-  padding:.7rem 1rem;border-bottom:1px solid var(--line);
-  display:flex;align-items:center;gap:.5rem;
-  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--ink);font-weight:500;
-}
-.tuto-ico{display:inline-flex;align-items:center;color:var(--accent);flex-shrink:0;}
-.tuto-ico svg{display:block;}
-.tuto-video-wrapper{position:relative;width:100%;padding-bottom:56.25%;background:var(--ink-2);}
-.tuto-video-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
-@media(min-width:768px){
-  .tuto-grid{grid-template-columns:repeat(2,1fr);gap:1.4rem;}
+  --accent:#5A6AE0;
+  --accent-2:#8B9BFF;
+  --accent-deep:#3A45B8;
+  --accent-soft:rgba(90,106,224,0.12);
+  --accent-blob:#8B9BFF;
 }
 </style>
 </head>
 <body>
 
-<header class="atelier-header">
+<div class="aurora"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
+<header class="atelier-header glass">
   <a class="header-logo" href="index.html">
-    L'Atelier<span class="tick">private</span>
+    <span class="dot"></span><span class="word">les Phénix</span>
   </a>
   <div class="header-actions">
-    <a class="btn-back" href="index.html"><span data-fr="← Accueil" data-es="← Inicio">← Accueil</span></a>
+    <a class="btn-back" href="index.html"><span data-lucide="arrow-left"></span><span data-fr="Accueil" data-es="Inicio">Accueil</span></a>
     <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
   </div>
 </header>
@@ -59,7 +40,7 @@
   <div class="page-head">
     <div>
       <div class="page-eyebrow">
-        <span class="num accent">04</span>
+        <span class="num">04</span>
         <span data-fr="Morceau du répertoire" data-es="Canción del repertorio">Morceau du répertoire</span>
       </div>
       <h1 class="page-title">This Place Hotel</h1>
@@ -73,12 +54,12 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-inner">
-      <div class="hero-meta"><span class="dot"></span><span data-fr="Ambiance / clé / tempo" data-es="Ambiente / tonalidad / tempo">Ambiance / clé / tempo</span></div>
+      <div class="hero-meta"><span data-lucide="disc-3"></span><span data-fr="Tempo · tonalité" data-es="Tempo · tonalidad">Tempo · tonalité</span></div>
       <div class="hero-title">This Place Hotel</div>
       <div class="hero-artist">The Jacksons — 1980</div>
       <div class="hero-musical">
-        <span>120 BPM</span>
-        <span data-fr="Sol mineur" data-es="Sol menor">Sol mineur</span>
+        <span><span data-lucide="gauge"></span>120 BPM</span>
+        <span><span data-lucide="music"></span><span data-fr="Sol mineur" data-es="Sol menor">Sol mineur</span></span>
       </div>
     </div>
     <div class="hero-side">
@@ -89,7 +70,7 @@
 
   <!-- VIDEO YOUTUBE -->
   <section class="section-block">
-    <h2 class="section-title"><span data-fr="Vidéo originale" data-es="Vídeo original">Vidéo originale</span></h2>
+    <h2 class="section-title"><span data-lucide="youtube"></span><span data-fr="Vidéo originale" data-es="Vídeo original">Vidéo originale</span></h2>
     <div class="video-wrapper">
       <iframe src="https://www.youtube-nocookie.com/embed/-wHW3zsRK04" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
@@ -97,83 +78,67 @@
 
   <!-- AUDIOS -->
   <section class="section-block">
-    <h2 class="section-title"><span data-fr="Audios" data-es="Audios">Audios</span></h2>
+    <h2 class="section-title"><span data-lucide="audio-lines"></span><span data-fr="Audios" data-es="Audios">Audios</span></h2>
 
     <div class="audio-block">
       <div class="audio-label">
-        <span data-fr="Audio original" data-es="Audio original">Audio original</span>
+        <span class="audio-label-main"><span data-lucide="disc-2"></span><span data-fr="Audio original" data-es="Audio original">Audio original</span></span>
         <span class="audio-source" id="src-original-this-place-hotel"></span>
       </div>
-      <div class="audio-placeholder"><span data-fr="Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_THIS_PLACE_HOTEL" data-es="Audio próximamente — placeholder: #REMPLACER_AUDIO_ORIGINAL_THIS_PLACE_HOTEL">Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_THIS_PLACE_HOTEL</span></div>
+      <div class="audio-placeholder"><span data-lucide="clock"></span><span data-fr="Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_THIS_PLACE_HOTEL" data-es="Audio próximamente — placeholder: #REMPLACER_AUDIO_ORIGINAL_THIS_PLACE_HOTEL">Audio à venir — placeholder : #REMPLACER_AUDIO_ORIGINAL_THIS_PLACE_HOTEL</span></div>
     </div>
 
     <div class="audio-block">
       <div class="audio-label">
-        <span data-fr="Atelier du 2 avril" data-es="Taller del 2 de abril">Atelier du 2 avril</span>
+        <span class="audio-label-main"><span data-lucide="mic-vocal"></span><span data-fr="Atelier du 2 avril" data-es="Taller del 2 de abril">Atelier du 2 avril</span></span>
       </div>
       <audio id="audio-repet-2avril-this-place-hotel" controls preload="none">
         <source src="https://www.dropbox.com/scl/fi/tjx0ce45ougql8mf5lov0/this-place-hotel-atelier-du-2-avril.mp3?rlkey=c4uuzaiqvdkjic4sfqmcwoqzb&raw=1" type="audio/mpeg">
         <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
       </audio>
       <div class="audio-controls">
-        <span class="speed-lbl" data-fr="Vitesse :" data-es="Velocidad :">Vitesse :</span>
+        <span class="speed-lbl"><span data-lucide="gauge"></span><span data-fr="Vitesse" data-es="Velocidad">Vitesse</span></span>
         <button class="audio-speed" onclick="setSpeed('audio-repet-2avril-this-place-hotel',0.75,this)">0.75×</button>
         <button class="audio-speed active" onclick="setSpeed('audio-repet-2avril-this-place-hotel',1,this)">1×</button>
         <button class="audio-speed" onclick="setSpeed('audio-repet-2avril-this-place-hotel',1.25,this)">1.25×</button>
-        <a href="https://www.dropbox.com/scl/fi/tjx0ce45ougql8mf5lov0/this-place-hotel-atelier-du-2-avril.mp3?rlkey=c4uuzaiqvdkjic4sfqmcwoqzb&dl=1" class="pdf-btn" style="margin-left:auto;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
+        <a href="https://www.dropbox.com/scl/fi/tjx0ce45ougql8mf5lov0/this-place-hotel-atelier-du-2-avril.mp3?rlkey=c4uuzaiqvdkjic4sfqmcwoqzb&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
       </div>
     </div>
 
     <div class="audio-block">
       <div class="audio-label">
-        <span data-fr="Atelier du 16 avril" data-es="Taller del 16 de abril">Atelier du 16 avril</span>
+        <span class="audio-label-main"><span data-lucide="mic-vocal"></span><span data-fr="Atelier du 16 avril" data-es="Taller del 16 de abril">Atelier du 16 avril</span></span>
       </div>
       <audio id="audio-repet-16avril-this-place-hotel" controls preload="none">
         <source src="https://www.dropbox.com/scl/fi/r1vayuyl5yw3ro4lm0sx9/this-place-hotel-16-avril.mp3?rlkey=9zv6pgw05xae9ugg4fgmwbvta&raw=1" type="audio/mpeg">
         <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
       </audio>
       <div class="audio-controls">
-        <span class="speed-lbl" data-fr="Vitesse :" data-es="Velocidad :">Vitesse :</span>
+        <span class="speed-lbl"><span data-lucide="gauge"></span><span data-fr="Vitesse" data-es="Velocidad">Vitesse</span></span>
         <button class="audio-speed" onclick="setSpeed('audio-repet-16avril-this-place-hotel',0.75,this)">0.75×</button>
         <button class="audio-speed active" onclick="setSpeed('audio-repet-16avril-this-place-hotel',1,this)">1×</button>
         <button class="audio-speed" onclick="setSpeed('audio-repet-16avril-this-place-hotel',1.25,this)">1.25×</button>
-        <a href="https://www.dropbox.com/scl/fi/r1vayuyl5yw3ro4lm0sx9/this-place-hotel-16-avril.mp3?rlkey=9zv6pgw05xae9ugg4fgmwbvta&dl=1" class="pdf-btn" style="margin-left:auto;"><span data-fr="↓ Télécharger" data-es="↓ Descargar">↓ Télécharger</span></a>
-      </div>
-    </div>
-  </section>
-
-    <!-- TUTOS -->
-  <section class="section-block">
-    <h2 class="section-title"><span data-fr="Tutos" data-es="Tutoriales">Tutos</span></h2>
-    <div class="tuto-grid">
-      <div class="tuto-card">
-        <div class="tuto-header">
-          <span class="tuto-ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 2 8 8"/><path d="m22 2-8 8"/><ellipse cx="12" cy="9" rx="10" ry="5"/><path d="M7 13.4v7.9"/><path d="M12 14v8"/><path d="M17 13.4v7.9"/><path d="M2 9v8a10 5 0 0 0 20 0V9"/></svg></span>
-          <span class="tuto-label" data-fr="Tuto batterie" data-es="Tutorial batería">Tuto batterie</span>
-        </div>
-        <div class="tuto-video-wrapper">
-          <iframe src="https://www.youtube-nocookie.com/embed/7b8fxUxhGs4" title="Tuto batterie" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-        </div>
+        <a href="https://www.dropbox.com/scl/fi/r1vayuyl5yw3ro4lm0sx9/this-place-hotel-16-avril.mp3?rlkey=9zv6pgw05xae9ugg4fgmwbvta&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
       </div>
     </div>
   </section>
 
   <!-- PARTITIONS -->
   <section class="section-block">
-    <h2 class="section-title"><span data-fr="Partitions" data-es="Partituras">Partitions</span></h2>
+    <h2 class="section-title"><span data-lucide="file-music"></span><span data-fr="Partitions" data-es="Partituras">Partitions</span></h2>
     <div class="tabs">
-      <button class="tab active" onclick="switchTab('guitare',this)"><span data-fr="Guitare" data-es="Guitarra">Guitare</span></button>
-      <button class="tab" onclick="switchTab('basse',this)"><span data-fr="Basse" data-es="Bajo">Basse</span></button>
-      <button class="tab" onclick="switchTab('chant',this)"><span data-fr="Chant" data-es="Voz">Chant</span></button>
-      <button class="tab" onclick="switchTab('batterie',this)"><span data-fr="Batterie" data-es="Batería">Batterie</span></button>
-      <button class="tab" onclick="switchTab('clavier',this)"><span data-fr="Clavier" data-es="Teclado">Clavier</span></button>
+      <button class="tab active" onclick="switchTab('guitare',this)"><span data-lucide="guitar"></span><span data-fr="Guitare" data-es="Guitarra">Guitare</span></button>
+      <button class="tab" onclick="switchTab('basse',this)"><span data-lucide="guitar"></span><span data-fr="Basse" data-es="Bajo">Basse</span></button>
+      <button class="tab" onclick="switchTab('chant',this)"><span data-lucide="mic-vocal"></span><span data-fr="Chant" data-es="Voz">Chant</span></button>
+      <button class="tab" onclick="switchTab('batterie',this)"><span data-lucide="drum"></span><span data-fr="Batterie" data-es="Batería">Batterie</span></button>
+      <button class="tab" onclick="switchTab('clavier',this)"><span data-lucide="piano"></span><span data-fr="Clavier" data-es="Teclado">Clavier</span></button>
     </div>
 
-    <div class="tab-content active" id="tab-guitare"><div class="pdf-empty"><span data-fr="Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_THIS_PLACE_HOTEL" data-es="Partitura Guitarra próximamente — placeholder: #REMPLACER_PDF_GUITARE_THIS_PLACE_HOTEL">Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_THIS_PLACE_HOTEL</span></div></div>
-    <div class="tab-content" id="tab-basse"><div class="pdf-empty"><span data-fr="Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_THIS_PLACE_HOTEL" data-es="Partitura Bajo próximamente — placeholder: #REMPLACER_PDF_BASSE_THIS_PLACE_HOTEL">Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_THIS_PLACE_HOTEL</span></div></div>
-    <div class="tab-content" id="tab-chant"><div class="pdf-empty"><span data-fr="Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_THIS_PLACE_HOTEL" data-es="Partitura Voz próximamente — placeholder: #REMPLACER_PDF_CHANT_THIS_PLACE_HOTEL">Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_THIS_PLACE_HOTEL</span></div></div>
-    <div class="tab-content" id="tab-batterie"><div class="pdf-empty"><span data-fr="Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_THIS_PLACE_HOTEL" data-es="Partitura Batería próximamente — placeholder: #REMPLACER_PDF_BATTERIE_THIS_PLACE_HOTEL">Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_THIS_PLACE_HOTEL</span></div></div>
-    <div class="tab-content" id="tab-clavier"><div class="pdf-empty"><span data-fr="Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_THIS_PLACE_HOTEL" data-es="Partitura Teclado próximamente — placeholder: #REMPLACER_PDF_CLAVIER_THIS_PLACE_HOTEL">Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_THIS_PLACE_HOTEL</span></div></div>
+    <div class="tab-content active" id="tab-guitare"><div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_THIS_PLACE_HOTEL" data-es="Partitura Guitarra próximamente — placeholder: #REMPLACER_PDF_GUITARE_THIS_PLACE_HOTEL">Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_THIS_PLACE_HOTEL</span></div></div>
+    <div class="tab-content" id="tab-basse"><div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_THIS_PLACE_HOTEL" data-es="Partitura Bajo próximamente — placeholder: #REMPLACER_PDF_BASSE_THIS_PLACE_HOTEL">Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_THIS_PLACE_HOTEL</span></div></div>
+    <div class="tab-content" id="tab-chant"><div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_THIS_PLACE_HOTEL" data-es="Partitura Voz próximamente — placeholder: #REMPLACER_PDF_CHANT_THIS_PLACE_HOTEL">Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_THIS_PLACE_HOTEL</span></div></div>
+    <div class="tab-content" id="tab-batterie"><div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_THIS_PLACE_HOTEL" data-es="Partitura Batería próximamente — placeholder: #REMPLACER_PDF_BATTERIE_THIS_PLACE_HOTEL">Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_THIS_PLACE_HOTEL</span></div></div>
+    <div class="tab-content" id="tab-clavier"><div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_THIS_PLACE_HOTEL" data-es="Partitura Teclado próximamente — placeholder: #REMPLACER_PDF_CLAVIER_THIS_PLACE_HOTEL">Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_THIS_PLACE_HOTEL</span></div></div>
   </section>
 
 </main>
@@ -222,33 +187,7 @@ function setSpeed(audioId, speed, btn){
 applyLang();
 </script>
 
-<script src="loop-ab.js" defer></script>
-<script>
-/* Indicateur partition disponible sur les onglets */
-(function(){
-  function markTabs(){
-    var tabs = document.querySelectorAll('.tab');
-    tabs.forEach(function(tab){
-      var onclick = tab.getAttribute('onclick') || '';
-      var match = onclick.match(/switchTab\(['"]([^'"]+)['"]/);
-      if(!match) return;
-      var name = match[1];
-      var content = document.getElementById('tab-' + name);
-      if(!content) return;
-      var isEmpty = content.querySelector('.pdf-empty') !== null;
-      if(!isEmpty){
-        tab.classList.add('has-pdf');
-      } else {
-        tab.classList.remove('has-pdf');
-      }
-    });
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', markTabs);
-  } else {
-    markTabs();
-  }
-})();
-</script>
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<script>if(window.lucide&&lucide.createIcons)lucide.createIcons();</script>
 </body>
 </html>
