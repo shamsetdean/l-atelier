@@ -14,69 +14,42 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="atelier.css">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
 <style>
-:root{
-  --accent:#1F6B4A;
-  --accent-h:#175238;
-  --accent-soft:#DDE9DF;
-  --accent-deep:#0D3B26;
-}
-
-.todo-intro{padding-bottom:1.1rem;margin-bottom:2rem;border-bottom:1px solid var(--ink);}
-.todo-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem;}
-.todo-eyebrow .num{background:var(--ink);color:var(--paper);padding:.18rem .5rem;font-weight:500;letter-spacing:.08em;}
-.todo-title{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.4rem,9vw,3.6rem);line-height:.9;letter-spacing:-.025em;color:var(--ink);}
+:root{--accent:#22B89B;--accent-2:#5FD8BE;--accent-deep:#0F7A63;--accent-soft:rgba(34,184,155,.14);--accent-blob:#6FE0C6;}
+.todo-intro{margin-bottom:1.6rem;}
+.todo-eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem;font-weight:600;}
+.todo-eyebrow .num{background:var(--accent);color:#fff;padding:.15rem .55rem;border-radius:var(--r-pill);font-weight:700;font-size:10px;}
+.todo-title{font-family:var(--serif);font-style:italic;font-size:clamp(2.6rem,9vw,3.8rem);line-height:.9;letter-spacing:-.02em;color:var(--ink);}
 .todo-title .pt{color:var(--accent);font-style:normal;}
-.todo-tagline{font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--muted);margin-top:.4rem;line-height:1.4;}
-.todo-date{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-deep);font-weight:500;margin-top:.6rem;}
-
-.todo-list{display:flex;flex-direction:column;gap:.6rem;margin-bottom:2.5rem;}
-.todo-item{
-  display:grid;grid-template-columns:auto 1fr;align-items:start;gap:1rem;
-  padding:1rem 1.1rem;background:var(--paper);border:1px solid var(--ink);
-  transition:background .15s;
-}
-.todo-item:hover{background:var(--paper-3);}
-.todo-check{
-  width:24px;height:24px;border:1.5px solid var(--ink);flex-shrink:0;margin-top:.1rem;
-  display:flex;align-items:center;justify-content:center;background:var(--paper);
-}
-.todo-check svg{width:14px;height:14px;color:var(--accent);opacity:0;}
+.todo-tagline{font-family:var(--serif);font-style:italic;font-size:1.2rem;color:var(--muted);margin-top:.3rem;}
+.todo-date{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep);font-weight:600;margin-top:.6rem;}
+.todo-list{display:flex;flex-direction:column;gap:.7rem;margin-bottom:2rem;}
+.todo-item{display:grid;grid-template-columns:auto 1fr;align-items:start;gap:1rem;border-radius:var(--r-md);padding:1.1rem 1.2rem;cursor:pointer;background:var(--glass);backdrop-filter:blur(26px) saturate(165%);-webkit-backdrop-filter:blur(26px) saturate(165%);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow),var(--glass-inset);transition:transform .15s;}
+.todo-item:active{transform:scale(.99);}
+.todo-check{width:26px;height:26px;border:2px solid var(--muted-2);border-radius:8px;flex-shrink:0;margin-top:.1rem;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.5);transition:all .2s;}
+.todo-check svg{width:15px;height:15px;color:#fff;opacity:0;}
 .todo-item.done .todo-check{background:var(--accent);border-color:var(--accent);}
-.todo-item.done .todo-check svg{opacity:1;color:#fff;}
+.todo-item.done .todo-check svg{opacity:1;}
 .todo-item.done .todo-label{text-decoration:line-through;color:var(--muted);}
-.todo-body{display:flex;flex-direction:column;gap:.2rem;}
-.todo-label{font-family:var(--serif);font-style:italic;font-size:1.2rem;line-height:1.25;color:var(--ink);letter-spacing:-.01em;cursor:pointer;}
-.todo-sub{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5;}
-.todo-tag{
-  display:inline-flex;align-items:center;gap:.3rem;
-  font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
-  padding:.2rem .5rem;margin-top:.4rem;width:fit-content;
-  border:1px solid var(--accent);color:var(--accent-deep);background:var(--accent-soft);
-}
-
+.todo-body{display:flex;flex-direction:column;gap:.25rem;}
+.todo-label{font-family:var(--serif);font-style:italic;font-size:1.3rem;line-height:1.2;color:var(--ink);}
+.todo-sub{font-size:13px;color:var(--muted);line-height:1.5;}
+.todo-tag{display:inline-flex;align-items:center;gap:.3rem;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .55rem;margin-top:.4rem;width:fit-content;border-radius:var(--r-pill);border:1px solid var(--accent);color:var(--accent-deep);background:var(--accent-soft);font-weight:600;}
 .todo-reset-row{text-align:right;}
-.btn-reset{
-  background:transparent;border:1px dashed var(--muted);
-  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--muted);padding:.55rem .9rem;cursor:pointer;border-radius:0;
-  transition:all .15s;
-}
-.btn-reset:hover{color:#E53935;border-color:#E53935;border-style:solid;}
-
-@media(min-width:768px){
-  .todo-label{font-size:1.3rem;}
-}
+.btn-reset{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.55);border:1px solid var(--glass-line);border-radius:var(--r-pill);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:.6rem 1rem;cursor:pointer;transition:all .15s;font-weight:600;min-height:42px;}
+.btn-reset:hover{color:#E0455E;border-color:#E0455E;}
+@media(min-width:768px){.todo-label{font-size:1.35rem;}}
 </style>
 </head>
 <body>
 
-<header class="atelier-header">
-  <a class="header-logo" href="index.html">
-    les Phénix<span class="tick">private</span>
-  </a>
+<div class="aurora"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
+<header class="atelier-header glass">
+  <a class="header-logo" href="index.html"><img src="phenix-logo.png" alt=""><span class="word">les Phénix</span></a>
   <div class="header-actions">
-    <a class="btn-back" href="index.html"><span data-fr="← Accueil" data-es="← Inicio">← Accueil</span></a>
+    <a class="btn-back" href="index.html"><span data-lucide="arrow-left"></span><span data-fr="Accueil" data-es="Inicio">Accueil</span></a>
     <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
   </div>
 </header>
@@ -190,5 +163,6 @@ applyLang();
 renderTodoState();
 </script>
 
+<script>if(window.lucide&&lucide.createIcons)lucide.createIcons();</script>
 </body>
 </html>

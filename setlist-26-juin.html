@@ -23,82 +23,48 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="atelier.css">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
 <style>
-:root{
-  --accent:#F0511E;
-  --accent-h:#D8400D;
-  --accent-soft:#FFE0CD;
-  --accent-deep:#7A2A0E;
-}
-.setlist-intro{padding-bottom:1.1rem;margin-bottom:2rem;border-bottom:1px solid var(--ink);}
-.setlist-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
-.setlist-eyebrow .num{background:var(--ink);color:var(--paper);padding:.18rem .5rem;font-weight:500;letter-spacing:.08em;}
-.setlist-title{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.2rem,9vw,3.4rem);line-height:.9;letter-spacing:-.025em;color:var(--ink);}
+:root{--accent:#FF7A59;--accent-2:#FF9E7D;--accent-deep:#C9462A;--accent-soft:rgba(255,122,89,.14);--accent-blob:#FF9E7D;}
+.setlist-intro{margin-bottom:1.6rem;}
+.setlist-eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;font-weight:600;}
+.setlist-eyebrow .num{background:var(--accent);color:#fff;padding:.15rem .55rem;border-radius:var(--r-pill);font-weight:700;font-size:10px;}
+.setlist-title{font-family:var(--serif);font-style:italic;font-size:clamp(2.6rem,8vw,4rem);line-height:.9;letter-spacing:-.02em;color:var(--ink);}
 .setlist-title .pt{color:var(--accent);font-style:normal;}
-.setlist-tagline{font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--muted);margin-top:.4rem;line-height:1.4;}
-.setlist-date{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-deep);font-weight:500;margin-top:.6rem;}
-.setlist-manifesto{background:var(--paper-3);border-left:3px solid var(--accent);padding:1.1rem 1.3rem;margin-bottom:2rem;position:relative;}
-.setlist-manifesto::before{content:"";position:absolute;top:0;left:-3px;width:3px;height:18px;background:var(--ink);}
-.setlist-manifesto p{font-family:var(--serif);font-style:italic;font-size:1rem;line-height:1.55;color:var(--ink);margin:0;}
-@media(min-width:768px){.setlist-manifesto{padding:1.3rem 1.6rem;}.setlist-manifesto p{font-size:1.08rem;line-height:1.6;}}
-.section-title-bar{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);margin:2rem 0 1rem;font-weight:500;display:flex;align-items:center;gap:.55rem;}
+.setlist-tagline{font-family:var(--serif);font-style:italic;font-size:1.2rem;color:var(--muted);margin-top:.3rem;}
+.setlist-date{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep);font-weight:600;margin-top:.6rem;}
+.setlist-manifesto{border-radius:var(--r-md);padding:1.2rem 1.4rem;margin-bottom:1rem;background:var(--glass);backdrop-filter:blur(26px) saturate(165%);-webkit-backdrop-filter:blur(26px) saturate(165%);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow),var(--glass-inset);border-left:3px solid var(--accent);}
+.setlist-manifesto p{font-family:var(--serif);font-style:italic;font-size:1.05rem;line-height:1.55;color:var(--ink);margin:0;}
+.section-title-bar{display:flex;align-items:center;gap:.55rem;font-size:.92rem;font-weight:600;color:var(--ink);margin:2rem 0 .3rem;}
 .section-title-bar::before{content:"";width:14px;height:1px;background:var(--accent);flex-shrink:0;}
-.section-subtitle{font-family:var(--serif);font-style:italic;font-size:.95rem;color:var(--muted);margin-top:-.7rem;margin-bottom:1rem;line-height:1.4;}
-.pinned-card{background:var(--accent);color:var(--paper);padding:1.1rem 1.3rem;border:1px solid var(--ink);display:flex;align-items:center;gap:1rem;margin-bottom:.7rem;position:relative;box-shadow:4px 4px 0 var(--ink);}
-.pinned-rank{font-family:var(--mono);font-size:11px;letter-spacing:.1em;font-weight:600;background:var(--paper);color:var(--accent);padding:.25rem .55rem;flex-shrink:0;}
-.pinned-name{flex:1;font-family:var(--serif);font-style:italic;font-size:1.3rem;line-height:1.1;letter-spacing:-.02em;color:var(--paper);}
-.pinned-badge{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;background:var(--paper);color:var(--accent-deep);padding:.25rem .55rem;font-weight:600;}
-.setlist-finale{display:flex;flex-direction:column;gap:.55rem;margin-bottom:2.5rem;}
-.setlist-item{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.9rem;padding:.65rem .9rem;background:var(--paper);border:1px solid var(--ink);}
-.setlist-item:nth-child(odd){background:var(--paper-3);}
-.setlist-num{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);font-weight:600;min-width:28px;}
-.setlist-song{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--ink);letter-spacing:-.01em;}
-@media(min-width:768px){.setlist-song{font-size:1.3rem;}}
-
-.setlist-interlude{
-  display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.9rem;
-  padding:.55rem .9rem;background:var(--paper);border:1px solid var(--line);
-  border-left:3px solid #4CAF50;
-}
-.setlist-interlude-num{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);font-weight:500;min-width:28px;}
-.setlist-interlude-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#2E7D32;display:flex;align-items:center;gap:.5rem;}
-
-/* RENDEZ-VOUS — bloc géant très visible */
-.rdv-hero{
-  background:var(--ink);color:var(--paper);
-  border:1px solid var(--ink);
-  padding:2.4rem 1.6rem;margin-bottom:2.5rem;
-  text-align:center;position:relative;overflow:hidden;
-  box-shadow:6px 6px 0 var(--accent);
-}
-.rdv-hero::before{
-  content:"";position:absolute;inset:0;
-  background:radial-gradient(ellipse at center, rgba(240,81,30,.12) 0%, transparent 70%);
-  pointer-events:none;
-}
-.rdv-pin{font-size:2.4rem;line-height:1;margin-bottom:.6rem;position:relative;}
-.rdv-text{
-  font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:clamp(1.8rem,7vw,3rem);line-height:1.05;letter-spacing:-.02em;
-  color:var(--paper);margin-bottom:.5rem;position:relative;
-}
-.rdv-location{
-  font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--accent);font-weight:600;position:relative;
-}
-@media(min-width:768px){
-  .rdv-hero{padding:3.2rem 2rem;}
-  .rdv-pin{font-size:3rem;}
-  .rdv-location{font-size:15px;}
-}
+.section-subtitle{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--muted);margin-bottom:1rem;}
+.pinned-card{display:flex;align-items:center;gap:1rem;border-radius:var(--r-md);padding:1.1rem 1.3rem;margin-bottom:.7rem;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 10px 26px var(--accent-soft);}
+.pinned-rank{font-size:11px;letter-spacing:.06em;font-weight:700;background:rgba(255,255,255,.92);color:var(--accent-deep);padding:.25rem .55rem;border-radius:var(--r-pill);flex-shrink:0;}
+.pinned-name{flex:1;font-family:var(--serif);font-style:italic;font-size:1.4rem;line-height:1.05;color:#fff;}
+.pinned-badge{font-size:9px;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.92);color:var(--accent-deep);padding:.3rem .55rem;border-radius:var(--r-pill);font-weight:700;}
+.setlist-finale{display:flex;flex-direction:column;gap:.5rem;margin-bottom:2rem;}
+.setlist-item{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.9rem;padding:.7rem 1rem;border-radius:var(--r-sm);background:var(--glass);backdrop-filter:blur(26px) saturate(165%);-webkit-backdrop-filter:blur(26px) saturate(165%);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow),var(--glass-inset);}
+.setlist-num{font-size:11px;letter-spacing:.04em;color:var(--accent-deep);font-weight:700;min-width:30px;}
+.setlist-song{font-family:var(--serif);font-style:italic;font-size:1.25rem;color:var(--ink);}
+.setlist-interlude{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.9rem;padding:.55rem 1rem;border-radius:var(--r-sm);background:rgba(34,184,155,.08);border:1px solid rgba(34,184,155,.25);}
+.setlist-interlude-num{font-size:9px;letter-spacing:.1em;color:#0F7A63;font-weight:700;min-width:30px;}
+.setlist-interlude-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#0F7A63;display:flex;align-items:center;gap:.5rem;font-weight:600;}
+.rdv-hero{position:relative;overflow:hidden;border-radius:var(--r-lg);padding:2.4rem 1.6rem;margin-bottom:2rem;text-align:center;background:linear-gradient(160deg,#211C36,#171327 60%,#1C1730);color:#fff;box-shadow:var(--glass-shadow-lg);border:1px solid rgba(255,255,255,.08);}
+.rdv-hero::before{content:"";position:absolute;top:-25%;right:-15%;width:55%;height:150%;background:radial-gradient(circle,var(--accent) 0%,transparent 62%);opacity:.3;pointer-events:none;}
+.rdv-pin{display:flex;justify-content:center;margin-bottom:.6rem;position:relative;color:var(--accent-2);}
+.rdv-text{font-family:var(--serif);font-style:italic;font-size:clamp(1.8rem,7vw,3rem);line-height:1.05;color:#fff;margin-bottom:.5rem;position:relative;}
+.rdv-location{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);font-weight:600;position:relative;}
+@media(min-width:768px){.rdv-hero{padding:3.2rem 2rem;}.setlist-song{font-size:1.35rem;}}
 </style>
 </head>
 <body>
 
-<header class="atelier-header">
-  <a class="header-logo" href="index.html">les Phénix<span class="tick">private</span></a>
+<div class="aurora"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
+<header class="atelier-header glass">
+  <a class="header-logo" href="index.html"><img src="phenix-logo.png" alt=""><span class="word">les Phénix</span></a>
   <div class="header-actions">
-    <a class="btn-back" href="index.html"><span data-fr="← Accueil" data-es="← Inicio">← Accueil</span></a>
+    <a class="btn-back" href="index.html"><span data-lucide="arrow-left"></span><span data-fr="Accueil" data-es="Inicio">Accueil</span></a>
     <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
   </div>
 </header>
@@ -215,5 +181,6 @@ function toggleLang(){
 }
 applyLang();
 </script>
+<script>if(window.lucide&&lucide.createIcons)lucide.createIcons();</script>
 </body>
 </html>
