@@ -448,27 +448,6 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
 
   <div class="shell">
 
-    <!-- CONCERT HERO -->
-    <div class="concert-hero glass" id="concert-countdown">
-      <div class="cc-left">
-        <div class="cc-label eyebrow"><span data-lucide="sparkles"></span><span data-fr="Prochain concert" data-es="Próximo concierto">Prochain concert</span></div>
-        <div class="cc-venue" data-fr="Extérieur · Ville de Chelles" data-es="Exterior · Ciudad de Chelles">Extérieur · Ville de Chelles</div>
-        <div class="cc-date"><span data-lucide="calendar"></span> 26 juin 2026 · <span data-fr="balances 18h00 — 18h30" data-es="pruebas 18h00 — 18h30">balances 18h00 — 18h30</span></div>
-      </div>
-      <div class="cc-stat">
-        <div class="cc-jminus" id="cc-jminus">J−?</div>
-        <span class="cc-jminus-label" id="cc-jminus-label" data-fr="jours" data-es="días">jours</span>
-      </div>
-      <div class="cc-stat">
-        <div class="num">1</div>
-        <span class="lbl" data-fr="répétition à venir" data-es="ensayo por venir">répétition à venir</span>
-      </div>
-      <div class="cc-actions">
-        <button class="cc-btn cc-btn-primary" onclick="downloadConcertICS()"><span data-fr="Ajouter au calendrier" data-es="Añadir al calendario">Ajouter au calendrier</span><span data-lucide="calendar-plus"></span></button>
-        <a href="setlist-26-juin.html" class="cc-btn cc-btn-secondary"><span data-fr="Voir la setlist" data-es="Ver setlist">Voir la setlist</span><span data-lucide="arrow-right"></span></a>
-      </div>
-    </div>
-
     <!-- ═══ MORCEAUX ═══ -->
     <section id="morceaux" class="section active">
       <div class="section-head">
@@ -605,27 +584,6 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
       </div>
 
       <div class="planning-list">
-
-        <!-- Concert 26 juin -->
-        <div class="event-row concert glass" data-date="2026-06-26">
-          <div class="event-grid">
-            <div class="event-icon"><span data-lucide="sparkles"></span></div>
-            <div>
-              <div class="event-date-line"><span class="event-day">26</span><span class="event-month">Juin 2026</span></div>
-              <div class="event-name"><span data-fr="Concert" data-es="Concierto">Concert</span></div>
-              <div class="event-lieu"><span data-lucide="map-pin"></span><span data-fr="Extérieur · Ville de Chelles" data-es="Exterior · Ciudad de Chelles">Extérieur · Ville de Chelles</span></div>
-            </div>
-            <span class="event-badge concert"><span data-lucide="star"></span>Concert</span>
-          </div>
-          <div class="event-extra">
-            <div class="event-extra-lbl"><span data-lucide="volume-2"></span><span data-fr="Balances" data-es="Pruebas de sonido">Balances</span></div>
-            <div style="font-size:12.5px;color:var(--muted);line-height:1.6;"><span data-fr="Balances prévues entre 18h00 et 18h30 sur place · horaire du concert à confirmer." data-es="Pruebas de sonido previstas entre 18h00 y 18h30 in situ · hora del concierto por confirmar.">Balances prévues entre 18h00 et 18h30 sur place · horaire du concert à confirmer.</span></div>
-            <div class="event-cta-row">
-              <a href="setlist-26-juin.html" class="event-cta primary"><span data-lucide="list-music"></span><span data-fr="Voir la setlist" data-es="Ver setlist">Voir la setlist</span></a>
-              <button class="event-cta" onclick="downloadConcertICS()"><span data-lucide="calendar-plus"></span><span data-fr="Ajouter au calendrier" data-es="Añadir al calendario">Ajouter au calendrier</span></button>
-            </div>
-          </div>
-        </div>
 
         <!-- Répétition 18 juin (5 audios) -->
         <div class="event-row repetition glass" data-date="2026-06-18">
@@ -871,7 +829,6 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
     <div class="sheet-links">
       <a class="sheet-link" href="membres.html"><span data-lucide="users"></span><span data-fr="Membres" data-es="Miembros">Membres</span><span data-lucide="chevron-right" class="chev"></span></a>
       <a class="sheet-link" href="playlist.html"><span data-lucide="list-music"></span>Playlist<span data-lucide="chevron-right" class="chev"></span></a>
-      <a class="sheet-link" href="setlist-26-juin.html"><span data-lucide="clipboard-list"></span>Setlist · 26 juin<span data-lucide="chevron-right" class="chev"></span></a>
       <a class="sheet-link" href="todojeudi.html"><span data-lucide="check-check"></span>TodoJeudi<span data-lucide="chevron-right" class="chev"></span></a>
     </div>
     <div class="sheet-foot">
@@ -972,7 +929,6 @@ function toggleLang(){
   currentLang=(currentLang==='fr')?'es':'fr';
   localStorage.setItem('atelier-lang',currentLang);
   applyLang();
-  if(typeof updateCountdown==='function') updateCountdown();
   if(typeof tagNouveauxMorceaux==='function') tagNouveauxMorceaux();
   try{window.dispatchEvent(new Event('atelier-lang-change'));}catch(e){}
 }
@@ -1006,23 +962,6 @@ function closePDF(e){if(e.target===document.getElementById('pdf-overlay'))closeP
 function closePDFBtn(){document.getElementById('pdf-overlay').classList.remove('open');document.getElementById('pdf-frame').src='';document.body.style.overflow='';}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePDFBtn();closeSheet();}});
 
-function updateCountdown(){
-  const block=document.getElementById('concert-countdown'),jminus=document.getElementById('cc-jminus'),lbl=document.getElementById('cc-jminus-label');
-  if(!block||!jminus||!lbl)return;
-  const concertDate=new Date('2026-06-26T19:00:00+02:00'),now=new Date(),diff=concertDate-now,dayMs=864e5,days=Math.ceil(diff/dayMs);
-  block.classList.remove('j-zero','passed');
-  if(diff<-dayMs){block.classList.add('passed');jminus.textContent=(currentLang==='es')?'Pasado':'Passé';lbl.style.display='none';}
-  else if(days<=0){block.classList.add('j-zero');jminus.textContent=(currentLang==='es')?'¡Hoy !':"Ce soir";lbl.style.display='none';}
-  else{jminus.textContent='J−'+days;lbl.style.display='';lbl.textContent=(currentLang==='es')?(days>1?'días':'día'):(days>1?'jours':'jour');}
-}
-
-function downloadConcertICS(){
-  const now=new Date(),dtStamp=now.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
-  const ics=['BEGIN:VCALENDAR','VERSION:2.0',"PRODID:-//les Phénix//Concert//FR",'CALSCALE:GREGORIAN','METHOD:PUBLISH','BEGIN:VEVENT','UID:atelier-concert-26juin2026@latelier','DTSTAMP:'+dtStamp,'DTSTART;VALUE=DATE:20260626','DTEND;VALUE=DATE:20260627',"SUMMARY:Concert les Phénix — 26 juin 2026",'LOCATION:Extérieur — Ville de Chelles\\, France',"DESCRIPTION:Concert de les Phénix en extérieur — Ville de Chelles.\\nBalances entre 18h00 et 18h30 sur place.\\nHoraire concert à confirmer.",'STATUS:CONFIRMED','BEGIN:VALARM','ACTION:DISPLAY',"DESCRIPTION:Concert de les Phénix demain",'TRIGGER:-P1D','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
-  const blob=new Blob([ics],{type:'text/calendar;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
-  a.href=url;a.download='concert-latelier-26juin2026.ics';document.body.appendChild(a);a.click();document.body.removeChild(a);
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
-}
 
 function tagNouveauxMorceaux(){
   const seuil=5,now=new Date();
@@ -1036,9 +975,7 @@ function tagNouveauxMorceaux(){
 }
 
 function postLoginInit(){
-  try{updateCountdown();}catch(e){}
   try{tagNouveauxMorceaux();}catch(e){}
-  try{setInterval(updateCountdown,36e5);}catch(e){}
   refreshIcons();
 }
 
