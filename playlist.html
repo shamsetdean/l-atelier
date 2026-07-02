@@ -353,7 +353,7 @@ function changeMember(){
 }
 
 /* ── LIMITE DE PROPOSITIONS ── */
-const MAX_PROPOSALS = 3;
+/* Limite désactivée : aucune restriction sur le nombre de propositions */
 
 function getMyProposalCount(){
   if(!myName) return 0;
@@ -363,17 +363,8 @@ function getMyProposalCount(){
 function updateProposeWarning(){
   const warn = document.getElementById('propose-warning');
   if(!warn) return;
-  const count = getMyProposalCount();
-  if(!myName || count <= MAX_PROPOSALS){
-    warn.style.display = 'none';
-    warn.textContent = '';
-    return;
-  }
-  const over = count - MAX_PROPOSALS;
-  warn.style.display = 'block';
-  warn.textContent = (currentLang==='fr')
-    ? 'Tu dépasses la limite recommandée de '+MAX_PROPOSALS+' morceaux (+'+over+'). Pense à laisser de la place aux autres.'
-    : 'Superas el límite recomendado de '+MAX_PROPOSALS+' canciones (+'+over+'). Deja sitio a los demás.';
+  warn.style.display = 'none';
+  warn.textContent = '';
 }
 
 function updateMyNameDisplay(){
@@ -385,9 +376,8 @@ function updateMyNameDisplay(){
   const label = (currentLang==='fr') ? 'Connecté : ' : 'Conectado : ';
   const change = (currentLang==='fr') ? 'changer' : 'cambiar';
   const count = getMyProposalCount();
-  const overLimit = count > MAX_PROPOSALS;
   const countLbl = (currentLang==='fr') ? 'morceau' + (count > 1 ? 'x' : '') : 'canción' + (count > 1 ? 'es' : '');
-  const counterHtml = '<span class="my-count'+(overLimit?' over':'')+'">'+count+'/'+MAX_PROPOSALS+' '+countLbl+'</span>';
+  const counterHtml = '<span class="my-count">'+count+' '+countLbl+'</span>';
   document.getElementById('my-name-display').innerHTML =
     '<span>'+label+'</span><b>'+escapeHtml(myName)+'</b>'+
     ' · '+counterHtml+' · '+
