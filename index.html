@@ -621,6 +621,82 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
       </div>
     </section>
 
+    <!-- ═══ AGENDA ═══ -->
+    <section id="agenda" class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow eyebrow"><span data-lucide="calendar-heart"></span><span data-fr="Dates à venir" data-es="Próximas fechas">Dates à venir</span></div>
+          <h1 class="section-title"><span data-fr="Agenda" data-es="Agenda">Agenda</span></h1>
+        </div>
+        <div class="section-meta">
+          <div data-fr="Saisons" data-es="Temporadas">Saisons</div>
+          <div><b>2026 — 2027</b></div>
+        </div>
+      </div>
+
+      <div class="planning-list">
+
+        <div class="event-row concert glass" data-date="2026-12-16">
+          <div class="event-grid">
+            <div class="event-icon"><span data-lucide="party-popper"></span></div>
+            <div>
+              <div class="event-date-line"><span class="event-day">16-18</span><span class="event-month">Décembre 2026</span></div>
+              <div class="event-name"><span data-fr="Concert de Noël" data-es="Concierto de Navidad">Concert de Noël</span></div>
+              <div class="event-lieu"><span data-lucide="map-pin"></span><span data-fr="Auditorium de Chelles · date exacte à confirmer (16, 17 ou 18)" data-es="Auditorium de Chelles · fecha exacta por confirmar (16, 17 o 18)">Auditorium de Chelles · date exacte à confirmer (16, 17 ou 18)</span></div>
+            </div>
+            <span class="event-badge concert"><span data-lucide="music-4"></span><span data-fr="Concert" data-es="Concierto">Concert</span></span>
+          </div>
+        </div>
+
+        <div class="event-row concert glass" data-date="2027-04-16">
+          <div class="event-grid">
+            <div class="event-icon"><span data-lucide="graduation-cap"></span></div>
+            <div>
+              <div class="event-date-line"><span class="event-day">15-30</span><span class="event-month">Avril 2027</span></div>
+              <div class="event-name"><span data-fr="Passage 2e cycle · Patricia" data-es="Paso 2º ciclo · Patricia">Passage 2e cycle · Patricia</span></div>
+              <div class="event-lieu"><span data-lucide="map-pin"></span><span data-fr="Conservatoire de Chelles · 2e quinzaine · 3 morceaux + 2" data-es="Conservatorio de Chelles · 2ª quincena · 3 canciones + 2">Conservatoire de Chelles · 2e quinzaine · 3 morceaux + 2</span></div>
+            </div>
+            <span class="event-badge concert"><span data-lucide="graduation-cap"></span><span data-fr="Examen" data-es="Examen">Examen</span></span>
+          </div>
+        </div>
+
+        <div class="event-row concert glass" data-date="2027-06-19">
+          <div class="event-grid">
+            <div class="event-icon"><span data-lucide="sun"></span></div>
+            <div>
+              <div class="event-date-line"><span class="event-day">19-20</span><span class="event-month">Juin 2027</span></div>
+              <div class="event-name"><span data-fr="Fête de la musique" data-es="Fiesta de la música">Fête de la musique</span></div>
+              <div class="event-lieu"><span data-lucide="map-pin"></span><span data-fr="Chelles · date exacte à confirmer (19 ou 20) · 5 morceaux" data-es="Chelles · fecha exacta por confirmar (19 o 20) · 5 canciones">Chelles · date exacte à confirmer (19 ou 20) · 5 morceaux</span></div>
+            </div>
+            <span class="event-badge concert"><span data-lucide="music-4"></span><span data-fr="Concert" data-es="Concierto">Concert</span></span>
+          </div>
+          <div class="event-extra">
+            <div class="event-extra-lbl"><span data-lucide="list-music"></span><span data-fr="Setlist" data-es="Setlist">Setlist</span></div>
+            <div class="archive-day">
+              <div class="dl-item"><span class="nm">Get Down</span></div>
+              <div class="dl-item"><span class="nm">We Are Family</span></div>
+              <div class="dl-item"><span class="nm">Le Freak</span></div>
+              <div class="dl-item"><span class="nm">Feel Love</span></div>
+              <div class="dl-item"><span class="nm">Superstition</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-row concert glass" data-date="2027-07-10">
+          <div class="event-grid">
+            <div class="event-icon"><span data-lucide="tent"></span></div>
+            <div>
+              <div class="event-date-line"><span class="event-day">10</span><span class="event-month">Juillet 2027</span></div>
+              <div class="event-name">Ferrières</div>
+              <div class="event-lieu"><span data-lucide="map-pin"></span>Ferrières-en-Brie</div>
+            </div>
+            <span class="event-badge concert"><span data-lucide="music-4"></span><span data-fr="Concert" data-es="Concierto">Concert</span></span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- ═══ PLANNING ═══ -->
     <section id="planning" class="section">
       <div class="section-head">
@@ -879,6 +955,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
   <!-- BOTTOM NAV (mobile) -->
   <nav class="bottom-nav glass">
     <button class="active" onclick="showSection('morceaux',this)"><span data-lucide="disc-3"></span><span data-fr="Morceaux" data-es="Canciones">Morceaux</span></button>
+    <button onclick="showSection('agenda',this)"><span data-lucide="calendar-heart"></span><span data-fr="Agenda" data-es="Agenda">Agenda</span></button>
     <button onclick="showSection('planning',this)"><span data-lucide="calendar-days"></span><span data-fr="Planning" data-es="Agenda">Planning</span></button>
     <button onclick="showSection('videos',this)"><span data-lucide="play-circle"></span><span data-fr="Vidéos" data-es="Vídeos">Vidéos</span></button>
     <button onclick="openSheet()"><span data-lucide="layout-grid"></span><span data-fr="Plus" data-es="Más">Plus</span></button>

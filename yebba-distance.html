@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="phenix-slug" content="yebba-distance">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta name="theme-color" content="#E4F2F8">
+<title>YEBBA - Distance — PHÉNIX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<link rel="stylesheet" href="atelier.css">
+<style>
+:root{
+  --accent:#5FA9C7;
+  --accent-2:#8FC4DB;
+  --accent-deep:#276E88;
+  --accent-soft:rgba(95,169,199,0.14);
+  --accent-blob:#8FC4DB;
+}
+.audio-block:has(.audio-placeholder) { display: none; }
+</style>
+</head>
+<body>
+
+<div class="aurora"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
+<header class="atelier-header glass">
+  <a class="header-logo" href="index.html"><span class="dot"></span><span class="word"><span style="display:block;font-family:var(--mono);font-style:normal;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);line-height:1;margin-bottom:2px;">Atelier Funk</span>PHÉNIX</span></a>
+  <div class="header-actions">
+    <a class="btn-back" href="index.html"><span data-lucide="arrow-left"></span><span data-fr="Accueil" data-es="Inicio">Accueil</span></a>
+    <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
+  </div>
+</header>
+
+<main class="atelier-main">
+
+  <!-- PAGE HEAD -->
+  <div class="page-head">
+    <div>
+      <div class="page-eyebrow">
+        <span class="num">02</span>
+        <span data-fr="Nouveau morceau · Saison 2026-2027" data-es="Nueva canción · Temporada 2026-2027">Nouveau morceau · Saison 2026-2027</span>
+      </div>
+      <h1 class="page-title">Distance</h1>
+    </div>
+    <div class="page-meta">
+      <div><b>YEBBA</b></div>
+      <div>· Dawn, 2020 ·</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-meta"><span data-lucide="disc-3"></span><span data-fr="Tempo · tonalité · lead" data-es="Tempo · tonalidad · voz principal">Tempo · tonalité · lead</span></div>
+      <div class="hero-title">Distance</div>
+      <div class="hero-artist">YEBBA — Dawn, 2020</div>
+      <div class="hero-musical">
+        <span><span data-lucide="gauge"></span>65 BPM</span>
+        <span><span data-lucide="music"></span><span data-fr="Do" data-es="Do">Do</span></span>
+        <span><span data-lucide="mic-2"></span><span data-fr="Lead Roselyne" data-es="Voz principal Roselyne">Lead Roselyne</span></span>
+      </div>
+    </div>
+    <div class="hero-side">
+      <span data-fr="Référence" data-es="Referencia">Référence</span>
+      <div class="num">02</div>
+    </div>
+  </div>
+
+  <!-- VIDEO YOUTUBE -->
+  <section class="section-block">
+    <h2 class="section-title"><span data-lucide="youtube"></span><span data-fr="Audio de référence" data-es="Audio de referencia">Audio de référence</span></h2>
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube-nocookie.com/embed/5DTHiL9t3YI" title="YEBBA - Distance (Audio)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <!-- AUDIOS -->
+  <section class="section-block">
+    <h2 class="section-title"><span data-lucide="audio-lines"></span><span data-fr="Audios" data-es="Audios">Audios</span></h2>
+    <div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Audio de répétition à venir — les premiers enregistrements seront ajoutés dès la rentrée de septembre" data-es="Audio de ensayo próximamente — las primeras grabaciones se añadirán en septiembre">Audio de répétition à venir — les premiers enregistrements seront ajoutés dès la rentrée de septembre</span></div>
+  </section>
+
+  <!-- PARTITIONS -->
+  <section class="section-block">
+    <h2 class="section-title"><span data-lucide="file-music"></span><span data-fr="Partitions" data-es="Partituras">Partitions</span></h2>
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('guitare',this)"><span data-lucide="guitar"></span><span data-fr="Guitare" data-es="Guitarra">Guitare</span></button>
+      <button class="tab" onclick="switchTab('basse',this)"><span data-lucide="guitar"></span><span data-fr="Basse" data-es="Bajo">Basse</span></button>
+      <button class="tab" onclick="switchTab('chant',this)"><span data-lucide="mic-vocal"></span><span data-fr="Chant" data-es="Voz">Chant</span></button>
+      <button class="tab" onclick="switchTab('batterie',this)"><span data-lucide="drum"></span><span data-fr="Batterie" data-es="Batería">Batterie</span></button>
+      <button class="tab" onclick="switchTab('clavier',this)"><span data-lucide="piano"></span><span data-fr="Clavier" data-es="Teclado">Clavier</span></button>
+    </div>
+
+    <div class="tab-content active" id="tab-guitare"><div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_DISTANCE" data-es="Partitura Guitarra próximamente — placeholder: #REMPLACER_PDF_GUITARE_DISTANCE">Partition Guitare à venir — placeholder : #REMPLACER_PDF_GUITARE_DISTANCE</span></div></div>
+    <div class="tab-content" id="tab-basse"><div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_DISTANCE" data-es="Partitura Bajo próximamente — placeholder: #REMPLACER_PDF_BASSE_DISTANCE">Partition Basse à venir — placeholder : #REMPLACER_PDF_BASSE_DISTANCE</span></div></div>
+    <div class="tab-content" id="tab-chant"><div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_DISTANCE" data-es="Partitura Voz próximamente — placeholder: #REMPLACER_PDF_CHANT_DISTANCE">Partition Chant à venir — placeholder : #REMPLACER_PDF_CHANT_DISTANCE</span></div></div>
+    <div class="tab-content" id="tab-batterie"><div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_DISTANCE" data-es="Partitura Batería próximamente — placeholder: #REMPLACER_PDF_BATTERIE_DISTANCE">Partition Batterie à venir — placeholder : #REMPLACER_PDF_BATTERIE_DISTANCE</span></div></div>
+    <div class="tab-content" id="tab-clavier"><div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_DISTANCE" data-es="Partitura Teclado próximamente — placeholder: #REMPLACER_PDF_CLAVIER_DISTANCE">Partition Clavier à venir — placeholder : #REMPLACER_PDF_CLAVIER_DISTANCE</span></div></div>
+  </section>
+
+</main>
+
+<script>
+const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
+if(sessionStorage.getItem('atelier-auth')!=='1'){
+  window.location.href='index.html';
+}
+
+/* TRADUCTION */
+let currentLang=localStorage.getItem('atelier-lang')||'fr';
+function applyLang(){
+  document.querySelectorAll('[data-fr]').forEach(el=>{
+    const hasChild=el.querySelector('[data-fr]');
+    if(!hasChild) el.textContent=(currentLang==='fr')?el.dataset.fr:el.dataset.es;
+  });
+  const btn=document.getElementById('lang-toggle');
+  if(btn) btn.textContent=(currentLang==='fr')?'ES':'FR';
+  document.documentElement.lang=currentLang;
+}
+function toggleLang(){
+  currentLang=(currentLang==='fr')?'es':'fr';
+  localStorage.setItem('atelier-lang',currentLang);
+  applyLang();
+document.querySelectorAll('.audio-block').forEach(function(block){
+  var ph = block.querySelector('.audio-placeholder');
+  if(ph && ph.textContent.indexOf('#REMPLACER') > -1) block.style.display = 'none';
+});
+}
+
+/* TABS PARTITIONS */
+function switchTab(name,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+/* VITESSE AUDIO */
+function setSpeed(audioId, speed, btn){
+  const audio=document.getElementById(audioId);
+  if(!audio) return;
+  audio.playbackRate=speed;
+  btn.parentElement.querySelectorAll('.audio-speed').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+applyLang();
+</script>
+
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<script>if(window.lucide&&lucide.createIcons)lucide.createIcons();</script>
+<script src="planning-sync.js" defer></script>
+</body>
+</html>
