@@ -197,7 +197,7 @@
       <span data-fr="Proposer un morceau" data-es="Proponer una canción">Proposer un morceau</span>
     </h2>
     <div class="propose-form">
-      <input id="proposer-url" class="propose-input" type="url" placeholder="URL YouTube (ex: https://youtu.be/…)" maxlength="200">
+      <input id="proposer-url" class="propose-input" type="url" placeholder="URL YouTube (ex: https://youtu.be/ID?t=90)" maxlength="200">
       <button id="proposer-submit" class="propose-submit" onclick="submitProposal()">
         <span data-fr="Ajouter" data-es="Añadir">Ajouter</span>
         <span>→</span>
@@ -268,7 +268,7 @@ const SUPABASE_KEY  = 'sb_publishable_5NtVvQKSMnhQRijrWcW2hA_hwWKGW9j';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let myName = localStorage.getItem('atelier-playlist-name') || '';
-let tracks = [];        // [{id, youtube_id, title, proposed_by, votes:[{voter_name, vote_type}]}]
+let tracks = [];        // [{id, youtube_id, title, proposed_by, start_seconds, votes:[{voter_name, vote_type}]}]
 let isOnline = false;
 
 /* ── TRADUCTION (réutilise le système du site) ── */
@@ -413,6 +413,23 @@ function extractYouTubeId(url){
   return null;
 }
 
+/* ── EXTRACTION DU MINUTAGE DE DÉPART (t= ou start=, formats: 90 / 1m30s / 1h2m3s) ── */
+function extractStartSeconds(url){
+  if(!url) return 0;
+  const m = url.match(/[?&](?:t|start)=([0-9hms]+)/i);
+  if(!m) return 0;
+  const raw = m[1];
+  // Format pur en secondes (ex: 713)
+  if(/^\d+$/.test(raw)) return parseInt(raw, 10);
+  // Format type 1h2m3s / 2m3s / 3s
+  const hm = raw.match(/(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/i);
+  if(!hm) return 0;
+  const h = parseInt(hm[1] || '0', 10);
+  const mi = parseInt(hm[2] || '0', 10);
+  const s = parseInt(hm[3] || '0', 10);
+  return (h * 3600) + (mi * 60) + s;
+}
+
 /* ── RÉCUPÉRATION TITRE VIA OEMBED YOUTUBE ── */
 async function fetchYouTubeTitle(videoId){
   try{
@@ -448,6 +465,7 @@ async function submitProposal(){
     urlInput.focus();
     return;
   }
+  const startSeconds = extractStartSeconds(url);
 
   // Vérif que ce morceau n'est pas déjà proposé
   if(tracks.some(t => t.youtube_id === videoId)){
@@ -466,7 +484,8 @@ async function submitProposal(){
   const { data, error } = await sb.from('playlist_tracks').insert([{
     youtube_id: videoId,
     title: title || ('YouTube · ' + videoId),
-    proposed_by: myName
+    proposed_by: myName,
+    start_seconds: startSeconds
   }]).select();
 
   submitBtn.disabled = false;
@@ -625,7 +644,8 @@ function getInitials(name){
 /* ── LECTURE INLINE DE LA VIDÉO ── */
 let currentlyPlayingId = null; // id YouTube de la vidéo en cours de lecture (pour préserver l'iframe au re-render)
 
-function playInline(thumbEl, youtubeId){
+function playInline(thumbEl, youtubeId, startSeconds){
+  const start = startSeconds || 0;
   // Si une autre vidéo joue déjà, on l'arrête (le re-render remet sa vignette)
   if(currentlyPlayingId && currentlyPlayingId !== youtubeId){
     currentlyPlayingId = youtubeId;
@@ -636,7 +656,7 @@ function playInline(thumbEl, youtubeId){
   currentlyPlayingId = youtubeId;
   // On remplace le contenu du thumb par une iframe YouTube autoplay
   thumbEl.innerHTML = `<iframe class="track-iframe"
-      src="https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1"
+      src="https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1&start=${start}"
       title="YouTube"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen></iframe>
@@ -699,10 +719,10 @@ function render(){
       </button>` : ''}
       ${currentlyPlayingId === t.youtube_id
         ? `<div class="track-thumb is-playing">
-            <iframe class="track-iframe" src="https://www.youtube-nocookie.com/embed/${t.youtube_id}?autoplay=1&rel=0&modestbranding=1" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe class="track-iframe" src="https://www.youtube-nocookie.com/embed/${t.youtube_id}?autoplay=1&rel=0&modestbranding=1&start=${t.start_seconds || 0}" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <button class="track-close" onclick="stopInline()" title="${currentLang==='fr'?'Fermer la vidéo':'Cerrar el vídeo'}" aria-label="${currentLang==='fr'?'Fermer':'Cerrar'}">✕</button>
           </div>`
-        : `<div class="track-thumb" data-youtube-id="${t.youtube_id}" onclick="playInline(this, '${t.youtube_id}')" style="background-image:url('https://img.youtube.com/vi/${t.youtube_id}/mqdefault.jpg');"><div class="track-thumb-play"></div></div>`
+        : `<div class="track-thumb" data-youtube-id="${t.youtube_id}" onclick="playInline(this, '${t.youtube_id}', ${t.start_seconds || 0})" style="background-image:url('https://img.youtube.com/vi/${t.youtube_id}/mqdefault.jpg');"><div class="track-thumb-play"></div></div>`
       }
       <div>
         <div class="track-info">
