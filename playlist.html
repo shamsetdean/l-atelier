@@ -47,6 +47,7 @@
 .propose-title{display:flex;align-items:center;gap:.55rem;font-size:.92rem;font-weight:600;color:var(--ink);margin-bottom:1rem;}
 .propose-title::before{content:"";width:14px;height:1px;background:var(--accent);}
 .propose-form{display:grid;grid-template-columns:1fr;gap:.7rem;}
+.propose-time-input{text-align:center;font-variant-numeric:tabular-nums;}
 .propose-input{font-size:15px;color:var(--ink);background:rgba(255,255,255,.6);border:1px solid var(--glass-line);border-radius:var(--r-sm);padding:.85rem 1rem;width:100%;outline:none;transition:all .15s;}
 .propose-input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft);background:rgba(255,255,255,.85);}
 .propose-input::placeholder{color:var(--muted-2);}
@@ -134,7 +135,7 @@
 .name-prompt-submit:disabled{opacity:.4;cursor:not-allowed;}
 .change-member-btn{background:transparent;border:none;color:var(--accent-deep);font-size:10px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;padding:0 .3rem;margin-left:.4rem;font-weight:600;border-bottom:1px dashed var(--accent-deep);}
 .change-member-btn:hover{color:var(--accent);}
-@media(min-width:768px){.propose-form{grid-template-columns:1fr auto;}.track-card{grid-template-columns:320px 1fr;align-items:stretch;}.track-thumb{aspect-ratio:auto;height:100%;min-height:190px;}.track-info{padding:1.2rem 1.4rem 0;}.vote-buttons{padding:.8rem 1.4rem 1.2rem;}}
+@media(min-width:768px){.propose-form{grid-template-columns:1fr 110px auto;}.track-card{grid-template-columns:320px 1fr;align-items:stretch;}.track-thumb{aspect-ratio:auto;height:100%;min-height:190px;}.track-info{padding:1.2rem 1.4rem 0;}.vote-buttons{padding:.8rem 1.4rem 1.2rem;}}
 </style>
 </head>
 <body>
@@ -197,7 +198,8 @@
       <span data-fr="Proposer un morceau" data-es="Proponer una canción">Proposer un morceau</span>
     </h2>
     <div class="propose-form">
-      <input id="proposer-url" class="propose-input" type="url" placeholder="URL YouTube (ex: https://youtu.be/ID?t=90)" maxlength="200">
+      <input id="proposer-url" class="propose-input" type="url" placeholder="URL YouTube (ex: https://youtu.be/ID)" maxlength="200">
+      <input id="proposer-start" class="propose-input propose-time-input" type="text" inputmode="numeric" placeholder="mm:ss" maxlength="8" title="Point de départ (optionnel)">
       <button id="proposer-submit" class="propose-submit" onclick="submitProposal()">
         <span data-fr="Ajouter" data-es="Añadir">Ajouter</span>
         <span>→</span>
@@ -442,9 +444,23 @@ async function fetchYouTubeTitle(videoId){
   }
 }
 
+/* ── PARSING DU CHAMP MINUTAGE (mm:ss ou h:mm:ss) ── */
+function parseTimeField(raw){
+  if(!raw) return 0;
+  raw = raw.trim();
+  if(!raw) return 0;
+  if(/^\d+$/.test(raw)) return parseInt(raw, 10); // secondes pures
+  const parts = raw.split(':').map(p => parseInt(p, 10));
+  if(parts.some(isNaN)) return 0;
+  if(parts.length === 2) return (parts[0] * 60) + parts[1];
+  if(parts.length === 3) return (parts[0] * 3600) + (parts[1] * 60) + parts[2];
+  return 0;
+}
+
 /* ── PROPOSITION D'UN MORCEAU ── */
 async function submitProposal(){
   const urlInput = document.getElementById('proposer-url');
+  const startInput = document.getElementById('proposer-start');
   const msg = document.getElementById('propose-message');
   const submitBtn = document.getElementById('proposer-submit');
 
@@ -465,7 +481,9 @@ async function submitProposal(){
     urlInput.focus();
     return;
   }
-  const startSeconds = extractStartSeconds(url);
+  // Priorité au champ mm:ss saisi à la main, sinon on retombe sur le ?t= de l'URL
+  const typedSeconds = parseTimeField(startInput ? startInput.value : '');
+  const startSeconds = typedSeconds || extractStartSeconds(url);
 
   // Vérif que ce morceau n'est pas déjà proposé
   if(tracks.some(t => t.youtube_id === videoId)){
@@ -501,6 +519,7 @@ async function submitProposal(){
   msg.textContent = currentLang==='fr' ? '✓ Morceau ajouté à la playlist.' : '✓ Canción añadida a la lista.';
 
   urlInput.value = '';
+  if(startInput) startInput.value = '';
 
   setTimeout(()=>{ msg.textContent = ''; msg.className='propose-message'; }, 3500);
 }
@@ -818,8 +837,11 @@ if(!myName){
 loadAll();
 subscribeRealtime();
 
-// Entrée dans le champ URL = soumettre
+// Entrée dans le champ URL ou minutage = soumettre
 document.getElementById('proposer-url').addEventListener('keydown', e => {
+  if(e.key === 'Enter') submitProposal();
+});
+document.getElementById('proposer-start').addEventListener('keydown', e => {
   if(e.key === 'Enter') submitProposal();
 });
 </script>
