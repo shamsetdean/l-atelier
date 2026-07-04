@@ -45,10 +45,13 @@
 .member-row:last-child{border-bottom:none;}
 .member-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;}
 .member-name{font-family:var(--serif);font-style:italic;font-size:1.4rem;color:var(--ink);line-height:1;}
-.member-role{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;display:inline-flex;align-items:center;gap:.45rem;flex-shrink:0;}
+.member-role{font-size:11px;letter-spacing:.03em;font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem;flex-shrink:0;padding:.35rem .7rem;border-radius:var(--r-pill);background:rgba(255,255,255,.65);border:1px solid var(--glass-line);}
 .member-role .ico{color:var(--accent);display:inline-flex;}
-.member-lead{font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.15rem .55rem;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--accent-deep);display:inline-flex;width:fit-content;align-items:center;gap:.35rem;}
-.member-lead.backing{background:rgba(115,110,134,.12);color:var(--muted);}
+.member-role .ico svg{width:14px;height:14px;}
+.member-lead{font-size:11px;font-weight:600;letter-spacing:.02em;padding:.35rem .7rem;border-radius:var(--r-pill);background:rgba(255,255,255,.65);border:1px solid var(--accent-2);color:var(--accent-deep);display:inline-flex;width:fit-content;align-items:center;gap:.4rem;}
+.member-lead [data-lucide]{width:14px;height:14px;color:var(--accent);}
+.member-lead.backing{border-color:var(--glass-line);color:var(--muted);}
+.member-lead.backing [data-lucide]{color:var(--muted);}
 .member-stats{display:flex;gap:1rem;flex-wrap:wrap;font-size:10.5px;color:var(--muted);}
 .member-stats .stat-item{display:inline-flex;align-items:center;gap:.3rem;}
 .member-stats .stat-item b{color:var(--ink);font-weight:700;}
@@ -151,9 +154,9 @@
         </div>
         <span class="member-lead"><span data-lucide="star"></span><span data-fr="Lead — Distance" data-es="Voz principal — Distance">Lead — Distance</span></span>
         <div class="member-stats">
-          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
-          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
-          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+          <span class="stat-item"><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
         </div>
       </div>
       <div class="member-row" data-member="Marine">
@@ -163,9 +166,9 @@
         </div>
         <span class="member-lead"><span data-lucide="star"></span><span data-fr="Lead — Boogie Nights / All Night" data-es="Voz principal — Boogie Nights / All Night">Lead — Boogie Nights / All Night</span></span>
         <div class="member-stats">
-          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
-          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
-          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+          <span class="stat-item"><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
         </div>
       </div>
       <div class="member-row" data-member="Patricia">
@@ -175,9 +178,9 @@
         </div>
         <span class="member-lead backing"><span data-lucide="users"></span><span data-fr="Backing vocals" data-es="Coros">Backing vocals</span></span>
         <div class="member-stats">
-          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
-          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
-          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+          <span class="stat-item"><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
         </div>
       </div>
       <div class="member-row" data-member="Théo">
@@ -187,9 +190,9 @@
         </div>
         <span class="member-lead"><span data-lucide="star"></span><span data-fr="Lead — Trust" data-es="Voz principal — Trust">Lead — Trust</span></span>
         <div class="member-stats">
-          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
-          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
-          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+          <span class="stat-item"><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
         </div>
       </div>
     </div>
@@ -208,9 +211,9 @@
           <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg></span><span data-fr="Saxophone ténor" data-es="Saxofón tenor">Saxophone ténor</span></span>
         </div>
         <div class="member-stats">
-          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
-          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
-          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+          <span class="stat-item"><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
         </div>
       </div>
     </div>
@@ -229,9 +232,9 @@
           <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="18" r="4"/><path d="M12 18V2l7 4"/></svg></span><span data-fr="Guitare" data-es="Guitarra">Guitare</span></span>
         </div>
         <div class="member-stats">
-          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
-          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
-          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+          <span class="stat-item"><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
         </div>
       </div>
       <div class="member-row" data-member="Nico">
@@ -240,9 +243,9 @@
           <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="18" r="4"/><path d="M12 18V2l7 4"/></svg></span><span data-fr="Guitare" data-es="Guitarra">Guitare</span></span>
         </div>
         <div class="member-stats">
-          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
-          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
-          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+          <span class="stat-item"><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
         </div>
       </div>
     </div>
@@ -261,9 +264,9 @@
           <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.7 16.62A1 1 0 0 0 22 16V4a1 1 0 0 0-1-1h-7a1 1 0 0 0-.95.68l-.85 2.55a1 1 0 0 1-1.9 0L9.45 3.68A1 1 0 0 0 8.5 3H3a1 1 0 0 0-1 1v12a1 1 0 0 0 .3.7l8.5 8.5a1 1 0 0 0 1.4 0Z"/></svg></span><span data-fr="Clavier" data-es="Teclado">Clavier</span></span>
         </div>
         <div class="member-stats">
-          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
-          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
-          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+          <span class="stat-item"><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
         </div>
       </div>
     </div>
@@ -282,9 +285,9 @@
           <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="4"/><path d="M16 18V2"/></svg></span><span data-fr="Basse" data-es="Bajo">Basse</span></span>
         </div>
         <div class="member-stats">
-          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
-          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
-          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+          <span class="stat-item"><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
         </div>
       </div>
     </div>
@@ -303,9 +306,9 @@
           <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 2 8 8"/><path d="m22 2-8 8"/><ellipse cx="12" cy="9" rx="10" ry="5"/><path d="M7 13.4v7.9"/><path d="M12 14v8"/><path d="M17 13.4v7.9"/><path d="M2 9v8a10 5 0 0 0 20 0V9"/></svg></span><span data-fr="Batterie" data-es="Batería">Batterie</span></span>
         </div>
         <div class="member-stats">
-          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
-          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
-          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+          <span class="stat-item"><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
         </div>
       </div>
     </div>
