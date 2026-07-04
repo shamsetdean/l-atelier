@@ -392,7 +392,7 @@ const MEMBERS = [
   { name: 'Patrice',    role_fr: 'Guitare',        role_es: 'Guitarra',     ico: 'guitar' },
   { name: 'Patricia',   role_fr: 'Chant',          role_es: 'Voz',          ico: 'mic' },
   { name: 'Shams',      role_fr: 'Batterie',       role_es: 'Batería',      ico: 'drum' },
-  { name: 'Theythey',   role_fr: 'Chant',          role_es: 'Voz',          ico: 'mic' }
+  { name: 'Théo',   role_fr: 'Chant',          role_es: 'Voz',          ico: 'mic' }
 ];
 
 const ICONS = {
@@ -736,7 +736,7 @@ function escapeHtml(s){
 
 /* ── INITIALES À PARTIR D'UN PRÉNOM ── */
 // Règles : prénom composé avec tiret/espace → première lettre de chaque partie ('Jean-Marc' → 'JM')
-// Sinon, 2 premières lettres avec la 2e en minuscule ('Shams' → 'Sh', 'Cédric' → 'Cd', 'Theythey' → 'Th')
+// Sinon, 2 premières lettres avec la 2e en minuscule ('Shams' → 'Sh', 'Cédric' → 'Cd', 'Théo' → 'Th')
 function getInitials(name){
   if(!name) return '?';
   // Si prénom composé (Jean-Marc, Marie-Claire)
