@@ -363,8 +363,11 @@
     <!-- Classement morceaux -->
     <div class="chiffres-ranking">
       <h3 class="chiffres-h3">
-        <span data-fr="Les plus retravaillés" data-es="Los más retrabajados">Les plus retravaillés</span>
+        <span data-fr="Les plus enregistrés en répétition" data-es="Los más grabados en ensayo">Les plus enregistrés en répétition</span>
       </h3>
+      <p style="font-size:11px;color:var(--muted);margin:-.6rem 0 1rem;">
+        <span data-fr="Nombre de sessions où le morceau a été enregistré et archivé — pas le nombre total de fois qu'il a été travaillé en répétition (certaines reprises ne sont pas enregistrées)." data-es="Número de sesiones en las que la canción fue grabada y archivada — no el número total de veces que se trabajó en ensayo (algunas repeticiones no se graban).">Nombre de sessions où le morceau a été enregistré et archivé — pas le nombre total de fois qu'il a été travaillé en répétition (certaines reprises ne sont pas enregistrées).</span>
+      </p>
       <ol class="ranking-list" id="ranking-list">
         <li class="ranking-loading"><span data-fr="Chargement…" data-es="Cargando…">Chargement…</span></li>
       </ol>
@@ -460,21 +463,30 @@ async function fetchMorceauStats(slug, name){
     const parser = new DOMParser();
     const doc = parser.parseFromString(txt, 'text/html');
 
-    // Compter les audio-block qui contiennent "Atelier du" (donc une vraie session enregistrée)
-    const blocks = doc.querySelectorAll('.audio-block');
-    let sessions = 0;
+    // Compter les sessions "Atelier du" : audio-block avec lecteur actif
+    // + entrées archivées dans "Téléchargements — historique" (dates différentes, pas de doublon)
+    const sessionDates = new Set();
     const audios = [];
-    blocks.forEach(b => {
+
+    doc.querySelectorAll('.audio-block').forEach(b => {
       const lbl = b.querySelector('.audio-label');
       if(!lbl) return;
       const txt = lbl.textContent || '';
-      if(/Atelier du/i.test(txt)){
-        sessions++;
-        // Récupérer l'URL audio pour pouvoir lire sa durée
+      const m = txt.match(/Atelier du [^\n]+/i);
+      if(m){
+        sessionDates.add(m[0].trim().toLowerCase());
         const src = b.querySelector('audio source');
         if(src) audios.push(src.getAttribute('src'));
       }
     });
+
+    doc.querySelectorAll('.dl-archive-item .dl-archive-name').forEach(el => {
+      const txt = el.textContent || '';
+      const m = txt.match(/Atelier du [^\n]+/i);
+      if(m) sessionDates.add(m[0].trim().toLowerCase());
+    });
+
+    const sessions = sessionDates.size;
     return { slug, name, sessions, audios };
   } catch(e){
     console.warn('Erreur fetch', slug, e);
