@@ -139,17 +139,26 @@
       return;
     }
 
-    // Chercher le bloc "Audio répétition" placeholder à remplacer
+    // Chercher le bloc "Audio répétition" placeholder à remplacer,
+    // OU un bloc déjà labellisé manuellement "Atelier du ..." (mis à jour statiquement dans la fiche)
     const audioSection = document.querySelector('section .section-title [data-fr="Audios"]')
       ?.closest('section');
     if(!audioSection) return;
 
-    // Chercher le bloc placeholder avec "Audio répétition"
     let targetBlock = null;
     for(const block of audioSection.querySelectorAll('.audio-block')){
       const lbl = block.querySelector('.audio-label-main');
-      if(lbl && /répétition/i.test(lbl.textContent)){
+      if(!lbl) continue;
+      if(/répétition/i.test(lbl.textContent) || /atelier du/i.test(lbl.textContent)){
         targetBlock = block; break;
+      }
+    }
+
+    // Si le bloc trouvé est déjà à jour (même date), on ne touche à rien pour éviter tout doublon
+    if(targetBlock){
+      const lbl = targetBlock.querySelector('.audio-label-main');
+      if(lbl && lbl.textContent.trim().toLowerCase() === dateLabel.trim().toLowerCase()){
+        return;
       }
     }
 
