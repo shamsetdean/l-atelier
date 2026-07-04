@@ -22,6 +22,10 @@
 
 /* Masquer audio original si placeholder */
 .audio-block:has(.audio-placeholder) { display: none; }
+.dl-archive-list{display:flex;flex-direction:column;gap:.5rem;}
+.dl-archive-item{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem .9rem;background:var(--glass);border:1px solid var(--glass-line);border-radius:var(--r-sm);}
+.dl-archive-name{font-size:12.5px;color:var(--ink);}
+.dl-archive-name b{font-weight:600;}
 </style>
 </head>
 <body>
@@ -102,11 +106,11 @@
 
     <div class="audio-block">
       <div class="audio-label">
-        <span class="audio-label-main"><span data-lucide="mic-vocal"></span><span data-fr="Audio répétition" data-es="Audio del ensayo">Audio répétition</span></span>
+        <span class="audio-label-main"><span data-lucide="mic-vocal"></span><span data-fr="Atelier du 18 juin" data-es="Ensayo del 18 de junio">Atelier du 18 juin</span></span>
         <span class="audio-source" id="src-repet-worth-it"></span>
       </div>
       <audio id="audio-repet-worth-it" controls preload="none">
-        <source src="https://www.dropbox.com/scl/fi/ybnjfs3jfbr19u27lv6fk/Worth-it-atelier-du-2-avril.mp3?rlkey=k7pcbe7sx0nmmmyi4xp14bq1q&raw=1" type="audio/mpeg">
+        <source src="https://www.dropbox.com/scl/fi/kgqlfxitqafqt4rs1tdkb/Worth-It-110-bpm-18-juin.mp3?rlkey=k34pmhv7mcdtjmrumb8wbyzha&raw=1" type="audio/mpeg">
         <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
       </audio>
       <div class="audio-controls">
@@ -114,7 +118,30 @@
         <button class="audio-speed" onclick="setSpeed('audio-repet-worth-it',0.75,this)">0.75×</button>
         <button class="audio-speed active" onclick="setSpeed('audio-repet-worth-it',1,this)">1×</button>
         <button class="audio-speed" onclick="setSpeed('audio-repet-worth-it',1.25,this)">1.25×</button>
-        <a href="https://www.dropbox.com/scl/fi/ybnjfs3jfbr19u27lv6fk/Worth-it-atelier-du-2-avril.mp3?rlkey=k7pcbe7sx0nmmmyi4xp14bq1q&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        <a href="https://www.dropbox.com/scl/fi/kgqlfxitqafqt4rs1tdkb/Worth-It-110-bpm-18-juin.mp3?rlkey=k34pmhv7mcdtjmrumb8wbyzha&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELECHARGEMENTS (anciennes repetitions) -->
+  <section class="section-block">
+    <h2 class="section-title"><span data-lucide="archive"></span><span data-fr="Téléchargements — historique" data-es="Descargas — historial">Téléchargements — historique</span></h2>
+    <div class="dl-archive-list">
+      <div class="dl-archive-item">
+        <span class="dl-archive-name"><b data-fr="Atelier du 11 juin" data-es="Ensayo del 11 de junio">Atelier du 11 juin</b></span>
+        <a href="https://www.dropbox.com/scl/fi/nbc82zrdsmox1zcnpslpb/atelier-funk-11-06-2026-whort-it.mp3?rlkey=3xtw48kxkgtfp6wjg6iyhuhsk&dl=1" class="pdf-btn"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+      </div>
+      <div class="dl-archive-item">
+        <span class="dl-archive-name"><b data-fr="Atelier du 4 juin" data-es="Ensayo del 4 de junio">Atelier du 4 juin</b></span>
+        <a href="https://www.dropbox.com/scl/fi/21a14gt9k8wqayzmq63vw/Worth-It-04-06-2026.mp3?rlkey=p48shky7fxdds0doz22s6oyg4&dl=1" class="pdf-btn"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+      </div>
+      <div class="dl-archive-item">
+        <span class="dl-archive-name"><b data-fr="Atelier du 28 mai" data-es="Ensayo del 28 de mayo">Atelier du 28 mai</b></span>
+        <a href="https://www.dropbox.com/scl/fi/iq9sv8ghs0pibso4uunjo/Worth-it-atelier-du-28-mai.m4a?rlkey=3t65n6l36q3ciql5mvsx8ebo0&dl=1" class="pdf-btn"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+      </div>
+      <div class="dl-archive-item">
+        <span class="dl-archive-name"><b data-fr="Atelier du 2 avril" data-es="Ensayo del 2 de abril">Atelier du 2 avril</b></span>
+        <a href="https://www.dropbox.com/scl/fi/ybnjfs3jfbr19u27lv6fk/Worth-it-atelier-du-2-avril.mp3?rlkey=k7pcbe7sx0nmmmyi4xp14bq1q&dl=1" class="pdf-btn"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
       </div>
     </div>
   </section>
