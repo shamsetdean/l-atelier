@@ -17,6 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="atelier.css">
 <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 :root{--accent:#6A5AE0;--accent-2:#8B7BFF;--accent-deep:#4A3CB8;--accent-soft:rgba(106,90,224,.12);--accent-blob:#9C8BFF;}
 .members-intro{display:flex;justify-content:space-between;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem;}
@@ -40,11 +41,18 @@
 .section-members-title::before{content:"";width:14px;height:1px;background:var(--accent);flex-shrink:0;}
 .section-members-title .count{margin-left:auto;background:var(--accent-soft);color:var(--accent-deep);padding:.1rem .5rem;border-radius:var(--r-pill);font-size:11px;font-weight:700;}
 .members-list{display:grid;grid-template-columns:1fr;gap:0;}
-.member-row{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0;border-bottom:1px solid var(--glass-line);gap:1rem;}
+.member-row{display:flex;flex-direction:column;gap:.55rem;padding:.8rem 0;border-bottom:1px solid var(--glass-line);}
 .member-row:last-child{border-bottom:none;}
+.member-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;}
 .member-name{font-family:var(--serif);font-style:italic;font-size:1.4rem;color:var(--ink);line-height:1;}
 .member-role{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;display:inline-flex;align-items:center;gap:.45rem;flex-shrink:0;}
 .member-role .ico{color:var(--accent);display:inline-flex;}
+.member-lead{font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.15rem .55rem;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--accent-deep);display:inline-flex;width:fit-content;align-items:center;gap:.35rem;}
+.member-lead.backing{background:rgba(115,110,134,.12);color:var(--muted);}
+.member-stats{display:flex;gap:1rem;flex-wrap:wrap;font-size:10.5px;color:var(--muted);}
+.member-stats .stat-item{display:inline-flex;align-items:center;gap:.3rem;}
+.member-stats .stat-item b{color:var(--ink);font-weight:700;}
+.member-stats [data-lucide]{width:12px;height:12px;flex-shrink:0;color:var(--accent);}
 .members-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin-top:1.6rem;}
 .members-stat{border-radius:var(--r-md);padding:1.2rem 1rem;text-align:center;background:var(--glass);backdrop-filter:blur(26px) saturate(165%);-webkit-backdrop-filter:blur(26px) saturate(165%);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow),var(--glass-inset);}
 .members-stat-num{font-family:var(--serif);font-style:italic;font-size:2.4rem;color:var(--accent-deep);line-height:1;}
@@ -136,21 +144,53 @@
       <span class="count">04</span>
     </h2>
     <div class="members-list">
-      <div class="member-row">
-        <span class="member-name">Roselyne</span>
-        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
+      <div class="member-row" data-member="Roselyne">
+        <div class="member-top">
+          <span class="member-name">Roselyne</span>
+          <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
+        </div>
+        <span class="member-lead"><span data-lucide="star"></span><span data-fr="Lead — Distance" data-es="Voz principal — Distance">Lead — Distance</span></span>
+        <div class="member-stats">
+          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+        </div>
       </div>
-      <div class="member-row">
-        <span class="member-name">Marine</span>
-        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
+      <div class="member-row" data-member="Marine">
+        <div class="member-top">
+          <span class="member-name">Marine</span>
+          <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
+        </div>
+        <span class="member-lead"><span data-lucide="star"></span><span data-fr="Lead — Boogie Nights / All Night" data-es="Voz principal — Boogie Nights / All Night">Lead — Boogie Nights / All Night</span></span>
+        <div class="member-stats">
+          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+        </div>
       </div>
-      <div class="member-row">
-        <span class="member-name">Patricia</span>
-        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
+      <div class="member-row" data-member="Patricia">
+        <div class="member-top">
+          <span class="member-name">Patricia</span>
+          <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
+        </div>
+        <span class="member-lead backing"><span data-lucide="users"></span><span data-fr="Backing vocals" data-es="Coros">Backing vocals</span></span>
+        <div class="member-stats">
+          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+        </div>
       </div>
-      <div class="member-row">
-        <span class="member-name">Theythey</span>
-        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
+      <div class="member-row" data-member="Theythey">
+        <div class="member-top">
+          <span class="member-name">Theythey</span>
+          <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
+        </div>
+        <span class="member-lead"><span data-lucide="star"></span><span data-fr="Lead — Trust" data-es="Voz principal — Trust">Lead — Trust</span></span>
+        <div class="member-stats">
+          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+        </div>
       </div>
     </div>
   </section>
@@ -162,9 +202,16 @@
       <span class="count">01</span>
     </h2>
     <div class="members-list">
-      <div class="member-row">
-        <span class="member-name">Jean-Marc</span>
-        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg></span><span data-fr="Saxophone ténor" data-es="Saxofón tenor">Saxophone ténor</span></span>
+      <div class="member-row" data-member="Jean-Marc">
+        <div class="member-top">
+          <span class="member-name">Jean-Marc</span>
+          <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg></span><span data-fr="Saxophone ténor" data-es="Saxofón tenor">Saxophone ténor</span></span>
+        </div>
+        <div class="member-stats">
+          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+        </div>
       </div>
     </div>
   </section>
@@ -176,13 +223,27 @@
       <span class="count">02</span>
     </h2>
     <div class="members-list">
-      <div class="member-row">
-        <span class="member-name">Patrice</span>
-        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="18" r="4"/><path d="M12 18V2l7 4"/></svg></span><span data-fr="Guitare" data-es="Guitarra">Guitare</span></span>
+      <div class="member-row" data-member="Patrice">
+        <div class="member-top">
+          <span class="member-name">Patrice</span>
+          <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="18" r="4"/><path d="M12 18V2l7 4"/></svg></span><span data-fr="Guitare" data-es="Guitarra">Guitare</span></span>
+        </div>
+        <div class="member-stats">
+          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+        </div>
       </div>
-      <div class="member-row">
-        <span class="member-name">Nico</span>
-        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="18" r="4"/><path d="M12 18V2l7 4"/></svg></span><span data-fr="Guitare" data-es="Guitarra">Guitare</span></span>
+      <div class="member-row" data-member="Nico">
+        <div class="member-top">
+          <span class="member-name">Nico</span>
+          <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="18" r="4"/><path d="M12 18V2l7 4"/></svg></span><span data-fr="Guitare" data-es="Guitarra">Guitare</span></span>
+        </div>
+        <div class="member-stats">
+          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+        </div>
       </div>
     </div>
   </section>
@@ -194,9 +255,16 @@
       <span class="count">01</span>
     </h2>
     <div class="members-list">
-      <div class="member-row">
-        <span class="member-name">Pablo</span>
-        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.7 16.62A1 1 0 0 0 22 16V4a1 1 0 0 0-1-1h-7a1 1 0 0 0-.95.68l-.85 2.55a1 1 0 0 1-1.9 0L9.45 3.68A1 1 0 0 0 8.5 3H3a1 1 0 0 0-1 1v12a1 1 0 0 0 .3.7l8.5 8.5a1 1 0 0 0 1.4 0Z"/></svg></span><span data-fr="Clavier" data-es="Teclado">Clavier</span></span>
+      <div class="member-row" data-member="Pablo">
+        <div class="member-top">
+          <span class="member-name">Pablo</span>
+          <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.7 16.62A1 1 0 0 0 22 16V4a1 1 0 0 0-1-1h-7a1 1 0 0 0-.95.68l-.85 2.55a1 1 0 0 1-1.9 0L9.45 3.68A1 1 0 0 0 8.5 3H3a1 1 0 0 0-1 1v12a1 1 0 0 0 .3.7l8.5 8.5a1 1 0 0 0 1.4 0Z"/></svg></span><span data-fr="Clavier" data-es="Teclado">Clavier</span></span>
+        </div>
+        <div class="member-stats">
+          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+        </div>
       </div>
     </div>
   </section>
@@ -208,9 +276,16 @@
       <span class="count">01</span>
     </h2>
     <div class="members-list">
-      <div class="member-row">
-        <span class="member-name">Nata</span>
-        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="4"/><path d="M16 18V2"/></svg></span><span data-fr="Basse" data-es="Bajo">Basse</span></span>
+      <div class="member-row" data-member="Nata">
+        <div class="member-top">
+          <span class="member-name">Nata</span>
+          <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="4"/><path d="M16 18V2"/></svg></span><span data-fr="Basse" data-es="Bajo">Basse</span></span>
+        </div>
+        <div class="member-stats">
+          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+        </div>
       </div>
     </div>
   </section>
@@ -222,9 +297,16 @@
       <span class="count">01</span>
     </h2>
     <div class="members-list">
-      <div class="member-row">
-        <span class="member-name">Shams</span>
-        <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 2 8 8"/><path d="m22 2-8 8"/><ellipse cx="12" cy="9" rx="10" ry="5"/><path d="M7 13.4v7.9"/><path d="M12 14v8"/><path d="M17 13.4v7.9"/><path d="M2 9v8a10 5 0 0 0 20 0V9"/></svg></span><span data-fr="Batterie" data-es="Batería">Batterie</span></span>
+      <div class="member-row" data-member="Shams">
+        <div class="member-top">
+          <span class="member-name">Shams</span>
+          <span class="member-role"><span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 2 8 8"/><path d="m22 2-8 8"/><ellipse cx="12" cy="9" rx="10" ry="5"/><path d="M7 13.4v7.9"/><path d="M12 14v8"/><path d="M17 13.4v7.9"/><path d="M2 9v8a10 5 0 0 0 20 0V9"/></svg></span><span data-fr="Batterie" data-es="Batería">Batterie</span></span>
+        </div>
+        <div class="member-stats">
+          <span class="stat-item"><span data-lucide="music-2"></span><b class="member-proposed">—</b> <span data-fr="proposés" data-es="propuestas">proposés</span></span>
+          <span class="stat-item"><span data-lucide="thumbs-up"></span><b class="member-voted">—</b> <span data-fr="votés" data-es="votados">votés</span></span>
+          <span class="stat-item"><span data-lucide="hourglass"></span><b class="member-remaining">—</b> <span data-fr="restants" data-es="restantes">restants</span></span>
+        </div>
       </div>
     </div>
   </section>
@@ -295,12 +377,24 @@
         <span class="bilan-val" id="stat-depuis">avril 2024</span>
       </div>
       <div class="bilan-row">
+        <span class="bilan-lbl" data-fr="Prochaine répétition" data-es="Próximo ensayo">Prochaine répétition</span>
+        <span class="bilan-val"><span data-fr="Septembre 2026 (jour à préciser)" data-es="Septiembre 2026 (día por precisar)">Septembre 2026 (jour à préciser)</span></span>
+      </div>
+      <div class="bilan-row">
         <span class="bilan-lbl" data-fr="Prochain concert" data-es="Próximo concierto">Prochain concert</span>
         <span class="bilan-val" id="stat-prochain">—</span>
       </div>
       <div class="bilan-row">
-        <span class="bilan-lbl" data-fr="Audio cumulé" data-es="Audio acumulado">Audio cumulé</span>
-        <span class="bilan-val" id="stat-duree">—</span>
+        <span class="bilan-lbl" data-fr="Morceau le plus voté" data-es="Canción más votada">Morceau le plus voté</span>
+        <span class="bilan-val" id="stat-top-track">—</span>
+      </div>
+      <div class="bilan-row">
+        <span class="bilan-lbl" data-fr="Votes exprimés" data-es="Votos emitidos">Votes exprimés</span>
+        <span class="bilan-val" id="stat-total-votes">—</span>
+      </div>
+      <div class="bilan-row">
+        <span class="bilan-lbl" data-fr="Taux de participation" data-es="Tasa de participación">Taux de participation</span>
+        <span class="bilan-val" id="stat-participation">—</span>
       </div>
     </div>
   </section>
@@ -517,7 +611,6 @@ function renderChiffres(data){
   document.getElementById('stat-prochain').textContent = data.prochainConcert
     ? formatDate(data.prochainConcert)
     : ((currentLang==='fr') ? 'aucun programmé' : 'ninguno programado');
-  document.getElementById('stat-duree').textContent = formatDuration(data.dureeTotal);
 }
 
 /* Orchestration : charge tout en parallèle, puis rend */
@@ -532,34 +625,15 @@ async function loadChiffres(){
     // Total enregistrements
     const enregistrements = morceauxResults.reduce((s, m) => s + m.sessions, 0);
 
-    // Rendu initial (sans la durée)
     const data = {
       morceaux: MORCEAUX_PAGES.length,
       morceauxList: morceauxResults,
       enregistrements,
       concerts: planningStats.concertsPasses,
-      prochainConcert: planningStats.prochainConcert,
-      dureeTotal: 0
+      prochainConcert: planningStats.prochainConcert
     };
     window.__chiffresData = data;
     renderChiffres(data);
-
-    // Puis on charge les durées en arrière-plan (peut être long)
-    // Limité aux 5 premiers audios par morceau pour ne pas surcharger
-    const allUrls = [];
-    morceauxResults.forEach(m => {
-      m.audios.slice(0, 5).forEach(u => allUrls.push(u));
-    });
-    // Charge max 10 audios en parallèle pour ne pas saturer la connexion
-    const durations = [];
-    for(let i = 0; i < allUrls.length; i += 10){
-      const batch = allUrls.slice(i, i + 10);
-      const ds = await Promise.all(batch.map(getAudioDuration));
-      durations.push(...ds);
-    }
-    data.dureeTotal = durations.reduce((s, d) => s + d, 0);
-    window.__chiffresData = data;
-    document.getElementById('stat-duree').textContent = formatDuration(data.dureeTotal);
   } catch(e){
     console.error('Erreur loadChiffres:', e);
     // Fallback : masquer les loaders avec un tiret
@@ -576,6 +650,90 @@ async function loadChiffres(){
 
 // Lance le calcul au chargement de la page
 loadChiffres();
+
+/* ════════════════════════════════════════════════════════════════
+   STATS PLAYLIST — propositions / votes par membre + bilan global
+   ════════════════════════════════════════════════════════════════ */
+const SUPABASE_URL = 'https://atsbhmvjungckpknkbxw.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_5NtVvQKSMnhQRijrWcW2hA_hwWKGW9j';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+function normalizeName(s){
+  return (s || '').trim().toLowerCase();
+}
+
+async function loadPlaylistStats(){
+  try {
+    const [{ data: tracks, error: e1 }, { data: votes, error: e2 }] = await Promise.all([
+      sb.from('playlist_tracks').select('id, title, proposed_by'),
+      sb.from('playlist_votes').select('track_id, voter_name, vote_type')
+    ]);
+    if(e1 || e2){ console.warn(e1 || e2); return; }
+
+    const totalTracks = tracks.length;
+
+    // Stats par membre (proposés / votés / restants)
+    document.querySelectorAll('[data-member]').forEach(row => {
+      const name = row.dataset.member;
+      const key = normalizeName(name);
+      const proposed = tracks.filter(t => normalizeName(t.proposed_by) === key).length;
+      const votedTrackIds = new Set(
+        votes.filter(v => normalizeName(v.voter_name) === key).map(v => v.track_id)
+      );
+      const voted = votedTrackIds.size;
+      const remaining = Math.max(totalTracks - voted, 0);
+
+      const pEl = row.querySelector('.member-proposed');
+      const vEl = row.querySelector('.member-voted');
+      const rEl = row.querySelector('.member-remaining');
+      if(pEl) pEl.textContent = proposed;
+      if(vEl) vEl.textContent = voted;
+      if(rEl) rEl.textContent = remaining;
+    });
+
+    // Morceau le plus voté (score = like:+2, maybe:+1, skip:0, cohérent avec playlist.html)
+    const scoreOf = (trackId) => votes
+      .filter(v => v.track_id === trackId)
+      .reduce((s, v) => s + (v.vote_type === 'like' ? 2 : v.vote_type === 'maybe' ? 1 : 0), 0);
+    let topTrack = null, topScore = -1;
+    tracks.forEach(t => {
+      const s = scoreOf(t.id);
+      if(s > topScore){ topScore = s; topTrack = t; }
+    });
+    const topEl = document.getElementById('stat-top-track');
+    if(topEl){
+      topEl.textContent = (topTrack && totalTracks > 0)
+        ? (topTrack.title || 'YouTube · ' + topTrack.id) + ' (+' + topScore + ')'
+        : '—';
+    }
+
+    // Total de votes exprimés
+    const totalVotesEl = document.getElementById('stat-total-votes');
+    if(totalVotesEl) totalVotesEl.textContent = votes.length;
+
+    // Taux de participation : moyenne de (votants uniques / morceaux) sur l'ensemble des membres suivis
+    const memberRows = document.querySelectorAll('[data-member]');
+    const participationEl = document.getElementById('stat-participation');
+    if(participationEl && totalTracks > 0 && memberRows.length > 0){
+      let sumRatios = 0;
+      memberRows.forEach(row => {
+        const key = normalizeName(row.dataset.member);
+        const votedCount = new Set(
+          votes.filter(v => normalizeName(v.voter_name) === key).map(v => v.track_id)
+        ).size;
+        sumRatios += votedCount / totalTracks;
+      });
+      const pct = Math.round((sumRatios / memberRows.length) * 100);
+      participationEl.textContent = pct + '%';
+    } else if(participationEl){
+      participationEl.textContent = '—';
+    }
+  } catch(e){
+    console.warn('Erreur loadPlaylistStats:', e);
+  }
+}
+
+loadPlaylistStats();
 </script>
 
 <script>if(window.lucide&&lucide.createIcons)lucide.createIcons();</script>
