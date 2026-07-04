@@ -20,6 +20,10 @@
   --accent-blob:#B8A2DB;
 }
 .audio-block:has(.audio-placeholder) { display: none; }
+.link-pill{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem .9rem;border-radius:var(--r-pill);background:var(--surface,#fff);border:1px solid var(--glass-line,#e5e0f0);color:var(--ink,#1a1726);font-size:12.5px;font-weight:600;text-decoration:none;transition:all .2s;}
+.link-pill:hover{background:#fff;color:var(--accent-deep);transform:translateY(-1px);}
+.link-pill [data-lucide]{width:14px;height:14px;flex-shrink:0;}
+.link-pill span:not([data-lucide]){display:inline !important;}
 </style>
 </head>
 <body>
@@ -109,9 +113,9 @@
     <h2 class="section-title"><span data-lucide="mic-vocal"></span><span data-fr="Paroles" data-es="Letra">Paroles</span></h2>
     <p style="font-size:12.5px;color:var(--muted);margin-bottom:.7rem;"><span data-fr="Pour des raisons de droits d'auteur, les paroles ne sont pas reproduites ici, ni traduites. Retrouve-les sur :" data-es="Por derechos de autor, la letra no se reproduce aquí, ni se traduce. Consúltala en:">Pour des raisons de droits d'auteur, les paroles ne sont pas reproduites ici, ni traduites. Retrouve-les sur :</span></p>
     <div style="display:flex;flex-wrap:wrap;gap:.6rem;">
-      <a href="https://genius.com/search?q=Jordan+Rakei+Trust" target="_blank" rel="noopener noreferrer" class="btn-back" style="display:inline-flex;"><span data-lucide="external-link"></span><span>Genius</span></a>
-      <a href="https://open.spotify.com/search/Jordan%20Rakei%20Trust" target="_blank" rel="noopener noreferrer" class="btn-back" style="display:inline-flex;"><span data-lucide="external-link"></span><span>Spotify</span></a>
-      <a href="https://music.apple.com/us/search?term=Jordan%20Rakei%20Trust" target="_blank" rel="noopener noreferrer" class="btn-back" style="display:inline-flex;"><span data-lucide="external-link"></span><span>Apple Music</span></a>
+      <a href="https://genius.com/search?q=Jordan+Rakei+Trust" target="_blank" rel="noopener noreferrer" class="link-pill"><span data-lucide="external-link"></span><span>Genius</span></a>
+      <a href="https://open.spotify.com/search/Jordan%20Rakei%20Trust" target="_blank" rel="noopener noreferrer" class="link-pill"><span data-lucide="external-link"></span><span>Spotify</span></a>
+      <a href="https://music.apple.com/us/search?term=Jordan%20Rakei%20Trust" target="_blank" rel="noopener noreferrer" class="link-pill"><span data-lucide="external-link"></span><span>Apple Music</span></a>
     </div>
   </section>
 
