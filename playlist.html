@@ -85,47 +85,49 @@
 .top5-close{position:absolute;top:.4rem;right:.4rem;z-index:3;width:22px;height:22px;border-radius:50%;background:rgba(26,23,38,.7);color:#fff;border:0;font-size:11px;line-height:1;cursor:pointer;}
 .top5-rank{position:absolute;top:.5rem;left:.5rem;z-index:2;background:rgba(26,23,38,.7);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.04em;padding:.15rem .45rem;border-radius:var(--r-pill);backdrop-filter:blur(6px);}
 .top5-score{position:absolute;top:.5rem;right:.5rem;z-index:2;background:var(--accent);color:#fff;font-family:var(--serif);font-style:italic;font-size:.85rem;padding:.05rem .5rem;border-radius:var(--r-pill);box-shadow:0 4px 12px var(--accent-soft);}
-.top5-info{padding:.65rem .7rem .75rem;display:flex;flex-direction:column;gap:.4rem;flex:1;}
-.top5-title{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.6em;}
-.top5-proposer{font-size:9.5px;color:var(--muted);}
-.top5-progress{height:5px;background:rgba(255,255,255,.5);border-radius:var(--r-pill);overflow:hidden;}
+.top5-info{padding:.7rem .75rem .8rem;display:flex;flex-direction:column;gap:.55rem;flex:1;}
+.top5-title{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.32;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.65em;}
+.top5-progress{height:6px;background:rgba(255,255,255,.5);border-radius:var(--r-pill);overflow:hidden;}
 .top5-progress-fill{height:100%;background:linear-gradient(90deg,var(--like),var(--accent));}
-.top5-votes{display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem;margin-top:auto;}
-.top5-vote-btn{display:flex;flex-direction:column;align-items:center;gap:.05rem;padding:.35rem .1rem;background:rgba(255,255,255,.55);border:1px solid var(--glass-line);border-radius:var(--r-sm);font-size:8.5px;letter-spacing:.02em;color:var(--muted);cursor:pointer;transition:all .15s;font-weight:600;}
-.top5-vote-btn .n{font-family:var(--serif);font-style:italic;font-size:.95rem;line-height:1;color:var(--ink);}
-.top5-vote-btn.like:hover{background:var(--like-soft);border-color:var(--like);}
-.top5-vote-btn.maybe:hover{background:var(--maybe-soft);border-color:var(--maybe);}
-.top5-vote-btn.skip:hover{background:var(--skip-soft);border-color:var(--skip);}
+.top5-votes{display:grid;grid-template-columns:repeat(3,1fr);gap:.35rem;margin-top:auto;}
+.top5-vote-btn{display:flex;align-items:center;justify-content:center;gap:.3rem;padding:.5rem .2rem;background:rgba(255,255,255,.6);border:1px solid var(--glass-line);border-radius:var(--r-sm);color:var(--muted);cursor:pointer;transition:all .15s;min-height:38px;}
+.top5-vote-btn [data-lucide]{width:15px;height:15px;flex-shrink:0;}
+.top5-vote-btn .n{font-family:var(--serif);font-style:italic;font-size:1rem;line-height:1;color:var(--ink);}
+.top5-vote-btn:hover{transform:translateY(-1px);}
+.top5-vote-btn.like:hover{background:var(--like-soft);border-color:var(--like);color:var(--like);}
+.top5-vote-btn.maybe:hover{background:var(--maybe-soft);border-color:var(--maybe);color:var(--maybe);}
+.top5-vote-btn.skip:hover{background:var(--skip-soft);border-color:var(--skip);color:var(--skip);}
 .top5-vote-btn.voted-like{background:var(--like);color:#fff;border-color:var(--like);}
 .top5-vote-btn.voted-like .n{color:#fff;}
 .top5-vote-btn.voted-maybe{background:var(--maybe);color:#fff;border-color:var(--maybe);}
 .top5-vote-btn.voted-maybe .n{color:#fff;}
 .top5-vote-btn.voted-skip{background:var(--skip);color:#fff;border-color:var(--skip);}
 .top5-vote-btn.voted-skip .n{color:#fff;}
-
 /* ── RESTE DE LA PLAYLIST : lignes compactes ── */
 .rest-grid{display:flex;flex-direction:column;gap:.55rem;}
 @media(min-width:900px){.rest-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;}}
-.rest-card{display:grid;grid-template-columns:76px 1fr;gap:.7rem;align-items:center;border-radius:var(--r-sm);padding:.5rem .7rem .5rem .5rem;background:var(--glass);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow);position:relative;}
+.rest-card{display:grid;grid-template-columns:96px 1fr;gap:.8rem;align-items:center;border-radius:var(--r-sm);padding:.6rem .8rem .6rem .6rem;background:var(--glass);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow);position:relative;transition:border-color .2s;}
+.rest-card:hover{border-color:var(--accent-2);}
 .rest-card.mine{border-color:rgba(106,90,224,.45);}
-.rest-thumb{position:relative;width:76px;aspect-ratio:16/9;border-radius:var(--r-sm);overflow:hidden;background-size:cover;background-position:center;cursor:pointer;flex-shrink:0;}
+.rest-thumb{position:relative;width:96px;aspect-ratio:16/9;border-radius:var(--r-sm);overflow:hidden;background-size:cover;background-position:center;cursor:pointer;flex-shrink:0;}
 .rest-thumb-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
-.rest-thumb-play::after{content:"";width:20px;height:20px;border-radius:50%;background:rgba(26,23,38,.55);}
-.rest-thumb-play::before{content:"";position:absolute;width:0;height:0;border-style:solid;border-width:4px 0 4px 6.5px;border-color:transparent transparent transparent #fff;margin-left:1.5px;z-index:1;}
+.rest-thumb-play::after{content:"";width:24px;height:24px;border-radius:50%;background:rgba(26,23,38,.55);}
+.rest-thumb-play::before{content:"";position:absolute;width:0;height:0;border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent #fff;margin-left:2px;z-index:1;}
 .rest-iframe{width:100%;height:100%;border:0;display:block;}
-.rest-close{position:absolute;top:2px;right:2px;z-index:3;width:16px;height:16px;border-radius:50%;background:rgba(26,23,38,.7);color:#fff;border:0;font-size:9px;line-height:1;cursor:pointer;padding:0;}
-.rest-info{min-width:0;display:flex;flex-direction:column;gap:.25rem;}
-.rest-top-row{display:flex;align-items:baseline;gap:.4rem;}
-.rest-rank{font-size:9px;font-weight:700;color:var(--muted);flex-shrink:0;}
-.rest-title{font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.rest-meta{display:flex;align-items:center;gap:.5rem;font-size:9.5px;color:var(--muted);}
-.rest-score{font-family:var(--serif);font-style:italic;color:var(--accent-deep);}
-.rest-votes{display:flex;gap:.3rem;margin-top:.15rem;}
-.rest-vote-btn{display:flex;align-items:center;gap:.25rem;padding:.25rem .5rem;background:rgba(255,255,255,.55);border:1px solid var(--glass-line);border-radius:var(--r-pill);font-size:9.5px;color:var(--muted);cursor:pointer;font-weight:600;}
-.rest-vote-btn .n{font-weight:700;color:var(--ink);}
-.rest-vote-btn.like:hover{background:var(--like-soft);border-color:var(--like);}
-.rest-vote-btn.maybe:hover{background:var(--maybe-soft);border-color:var(--maybe);}
-.rest-vote-btn.skip:hover{background:var(--skip-soft);border-color:var(--skip);}
+.rest-close{position:absolute;top:2px;right:2px;z-index:3;width:18px;height:18px;border-radius:50%;background:rgba(26,23,38,.7);color:#fff;border:0;font-size:9px;line-height:1;cursor:pointer;padding:0;}
+.rest-info{min-width:0;display:flex;flex-direction:column;gap:.45rem;}
+.rest-top-row{display:flex;align-items:center;gap:.5rem;}
+.rest-rank{flex-shrink:0;font-size:10px;font-weight:700;color:var(--accent-deep);background:var(--accent-soft);border-radius:var(--r-pill);padding:.15rem .45rem;}
+.rest-title{flex:1;min-width:0;font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.rest-score{flex-shrink:0;font-family:var(--serif);font-style:italic;font-size:.95rem;color:var(--accent-deep);}
+.rest-votes{display:flex;gap:.4rem;}
+.rest-vote-btn{display:flex;align-items:center;gap:.35rem;padding:.35rem .6rem;background:rgba(255,255,255,.6);border:1px solid var(--glass-line);border-radius:var(--r-pill);color:var(--muted);cursor:pointer;transition:all .15s;}
+.rest-vote-btn [data-lucide]{width:14px;height:14px;flex-shrink:0;}
+.rest-vote-btn .n{font-weight:700;color:var(--ink);font-size:11px;}
+.rest-vote-btn:hover{transform:translateY(-1px);}
+.rest-vote-btn.like:hover{background:var(--like-soft);border-color:var(--like);color:var(--like);}
+.rest-vote-btn.maybe:hover{background:var(--maybe-soft);border-color:var(--maybe);color:var(--maybe);}
+.rest-vote-btn.skip:hover{background:var(--skip-soft);border-color:var(--skip);color:var(--skip);}
 .rest-vote-btn.voted-like{background:var(--like);color:#fff;border-color:var(--like);}
 .rest-vote-btn.voted-like .n{color:#fff;}
 .rest-vote-btn.voted-maybe{background:var(--maybe);color:#fff;border-color:var(--maybe);}
@@ -800,12 +802,11 @@ function renderTop5Card(t, idx){
       <span class="top5-score">+${score}</span>
       <div class="top5-info">
         <div class="top5-title">${escapeHtml(t.title || 'YouTube · '+t.youtube_id)}</div>
-        <div class="top5-proposer">${currentLang==='fr'?'Par':'Por'} ${escapeHtml(t.proposed_by)}</div>
-        ${t.votes.length > 0 ? `<div class="top5-progress"><div class="top5-progress-fill" style="width:${pct}%;"></div></div>` : ''}
+        <div class="top5-progress"><div class="top5-progress-fill" style="width:${pct}%;"></div></div>
         <div class="top5-votes">
-          <button class="top5-vote-btn like ${myV==='like'?'voted-like':''}" onclick="vote(${t.id}, 'like', this)"><span class="n">${likes}</span><span>${currentLang==='fr'?"J'aime":"Me gusta"}</span></button>
-          <button class="top5-vote-btn maybe ${myV==='maybe'?'voted-maybe':''}" onclick="vote(${t.id}, 'maybe', this)"><span class="n">${maybes}</span><span>${currentLang==='fr'?'Pourquoi pas':'Tal vez'}</span></button>
-          <button class="top5-vote-btn skip ${myV==='skip'?'voted-skip':''}" onclick="vote(${t.id}, 'skip', this)"><span class="n">${skips}</span><span>${currentLang==='fr'?"Non":'No'}</span></button>
+          <button class="top5-vote-btn like ${myV==='like'?'voted-like':''}" onclick="vote(${t.id}, 'like', this)" title="${currentLang==='fr'?"J'aime":"Me gusta"}"><span data-lucide="thumbs-up"></span><span class="n">${likes}</span></button>
+          <button class="top5-vote-btn maybe ${myV==='maybe'?'voted-maybe':''}" onclick="vote(${t.id}, 'maybe', this)" title="${currentLang==='fr'?'Pourquoi pas':'Tal vez'}"><span data-lucide="meh"></span><span class="n">${maybes}</span></button>
+          <button class="top5-vote-btn skip ${myV==='skip'?'voted-skip':''}" onclick="vote(${t.id}, 'skip', this)" title="${currentLang==='fr'?"Non":'No'}"><span data-lucide="circle-x"></span><span class="n">${skips}</span></button>
         </div>
         ${canDelete ? `<button class="top5-delete" onclick="deleteTrack(${t.id})">${currentLang==='fr'?'Supprimer':'Eliminar'}</button>` : ''}
       </div>
@@ -836,15 +837,12 @@ function renderRestCard(t, idx){
         <div class="rest-top-row">
           <span class="rest-rank">#${rank}</span>
           <span class="rest-title">${escapeHtml(t.title || 'YouTube · '+t.youtube_id)}</span>
-        </div>
-        <div class="rest-meta">
-          <span class="rest-score">+${score} pts</span>
-          <span>${currentLang==='fr'?'Par':'Por'} ${escapeHtml(t.proposed_by)}</span>
+          <span class="rest-score">+${score}</span>
         </div>
         <div class="rest-votes">
-          <button class="rest-vote-btn like ${myV==='like'?'voted-like':''}" onclick="vote(${t.id}, 'like', this)"><span class="n">${likes}</span><span>${currentLang==='fr'?"J'aime":"Me gusta"}</span></button>
-          <button class="rest-vote-btn maybe ${myV==='maybe'?'voted-maybe':''}" onclick="vote(${t.id}, 'maybe', this)"><span class="n">${maybes}</span><span>${currentLang==='fr'?'Pourquoi pas':'Tal vez'}</span></button>
-          <button class="rest-vote-btn skip ${myV==='skip'?'voted-skip':''}" onclick="vote(${t.id}, 'skip', this)"><span class="n">${skips}</span><span>${currentLang==='fr'?"Non":'No'}</span></button>
+          <button class="rest-vote-btn like ${myV==='like'?'voted-like':''}" onclick="vote(${t.id}, 'like', this)" title="${currentLang==='fr'?"J'aime":"Me gusta"}"><span data-lucide="thumbs-up"></span><span class="n">${likes}</span></button>
+          <button class="rest-vote-btn maybe ${myV==='maybe'?'voted-maybe':''}" onclick="vote(${t.id}, 'maybe', this)" title="${currentLang==='fr'?'Pourquoi pas':'Tal vez'}"><span data-lucide="meh"></span><span class="n">${maybes}</span></button>
+          <button class="rest-vote-btn skip ${myV==='skip'?'voted-skip':''}" onclick="vote(${t.id}, 'skip', this)" title="${currentLang==='fr'?"Non":'No'}"><span data-lucide="circle-x"></span><span class="n">${skips}</span></button>
         </div>
       </div>
       ${canDelete ? `<button class="rest-delete" onclick="deleteTrack(${t.id})">${currentLang==='fr'?'Supprimer':'Eliminar'}</button>` : ''}
@@ -899,6 +897,8 @@ function render(){
     restBlock.style.display = 'none';
     restContainer.innerHTML = '';
   }
+
+  if(window.lucide && lucide.createIcons) lucide.createIcons();
 }
 
 /* ── CHARGEMENT INITIAL ── */
