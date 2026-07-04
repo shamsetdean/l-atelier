@@ -438,6 +438,7 @@ applyLang();
 
 // Liste des pages morceaux (correspond aux 8 morceaux du répertoire)
 const MORCEAUX_PAGES = [
+  // Saison 2025-2026 (répertoire joué en concert, désormais archivé)
   { slug: 'worth-it',        name: 'Worth It' },
   { slug: 'still-a-friend',  name: 'Still a Friend of Mine' },
   { slug: 'easy-lover',      name: 'Easy Lover' },
@@ -445,7 +446,11 @@ const MORCEAUX_PAGES = [
   { slug: 'medley-chaka',    name: 'Medley Chaka Khan' },
   { slug: 'this-place-hotel',name: 'This Place Hotel' },
   { slug: 'say-say-say',     name: 'Say Say Say' },
-  { slug: 'heyoka-chelles',  name: 'Heyoka Chelles' }
+  { slug: 'heyoka-chelles',  name: 'Heyoka Chelles' },
+  // Saison 2026-2027 (nouveau répertoire, travail à la reprise de septembre)
+  { slug: 'boogie-nights-all-night', name: 'Boogie Nights / All Night' },
+  { slug: 'yebba-distance',          name: 'Distance' },
+  { slug: 'trust-jordan-rakei',      name: 'Trust' }
 ];
 
 // Mois FR → numéro (pour parser le planning)
@@ -670,8 +675,14 @@ const SUPABASE_URL = 'https://atsbhmvjungckpknkbxw.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_5NtVvQKSMnhQRijrWcW2hA_hwWKGW9j';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+// Alias : anciens prénoms tapés dans la playlist avant renommage,
+// pour que les votes/propositions passés restent comptabilisés sous le nom actuel.
+const NAME_ALIASES = {
+  'theythey': 'théo'
+};
 function normalizeName(s){
-  return (s || '').trim().toLowerCase();
+  const n = (s || '').trim().toLowerCase();
+  return NAME_ALIASES[n] || n;
 }
 
 async function loadPlaylistStats(){
