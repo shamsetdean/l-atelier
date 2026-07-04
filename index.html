@@ -31,6 +31,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 :root{
   --bg:#ECEAF6;
@@ -123,6 +124,25 @@ a{color:inherit;text-decoration:none;}
 .login-error:empty{display:none;}
 .login-divider{display:flex;align-items:center;gap:.8rem;margin:1.3rem 0;color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;}
 .login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--glass-line);}
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:.4rem;}
+.who-card{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:.9rem .4rem;border-radius:var(--r-md);background:rgba(255,255,255,.5);border:1px solid var(--glass-line);cursor:pointer;transition:all .18s;}
+.who-card:hover,.who-card:active{background:#fff;border-color:var(--accent);transform:translateY(-2px);}
+.who-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-style:italic;font-size:1.2rem;background-size:cover;background-position:center;flex-shrink:0;}
+.who-name{font-size:11.5px;font-weight:600;color:var(--ink);text-align:center;line-height:1.2;}
+.who-back{display:flex;align-items:center;gap:.4rem;font-size:12px;font-weight:600;color:var(--muted);background:none;border:0;cursor:pointer;margin-bottom:.9rem;padding:0;}
+.who-back:hover{color:var(--accent-deep);}
+.password-current{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;}
+.password-current .who-avatar{width:38px;height:38px;font-size:1rem;}
+.password-current .nm{font-size:1.1rem;font-family:var(--serif);font-style:italic;color:var(--ink);}
+.profile-modal-overlay{position:fixed;inset:0;background:rgba(11,7,16,.6);z-index:200;display:none;align-items:center;justify-content:center;padding:1.2rem;}
+.profile-modal-overlay.open{display:flex;}
+.profile-modal{width:100%;max-width:340px;border-radius:var(--r-lg);padding:1.6rem;background:var(--glass-strong);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border:1px solid var(--glass-border);box-shadow:0 30px 80px rgba(0,0,0,.4);text-align:center;}
+.profile-modal h3{font-family:var(--serif);font-style:italic;font-size:1.4rem;color:var(--ink);margin:0 0 1rem;}
+.profile-modal .who-avatar{width:96px;height:96px;font-size:2.2rem;margin:0 auto 1rem;}
+.profile-modal-actions{display:flex;flex-direction:column;gap:.6rem;margin-top:1rem;}
+.profile-modal-btn{width:100%;padding:.8rem;border-radius:var(--r-sm);border:1px solid var(--glass-line);background:rgba(255,255,255,.6);font-weight:600;font-size:13px;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;}
+.profile-modal-btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border:none;}
+.profile-modal-close{position:absolute;top:.9rem;right:.9rem;background:none;border:0;color:var(--muted);cursor:pointer;}
 .bio-btn{width:100%;background:rgba(255,255,255,.55);color:var(--ink);border:1px solid var(--glass-line);font-size:.9rem;font-weight:500;padding:1rem;cursor:pointer;transition:all .2s;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;gap:.6rem;min-height:52px;}
 .bio-btn:active{background:rgba(255,255,255,.85);}
 .bio-btn [data-lucide]{width:18px;height:18px;}
@@ -402,33 +422,67 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
       <div class="login-logo">PHÉNIX<span class="amp">.</span></div>
       <div class="login-tagline">Funk · Groove · Soul · Live</div>
     </div>
-    <div class="login-sub"><span data-lucide="lock"></span><span data-fr="Espace membres privé" data-es="Espacio miembros privado">Espace membres privé</span></div>
 
-    <div id="bio-login-zone" style="display:none;">
-      <button class="bio-btn" onclick="loginWithBio()" id="bio-login-btn">
-        <span data-lucide="scan-face"></span>
-        <span data-fr="Continuer avec Face ID / Touch ID" data-es="Continuar con Face ID / Touch ID">Continuer avec Face ID / Touch ID</span>
-      </button>
-      <div class="login-divider"><span data-fr="ou mot de passe" data-es="o contraseña">ou mot de passe</span></div>
+    <!-- ÉTAPE 1 : QUI ES-TU -->
+    <div id="who-step">
+      <div class="login-sub"><span data-lucide="users"></span><span data-fr="Qui es-tu ?" data-es="¿Quién eres?">Qui es-tu ?</span></div>
+      <div class="who-grid" id="who-grid"></div>
     </div>
 
-    <label class="login-label" for="pwd" data-fr="Mot de passe" data-es="Contraseña">Mot de passe</label>
-    <div class="input-wrap">
-      <span data-lucide="key-round"></span>
-      <input class="login-input" type="password" id="pwd" autocomplete="current-password" placeholder="••••••••">
-    </div>
-    <button class="login-btn" onclick="checkPassword()">
-      <span data-fr="Entrer" data-es="Entrar">Entrer</span>
-      <span data-lucide="arrow-right"></span>
-    </button>
-    <div class="login-error" id="login-error"></div>
-
-    <div class="bio-register-banner" id="bio-register-banner" style="display:none;">
-      <p><span data-lucide="sparkles"></span><span data-fr="Activer Face ID / Touch ID pour la prochaine connexion ?" data-es="¿Activar Face ID / Touch ID para la próxima conexión ?">Activer Face ID / Touch ID pour la prochaine connexion ?</span></p>
-      <div class="bio-register-actions">
-        <button class="bio-register-btn" onclick="registerBio()" data-fr="Activer" data-es="Activar">Activer</button>
-        <button class="bio-register-skip" onclick="skipBio()" data-fr="Plus tard" data-es="Más tarde">Plus tard</button>
+    <!-- ÉTAPE 2 : MOT DE PASSE -->
+    <div id="password-step" style="display:none;">
+      <button class="who-back" onclick="backToWho()"><span data-lucide="arrow-left"></span><span data-fr="Changer" data-es="Cambiar">Changer</span></button>
+      <div class="password-current">
+        <div class="who-avatar" id="password-current-avatar"></div>
+        <div class="nm" id="password-current-name"></div>
       </div>
+      <div class="login-sub"><span data-lucide="lock"></span><span data-fr="Espace membres privé" data-es="Espacio miembros privado">Espace membres privé</span></div>
+
+      <div id="bio-login-zone" style="display:none;">
+        <button class="bio-btn" onclick="loginWithBio()" id="bio-login-btn">
+          <span data-lucide="scan-face"></span>
+          <span data-fr="Continuer avec Face ID / Touch ID" data-es="Continuar con Face ID / Touch ID">Continuer avec Face ID / Touch ID</span>
+        </button>
+        <div class="login-divider"><span data-fr="ou mot de passe" data-es="o contraseña">ou mot de passe</span></div>
+      </div>
+
+      <label class="login-label" for="pwd" data-fr="Mot de passe" data-es="Contraseña">Mot de passe</label>
+      <div class="input-wrap">
+        <span data-lucide="key-round"></span>
+        <input class="login-input" type="password" id="pwd" autocomplete="current-password" placeholder="••••••••">
+      </div>
+      <button class="login-btn" onclick="checkPassword()">
+        <span data-fr="Entrer" data-es="Entrar">Entrer</span>
+        <span data-lucide="arrow-right"></span>
+      </button>
+      <div class="login-error" id="login-error"></div>
+
+      <div class="bio-register-banner" id="bio-register-banner" style="display:none;">
+        <p><span data-lucide="sparkles"></span><span data-fr="Activer Face ID / Touch ID pour la prochaine connexion ?" data-es="¿Activar Face ID / Touch ID para la próxima conexión ?">Activer Face ID / Touch ID pour la prochaine connexion ?</span></p>
+        <div class="bio-register-actions">
+          <button class="bio-register-btn" onclick="registerBio()" data-fr="Activer" data-es="Activar">Activer</button>
+          <button class="bio-register-skip" onclick="skipBio()" data-fr="Plus tard" data-es="Más tarde">Plus tard</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════ MODALE PHOTO DE PROFIL ═════════ -->
+<div class="profile-modal-overlay" id="profile-modal-overlay" onclick="if(event.target===this)closeProfileModal()">
+  <div class="profile-modal">
+    <button class="profile-modal-close" onclick="closeProfileModal()"><span data-lucide="x"></span></button>
+    <div class="who-avatar" id="profile-modal-avatar"></div>
+    <h3 id="profile-modal-name"></h3>
+    <p style="font-size:12px;color:var(--muted);margin:0;"><span data-fr="Choisis la photo que tout le monde verra à côté de ton nom." data-es="Elige la foto que todos verán junto a tu nombre.">Choisis la photo que tout le monde verra à côté de ton nom.</span></p>
+    <div class="profile-modal-actions">
+      <input type="file" id="profile-photo-input" accept="image/*" style="display:none;" onchange="handleProfilePhotoUpload(event)">
+      <button class="profile-modal-btn primary" onclick="document.getElementById('profile-photo-input').click()">
+        <span data-lucide="image-up"></span><span data-fr="Choisir une photo" data-es="Elegir una foto">Choisir une photo</span>
+      </button>
+      <button class="profile-modal-btn" id="profile-modal-remove" onclick="removeProfilePhoto()" style="display:none;">
+        <span data-lucide="trash-2"></span><span data-fr="Retirer la photo" data-es="Quitar la foto">Retirer la photo</span>
+      </button>
     </div>
   </div>
 </div>
@@ -1015,6 +1069,9 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
       <a class="sheet-link" href="playlist.html"><span data-lucide="list-music"></span>Playlist<span data-lucide="chevron-right" class="chev"></span></a>
       <a class="sheet-link" href="todojeudi.html"><span data-lucide="check-check"></span>TodoJeudi<span data-lucide="chevron-right" class="chev"></span></a>
     </div>
+    <div class="sheet-links">
+      <button class="sheet-link" style="width:100%;background:none;border:0;cursor:pointer;font:inherit;text-align:left;" onclick="closeSheet();openProfileModal();"><span data-lucide="user-circle"></span><span data-fr="Ma photo de profil" data-es="Mi foto de perfil">Ma photo de profil</span><span data-lucide="chevron-right" class="chev"></span></button>
+    </div>
     <div class="sheet-foot">
       <button onclick="toggleLang()"><span data-lucide="languages"></span><span id="sheet-lang-label">ES</span></button>
       <button onclick="logout()"><span data-lucide="log-out"></span><span data-fr="Sortir" data-es="Salir">Sortir</span></button>
@@ -1028,6 +1085,153 @@ const RP_ID=location.hostname||'localhost';
 const RP_NAME="les Phénix";
 const USER_ID=new Uint8Array([76,65,84,69,76,73,69,82]);
 let currentLang=localStorage.getItem('atelier-lang')||'fr';
+
+/* ── MEMBRES & PHOTOS DE PROFIL ── */
+const MEMBERS = [
+  { name: 'Cédric',    role_fr: 'Direction', role_es: 'Dirección' },
+  { name: 'Jean-Marc', role_fr: 'Saxophone',  role_es: 'Saxofón' },
+  { name: 'Roselyne',  role_fr: 'Chant',      role_es: 'Voz' },
+  { name: 'Marine',    role_fr: 'Chant',      role_es: 'Voz' },
+  { name: 'Nata',      role_fr: 'Basse',      role_es: 'Bajo' },
+  { name: 'Nico',      role_fr: 'Guitare',    role_es: 'Guitarra' },
+  { name: 'Pablo',     role_fr: 'Clavier',    role_es: 'Teclado' },
+  { name: 'Patrice',   role_fr: 'Guitare',    role_es: 'Guitarra' },
+  { name: 'Patricia',  role_fr: 'Chant',      role_es: 'Voz' },
+  { name: 'Shams',     role_fr: 'Batterie',   role_es: 'Batería' },
+  { name: 'Théo',      role_fr: 'Chant',      role_es: 'Voz' }
+];
+
+const SUPABASE_URL = 'https://atsbhmvjungckpknkbxw.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_5NtVvQKSMnhQRijrWcW2hA_hwWKGW9j';
+const sb = (window.supabase) ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+let memberPhotos = {}; // { 'Marine': 'data:image/jpeg;base64,...' }
+let selectedMember = localStorage.getItem('atelier-current-member') || '';
+
+function initials(name){
+  return (name || '?').trim().slice(0,2).toUpperCase();
+}
+function avatarStyle(name){
+  const photo = memberPhotos[name];
+  return photo ? `background-image:url('${photo}')` : '';
+}
+function avatarContent(name){
+  return memberPhotos[name] ? '' : initials(name);
+}
+
+async function loadMemberPhotos(){
+  if(!sb) return;
+  try{
+    const { data, error } = await sb.from('member_photos').select('name, photo_data');
+    if(error){ console.warn(error); return; }
+    memberPhotos = {};
+    (data || []).forEach(row => { memberPhotos[row.name] = row.photo_data; });
+    renderWhoGrid();
+    updatePasswordCurrent();
+  }catch(e){ console.warn('Erreur loadMemberPhotos', e); }
+}
+
+function renderWhoGrid(){
+  const grid = document.getElementById('who-grid');
+  if(!grid) return;
+  grid.innerHTML = MEMBERS.map(m => `
+    <div class="who-card" onclick="selectMember('${m.name}')">
+      <div class="who-avatar" style="${avatarStyle(m.name)}">${avatarContent(m.name)}</div>
+      <div class="who-name">${m.name}</div>
+    </div>
+  `).join('');
+}
+
+function updatePasswordCurrent(){
+  const av = document.getElementById('password-current-avatar');
+  const nm = document.getElementById('password-current-name');
+  if(av){ av.style.cssText = avatarStyle(selectedMember); av.textContent = avatarContent(selectedMember); }
+  if(nm) nm.textContent = selectedMember;
+}
+
+function selectMember(name){
+  selectedMember = name;
+  localStorage.setItem('atelier-current-member', name);
+  // Synchronise avec le système de nom utilisé sur la playlist
+  localStorage.setItem('atelier-playlist-name', name);
+  updatePasswordCurrent();
+  document.getElementById('who-step').style.display='none';
+  document.getElementById('password-step').style.display='block';
+  document.getElementById('pwd').focus();
+  refreshIcons();
+}
+
+function backToWho(){
+  document.getElementById('password-step').style.display='none';
+  document.getElementById('who-step').style.display='block';
+  document.getElementById('login-error').textContent='';
+  refreshIcons();
+}
+
+/* ── MODALE PHOTO DE PROFIL ── */
+function openProfileModal(){
+  if(!selectedMember) return;
+  document.getElementById('profile-modal-name').textContent = selectedMember;
+  const av = document.getElementById('profile-modal-avatar');
+  av.style.cssText = avatarStyle(selectedMember);
+  av.textContent = avatarContent(selectedMember);
+  document.getElementById('profile-modal-remove').style.display = memberPhotos[selectedMember] ? 'flex' : 'none';
+  document.getElementById('profile-modal-overlay').classList.add('open');
+  refreshIcons();
+}
+function closeProfileModal(){
+  document.getElementById('profile-modal-overlay').classList.remove('open');
+}
+
+function handleProfilePhotoUpload(e){
+  const file = e.target.files[0];
+  if(!file || !selectedMember) return;
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    const img = new Image();
+    img.onload = async function(){
+      // Redimensionne côté client pour ne pas stocker des photos trop lourdes
+      const size = 300;
+      const canvas = document.createElement('canvas');
+      canvas.width = size; canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      const ratio = Math.max(size / img.width, size / img.height);
+      const w = img.width * ratio, h = img.height * ratio;
+      ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+
+      memberPhotos[selectedMember] = dataUrl;
+      renderWhoGrid();
+      updatePasswordCurrent();
+      openProfileModal();
+
+      if(sb){
+        try{
+          await sb.from('member_photos').upsert([{ name: selectedMember, photo_data: dataUrl }]);
+        }catch(err){ console.warn('Erreur sauvegarde photo', err); }
+      }
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+  e.target.value = '';
+}
+
+async function removeProfilePhoto(){
+  if(!selectedMember) return;
+  delete memberPhotos[selectedMember];
+  renderWhoGrid();
+  updatePasswordCurrent();
+  openProfileModal();
+  if(sb){
+    try{ await sb.from('member_photos').delete().eq('name', selectedMember); }
+    catch(err){ console.warn('Erreur suppression photo', err); }
+  }
+}
+
+renderWhoGrid();
+if(selectedMember){ updatePasswordCurrent(); }
+loadMemberPhotos();
 
 function refreshIcons(){ if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
 
@@ -1054,18 +1258,30 @@ function openApp(){
   if(typeof postLoginInit==='function') postLoginInit();
   refreshIcons();
 }
-function showLoginScreen(){
+function showLoginScreen(resetIdentity){
   document.getElementById('app').style.display='none';
   document.getElementById('login-screen').style.display='grid';
   document.getElementById('pwd').value='';
   document.getElementById('login-error').textContent='';
   document.getElementById('bio-register-banner').style.display='none';
+  if(resetIdentity){
+    document.getElementById('password-step').style.display='none';
+    document.getElementById('who-step').style.display='block';
+  }else if(selectedMember){
+    updatePasswordCurrent();
+    document.getElementById('who-step').style.display='none';
+    document.getElementById('password-step').style.display='block';
+  }else{
+    document.getElementById('password-step').style.display='none';
+    document.getElementById('who-step').style.display='block';
+  }
   refreshIcons();
 }
-function logout(){sessionStorage.removeItem('atelier-auth');closeSheet();showLoginScreen();}
+function logout(){sessionStorage.removeItem('atelier-auth');closeSheet();showLoginScreen(true);}
 document.getElementById('pwd').addEventListener('keydown',e=>{if(e.key==='Enter')checkPassword();});
 
 async function checkPassword(){
+  if(!selectedMember) return;
   const v=document.getElementById('pwd').value; if(!v)return;
   const h=await sha256(v);
   if(h===PASSWORD_HASH){
