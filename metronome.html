@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="phenix-slug" content="metronome">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta name="theme-color" content="#ECEAF6">
+<title>Métronome — PHÉNIX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<link rel="stylesheet" href="atelier.css">
+<style>
+.metro-wrap{max-width:520px;margin:0 auto;}
+.metro-card{border-radius:var(--r-lg,28px);padding:2rem 1.6rem 2.2rem;background:var(--glass);backdrop-filter:blur(28px) saturate(170%);-webkit-backdrop-filter:blur(28px) saturate(170%);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow),var(--glass-inset);text-align:center;}
+.metro-pulse-zone{position:relative;width:220px;height:220px;margin:0 auto 1.6rem;display:flex;align-items:center;justify-content:center;}
+.metro-pulse-ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--accent-2);opacity:0;}
+.metro-pulse-ring.beat{animation:pulseRing 0.4s ease-out;}
+@keyframes pulseRing{0%{transform:scale(.8);opacity:.9;}100%{transform:scale(1.35);opacity:0;}}
+.metro-dot-core{width:150px;height:150px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;box-shadow:0 20px 50px var(--accent-soft);transition:transform .08s;}
+.metro-dot-core.beat{transform:scale(1.06);}
+.metro-bpm-num{font-family:var(--serif);font-style:italic;font-size:3.2rem;line-height:.9;}
+.metro-bpm-lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;opacity:.85;margin-top:.3rem;}
+.metro-controls{display:flex;align-items:center;justify-content:center;gap:.8rem;margin-bottom:1.3rem;}
+.metro-adj-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--glass-line);background:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);transition:all .15s;font-size:18px;font-weight:700;}
+.metro-adj-btn:hover{background:#fff;color:var(--accent-deep);}
+.metro-slider{flex:1;max-width:220px;}
+.metro-slider input[type=range]{width:100%;accent-color:var(--accent);}
+.metro-actions{display:flex;gap:.7rem;justify-content:center;margin-bottom:1.4rem;}
+.metro-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.6rem;border-radius:var(--r-pill);font-weight:700;font-size:14px;cursor:pointer;border:none;transition:all .18s;}
+.metro-btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 10px 26px var(--accent-soft);}
+.metro-btn.primary:hover{transform:translateY(-2px);}
+.metro-btn.secondary{background:rgba(255,255,255,.6);border:1px solid var(--glass-line);color:var(--ink);}
+.metro-btn.secondary:hover{background:#fff;}
+.metro-tap-hint{font-size:11.5px;color:var(--muted);margin-bottom:1.6rem;}
+.metro-sound-toggle{display:flex;align-items:center;justify-content:center;gap:.5rem;font-size:12.5px;color:var(--muted);cursor:pointer;user-select:none;}
+.metro-sound-toggle input{accent-color:var(--accent);}
+
+.songs-title{display:flex;align-items:center;gap:.5rem;font-size:.85rem;font-weight:700;color:var(--ink);margin:2rem 0 1rem;}
+.songs-title [data-lucide]{width:16px;height:16px;color:var(--accent-deep);}
+.songs-grid{display:grid;grid-template-columns:1fr;gap:.6rem;}
+@media(min-width:640px){.songs-grid{grid-template-columns:repeat(2,1fr);}}
+.song-bpm-card{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.85rem 1.1rem;border-radius:var(--r-md);background:var(--glass);border:1px solid var(--glass-border);cursor:pointer;transition:all .15s;text-align:left;}
+.song-bpm-card:hover{background:#fff;border-color:var(--accent-2);transform:translateY(-1px);}
+.song-bpm-card .nm{font-size:13.5px;font-weight:600;color:var(--ink);}
+.song-bpm-card .bpm{font-family:var(--serif);font-style:italic;font-size:1.3rem;color:var(--accent-deep);flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<div class="aurora"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
+<header class="atelier-header glass">
+  <a class="header-logo" href="index.html"><span class="dot"></span><span class="word"><span style="display:block;font-family:var(--mono);font-style:normal;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);line-height:1;margin-bottom:2px;">Atelier Funk</span>PHÉNIX</span></a>
+  <div class="header-actions">
+    <a class="btn-back" href="index.html"><span data-lucide="arrow-left"></span><span data-fr="Accueil" data-es="Inicio">Accueil</span></a>
+    <button class="btn-lang" id="lang-toggle" onclick="toggleLang()" title="Cambiar idioma / Changer de langue">ES</button>
+  </div>
+</header>
+
+<main class="atelier-main">
+
+  <div class="page-head">
+    <div>
+      <div class="page-eyebrow">
+        <span data-lucide="gauge"></span>
+        <span data-fr="Outil de répétition" data-es="Herramienta de ensayo">Outil de répétition</span>
+      </div>
+      <h1 class="page-title"><span data-fr="Métronome" data-es="Metrónomo">Métronome</span></h1>
+    </div>
+  </div>
+
+  <div class="metro-wrap">
+    <div class="metro-card">
+      <div class="metro-pulse-zone">
+        <div class="metro-pulse-ring" id="pulse-ring"></div>
+        <div class="metro-dot-core" id="dot-core">
+          <div class="metro-bpm-num" id="bpm-display">100</div>
+          <div class="metro-bpm-lbl">BPM</div>
+        </div>
+      </div>
+
+      <div class="metro-controls">
+        <button class="metro-adj-btn" onclick="adjustBpm(-1)" aria-label="-1 BPM">−</button>
+        <div class="metro-slider">
+          <input type="range" id="bpm-slider" min="40" max="220" value="100" oninput="setBpm(this.value)">
+        </div>
+        <button class="metro-adj-btn" onclick="adjustBpm(1)" aria-label="+1 BPM">+</button>
+      </div>
+
+      <div class="metro-actions">
+        <button class="metro-btn primary" id="play-btn" onclick="togglePlay()">
+          <span data-lucide="play" id="play-icon"></span>
+          <span id="play-label" data-fr="Démarrer" data-es="Iniciar">Démarrer</span>
+        </button>
+        <button class="metro-btn secondary" onclick="tapTempo()">
+          <span data-lucide="hand"></span>
+          <span data-fr="Tap tempo" data-es="Tap tempo">Tap tempo</span>
+        </button>
+      </div>
+
+      <div class="metro-tap-hint" data-fr="Tape plusieurs fois de suite sur « Tap tempo » pour caler le BPM au feeling." data-es="Toca varias veces seguidas en «Tap tempo» para ajustar el BPM al feeling.">Tape plusieurs fois de suite sur « Tap tempo » pour caler le BPM au feeling.</div>
+
+      <label class="metro-sound-toggle">
+        <input type="checkbox" id="accent-toggle" checked>
+        <span data-fr="Accentuer le premier temps" data-es="Acentuar el primer tiempo">Accentuer le premier temps</span>
+      </label>
+    </div>
+
+    <div class="songs-title"><span data-lucide="disc-3"></span><span data-fr="BPM du catalogue — touche pour appliquer" data-es="BPM del catálogo — toca para aplicar">BPM du catalogue — touche pour appliquer</span></div>
+    <div class="songs-grid" id="songs-grid"></div>
+  </div>
+
+</main>
+
+<script>
+/* TRADUCTION */
+let currentLang = localStorage.getItem('atelier-lang') || 'fr';
+function applyLang(){
+  document.querySelectorAll('[data-fr]').forEach(el=>{
+    const hasChild = el.querySelector('[data-fr]');
+    if(!hasChild) el.textContent = (currentLang==='fr') ? el.dataset.fr : el.dataset.es;
+  });
+  const btn = document.getElementById('lang-toggle');
+  if(btn) btn.textContent = (currentLang==='fr') ? 'ES' : 'FR';
+  document.documentElement.lang = currentLang;
+}
+function toggleLang(){
+  currentLang = (currentLang==='fr') ? 'es' : 'fr';
+  localStorage.setItem('atelier-lang', currentLang);
+  applyLang();
+}
+applyLang();
+
+/* CATALOGUE DE BPM (repris des fiches morceaux) */
+const SONGS = [
+  { name: 'Boogie Nights / All Night', bpm: 91 },
+  { name: 'Distance', bpm: 65 },
+  { name: 'Trust', bpm: 100 },
+  { name: 'Worth It', bpm: 110 },
+  { name: 'Easy Lover', bpm: 128 },
+  { name: 'Still a Friend of Mine', bpm: 87 },
+  { name: 'This Place Hotel', bpm: 120 },
+  { name: 'Say Say Say', bpm: 118 }
+];
+
+function renderSongs(){
+  const grid = document.getElementById('songs-grid');
+  grid.innerHTML = SONGS.map(s => `
+    <button class="song-bpm-card" onclick="applySongBpm(${s.bpm})">
+      <span class="nm">${s.name}</span>
+      <span class="bpm">${s.bpm}</span>
+    </button>
+  `).join('');
+}
+function applySongBpm(bpm){
+  setBpm(bpm);
+  document.getElementById('bpm-slider').value = bpm;
+}
+renderSongs();
+
+/* ── MÉTRONOME (Web Audio API, timing précis par scheduler) ── */
+let audioCtx = null;
+let bpm = 100;
+let isPlaying = false;
+let nextNoteTime = 0;
+let currentBeat = 0;
+let schedulerTimer = null;
+const LOOKAHEAD = 25.0;      // ms entre chaque vérification du scheduler
+const SCHEDULE_AHEAD = 0.1;  // secondes de marge de programmation audio
+
+function setBpm(v){
+  bpm = Math.max(40, Math.min(220, parseInt(v, 10) || 100));
+  document.getElementById('bpm-display').textContent = bpm;
+  document.getElementById('bpm-slider').value = bpm;
+}
+function adjustBpm(delta){
+  setBpm(bpm + delta);
+}
+
+function playClick(time, accented){
+  if(!audioCtx) return;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.frequency.value = accented ? 1500 : 900;
+  gain.gain.setValueAtTime(accented ? 0.35 : 0.22, time);
+  gain.gain.exponentialRampToValueAtTime(0.001, time + 0.06);
+  osc.start(time);
+  osc.stop(time + 0.06);
+}
+
+function scheduleVisualBeat(accented){
+  const ring = document.getElementById('pulse-ring');
+  const core = document.getElementById('dot-core');
+  ring.classList.remove('beat'); void ring.offsetWidth; ring.classList.add('beat');
+  core.classList.remove('beat'); void core.offsetWidth; core.classList.add('beat');
+  setTimeout(()=>core.classList.remove('beat'), 90);
+}
+
+function scheduler(){
+  while(nextNoteTime < audioCtx.currentTime + SCHEDULE_AHEAD){
+    const accentOn = document.getElementById('accent-toggle').checked;
+    const isAccent = accentOn && (currentBeat % 4 === 0);
+    playClick(nextNoteTime, isAccent);
+    const delay = (nextNoteTime - audioCtx.currentTime) * 1000;
+    setTimeout(()=>scheduleVisualBeat(isAccent), Math.max(0, delay));
+    nextNoteTime += 60.0 / bpm;
+    currentBeat++;
+  }
+  schedulerTimer = setTimeout(scheduler, LOOKAHEAD);
+}
+
+function togglePlay(){
+  if(!audioCtx){
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if(isPlaying){
+    isPlaying = false;
+    clearTimeout(schedulerTimer);
+    document.getElementById('play-icon').setAttribute('data-lucide','play');
+    document.getElementById('play-label').textContent = (currentLang==='fr') ? 'Démarrer' : 'Iniciar';
+  } else {
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    isPlaying = true;
+    currentBeat = 0;
+    nextNoteTime = audioCtx.currentTime + 0.05;
+    scheduler();
+    document.getElementById('play-icon').setAttribute('data-lucide','pause');
+    document.getElementById('play-label').textContent = (currentLang==='fr') ? 'Arrêter' : 'Detener';
+  }
+  refreshIcons();
+}
+
+/* ── TAP TEMPO ── */
+let tapTimes = [];
+function tapTempo(){
+  const now = performance.now();
+  tapTimes.push(now);
+  if(tapTimes.length > 6) tapTimes.shift();
+  if(tapTimes.length >= 2){
+    const intervals = [];
+    for(let i=1;i<tapTimes.length;i++) intervals.push(tapTimes[i]-tapTimes[i-1]);
+    const avg = intervals.reduce((a,b)=>a+b,0)/intervals.length;
+    const computedBpm = Math.round(60000/avg);
+    if(computedBpm >= 40 && computedBpm <= 220) setBpm(computedBpm);
+  }
+  clearTimeout(window.__tapResetTimer);
+  window.__tapResetTimer = setTimeout(()=>{ tapTimes = []; }, 2000);
+}
+
+function refreshIcons(){ if(window.lucide && lucide.createIcons) lucide.createIcons(); }
+refreshIcons();
+</script>
+
+<script src="planning-sync.js" defer></script>
+</body>
+</html>

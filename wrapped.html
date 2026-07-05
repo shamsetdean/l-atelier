@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="phenix-slug" content="wrapped">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta name="theme-color" content="#1a1726">
+<title>Bilan de la saison — PHÉNIX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Geist',system-ui,sans-serif;
+  background:#0f0d17;
+  color:#fff;
+  height:100vh;
+  overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+.serif{font-family:'Instrument Serif',ui-serif,Georgia,serif;font-style:italic;}
+
+#stage{position:relative;width:100%;height:100vh;height:100dvh;overflow:hidden;}
+
+.progress-row{position:absolute;top:0;left:0;right:0;display:flex;gap:.35rem;padding:.9rem 1rem 0;z-index:20;}
+.progress-track{flex:1;height:3px;border-radius:999px;background:rgba(255,255,255,.25);overflow:hidden;}
+.progress-fill{height:100%;width:0%;background:#fff;border-radius:999px;transition:width .1s linear;}
+.progress-track.done .progress-fill{width:100% !important;transition:none;}
+
+.close-btn{position:absolute;top:.9rem;right:1rem;z-index:21;background:none;border:0;color:#fff;opacity:.8;cursor:pointer;padding:.4rem;}
+.close-btn:hover{opacity:1;}
+
+.slide{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 1.6rem 3rem;}
+.slide.active{display:flex;}
+.slide-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;opacity:.75;margin-bottom:1.1rem;display:flex;align-items:center;gap:.5rem;}
+.slide-eyebrow [data-lucide]{width:14px;height:14px;}
+.slide-num{font-size:clamp(3.6rem,18vw,7rem);line-height:.9;margin-bottom:.6rem;}
+.slide-title{font-size:clamp(1.6rem,7vw,2.6rem);line-height:1.15;max-width:480px;margin-bottom:.7rem;}
+.slide-sub{font-size:14px;opacity:.8;max-width:400px;line-height:1.5;}
+.slide-thumb{width:min(72vw,280px);aspect-ratio:16/9;border-radius:20px;overflow:hidden;margin:0 0 1.4rem;box-shadow:0 25px 60px rgba(0,0,0,.4);background-size:cover;background-position:center;}
+.slide-icon-badge{width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.3rem;background:rgba(255,255,255,.14);backdrop-filter:blur(10px);}
+.slide-icon-badge [data-lucide]{width:34px;height:34px;}
+
+.nav-zone{position:absolute;top:0;bottom:0;width:35%;z-index:10;}
+.nav-zone.left{left:0;}
+.nav-zone.right{right:0;}
+
+.wrapped-loading{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0f0d17;color:#fff;font-size:14px;gap:.6rem;z-index:50;}
+.wrapped-loading[hidden]{display:none;}
+
+.replay-btn{margin-top:1.6rem;display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.5rem;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;font-weight:600;font-size:13px;cursor:pointer;}
+.replay-btn:hover{background:rgba(255,255,255,.22);}
+
+.back-home{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);font-size:11.5px;color:rgba(255,255,255,.6);text-decoration:none;z-index:22;}
+</style>
+</head>
+<body>
+
+<div class="wrapped-loading" id="wrapped-loading">
+  <span data-lucide="loader-circle" style="width:18px;height:18px;animation:spin 1s linear infinite;"></span>
+  <span>Préparation du bilan…</span>
+</div>
+<style>@keyframes spin{to{transform:rotate(360deg);}}</style>
+
+<div id="stage" style="display:none;">
+  <div class="progress-row" id="progress-row"></div>
+  <button class="close-btn" onclick="location.href='index.html'" aria-label="Fermer"><span data-lucide="x" style="width:22px;height:22px;"></span></button>
+
+  <div class="nav-zone left" onclick="prevSlide()"></div>
+  <div class="nav-zone right" onclick="nextSlide()"></div>
+
+  <div id="slides"></div>
+</div>
+
+<a class="back-home" href="index.html">← Retour à l'Atelier</a>
+
+<script>
+const SUPABASE_URL = 'https://atsbhmvjungckpknkbxw.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_5NtVvQKSMnhQRijrWcW2hA_hwWKGW9j';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const GRADIENTS = [
+  'linear-gradient(160deg,#2b2140,#1a1726)',
+  'linear-gradient(160deg,#6A5AE0,#2b2140)',
+  'linear-gradient(160deg,#B5780F,#3a2a12)',
+  'linear-gradient(160deg,#0F7A63,#123028)',
+  'linear-gradient(160deg,#C9462A,#2b1712)',
+  'linear-gradient(160deg,#5A3F99,#1a1726)',
+  'linear-gradient(160deg,#276E88,#12242b)'
+];
+
+let slidesData = [];
+let currentSlide = 0;
+let autoTimer = null;
+const SLIDE_DURATION = 5000;
+
+function computeScore(votes){
+  return votes.reduce((s,v)=> s + (v.vote_type==='like'?2:v.vote_type==='maybe'?1:0), 0);
+}
+
+async function buildWrapped(){
+  try{
+    const [{ data: tracks, error: e1 }, { data: votes, error: e2 }] = await Promise.all([
+      sb.from('playlist_tracks').select('id, title, youtube_id, proposed_by'),
+      sb.from('playlist_votes').select('track_id, voter_name, vote_type')
+    ]);
+    if(e1 || e2) throw (e1 || e2);
+
+    const totalTracks = tracks.length;
+    const totalVotes = votes.length;
+
+    // Morceau le plus voté
+    let topTrack = null, topScore = -1;
+    tracks.forEach(t=>{
+      const s = computeScore(votes.filter(v=>v.track_id===t.id));
+      if(s > topScore){ topScore = s; topTrack = t; }
+    });
+
+    // Participants actifs (ont voté au moins une fois)
+    const activeVoters = new Set(votes.map(v=>v.voter_name)).size;
+
+    // Proposeur le plus actif (positif uniquement, jamais de "moins actif")
+    const proposalCounts = {};
+    tracks.forEach(t=>{ if(t.proposed_by) proposalCounts[t.proposed_by] = (proposalCounts[t.proposed_by]||0)+1; });
+    let topProposer = null, topProposerCount = 0;
+    Object.entries(proposalCounts).forEach(([name,count])=>{
+      if(count > topProposerCount){ topProposerCount = count; topProposer = name; }
+    });
+
+    // Votant le plus assidu (positif uniquement)
+    const voteCounts = {};
+    votes.forEach(v=>{ voteCounts[v.voter_name] = (voteCounts[v.voter_name]||0)+1; });
+    let topVoter = null, topVoterCount = 0;
+    Object.entries(voteCounts).forEach(([name,count])=>{
+      if(count > topVoterCount){ topVoterCount = count; topVoter = name; }
+    });
+
+    slidesData = [];
+
+    slidesData.push({
+      eyebrow: 'Atelier Funk PHÉNIX',
+      icon: 'sparkles',
+      title: 'Le bilan de votre playlist',
+      sub: 'Tout ce que le groupe a proposé, écouté et voté ensemble.'
+    });
+
+    if(totalTracks > 0){
+      slidesData.push({
+        eyebrow: 'Proposés ensemble',
+        num: totalTracks,
+        title: totalTracks > 1 ? 'morceaux proposés' : 'morceau proposé',
+        sub: "Autant d'idées apportées par le groupe pour nourrir le répertoire."
+      });
+    }
+
+    if(totalVotes > 0){
+      slidesData.push({
+        eyebrow: 'Avis exprimés',
+        num: totalVotes,
+        title: totalVotes > 1 ? 'votes exprimés' : 'vote exprimé',
+        sub: 'Chaque avis compte pour construire la setlist ensemble.'
+      });
+    }
+
+    if(topTrack && topScore > 0){
+      slidesData.push({
+        eyebrow: 'Le grand favori',
+        icon: 'trophy',
+        thumb: topTrack.youtube_id ? `https://img.youtube.com/vi/${topTrack.youtube_id}/hqdefault.jpg` : null,
+        title: topTrack.title || ('YouTube · ' + topTrack.youtube_id),
+        sub: `Le morceau le plus plébiscité de la playlist, avec +${topScore} points.`
+      });
+    }
+
+    if(activeVoters > 0){
+      slidesData.push({
+        eyebrow: 'Toujours présents',
+        num: activeVoters,
+        title: activeVoters > 1 ? 'membres ont voté' : 'membre a voté',
+        sub: "Merci à chacun d'avoir pris le temps de donner son avis."
+      });
+    }
+
+    if(topProposer && topProposerCount > 1){
+      slidesData.push({
+        eyebrow: "Plein d'idées",
+        icon: 'lightbulb',
+        title: topProposer,
+        sub: `${topProposerCount} propositions envoyées à la playlist — merci pour l'inspiration !`
+      });
+    }
+
+    if(topVoter && topVoterCount > 1){
+      slidesData.push({
+        eyebrow: 'Toujours partant',
+        icon: 'heart',
+        title: topVoter,
+        sub: `${topVoterCount} votes exprimés — un vrai pilier de la playlist !`
+      });
+    }
+
+    slidesData.push({
+      eyebrow: 'À la prochaine saison',
+      icon: 'party-popper',
+      title: 'Merci à tous les Phénix',
+      sub: 'Rendez-vous à la rentrée pour de nouvelles propositions, de nouveaux votes, et plein de nouveaux morceaux.',
+      isLast: true
+    });
+
+    renderSlides();
+    document.getElementById('wrapped-loading').setAttribute('hidden','');
+    document.getElementById('stage').style.display = 'block';
+    goToSlide(0);
+  } catch(e){
+    console.error(e);
+    document.getElementById('wrapped-loading').innerHTML =
+      '<span data-lucide="alert-circle" style="width:18px;height:18px;"></span><span>Impossible de charger le bilan pour le moment.</span>';
+    if(window.lucide) lucide.createIcons();
+  }
+}
+
+function renderSlides(){
+  const container = document.getElementById('slides');
+  const progressRow = document.getElementById('progress-row');
+
+  progressRow.innerHTML = slidesData.map(()=>`<div class="progress-track"><div class="progress-fill"></div></div>`).join('');
+
+  container.innerHTML = slidesData.map((s, i)=>{
+    const bg = GRADIENTS[i % GRADIENTS.length];
+    return `
+    <div class="slide" data-index="${i}" style="background:${bg};">
+      <div class="slide-eyebrow">${s.icon && !s.num ? '' : ''}<span>${s.eyebrow}</span></div>
+      ${s.thumb ? `<div class="slide-thumb" style="background-image:url('${s.thumb}');"></div>` : ''}
+      ${s.icon && !s.thumb ? `<div class="slide-icon-badge"><span data-lucide="${s.icon}"></span></div>` : ''}
+      ${s.num !== undefined ? `<div class="slide-num serif">${s.num}</div>` : ''}
+      <div class="slide-title ${s.num !== undefined ? '' : 'serif'}">${s.title}</div>
+      <div class="slide-sub">${s.sub}</div>
+      ${s.isLast ? `<button class="replay-btn" onclick="event.stopPropagation();goToSlide(0);"><span data-lucide="rotate-ccw" style="width:14px;height:14px;"></span>Revoir le bilan</button>` : ''}
+    </div>`;
+  }).join('');
+
+  if(window.lucide) lucide.createIcons();
+}
+
+function goToSlide(i){
+  clearTimeout(autoTimer);
+  if(i < 0) i = 0;
+  if(i >= slidesData.length) i = slidesData.length - 1;
+  currentSlide = i;
+
+  document.querySelectorAll('.slide').forEach((el,idx)=> el.classList.toggle('active', idx===i));
+
+  document.querySelectorAll('.progress-track').forEach((track, idx)=>{
+    const fill = track.querySelector('.progress-fill');
+    track.classList.remove('done');
+    fill.style.transition = 'none';
+    fill.style.width = idx < i ? '100%' : '0%';
+    if(idx === i){
+      requestAnimationFrame(()=>{
+        fill.style.transition = `width ${SLIDE_DURATION}ms linear`;
+        fill.style.width = '100%';
+      });
+    }
+  });
+
+  const isLast = i === slidesData.length - 1;
+  if(!isLast){
+    autoTimer = setTimeout(()=> goToSlide(i+1), SLIDE_DURATION);
+  }
+}
+function nextSlide(){ goToSlide(currentSlide+1); }
+function prevSlide(){ goToSlide(currentSlide-1); }
+
+document.addEventListener('keydown', e=>{
+  if(e.key === 'ArrowRight') nextSlide();
+  if(e.key === 'ArrowLeft') prevSlide();
+  if(e.key === 'Escape') location.href = 'index.html';
+});
+
+buildWrapped();
+</script>
+</body>
+</html>
