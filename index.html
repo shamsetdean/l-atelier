@@ -1478,26 +1478,49 @@ function tagNouveauxMorceaux(){
 }
 
 /* ── NOTIFICATION : NOUVEAUX MORCEAUX DEPUIS LA DERNIÈRE VISITE ── */
-const LAST_VISIT_KEY = 'atelier-last-visit';
+const SEEN_MORCEAUX_KEY = 'atelier-seen-morceaux';
 let pendingNewCount = 0;
+let pendingNewHrefs = [];
+
+function getSeenSet(){
+  try{
+    const raw = localStorage.getItem(SEEN_MORCEAUX_KEY);
+    return new Set(raw ? JSON.parse(raw) : []);
+  } catch(e){ return new Set(); }
+}
+function saveSeenSet(set){
+  try{ localStorage.setItem(SEEN_MORCEAUX_KEY, JSON.stringify(Array.from(set))); }
+  catch(e){}
+}
 
 function checkNewSinceVisit(){
-  const lastVisitRaw = localStorage.getItem(LAST_VISIT_KEY);
-  const lastVisit = lastVisitRaw ? new Date(lastVisitRaw) : null;
+  const seen = getSeenSet();
+  const allCards = document.querySelectorAll('.morceau-card[data-added]');
+
+  // Première visite jamais enregistrée : on marque tout comme déjà vu,
+  // pas de notification rétroactive sur tout le catalogue existant.
+  if(seen.size === 0 && allCards.length > 0){
+    allCards.forEach(card => seen.add(card.getAttribute('href')));
+    saveSeenSet(seen);
+    pendingNewCount = 0;
+    pendingNewHrefs = [];
+    hideNewSinceVisitUI();
+    return;
+  }
 
   const newCards = [];
-  document.querySelectorAll('.morceau-card[data-added]').forEach(card=>{
-    const s = card.dataset.added; if(!s) return;
-    const added = new Date(s);
-    if(lastVisit && added > lastVisit) newCards.push(card);
+  allCards.forEach(card => {
+    const href = card.getAttribute('href');
+    if(href && !seen.has(href)) newCards.push(href);
   });
 
   pendingNewCount = newCards.length;
+  pendingNewHrefs = newCards;
 
   const banner = document.getElementById('new-since-visit-banner');
   const dot = document.getElementById('nav-new-dot');
 
-  if(lastVisit && pendingNewCount > 0){
+  if(pendingNewCount > 0){
     const txt = document.getElementById('new-since-visit-text');
     if(txt){
       const label = (currentLang === 'fr')
@@ -1508,25 +1531,46 @@ function checkNewSinceVisit(){
     if(banner) banner.style.display = 'flex';
     if(dot) dot.style.display = 'block';
   } else {
-    if(banner) banner.style.display = 'none';
-    if(dot) dot.style.display = 'none';
+    hideNewSinceVisitUI();
   }
-
-  // On mémorise ce passage comme référence pour la prochaine visite
-  recordVisitNow();
 }
 
-function dismissNewSinceVisit(){
+function hideNewSinceVisitUI(){
   const banner = document.getElementById('new-since-visit-banner');
   const dot = document.getElementById('nav-new-dot');
   if(banner) banner.style.display = 'none';
   if(dot) dot.style.display = 'none';
-  recordVisitNow();
 }
 
-function recordVisitNow(){
-  localStorage.setItem(LAST_VISIT_KEY, new Date().toISOString());
+/* On ne marque un morceau comme "vu" qu'après une action explicite de la personne :
+   soit elle ferme la bannière, soit elle clique sur le morceau en question.
+   Comme ça, tant qu'elle n'a rien fait, la notification reste honnête et cohérente
+   d'une visite à l'autre — jamais de retour surprise sur un truc déjà vu. */
+function dismissNewSinceVisit(){
+  const seen = getSeenSet();
+  pendingNewHrefs.forEach(href => seen.add(href));
+  saveSeenSet(seen);
+  pendingNewCount = 0;
+  pendingNewHrefs = [];
+  hideNewSinceVisitUI();
 }
+
+function markMorceauSeen(href){
+  const seen = getSeenSet();
+  if(seen.has(href)) return;
+  seen.add(href);
+  saveSeenSet(seen);
+  pendingNewHrefs = pendingNewHrefs.filter(h => h !== href);
+  pendingNewCount = pendingNewHrefs.length;
+  if(pendingNewCount === 0) hideNewSinceVisitUI();
+}
+document.addEventListener('click', (e) => {
+  const card = e.target.closest('.morceau-card[data-added]');
+  if(card){
+    const href = card.getAttribute('href');
+    if(href) markMorceauSeen(href);
+  }
+}, true);
 
 function postLoginInit(){
   try{tagNouveauxMorceaux();}catch(e){}
