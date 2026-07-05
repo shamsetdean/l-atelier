@@ -12,6 +12,11 @@
 <title>les Phénix — Espace Membres</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#ECEAF6">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Phénix">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="les Phénix">
@@ -517,6 +522,16 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
           <div data-fr="Touchez un morceau" data-es="Toca un tema">Touchez un morceau</div>
           <div><b data-fr="pour ses ressources" data-es="para sus recursos">pour ses ressources</b></div>
         </div>
+      </div>
+
+      <div id="new-since-visit-banner" style="display:none;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem 1.1rem;border-radius:var(--r-md);background:var(--accent-soft);border:1px solid var(--accent-2);margin-bottom:1.2rem;">
+        <div style="display:flex;align-items:center;gap:.6rem;font-size:13px;font-weight:600;color:var(--accent-deep);">
+          <span data-lucide="sparkles"></span>
+          <span id="new-since-visit-text"></span>
+        </div>
+        <button onclick="dismissNewSinceVisit()" style="background:none;border:0;cursor:pointer;color:var(--accent-deep);display:flex;align-items:center;padding:.2rem;" aria-label="Fermer" title="Fermer">
+          <span data-lucide="x"></span>
+        </button>
       </div>
 
       <div class="videos-sub">
@@ -1140,7 +1155,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
 
   <!-- BOTTOM NAV (mobile) -->
   <nav class="bottom-nav glass">
-    <button class="active" onclick="showSection('morceaux',this)"><span data-lucide="disc-3"></span><span data-fr="Morceaux" data-es="Canciones">Morceaux</span></button>
+    <button class="active" onclick="showSection('morceaux',this)" style="position:relative;"><span data-lucide="disc-3"></span><span data-fr="Morceaux" data-es="Canciones">Morceaux</span><span id="nav-new-dot" style="display:none;position:absolute;top:2px;right:14px;width:8px;height:8px;border-radius:50%;background:var(--accent-deep,#c0392b);box-shadow:0 0 0 2px #fff;"></span></button>
     <button onclick="showSection('agenda',this)"><span data-lucide="calendar-heart"></span><span data-fr="Agenda" data-es="Agenda">Agenda</span></button>
     <button onclick="showSection('planning',this)"><span data-lucide="calendar-days"></span><span data-fr="Planning" data-es="Agenda">Planning</span></button>
     <button onclick="showSection('videos',this)"><span data-lucide="play-circle"></span><span data-fr="Vidéos" data-es="Vídeos">Vidéos</span></button>
@@ -1462,8 +1477,60 @@ function tagNouveauxMorceaux(){
   refreshIcons();
 }
 
+/* ── NOTIFICATION : NOUVEAUX MORCEAUX DEPUIS LA DERNIÈRE VISITE ── */
+const LAST_VISIT_KEY = 'atelier-last-visit';
+let pendingNewCount = 0;
+
+function checkNewSinceVisit(){
+  const lastVisitRaw = localStorage.getItem(LAST_VISIT_KEY);
+  const lastVisit = lastVisitRaw ? new Date(lastVisitRaw) : null;
+
+  const newCards = [];
+  document.querySelectorAll('.morceau-card[data-added]').forEach(card=>{
+    const s = card.dataset.added; if(!s) return;
+    const added = new Date(s);
+    if(lastVisit && added > lastVisit) newCards.push(card);
+  });
+
+  pendingNewCount = newCards.length;
+
+  const banner = document.getElementById('new-since-visit-banner');
+  const dot = document.getElementById('nav-new-dot');
+
+  if(lastVisit && pendingNewCount > 0){
+    const txt = document.getElementById('new-since-visit-text');
+    if(txt){
+      const label = (currentLang === 'fr')
+        ? (pendingNewCount === 1 ? '1 nouveau morceau ajouté depuis ta dernière visite' : pendingNewCount + ' nouveaux morceaux ajoutés depuis ta dernière visite')
+        : (pendingNewCount === 1 ? '1 nueva canción añadida desde tu última visita' : pendingNewCount + ' nuevas canciones añadidas desde tu última visita');
+      txt.textContent = label;
+    }
+    if(banner) banner.style.display = 'flex';
+    if(dot) dot.style.display = 'block';
+  } else {
+    if(banner) banner.style.display = 'none';
+    if(dot) dot.style.display = 'none';
+  }
+
+  // On mémorise ce passage comme référence pour la prochaine visite
+  recordVisitNow();
+}
+
+function dismissNewSinceVisit(){
+  const banner = document.getElementById('new-since-visit-banner');
+  const dot = document.getElementById('nav-new-dot');
+  if(banner) banner.style.display = 'none';
+  if(dot) dot.style.display = 'none';
+  recordVisitNow();
+}
+
+function recordVisitNow(){
+  localStorage.setItem(LAST_VISIT_KEY, new Date().toISOString());
+}
+
 function postLoginInit(){
   try{tagNouveauxMorceaux();}catch(e){}
+  try{checkNewSinceVisit();}catch(e){}
   refreshIcons();
 }
 
@@ -1526,6 +1593,12 @@ function exportSingleEvent(btn){
 refreshIcons();
 if(sessionStorage.getItem('atelier-auth')==='1'){openApp();}
 else{showBioButton();}
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js').catch(() => {});
+  });
+}
 </script>
 <script src="loop-ab.js" defer></script>
 </body>

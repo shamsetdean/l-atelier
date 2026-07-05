@@ -186,6 +186,15 @@ audio{width:100%;height:44px;outline:none;border-radius:var(--r-pill);}
 .pdf-frame-wrapper{position:relative;width:100%;height:600px;background:#2A2535;border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--glass-line);}
 .pdf-frame-wrapper iframe{width:100%;height:100%;border:none;}
 .pdf-actions{margin-top:.8rem;display:flex;gap:.5rem;flex-wrap:wrap;}
+.link-pill{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem .9rem;border-radius:var(--r-pill);background:var(--surface,#fff);border:1px solid var(--glass-line,#e5e0f0);color:var(--ink,#1a1726);font-size:12.5px;font-weight:600;text-decoration:none;transition:all .2s;}
+.link-pill:hover{background:#fff;color:var(--accent-deep);transform:translateY(-1px);}
+.link-pill [data-lucide]{width:14px;height:14px;flex-shrink:0;}
+.link-pill span:not([data-lucide]){display:inline !important;}
+.dl-archive-list{display:flex;flex-direction:column;gap:.5rem;}
+.dl-archive-item{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem .9rem;background:var(--glass);border:1px solid var(--glass-line);border-radius:var(--r-sm);}
+.dl-archive-name{font-size:12.5px;color:var(--ink);}
+.dl-archive-name b{font-weight:600;}
+
 .pdf-btn{
   display:inline-flex;align-items:center;gap:.4rem;
   font-size:12px;font-weight:600;color:var(--ink-2);text-decoration:none;
