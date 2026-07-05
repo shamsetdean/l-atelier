@@ -15,9 +15,6 @@
 <link rel="manifest" href="manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Phénix">
-<meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="les Phénix">
 
@@ -1173,6 +1170,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
       <a class="sheet-link" href="todojeudi.html"><span data-lucide="check-check"></span>TodoJeudi<span data-lucide="chevron-right" class="chev"></span></a>
       <a class="sheet-link" href="metronome.html"><span data-lucide="gauge"></span><span data-fr="Métronome" data-es="Metrónomo">Métronome</span><span data-lucide="chevron-right" class="chev"></span></a>
       <a class="sheet-link" href="wrapped.html"><span data-lucide="sparkles"></span><span data-fr="Bilan de la saison" data-es="Balance de la temporada">Bilan de la saison</span><span data-lucide="chevron-right" class="chev"></span></a>
+      <button id="android-install-link" class="sheet-link" style="display:none;width:100%;background:none;border:0;cursor:pointer;font:inherit;text-align:left;" onclick="triggerAndroidInstall()"><span data-lucide="download"></span><span data-fr="Installer l'application" data-es="Instalar la aplicación">Installer l'application</span><span data-lucide="chevron-right" class="chev"></span></button>
     </div>
     <div class="sheet-links">
       <button class="sheet-link" style="width:100%;background:none;border:0;cursor:pointer;font:inherit;text-align:left;" onclick="closeSheet();openProfileModal();"><span data-lucide="user-circle"></span><span data-fr="Ma photo de profil" data-es="Mi foto de perfil">Ma photo de profil</span><span data-lucide="chevron-right" class="chev"></span></button>
@@ -1533,7 +1531,52 @@ function recordVisitNow(){
 function postLoginInit(){
   try{tagNouveauxMorceaux();}catch(e){}
   try{checkNewSinceVisit();}catch(e){}
+  try{maybeShowA2hsTutorial();}catch(e){}
   refreshIcons();
+}
+
+/* ── TUTORIEL "AJOUTER À L'ÉCRAN D'ACCUEIL" ── */
+const A2HS_DISMISSED_KEY = 'atelier-a2hs-dismissed';
+
+function isIosDevice(){
+  return /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPad récent
+}
+function isStandaloneMode(){
+  return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+    (window.navigator.standalone === true);
+}
+
+function maybeShowA2hsTutorial(){
+  if(isStandaloneMode()) return; // déjà installée, inutile
+  if(localStorage.getItem(A2HS_DISMISSED_KEY)) return;
+  if(!isIosDevice()) return; // Android gère son propre bouton d'install natif
+  setTimeout(()=>{
+    document.getElementById('a2hs-overlay').classList.add('open');
+    refreshIcons();
+  }, 1200);
+}
+function closeA2hsTutorial(){
+  document.getElementById('a2hs-overlay').classList.remove('open');
+  localStorage.setItem(A2HS_DISMISSED_KEY, '1');
+}
+
+/* ── INSTALLATION ANDROID (prompt natif) ── */
+let deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  const btn = document.getElementById('android-install-link');
+  if(btn) btn.style.display = 'flex';
+});
+function triggerAndroidInstall(){
+  if(!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  deferredInstallPrompt.userChoice.finally(()=>{
+    deferredInstallPrompt = null;
+    const btn = document.getElementById('android-install-link');
+    if(btn) btn.style.display = 'none';
+  });
 }
 
 /* ── EXPORT D'UN ÉVÉNEMENT DE L'AGENDA EN .ICS ── */
@@ -1603,5 +1646,44 @@ if('serviceWorker' in navigator){
 }
 </script>
 <script src="loop-ab.js" defer></script>
+<!-- ═════════ TUTORIEL AJOUT À L'ÉCRAN D'ACCUEIL (iOS) ═════════ -->
+<div class="profile-modal-overlay" id="a2hs-overlay" onclick="if(event.target===this)closeA2hsTutorial()">
+  <div class="profile-modal" style="max-width:360px;">
+    <button class="profile-modal-close" onclick="closeA2hsTutorial()"><span data-lucide="x"></span></button>
+    <div class="who-avatar" style="background:linear-gradient(135deg,var(--accent),var(--accent-2));margin:0 auto 1rem;">
+      <span data-lucide="smartphone" style="width:36px;height:36px;"></span>
+    </div>
+    <h3><span data-fr="Installe l'appli" data-es="Instala la app">Installe l'appli</span></h3>
+    <p style="font-size:12.5px;color:var(--muted);margin:0 0 1.2rem;"><span data-fr="Ajoute PHÉNIX à ton écran d'accueil pour y accéder en un tap, comme une vraie appli." data-es="Añade PHÉNIX a tu pantalla de inicio para acceder en un toque, como una app de verdad.">Ajoute PHÉNIX à ton écran d'accueil pour y accéder en un tap, comme une vraie appli.</span></p>
+    <div style="display:flex;flex-direction:column;gap:.9rem;text-align:left;">
+      <div style="display:flex;align-items:center;gap:.8rem;">
+        <div style="flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent-deep);font-size:13px;">1</div>
+        <div style="font-size:13px;color:var(--ink);display:flex;align-items:center;gap:.4rem;">
+          <span data-fr="Appuie sur l'icône" data-es="Toca el icono">Appuie sur l'icône</span>
+          <span data-lucide="square-arrow-up" style="width:18px;height:18px;color:var(--accent-deep);"></span>
+          <span data-fr="en bas de Safari" data-es="abajo en Safari">en bas de Safari</span>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:.8rem;">
+        <div style="flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent-deep);font-size:13px;">2</div>
+        <div style="font-size:13px;color:var(--ink);"><span data-fr="Fais défiler la liste vers le bas" data-es="Desplaza la lista hacia abajo">Fais défiler la liste vers le bas</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:.8rem;">
+        <div style="flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent-deep);font-size:13px;">3</div>
+        <div style="font-size:13px;color:var(--ink);display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;">
+          <span data-fr="Choisis" data-es="Elige">Choisis</span>
+          <span data-lucide="square-plus" style="width:16px;height:16px;color:var(--accent-deep);"></span>
+          <b><span data-fr="Sur l'écran d'accueil" data-es="En la pantalla de inicio">Sur l'écran d'accueil</span></b>
+        </div>
+      </div>
+    </div>
+    <div class="profile-modal-actions">
+      <button class="profile-modal-btn primary" onclick="closeA2hsTutorial()">
+        <span data-lucide="check"></span><span data-fr="J'ai compris" data-es="Entendido">J'ai compris</span>
+      </button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
