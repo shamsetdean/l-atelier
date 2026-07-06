@@ -95,6 +95,86 @@ a{color:inherit;text-decoration:none;}
 
 /* ═══ LOGIN (phénix) ═══ */
 #login-screen{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:2rem 1.1rem calc(2rem + var(--safe-b));position:relative;overflow:hidden;background:#0B0710;}
+
+#phoenix-intro{
+  position:fixed;inset:0;z-index:300;
+  background:radial-gradient(ellipse at 50% 70%,#2a1408 0%,#0B0710 65%,#050308 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;
+  animation:pi-fadeout .7s ease-in 2.6s forwards;
+}
+#phoenix-intro.pi-hidden{display:none;}
+.pi-flame-glow{
+  position:absolute;bottom:-10%;left:50%;transform:translateX(-50%);
+  width:70vw;height:70vw;max-width:520px;max-height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,138,61,.55) 0%,rgba(214,73,32,.28) 40%,rgba(11,7,16,0) 72%);
+  opacity:0;
+  animation:pi-glow-pulse 2.6s ease-in-out forwards;
+  filter:blur(2px);
+}
+.pi-embers{position:absolute;inset:0;pointer-events:none;}
+.pi-embers span{
+  position:absolute;bottom:8%;left:50%;
+  width:5px;height:5px;border-radius:50%;
+  background:radial-gradient(circle,#FFD08A 0%,#FF7A3D 60%,transparent 100%);
+  opacity:0;
+  animation:pi-ember 2.4s ease-out infinite;
+}
+.pi-embers span:nth-child(1){left:42%;animation-delay:.05s;}
+.pi-embers span:nth-child(2){left:58%;animation-delay:.25s;}
+.pi-embers span:nth-child(3){left:38%;animation-delay:.45s;width:4px;height:4px;}
+.pi-embers span:nth-child(4){left:63%;animation-delay:.1s;width:6px;height:6px;}
+.pi-embers span:nth-child(5){left:47%;animation-delay:.6s;}
+.pi-embers span:nth-child(6){left:53%;animation-delay:.35s;width:4px;height:4px;}
+.pi-embers span:nth-child(7){left:35%;animation-delay:.75s;}
+.pi-embers span:nth-child(8){left:66%;animation-delay:.5s;width:5px;height:5px;}
+.pi-embers span:nth-child(9){left:50%;animation-delay:.2s;width:3px;height:3px;}
+.pi-embers span:nth-child(10){left:44%;animation-delay:.85s;}
+.pi-embers span:nth-child(11){left:56%;animation-delay:.65s;width:4px;height:4px;}
+.pi-embers span:nth-child(12){left:60%;animation-delay:.9s;width:3px;height:3px;}
+
+@keyframes pi-ember{
+  0%{bottom:6%;opacity:0;transform:translateX(0) scale(.6);}
+  15%{opacity:1;}
+  80%{opacity:.5;}
+  100%{bottom:62%;opacity:0;transform:translateX(var(--drift,8px)) scale(1);}
+}
+@keyframes pi-glow-pulse{
+  0%{opacity:0;transform:translateX(-50%) scale(.7);}
+  35%{opacity:1;transform:translateX(-50%) scale(1);}
+  70%{opacity:.85;transform:translateX(-50%) scale(1.05);}
+  100%{opacity:.55;transform:translateX(-50%) scale(1.1);}
+}
+
+.pi-logo{
+  position:relative;z-index:2;
+  width:104px;height:104px;object-fit:contain;
+  opacity:0;
+  transform:translateY(26px) scale(.72);
+  filter:drop-shadow(0 0 0 rgba(255,150,60,0));
+  animation:pi-rise 1.9s cubic-bezier(.2,.9,.25,1) .55s forwards;
+}
+@keyframes pi-rise{
+  0%{opacity:0;transform:translateY(26px) scale(.72);filter:drop-shadow(0 0 0 rgba(255,150,60,0));}
+  55%{opacity:1;transform:translateY(-4px) scale(1.06);filter:drop-shadow(0 0 26px rgba(255,150,60,.7));}
+  100%{opacity:1;transform:translateY(0) scale(1);filter:drop-shadow(0 0 14px rgba(255,150,60,.45));}
+}
+.pi-tagline{
+  position:relative;z-index:2;margin-top:1rem;
+  font-family:var(--serif);font-style:italic;font-size:1.3rem;color:#F3EDE2;
+  opacity:0;letter-spacing:.02em;
+  animation:pi-tagline-in 1s ease-out 1.5s forwards;
+}
+@keyframes pi-tagline-in{
+  0%{opacity:0;transform:translateY(8px);}
+  100%{opacity:.92;transform:translateY(0);}
+}
+@keyframes pi-fadeout{
+  to{opacity:0;visibility:hidden;}
+}
+@media(prefers-reduced-motion: reduce){
+  #phoenix-intro{display:none;}
+}
 #login-screen::before{content:"";position:absolute;inset:0;z-index:0;background:url('og-image.png') center/cover no-repeat;opacity:.6;}
 #login-screen::after{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse at center,rgba(11,7,16,.2) 0%,rgba(11,7,16,.72) 78%,rgba(11,7,16,.92) 100%);}
 @media(max-width:640px){
@@ -418,6 +498,18 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
 <div class="aurora"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
 
 <!-- ═════════ LOGIN ═════════ -->
+<!-- ═════════ ANIMATION D'INTRO : NAISSANCE DU PHÉNIX ═════════ -->
+<div id="phoenix-intro">
+  <div class="pi-embers">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span>
+  </div>
+  <div class="pi-flame-glow"></div>
+  <img class="pi-logo" src="phenix-logo.png" alt="les Phénix">
+  <div class="pi-tagline">les Phénix</div>
+</div>
+
 <div id="login-screen">
   <div class="login-topbar">
     <div class="brand"><img src="phenix-logo.png" alt=""> les Phénix</div>
@@ -1198,6 +1290,24 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
 </div>
 
 <script>
+/* ── INTRO : NAISSANCE DU PHÉNIX (une fois par session) ── */
+(function(){
+  const intro = document.getElementById('phoenix-intro');
+  if(!intro) return;
+  if(sessionStorage.getItem('atelier-intro-shown')){
+    intro.classList.add('pi-hidden');
+    return;
+  }
+  sessionStorage.setItem('atelier-intro-shown','1');
+  const hide = () => intro.classList.add('pi-hidden');
+  intro.addEventListener('click', hide);
+  intro.addEventListener('animationend', (e) => {
+    if(e.animationName === 'pi-fadeout') hide();
+  });
+  // Sécurité : si jamais l'animation ne se déclenche pas, on masque après 3.5s max
+  setTimeout(hide, 3500);
+})();
+
 const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
 const RP_ID=location.hostname||'localhost';
 const RP_NAME="les Phénix";
