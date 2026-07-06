@@ -211,6 +211,8 @@ header.app-header{position:sticky;top:calc(.8rem + env(safe-area-inset-top,0px))
 
 /* MORCEAUX */
 .morceaux-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
+.morceaux-grid.grid-2col{grid-template-columns:repeat(2,1fr);}
+@media(max-width:640px){.morceaux-grid.grid-2col{grid-template-columns:1fr;}}
 .morceau-card{border-radius:var(--r-md);overflow:hidden;cursor:pointer;display:flex;flex-direction:column;position:relative;transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s;}
 .morceau-card:active{transform:scale(.99);}
 @media(hover:hover){.morceau-card:hover{transform:translateY(-5px);box-shadow:var(--glass-shadow-lg),var(--glass-inset);}.morceau-card:hover .morceau-name{color:var(--accent);}.morceau-card:hover .morceau-play{transform:scale(1.08);background:#fff;color:var(--accent);}}
@@ -535,7 +537,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
         <span class="t"><span data-lucide="calendar"></span><span data-fr="Saison 2026-2027" data-es="Temporada 2026-2027">Saison 2026-2027</span></span>
         <span class="count">04</span>
       </div>
-      <div class="morceaux-grid">
+      <div class="morceaux-grid grid-2col">
 
         <a class="morceau-card glass" href="boogie-nights-all-night.html" data-added="2026-09-01">
           <span class="morceau-num">01</span>
