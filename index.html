@@ -101,7 +101,7 @@ a{color:inherit;text-decoration:none;}
   background:radial-gradient(ellipse at 50% 70%,#2a1408 0%,#0B0710 65%,#050308 100%);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   overflow:hidden;
-  animation:pi-fadeout .7s ease-in 2.6s forwards;
+  animation:pi-fadeout .9s ease-in 4.2s forwards;
 }
 #phoenix-intro.pi-hidden{display:none;}
 .pi-flame-glow{
@@ -109,7 +109,7 @@ a{color:inherit;text-decoration:none;}
   width:70vw;height:70vw;max-width:520px;max-height:520px;border-radius:50%;
   background:radial-gradient(circle,rgba(255,138,61,.55) 0%,rgba(214,73,32,.28) 40%,rgba(11,7,16,0) 72%);
   opacity:0;
-  animation:pi-glow-pulse 2.6s ease-in-out forwards;
+  animation:pi-glow-pulse 4.2s ease-in-out forwards;
   filter:blur(2px);
 }
 .pi-embers{position:absolute;inset:0;pointer-events:none;}
@@ -118,7 +118,7 @@ a{color:inherit;text-decoration:none;}
   width:5px;height:5px;border-radius:50%;
   background:radial-gradient(circle,#FFD08A 0%,#FF7A3D 60%,transparent 100%);
   opacity:0;
-  animation:pi-ember 2.4s ease-out infinite;
+  animation:pi-ember 3.8s ease-out infinite;
 }
 .pi-embers span:nth-child(1){left:42%;animation-delay:.05s;}
 .pi-embers span:nth-child(2){left:58%;animation-delay:.25s;}
@@ -152,7 +152,7 @@ a{color:inherit;text-decoration:none;}
   opacity:0;
   transform:translateY(26px) scale(.72);
   filter:drop-shadow(0 0 0 rgba(255,150,60,0));
-  animation:pi-rise 1.9s cubic-bezier(.2,.9,.25,1) .55s forwards;
+  animation:pi-rise 2.8s cubic-bezier(.2,.9,.25,1) .8s forwards;
 }
 @keyframes pi-rise{
   0%{opacity:0;transform:translateY(26px) scale(.72);filter:drop-shadow(0 0 0 rgba(255,150,60,0));}
@@ -163,7 +163,7 @@ a{color:inherit;text-decoration:none;}
   position:relative;z-index:2;margin-top:1rem;
   font-family:var(--serif);font-style:italic;font-size:1.3rem;color:#F3EDE2;
   opacity:0;letter-spacing:.02em;
-  animation:pi-tagline-in 1s ease-out 1.5s forwards;
+  animation:pi-tagline-in 1.4s ease-out 2.3s forwards;
 }
 @keyframes pi-tagline-in{
   0%{opacity:0;transform:translateY(8px);}
@@ -1305,7 +1305,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
     if(e.animationName === 'pi-fadeout') hide();
   });
   // Sécurité : si jamais l'animation ne se déclenche pas, on masque après 3.5s max
-  setTimeout(hide, 3500);
+  setTimeout(hide, 5200);
 })();
 
 const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
