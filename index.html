@@ -358,7 +358,21 @@ header.app-header{position:sticky;top:calc(.8rem + env(safe-area-inset-top,0px))
 .event-lieu{font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:.35rem;}
 .event-lieu [data-lucide]{width:13px;height:13px;flex-shrink:0;}
 .event-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.4rem .75rem;border-radius:var(--r-pill);white-space:nowrap;}
-.event-badge-col{display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;}
+.event-badge-col{display:flex;flex-direction:row;align-items:center;gap:.5rem;}
+
+.thursday-sep{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.5rem 0;font-size:11px;color:var(--muted);}
+.thursday-sep [data-lucide]{width:12px;height:12px;}
+.thursday-sep::before,.thursday-sep::after{content:'';flex:1;max-width:60px;height:1px;background:var(--glass-line);}
+
+.event-seen-row{display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;padding:0 0 .9rem 3.6rem;margin-top:-.4rem;}
+.event-seen-lbl{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-right:.2rem;}
+.event-seen-avatar{position:relative;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.5);background-size:cover;background-position:center;border:1px solid var(--glass-line);display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;color:var(--muted);cursor:default;padding:0;flex-shrink:0;opacity:.45;transition:all .2s;}
+.event-seen-avatar.seen{opacity:1;border-color:#3fbf6f;}
+.event-seen-avatar.is-me{cursor:pointer;box-shadow:0 0 0 2px var(--accent-soft);}
+.event-seen-avatar.is-me:hover{transform:scale(1.08);}
+.event-seen-avatar .check{position:absolute;bottom:-2px;right:-2px;width:11px;height:11px;background:#3fbf6f;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff;}
+.event-seen-avatar .check svg{width:7px;height:7px;}
+@media(max-width:640px){.event-seen-row{padding-left:0;}}
 .event-export-btn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;border:1px solid var(--glass-line);background:rgba(255,255,255,.6);color:var(--muted);cursor:pointer;transition:all .18s;}
 .event-export-btn:hover{background:#fff;color:var(--accent-deep);border-color:var(--accent);transform:translateY(-1px);}
 .event-export-btn [data-lucide]{width:14px;height:14px;}
@@ -1828,7 +1842,107 @@ function postLoginInit(){
   try{tagNouveauxMorceaux();}catch(e){}
   try{checkNewSinceVisit();}catch(e){}
   try{maybeShowA2hsTutorial();}catch(e){}
+  try{insertThursdayCounters();}catch(e){}
+  try{loadAgendaSeen();}catch(e){}
   refreshIcons();
+}
+
+/* ── AGENDA : nombre de jeudis (répétitions) entre deux dates consécutives ── */
+function countThursdaysBetween(fromDateStr, toDateStr){
+  const from = new Date(fromDateStr + 'T00:00:00');
+  const to = new Date(toDateStr + 'T00:00:00');
+  let count = 0;
+  const d = new Date(from);
+  d.setDate(d.getDate() + 1); // on exclut le jour de départ lui-même
+  while(d < to){
+    if(d.getDay() === 4) count++; // 4 = jeudi
+    d.setDate(d.getDate() + 1);
+  }
+  return count;
+}
+function insertThursdayCounters(){
+  document.querySelectorAll('.thursday-sep').forEach(el => el.remove()); // évite les doublons si rappelé
+  const rows = Array.from(document.querySelectorAll('#agenda .event-row[data-date]'));
+  for(let i = 1; i < rows.length; i++){
+    const prevRow = rows[i-1];
+    const prevRef = prevRow.getAttribute('data-end') || prevRow.getAttribute('data-date');
+    const currDate = rows[i].getAttribute('data-date');
+    const n = countThursdaysBetween(prevRef, currDate);
+    if(n > 0){
+      const sep = document.createElement('div');
+      sep.className = 'thursday-sep';
+      const label = (currentLang === 'fr')
+        ? `${n} ${n > 1 ? 'jeudis' : 'jeudi'} entre les deux`
+        : `${n} ${n > 1 ? 'jueves' : 'jueves'} entre las dos fechas`;
+      sep.innerHTML = `<span data-lucide="minus"></span><span>${label}</span>`;
+      prevRow.insertAdjacentElement('afterend', sep);
+    }
+  }
+  refreshIcons();
+}
+
+/* ── AGENDA : confirmation "vu" par membre, avec avatar/photo ── */
+const AGENDA_SEEN_TABLE = 'event_seen';
+let agendaSeenCache = {};
+
+function agendaEventId(row){
+  const name = row.querySelector('.event-name')?.textContent.trim() || '';
+  return row.getAttribute('data-date') + '_' + name;
+}
+
+async function loadAgendaSeen(){
+  if(!sb) return;
+  try{
+    const { data, error } = await sb.from(AGENDA_SEEN_TABLE).select('event_id, member_name');
+    if(error){ console.warn(error); return; }
+    agendaSeenCache = {};
+    (data || []).forEach(r => {
+      if(!agendaSeenCache[r.event_id]) agendaSeenCache[r.event_id] = new Set();
+      agendaSeenCache[r.event_id].add(r.member_name);
+    });
+    renderAgendaSeenUI();
+  } catch(e){ console.warn('Erreur loadAgendaSeen', e); }
+}
+
+function renderAgendaSeenUI(){
+  document.querySelectorAll('#agenda .event-row[data-date]').forEach(row => {
+    const eid = agendaEventId(row);
+    const seenSet = agendaSeenCache[eid] || new Set();
+    let wrap = row.querySelector('.event-seen-row');
+    if(!wrap){
+      wrap = document.createElement('div');
+      wrap.className = 'event-seen-row';
+      row.querySelector('.event-grid').insertAdjacentElement('afterend', wrap);
+    }
+    const label = (currentLang === 'fr') ? 'Vu par' : 'Visto por';
+    wrap.innerHTML = `<span class="event-seen-lbl">${label}</span>` + MEMBERS.map(m => {
+      const isSeen = seenSet.has(m.name);
+      const isMe = m.name === selectedMember;
+      const photo = memberPhotos[m.name];
+      const styleAttr = photo ? ` style="background-image:url('${photo}');"` : '';
+      const initials = photo ? '' : (m.name || '?').slice(0,2).toUpperCase();
+      const clickAttr = isMe ? ` onclick="toggleAgendaSeen('${eid.replace(/'/g,"\\'")}')"` : '';
+      return `<button class="event-seen-avatar${isSeen?' seen':''}${isMe?' is-me':''}"${clickAttr}${!isMe?' disabled':''}${styleAttr} title="${m.name}${isSeen?' · vu':''}">${initials}${isSeen?'<span class="check"><span data-lucide="check"></span></span>':''}</button>`;
+    }).join('');
+  });
+  refreshIcons();
+}
+
+async function toggleAgendaSeen(eventId){
+  if(!sb || !selectedMember) return;
+  const seenSet = agendaSeenCache[eventId] || new Set();
+  const alreadySeen = seenSet.has(selectedMember);
+  try{
+    if(alreadySeen){
+      await sb.from(AGENDA_SEEN_TABLE).delete().eq('event_id', eventId).eq('member_name', selectedMember);
+      seenSet.delete(selectedMember);
+    } else {
+      await sb.from(AGENDA_SEEN_TABLE).insert([{ event_id: eventId, member_name: selectedMember }]);
+      seenSet.add(selectedMember);
+    }
+    agendaSeenCache[eventId] = seenSet;
+    renderAgendaSeenUI();
+  } catch(e){ console.warn('Erreur toggleAgendaSeen', e); }
 }
 
 /* ── TUTORIEL "AJOUTER À L'ÉCRAN D'ACCUEIL" ── */
