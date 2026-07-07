@@ -1345,6 +1345,64 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
   });
   // Sécurité : si jamais l'animation ne se déclenche pas, on masque après 3.5s max
   setTimeout(hide, 5200);
+
+  /* Son d'intro original (souffle qui monte + note qui sonne à l'apparition du logo).
+     Les navigateurs bloquent le son sans interaction préalable : on tente de le jouer
+     tout de suite, et sinon on le joue au premier tap/clic si l'utilisateur en fait un
+     pendant que l'intro est encore visible. */
+  let introSoundPlayed = false;
+  function playIntroSound(){
+    if(introSoundPlayed) return;
+    introSoundPlayed = true;
+    try{
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const now = ctx.currentTime;
+
+      // Souffle montant (bruit filtré, monte en hauteur pendant ~1.6s)
+      const bufferSize = ctx.sampleRate * 2;
+      const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = noiseBuffer.getChannelData(0);
+      for(let i = 0; i < bufferSize; i++) data[i] = (Math.random() * 2 - 1) * 0.6;
+      const noise = ctx.createBufferSource();
+      noise.buffer = noiseBuffer;
+
+      const noiseFilter = ctx.createBiquadFilter();
+      noiseFilter.type = 'bandpass';
+      noiseFilter.Q.value = 0.7;
+      noiseFilter.frequency.setValueAtTime(200, now);
+      noiseFilter.frequency.exponentialRampToValueAtTime(2600, now + 1.6);
+
+      const noiseGain = ctx.createGain();
+      noiseGain.gain.setValueAtTime(0.0001, now);
+      noiseGain.gain.exponentialRampToValueAtTime(0.22, now + 1.1);
+      noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + 1.9);
+
+      noise.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(ctx.destination);
+      noise.start(now);
+      noise.stop(now + 2);
+
+      // Note qui "sonne" pile à l'apparition du logo (~1.4s), façon carillon chaud
+      const chimeTime = now + 1.4;
+      [523.25, 659.25, 783.99].forEach((freq, i) => { // Do-Mi-Sol
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.0001, chimeTime);
+        gain.gain.exponentialRampToValueAtTime(0.16 / (i + 1), chimeTime + 0.06);
+        gain.gain.exponentialRampToValueAtTime(0.0001, chimeTime + 2.2);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(chimeTime);
+        osc.stop(chimeTime + 2.3);
+      });
+    } catch(e){ /* audio non disponible, tant pis, l'animation reste silencieuse */ }
+  }
+
+  playIntroSound();
+  intro.addEventListener('pointerdown', playIntroSound, { once: true });
 })();
 
 const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
