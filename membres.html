@@ -635,7 +635,29 @@ function renderChiffres(data){
 }
 
 /* Orchestration : charge tout en parallèle, puis rend */
+const CHIFFRES_CACHE_KEY = 'atelier-chiffres-cache';
+
+function loadChiffresFromCache(){
+  try{
+    const raw = localStorage.getItem(CHIFFRES_CACHE_KEY);
+    if(!raw) return null;
+    return JSON.parse(raw);
+  } catch(e){ return null; }
+}
+function saveChiffresToCache(data){
+  try{ localStorage.setItem(CHIFFRES_CACHE_KEY, JSON.stringify(data)); }
+  catch(e){}
+}
+
 async function loadChiffres(){
+  // Affichage instantané depuis le cache local le temps que les vraies données arrivent
+  // (utile quand Supabase / le réseau est lent : la page n'a plus l'air figée)
+  const cached = loadChiffresFromCache();
+  if(cached){
+    window.__chiffresData = cached;
+    renderChiffres(cached);
+  }
+
   try {
     // Lance fetch des 8 morceaux + planning en parallèle
     const [morceauxResults, planningStats] = await Promise.all([
@@ -654,9 +676,11 @@ async function loadChiffres(){
       prochainConcert: planningStats.prochainConcert
     };
     window.__chiffresData = data;
+    saveChiffresToCache(data);
     renderChiffres(data);
   } catch(e){
     console.error('Erreur loadChiffres:', e);
+    if(cached) return; // on garde l'affichage du cache plutôt que de tout casser
     // Fallback : masquer les loaders avec un tiret
     ['stat-morceaux','stat-enregistrements','stat-concerts'].forEach(id => {
       const el = document.getElementById(id);
@@ -689,7 +713,79 @@ function normalizeName(s){
   return NAME_ALIASES[n] || n;
 }
 
+const PLAYLIST_STATS_CACHE_KEY = 'atelier-playlist-stats-cache';
+
+function applyPlaylistStats(tracks, votes){
+  const totalTracks = tracks.length;
+
+  // Stats par membre (proposés / votés / restants)
+  document.querySelectorAll('[data-member]').forEach(row => {
+    const name = row.dataset.member;
+    const key = normalizeName(name);
+    const proposed = tracks.filter(t => normalizeName(t.proposed_by) === key).length;
+    const votedTrackIds = new Set(
+      votes.filter(v => normalizeName(v.voter_name) === key).map(v => v.track_id)
+    );
+    const voted = votedTrackIds.size;
+    const remaining = Math.max(totalTracks - voted, 0);
+
+    const pEl = row.querySelector('.member-proposed');
+    const vEl = row.querySelector('.member-voted');
+    const rEl = row.querySelector('.member-remaining');
+    if(pEl) pEl.textContent = proposed;
+    if(vEl) vEl.textContent = voted;
+    if(rEl) rEl.textContent = remaining;
+  });
+
+  // Morceau le plus voté (score = like:+2, maybe:+1, skip:0, cohérent avec playlist.html)
+  const scoreOf = (trackId) => votes
+    .filter(v => v.track_id === trackId)
+    .reduce((s, v) => s + (v.vote_type === 'like' ? 2 : v.vote_type === 'maybe' ? 1 : 0), 0);
+  let topTrack = null, topScore = -1;
+  tracks.forEach(t => {
+    const s = scoreOf(t.id);
+    if(s > topScore){ topScore = s; topTrack = t; }
+  });
+  const topEl = document.getElementById('stat-top-track');
+  if(topEl){
+    topEl.textContent = (topTrack && totalTracks > 0)
+      ? (topTrack.title || 'YouTube · ' + topTrack.id) + ' (+' + topScore + ')'
+      : '—';
+  }
+
+  // Total de votes exprimés
+  const totalVotesEl = document.getElementById('stat-total-votes');
+  if(totalVotesEl) totalVotesEl.textContent = votes.length;
+
+  // Taux de participation : moyenne de (votants uniques / morceaux) sur l'ensemble des membres suivis
+  const memberRows = document.querySelectorAll('[data-member]');
+  const participationEl = document.getElementById('stat-participation');
+  if(participationEl && totalTracks > 0 && memberRows.length > 0){
+    let sumRatios = 0;
+    memberRows.forEach(row => {
+      const key = normalizeName(row.dataset.member);
+      const votedCount = new Set(
+        votes.filter(v => normalizeName(v.voter_name) === key).map(v => v.track_id)
+      ).size;
+      sumRatios += votedCount / totalTracks;
+    });
+    const pct = Math.round((sumRatios / memberRows.length) * 100);
+    participationEl.textContent = pct + '%';
+  } else if(participationEl){
+    participationEl.textContent = '—';
+  }
+}
+
 async function loadPlaylistStats(){
+  // Affichage instantané depuis le cache local pendant que les vraies données arrivent
+  try{
+    const raw = localStorage.getItem(PLAYLIST_STATS_CACHE_KEY);
+    if(raw){
+      const cached = JSON.parse(raw);
+      applyPlaylistStats(cached.tracks, cached.votes);
+    }
+  } catch(e){}
+
   try {
     const [{ data: tracks, error: e1 }, { data: votes, error: e2 }] = await Promise.all([
       sb.from('playlist_tracks').select('id, title, proposed_by'),
@@ -697,64 +793,9 @@ async function loadPlaylistStats(){
     ]);
     if(e1 || e2){ console.warn(e1 || e2); return; }
 
-    const totalTracks = tracks.length;
-
-    // Stats par membre (proposés / votés / restants)
-    document.querySelectorAll('[data-member]').forEach(row => {
-      const name = row.dataset.member;
-      const key = normalizeName(name);
-      const proposed = tracks.filter(t => normalizeName(t.proposed_by) === key).length;
-      const votedTrackIds = new Set(
-        votes.filter(v => normalizeName(v.voter_name) === key).map(v => v.track_id)
-      );
-      const voted = votedTrackIds.size;
-      const remaining = Math.max(totalTracks - voted, 0);
-
-      const pEl = row.querySelector('.member-proposed');
-      const vEl = row.querySelector('.member-voted');
-      const rEl = row.querySelector('.member-remaining');
-      if(pEl) pEl.textContent = proposed;
-      if(vEl) vEl.textContent = voted;
-      if(rEl) rEl.textContent = remaining;
-    });
-
-    // Morceau le plus voté (score = like:+2, maybe:+1, skip:0, cohérent avec playlist.html)
-    const scoreOf = (trackId) => votes
-      .filter(v => v.track_id === trackId)
-      .reduce((s, v) => s + (v.vote_type === 'like' ? 2 : v.vote_type === 'maybe' ? 1 : 0), 0);
-    let topTrack = null, topScore = -1;
-    tracks.forEach(t => {
-      const s = scoreOf(t.id);
-      if(s > topScore){ topScore = s; topTrack = t; }
-    });
-    const topEl = document.getElementById('stat-top-track');
-    if(topEl){
-      topEl.textContent = (topTrack && totalTracks > 0)
-        ? (topTrack.title || 'YouTube · ' + topTrack.id) + ' (+' + topScore + ')'
-        : '—';
-    }
-
-    // Total de votes exprimés
-    const totalVotesEl = document.getElementById('stat-total-votes');
-    if(totalVotesEl) totalVotesEl.textContent = votes.length;
-
-    // Taux de participation : moyenne de (votants uniques / morceaux) sur l'ensemble des membres suivis
-    const memberRows = document.querySelectorAll('[data-member]');
-    const participationEl = document.getElementById('stat-participation');
-    if(participationEl && totalTracks > 0 && memberRows.length > 0){
-      let sumRatios = 0;
-      memberRows.forEach(row => {
-        const key = normalizeName(row.dataset.member);
-        const votedCount = new Set(
-          votes.filter(v => normalizeName(v.voter_name) === key).map(v => v.track_id)
-        ).size;
-        sumRatios += votedCount / totalTracks;
-      });
-      const pct = Math.round((sumRatios / memberRows.length) * 100);
-      participationEl.textContent = pct + '%';
-    } else if(participationEl){
-      participationEl.textContent = '—';
-    }
+    applyPlaylistStats(tracks, votes);
+    try{ localStorage.setItem(PLAYLIST_STATS_CACHE_KEY, JSON.stringify({ tracks, votes })); }
+    catch(e){}
   } catch(e){
     console.warn('Erreur loadPlaylistStats:', e);
   }
