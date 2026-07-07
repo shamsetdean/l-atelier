@@ -364,14 +364,17 @@ header.app-header{position:sticky;top:calc(.8rem + env(safe-area-inset-top,0px))
 .thursday-sep [data-lucide]{width:12px;height:12px;}
 .thursday-sep::before,.thursday-sep::after{content:'';flex:1;max-width:60px;height:1px;background:var(--glass-line);}
 
-.event-seen-row{display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;padding:0 0 .9rem 3.6rem;margin-top:-.4rem;}
-.event-seen-lbl{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-right:.2rem;}
-.event-seen-avatar{position:relative;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.5);background-size:cover;background-position:center;border:1px solid var(--glass-line);display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;color:var(--muted);cursor:default;padding:0;flex-shrink:0;opacity:.45;transition:all .2s;}
+.event-seen-row{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;padding:0 0 1rem 3.6rem;margin-top:-.3rem;}
+.event-seen-lbl{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-right:.3rem;}
+.event-seen-avatar{position:relative;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.5);background-size:cover;background-position:center;border:1px solid var(--glass-line);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);cursor:default;padding:0;flex-shrink:0;opacity:.45;transition:all .2s;line-height:1;gap:1px;}
 .event-seen-avatar.seen{opacity:1;border-color:#3fbf6f;}
 .event-seen-avatar.is-me{cursor:pointer;box-shadow:0 0 0 2px var(--accent-soft);}
 .event-seen-avatar.is-me:hover{transform:scale(1.08);}
-.event-seen-avatar .check{position:absolute;bottom:-2px;right:-2px;width:11px;height:11px;background:#3fbf6f;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff;}
-.event-seen-avatar .check svg{width:7px;height:7px;}
+.event-seen-avatar .instrument-ico{width:12px;height:12px;color:var(--accent);}
+.event-seen-avatar[style*="background-image"] .instrument-ico{color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6));}
+.event-seen-avatar[style*="background-image"]{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6);}
+.event-seen-avatar .check{position:absolute;bottom:-3px;right:-3px;width:14px;height:14px;background:#3fbf6f;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff;}
+.event-seen-avatar .check svg{width:8px;height:8px;}
 @media(max-width:640px){.event-seen-row{padding-left:0;}}
 .event-export-btn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;border:1px solid var(--glass-line);background:rgba(255,255,255,.6);color:var(--muted);cursor:pointer;transition:all .18s;}
 .event-export-btn:hover{background:#fff;color:var(--accent-deep);border-color:var(--accent);transform:translateY(-1px);}
@@ -1440,6 +1443,20 @@ const MEMBERS = [
   { name: 'Théo',      role_fr: 'Chant',      role_es: 'Voz' }
 ];
 
+const ROLE_ICON = {
+  'Direction': 'wind',
+  'Saxophone': 'wind',
+  'Chant': 'mic-vocal',
+  'Basse': 'guitar',
+  'Guitare': 'guitar',
+  'Clavier': 'piano',
+  'Batterie': 'drum'
+};
+function instrumentIcon(memberName){
+  const m = MEMBERS.find(mm => mm.name === memberName);
+  return m ? (ROLE_ICON[m.role_fr] || 'music') : 'music';
+}
+
 const SUPABASE_URL = 'https://atsbhmvjungckpknkbxw.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_5NtVvQKSMnhQRijrWcW2hA_hwWKGW9j';
 const sb = (window.supabase) ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
@@ -1447,8 +1464,11 @@ const sb = (window.supabase) ? window.supabase.createClient(SUPABASE_URL, SUPABA
 let memberPhotos = {}; // { 'Marine': 'data:image/jpeg;base64,...' }
 let selectedMember = localStorage.getItem('atelier-current-member') || '';
 
+const INITIALS_OVERRIDE = { 'Pablo': 'Pab', 'Patrice': 'Ptr', 'Patricia': 'Pia' };
 function initials(name){
-  return (name || '?').trim().slice(0,2).toUpperCase();
+  if(!name) return '?';
+  if(INITIALS_OVERRIDE[name]) return INITIALS_OVERRIDE[name];
+  return name.trim().slice(0,2).toUpperCase();
 }
 function avatarStyle(name){
   const photo = memberPhotos[name];
@@ -1939,9 +1959,10 @@ function renderAgendaSeenUI(){
       const isMe = m.name === selectedMember;
       const photo = memberPhotos[m.name];
       const styleAttr = photo ? ` style="background-image:url('${photo}');"` : '';
-      const initials = photo ? '' : (m.name || '?').slice(0,2).toUpperCase();
+      const initialsTxt = photo ? '' : initials(m.name);
+      const icoName = instrumentIcon(m.name);
       const clickAttr = isMe ? ` onclick="toggleAgendaSeen('${eid.replace(/'/g,"\\'")}')"` : '';
-      return `<button class="event-seen-avatar${isSeen?' seen':''}${isMe?' is-me':''}"${clickAttr}${!isMe?' disabled':''}${styleAttr} title="${m.name}${isSeen?' · vu':''}">${initials}${isSeen?'<span class="check"><span data-lucide="check"></span></span>':''}</button>`;
+      return `<button class="event-seen-avatar${isSeen?' seen':''}${isMe?' is-me':''}"${clickAttr}${!isMe?' disabled':''}${styleAttr} title="${m.name}${isSeen?' · vu':''}"><span>${initialsTxt}</span><span class="instrument-ico" data-lucide="${icoName}"></span>${isSeen?'<span class="check"><span data-lucide="check"></span></span>':''}</button>`;
     }).join('');
   });
   refreshIcons();
