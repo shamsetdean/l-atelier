@@ -1848,26 +1848,45 @@ function postLoginInit(){
 }
 
 /* ── AGENDA : nombre de jeudis (répétitions) entre deux dates consécutives ── */
-function countThursdaysBetween(fromDateStr, toDateStr){
+function getVacationRanges(){
+  const ranges = [];
+  document.querySelectorAll('#agenda .event-row[data-date]').forEach(row => {
+    const badgeTxt = row.querySelector('.event-badge')?.textContent.trim().toLowerCase() || '';
+    if(badgeTxt.includes('vacances') || badgeTxt.includes('vacaciones')){
+      const start = row.getAttribute('data-date');
+      const end = row.getAttribute('data-end') || start;
+      ranges.push({
+        start: new Date(start + 'T00:00:00'),
+        end: new Date(end + 'T00:00:00')
+      });
+    }
+  });
+  return ranges;
+}
+function isDuringVacation(date, ranges){
+  return ranges.some(r => date >= r.start && date <= r.end);
+}
+function countThursdaysBetween(fromDateStr, toDateStr, vacationRanges){
   const from = new Date(fromDateStr + 'T00:00:00');
   const to = new Date(toDateStr + 'T00:00:00');
   let count = 0;
   const d = new Date(from);
   d.setDate(d.getDate() + 1); // on exclut le jour de départ lui-même
   while(d < to){
-    if(d.getDay() === 4) count++; // 4 = jeudi
+    if(d.getDay() === 4 && !isDuringVacation(d, vacationRanges)) count++; // 4 = jeudi, hors vacances
     d.setDate(d.getDate() + 1);
   }
   return count;
 }
 function insertThursdayCounters(){
   document.querySelectorAll('.thursday-sep').forEach(el => el.remove()); // évite les doublons si rappelé
+  const vacationRanges = getVacationRanges();
   const rows = Array.from(document.querySelectorAll('#agenda .event-row[data-date]'));
   for(let i = 1; i < rows.length; i++){
     const prevRow = rows[i-1];
-    const prevRef = prevRow.getAttribute('data-end') || prevRow.getAttribute('data-date');
+    const prevRef = prevRow.getAttribute('data-date'); // on repart du vrai point de départ, les vacances sont filtrées ci-dessous
     const currDate = rows[i].getAttribute('data-date');
-    const n = countThursdaysBetween(prevRef, currDate);
+    const n = countThursdaysBetween(prevRef, currDate, vacationRanges);
     if(n > 0){
       const sep = document.createElement('div');
       sep.className = 'thursday-sep';
