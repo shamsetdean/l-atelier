@@ -912,7 +912,33 @@ function render(){
 }
 
 /* ── CHARGEMENT INITIAL ── */
+const PLAYLIST_CACHE_KEY = 'atelier-playlist-cache';
+
+function loadPlaylistFromCache(){
+  try{
+    const raw = localStorage.getItem(PLAYLIST_CACHE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch(e){ return null; }
+}
+function savePlaylistToCache(rawTracks, rawVotes){
+  try{ localStorage.setItem(PLAYLIST_CACHE_KEY, JSON.stringify({ rawTracks, rawVotes })); }
+  catch(e){}
+}
+
 async function loadAll(){
+  // Affichage instantané depuis le cache local pendant que les vraies données arrivent
+  // (utile quand Supabase est lent : la page n'a plus l'air figée sur "Chargement…")
+  if(tracks.length === 0){
+    const cached = loadPlaylistFromCache();
+    if(cached){
+      tracks = (cached.rawTracks || []).map(t => ({
+        ...t,
+        votes: (cached.rawVotes || []).filter(v => v.track_id === t.id)
+      }));
+      render();
+    }
+  }
+
   try{
     const [{ data: rawTracks, error: e1 }, { data: rawVotes, error: e2 }] = await Promise.all([
       sb.from('playlist_tracks').select('*').order('created_at', { ascending: true }),
@@ -927,6 +953,7 @@ async function loadAll(){
       ...t,
       votes: (rawVotes || []).filter(v => v.track_id === t.id)
     }));
+    savePlaylistToCache(rawTracks, rawVotes);
     setStatus(true);
     render();
   } catch(e){
