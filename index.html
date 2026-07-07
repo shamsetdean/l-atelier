@@ -375,6 +375,10 @@ header.app-header{position:sticky;top:calc(.8rem + env(safe-area-inset-top,0px))
 
 /* VIDEOS */
 .videos-sub{display:flex;align-items:center;justify-content:space-between;margin:2rem .3rem 1rem;}
+.tag-pill{padding:.5rem 1rem;border-radius:var(--r-pill);background:rgba(255,255,255,.55);border:1px solid var(--glass-line);color:var(--muted);font-size:12.5px;font-weight:600;cursor:pointer;transition:all .18s;}
+.tag-pill:hover{background:#fff;color:var(--ink);}
+.tag-pill.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border-color:transparent;box-shadow:0 6px 16px var(--accent-soft);}
+.morceau-card.tag-hidden{display:none !important;}
 .videos-sub .t{display:flex;align-items:center;gap:.5rem;font-size:.95rem;font-weight:600;color:var(--ink);}
 .videos-sub .t [data-lucide]{width:18px;height:18px;color:var(--accent);}
 .videos-sub .count{font-size:12px;color:var(--muted);font-weight:600;}
@@ -625,13 +629,23 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
         </button>
       </div>
 
+      <div id="tag-filter-bar" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.4rem;">
+        <button class="tag-pill active" data-tag="tous" onclick="filterByTag('tous',this)"><span data-fr="Tous" data-es="Todos">Tous</span></button>
+        <button class="tag-pill" data-tag="funk" onclick="filterByTag('funk',this)">Funk</button>
+        <button class="tag-pill" data-tag="disco" onclick="filterByTag('disco',this)">Disco</button>
+        <button class="tag-pill" data-tag="soul" onclick="filterByTag('soul',this)">Soul</button>
+        <button class="tag-pill" data-tag="pop" onclick="filterByTag('pop',this)">Pop</button>
+        <button class="tag-pill" data-tag="ballade" onclick="filterByTag('ballade',this)"><span data-fr="Ballade" data-es="Balada">Ballade</span></button>
+        <button class="tag-pill" data-tag="original" onclick="filterByTag('original',this)"><span data-fr="Composition originale" data-es="Composición original">Composition originale</span></button>
+      </div>
+
       <div class="videos-sub">
         <span class="t"><span data-lucide="calendar"></span><span data-fr="Saison 2026-2027" data-es="Temporada 2026-2027">Saison 2026-2027</span></span>
         <span class="count">04</span>
       </div>
       <div class="morceaux-grid grid-2col">
 
-        <a class="morceau-card glass" href="boogie-nights-all-night.html" data-added="2026-09-01">
+        <a class="morceau-card glass" href="boogie-nights-all-night.html" data-added="2026-09-01" data-tags="funk,disco">
           <span class="morceau-num">01</span>
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFE0A8,#F5B860);">
             <div class="morceau-play"><span data-lucide="play"></span></div>
@@ -644,7 +658,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
           </div>
         </a>
 
-        <a class="morceau-card glass" href="yebba-distance.html" data-added="2026-09-01">
+        <a class="morceau-card glass" href="yebba-distance.html" data-added="2026-09-01" data-tags="soul,ballade">
           <span class="morceau-num">02</span>
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#CDE7F0,#8FC4DB);">
             <div class="morceau-play"><span data-lucide="play"></span></div>
@@ -657,7 +671,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
           </div>
         </a>
 
-        <a class="morceau-card glass" href="trust-jordan-rakei.html" data-added="2026-09-01">
+        <a class="morceau-card glass" href="trust-jordan-rakei.html" data-added="2026-09-01" data-tags="soul,funk">
           <span class="morceau-num">03</span>
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#DCD2EF,#B8A2DB);">
             <div class="morceau-play"><span data-lucide="play"></span></div>
@@ -670,7 +684,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
           </div>
         </a>
 
-        <a class="morceau-card glass" href="midnight-train-to-georgia.html" data-added="2026-09-01">
+        <a class="morceau-card glass" href="midnight-train-to-georgia.html" data-added="2026-09-01" data-tags="soul,ballade">
           <span class="morceau-num">04</span>
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#EFC3DA,#B23A6B);">
             <div class="morceau-play"><span data-lucide="play"></span></div>
@@ -691,7 +705,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
       </div>
       <div class="morceaux-grid">
 
-        <a class="morceau-card glass" href="worth-it.html" data-added="2026-04-01">
+        <a class="morceau-card glass" href="worth-it.html" data-added="2026-04-01" data-tags="pop,funk">
           <span class="morceau-num">01</span>
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#FFD9C2,#FFB39A);">
             <div class="morceau-play"><span data-lucide="play"></span></div>
@@ -704,7 +718,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
           </div>
         </a>
 
-        <a class="morceau-card glass" href="easy-lover.html" data-added="2026-03-15">
+        <a class="morceau-card glass" href="easy-lover.html" data-added="2026-03-15" data-tags="pop,funk">
           <span class="morceau-num">02</span>
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#C6E8D6,#9CD8BC);">
             <div class="morceau-play"><span data-lucide="play"></span></div>
@@ -717,7 +731,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
           </div>
         </a>
 
-        <a class="morceau-card glass" href="still-a-friend.html" data-added="2026-03-15">
+        <a class="morceau-card glass" href="still-a-friend.html" data-added="2026-03-15" data-tags="funk,soul">
           <span class="morceau-num">03</span>
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#D6D2F5,#B3ABEC);">
             <div class="morceau-play"><span data-lucide="play"></span></div>
@@ -730,7 +744,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
           </div>
         </a>
 
-        <a class="morceau-card glass" href="medley-jt.html" data-added="2026-03-20">
+        <a class="morceau-card glass" href="medley-jt.html" data-added="2026-03-20" data-tags="pop,funk">
           <span class="morceau-num">04</span>
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#F3DCC2,#E3BD92);">
             <div class="morceau-play"><span data-lucide="play"></span></div>
@@ -743,7 +757,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
           </div>
         </a>
 
-        <a class="morceau-card glass" href="medley-chaka.html" data-added="2026-04-20">
+        <a class="morceau-card glass" href="medley-chaka.html" data-added="2026-04-20" data-tags="funk,disco">
           <span class="morceau-num">05</span>
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#F3D6E8,#E3A8CC);">
             <div class="morceau-play"><span data-lucide="play"></span></div>
@@ -756,7 +770,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
           </div>
         </a>
 
-        <a class="morceau-card glass" href="this-place-hotel.html" data-added="2026-05-04">
+        <a class="morceau-card glass" href="this-place-hotel.html" data-added="2026-05-04" data-tags="funk,disco">
           <span class="morceau-num">06</span>
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#C8DEF3,#9CC0E3);">
             <div class="morceau-play"><span data-lucide="play"></span></div>
@@ -769,7 +783,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
           </div>
         </a>
 
-        <a class="morceau-card glass" href="say-say-say.html" data-added="2026-05-21">
+        <a class="morceau-card glass" href="say-say-say.html" data-added="2026-05-21" data-tags="pop,funk">
           <span class="morceau-num">07</span>
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#F3D2E5,#DBA2C8);">
             <div class="morceau-play"><span data-lucide="play"></span></div>
@@ -782,7 +796,7 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
           </div>
         </a>
 
-        <a class="morceau-card glass" href="heyoka-chelles.html" data-added="2026-05-21">
+        <a class="morceau-card glass" href="heyoka-chelles.html" data-added="2026-05-21" data-tags="original">
           <span class="morceau-num">08</span>
           <div class="morceau-thumb" style="background:linear-gradient(135deg,#E2D2F5,#BFA2E3);">
             <div class="morceau-play"><span data-lucide="play"></span></div>
@@ -1590,6 +1604,28 @@ function closePDF(e){if(e.target===document.getElementById('pdf-overlay'))closeP
 function closePDFBtn(){document.getElementById('pdf-overlay').classList.remove('open');document.getElementById('pdf-frame').src='';document.body.style.overflow='';}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePDFBtn();closeSheet();}});
 
+
+/* ── FILTRE PAR TAG / MOOD ── */
+function filterByTag(tag, btn){
+  document.querySelectorAll('.tag-pill').forEach(p => p.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+
+  document.querySelectorAll('.morceau-card').forEach(card => {
+    const tags = (card.dataset.tags || '').split(',').map(t => t.trim());
+    const show = tag === 'tous' || tags.includes(tag);
+    card.classList.toggle('tag-hidden', !show);
+  });
+
+  // Met à jour les compteurs visibles de chaque saison
+  document.querySelectorAll('.morceaux-grid').forEach(grid => {
+    const sub = grid.previousElementSibling;
+    if(!sub || !sub.classList.contains('videos-sub')) return;
+    const countEl = sub.querySelector('.count');
+    if(!countEl) return;
+    const visible = grid.querySelectorAll('.morceau-card:not(.tag-hidden)').length;
+    countEl.textContent = String(visible).padStart(2,'0');
+  });
+}
 
 function tagNouveauxMorceaux(){
   const seuil=5,now=new Date();
