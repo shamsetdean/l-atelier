@@ -106,6 +106,14 @@
         <input type="checkbox" id="accent-toggle" checked>
         <span data-fr="Accentuer le premier temps" data-es="Acentuar el primer tiempo">Accentuer le premier temps</span>
       </label>
+
+      <label class="metro-sound-toggle" id="vibration-toggle-row" style="margin-top:.5rem;">
+        <input type="checkbox" id="vibration-toggle">
+        <span data-fr="Vibration silencieuse (sans le son)" data-es="Vibración silenciosa (sin sonido)">Vibration silencieuse (sans le son)</span>
+      </label>
+      <div id="vibration-unsupported" style="display:none;font-size:11px;color:var(--muted);margin-top:.3rem;">
+        <span data-fr="Non disponible sur cet appareil (iPhone/Safari ne permettent pas la vibration depuis une page web)." data-es="No disponible en este dispositivo (iPhone/Safari no permiten la vibración desde una página web).">Non disponible sur cet appareil (iPhone/Safari ne permettent pas la vibration depuis une page web).</span>
+      </div>
     </div>
 
     <div class="songs-title"><span data-lucide="disc-3"></span><span data-fr="BPM du catalogue — touche pour appliquer" data-es="BPM del catálogo — toca para aplicar">BPM du catalogue — touche pour appliquer</span></div>
@@ -170,6 +178,17 @@ let schedulerTimer = null;
 const LOOKAHEAD = 25.0;      // ms entre chaque vérification du scheduler
 const SCHEDULE_AHEAD = 0.1;  // secondes de marge de programmation audio
 
+const vibrationSupported = ('vibrate' in navigator);
+(function initVibrationToggle(){
+  const row = document.getElementById('vibration-toggle-row');
+  const unsupported = document.getElementById('vibration-unsupported');
+  if(!vibrationSupported){
+    row.style.opacity = '.45';
+    document.getElementById('vibration-toggle').disabled = true;
+    unsupported.style.display = 'block';
+  }
+})();
+
 function setBpm(v){
   bpm = Math.max(40, Math.min(220, parseInt(v, 10) || 100));
   document.getElementById('bpm-display').textContent = bpm;
@@ -181,6 +200,8 @@ function adjustBpm(delta){
 
 function playClick(time, accented){
   if(!audioCtx) return;
+  const vibrationOn = vibrationSupported && document.getElementById('vibration-toggle').checked;
+  if(vibrationOn) return; // en mode vibration, pas de son du tout
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
   osc.connect(gain);
@@ -190,6 +211,14 @@ function playClick(time, accented){
   gain.gain.exponentialRampToValueAtTime(0.001, time + 0.06);
   osc.start(time);
   osc.stop(time + 0.06);
+}
+
+function vibrateBeat(accented){
+  if(!vibrationSupported) return;
+  const vibrationOn = document.getElementById('vibration-toggle').checked;
+  if(!vibrationOn) return;
+  // Un temps normal = petit coup bref. Le premier temps (accent) = coup plus long, pour le repérer sans le voir.
+  navigator.vibrate(accented ? 45 : 18);
 }
 
 function scheduleVisualBeat(accented){
@@ -206,7 +235,7 @@ function scheduler(){
     const isAccent = accentOn && (currentBeat % 4 === 0);
     playClick(nextNoteTime, isAccent);
     const delay = (nextNoteTime - audioCtx.currentTime) * 1000;
-    setTimeout(()=>scheduleVisualBeat(isAccent), Math.max(0, delay));
+    setTimeout(()=>{ scheduleVisualBeat(isAccent); vibrateBeat(isAccent); }, Math.max(0, delay));
     nextNoteTime += 60.0 / bpm;
     currentBeat++;
   }
