@@ -127,7 +127,20 @@ const pdfTitle = params.get('title') || 'Partition';
 const pdfDl = params.get('dl') || pdfUrl;
 const fromPage = params.get('from') || 'index.html';
 
-if(!pdfUrl || !/^https?:\/\//.test(pdfUrl)){
+/* Sécurité : on n'accepte que des URL pointant vers Dropbox — cette page
+   affiche le contenu dans une iframe sur le domaine de confiance du site,
+   donc n'importe quelle URL externe acceptée sans contrôle serait une porte
+   ouverte à un lien piégé (phishing affiché avec l'URL du site en barre d'adresse). */
+const ALLOWED_HOSTS = ['dl.dropboxusercontent.com', 'www.dropbox.com', 'dropbox.com'];
+let urlOk = false;
+if(pdfUrl){
+  try{
+    const parsed = new URL(pdfUrl);
+    urlOk = (parsed.protocol === 'https:' || parsed.protocol === 'http:')
+      && ALLOWED_HOSTS.includes(parsed.hostname);
+  }catch(e){ urlOk = false; }
+}
+if(!urlOk){
   window.location.replace(fromPage);
 }
 
