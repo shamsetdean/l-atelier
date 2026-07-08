@@ -1484,10 +1484,20 @@ async function loadMemberPhotos(){
     const { data, error } = await sb.from('member_photos').select('name, photo_data');
     if(error){ console.warn(error); return; }
     memberPhotos = {};
-    (data || []).forEach(row => { memberPhotos[row.name] = row.photo_data; });
+    (data || []).forEach(row => {
+      if(isValidPhotoDataUri(row.photo_data)) memberPhotos[row.name] = row.photo_data;
+    });
     renderWhoGrid();
     updatePasswordCurrent();
   }catch(e){ console.warn('Erreur loadMemberPhotos', e); }
+}
+
+/* Sécurité : n'accepte que de vraies data URI image (base64 strict), rejette tout
+   ce qui contiendrait des guillemets/chevrons pouvant casser un attribut style="..."
+   ou injecter du HTML si la valeur venait à être modifiée directement via l'API. */
+function isValidPhotoDataUri(str){
+  if(typeof str !== 'string') return false;
+  return /^data:image\/(png|jpe?g|webp|gif);base64,[A-Za-z0-9+/=]+$/.test(str);
 }
 
 function renderWhoGrid(){

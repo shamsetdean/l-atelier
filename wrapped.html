@@ -78,6 +78,9 @@ body{
 <a class="back-home" href="index.html">← Retour à l'Atelier</a>
 
 <script>
+if(sessionStorage.getItem('atelier-auth')!=='1'){
+  window.location.href='index.html';
+}
 const SUPABASE_URL = 'https://atsbhmvjungckpknkbxw.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_5NtVvQKSMnhQRijrWcW2hA_hwWKGW9j';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -222,6 +225,12 @@ async function buildWrapped(){
   }
 }
 
+function escapeHtml(s){
+  const div = document.createElement('div');
+  div.textContent = String(s ?? '');
+  return div.innerHTML;
+}
+
 function renderSlides(){
   const container = document.getElementById('slides');
   const progressRow = document.getElementById('progress-row');
@@ -232,12 +241,12 @@ function renderSlides(){
     const bg = GRADIENTS[i % GRADIENTS.length];
     return `
     <div class="slide" data-index="${i}" style="background:${bg};">
-      <div class="slide-eyebrow">${s.icon && !s.num ? '' : ''}<span>${s.eyebrow}</span></div>
+      <div class="slide-eyebrow">${s.icon && !s.num ? '' : ''}<span>${escapeHtml(s.eyebrow)}</span></div>
       ${s.thumb ? `<div class="slide-thumb" style="background-image:url('${s.thumb}');"></div>` : ''}
       ${s.icon && !s.thumb ? `<div class="slide-icon-badge"><span data-lucide="${s.icon}"></span></div>` : ''}
-      ${s.num !== undefined ? `<div class="slide-num serif">${s.num}</div>` : ''}
-      <div class="slide-title ${s.num !== undefined ? '' : 'serif'}">${s.title}</div>
-      <div class="slide-sub">${s.sub}</div>
+      ${s.num !== undefined ? `<div class="slide-num serif">${escapeHtml(s.num)}</div>` : ''}
+      <div class="slide-title ${s.num !== undefined ? '' : 'serif'}">${escapeHtml(s.title)}</div>
+      <div class="slide-sub">${escapeHtml(s.sub)}</div>
       ${s.isLast ? `<button class="replay-btn" onclick="event.stopPropagation();goToSlide(0);"><span data-lucide="rotate-ccw" style="width:14px;height:14px;"></span>Revoir le bilan</button>` : ''}
     </div>`;
   }).join('');

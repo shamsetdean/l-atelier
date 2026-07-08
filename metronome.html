@@ -123,6 +123,9 @@
 </main>
 
 <script>
+if(sessionStorage.getItem('atelier-auth')!=='1'){
+  window.location.href='index.html';
+}
 /* TRADUCTION */
 let currentLang = localStorage.getItem('atelier-lang') || 'fr';
 function applyLang(){

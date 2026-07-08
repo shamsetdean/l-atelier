@@ -49,6 +49,12 @@ self.addEventListener('fetch', (event) => {
         caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy)).catch(() => {});
         return response;
       })
-      .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html')))
+      .catch(() => caches.match(event.request).then((cached) => {
+        if (cached) return cached;
+        // Le fallback vers index.html n'a de sens que pour une navigation de page
+        // (sinon un CSS/JS manquant renverrait du HTML, ce qui casse tout).
+        if (event.request.mode === 'navigate') return caches.match('./index.html');
+        return undefined;
+      }))
   );
 });

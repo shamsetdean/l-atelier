@@ -134,7 +134,6 @@
 .rest-vote-btn.voted-maybe .n{color:#fff;}
 .rest-vote-btn.voted-skip{background:var(--skip);color:#fff;border-color:var(--skip);}
 .rest-vote-btn.voted-skip .n{color:#fff;}
-.inline-iframe{width:100%;height:100%;border:0;display:block;}
 .inline-close{position:absolute;top:.35rem;right:.35rem;z-index:3;width:20px;height:20px;border-radius:50%;background:rgba(26,23,38,.7);color:#fff;border:0;font-size:10px;line-height:1;cursor:pointer;padding:0;}
 
 .video-modal-overlay{position:fixed;inset:0;background:rgba(11,7,16,.85);z-index:250;display:none;align-items:center;justify-content:center;padding:1rem;}
@@ -157,8 +156,6 @@
 .track-thumb-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;transition:all .2s;box-shadow:0 8px 22px rgba(40,33,90,.18);}
 .track-thumb-play::before{content:"";display:block;border-left:14px solid var(--accent-deep);border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:3px;}
 .track-thumb:hover .track-thumb-play{transform:translate(-50%,-50%) scale(1.08);background:#fff;}
-.track-thumb.is-playing{cursor:default;background:#000;}
-.track-thumb.is-playing .track-thumb-play{display:none;}
 .track-iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
 .track-close{position:absolute;top:.6rem;right:.6rem;z-index:3;width:30px;height:30px;border-radius:50%;background:rgba(26,23,38,.75);color:#fff;border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
 .track-close:hover{background:var(--accent);}
@@ -793,8 +790,6 @@ function handleThumbTap(e){
 }
 document.getElementById('tracks-top5').addEventListener('click', handleThumbTap);
 document.getElementById('tracks-rest').addEventListener('click', handleThumbTap);
-document.getElementById('tracks-top5').addEventListener('touchend', handleThumbTap);
-document.getElementById('tracks-rest').addEventListener('touchend', handleThumbTap);
 
 
 /* ── CARTE TOP 5 (verticale, compacte) ── */
