@@ -1478,7 +1478,19 @@ function avatarContent(name){
   return memberPhotos[name] ? '' : initials(name);
 }
 
+const MEMBER_PHOTOS_CACHE_KEY = 'atelier-member-photos-cache';
+
 async function loadMemberPhotos(){
+  // Affichage instantané depuis le cache local pendant que Supabase répond
+  try{
+    const raw = localStorage.getItem(MEMBER_PHOTOS_CACHE_KEY);
+    if(raw){
+      memberPhotos = JSON.parse(raw);
+      renderWhoGrid();
+      updatePasswordCurrent();
+    }
+  } catch(e){}
+
   if(!sb) return;
   try{
     const { data, error } = await sb.from('member_photos').select('name, photo_data');
@@ -1487,6 +1499,8 @@ async function loadMemberPhotos(){
     (data || []).forEach(row => {
       if(isValidPhotoDataUri(row.photo_data)) memberPhotos[row.name] = row.photo_data;
     });
+    try{ localStorage.setItem(MEMBER_PHOTOS_CACHE_KEY, JSON.stringify(memberPhotos)); }
+    catch(e){}
     renderWhoGrid();
     updatePasswordCurrent();
   }catch(e){ console.warn('Erreur loadMemberPhotos', e); }
@@ -1939,7 +1953,28 @@ function agendaEventId(row){
   return row.getAttribute('data-date') + '_' + name;
 }
 
+const AGENDA_SEEN_CACHE_KEY = 'atelier-agenda-seen-cache';
+
+function saveAgendaSeenCache(){
+  try{
+    const serializable = {};
+    Object.keys(agendaSeenCache).forEach(k => { serializable[k] = Array.from(agendaSeenCache[k]); });
+    localStorage.setItem(AGENDA_SEEN_CACHE_KEY, JSON.stringify(serializable));
+  } catch(e){}
+}
+
 async function loadAgendaSeen(){
+  // Affichage instantané depuis le cache local pendant que Supabase répond
+  try{
+    const raw = localStorage.getItem(AGENDA_SEEN_CACHE_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      agendaSeenCache = {};
+      Object.keys(parsed).forEach(k => { agendaSeenCache[k] = new Set(parsed[k]); });
+      renderAgendaSeenUI();
+    }
+  } catch(e){}
+
   if(!sb) return;
   try{
     const { data, error } = await sb.from(AGENDA_SEEN_TABLE).select('event_id, member_name');
@@ -1949,6 +1984,7 @@ async function loadAgendaSeen(){
       if(!agendaSeenCache[r.event_id]) agendaSeenCache[r.event_id] = new Set();
       agendaSeenCache[r.event_id].add(r.member_name);
     });
+    saveAgendaSeenCache();
     renderAgendaSeenUI();
   } catch(e){ console.warn('Erreur loadAgendaSeen', e); }
 }
@@ -1991,6 +2027,7 @@ async function toggleAgendaSeen(eventId){
       seenSet.add(selectedMember);
     }
     agendaSeenCache[eventId] = seenSet;
+    saveAgendaSeenCache();
     renderAgendaSeenUI();
   } catch(e){ console.warn('Erreur toggleAgendaSeen', e); }
 }

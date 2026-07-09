@@ -471,41 +471,25 @@ const MOIS_FR = {
 /* Récupère et compte les "Atelier du..." dans une page morceau */
 async function fetchMorceauStats(slug, name){
   try {
-    const r = await fetch(slug + '.html', { cache: 'default' });
-    if(!r.ok) return { slug, name, sessions: 0, audios: [] };
-    const txt = await r.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(txt, 'text/html');
-
-    // Compter les sessions "Atelier du" : audio-block avec lecteur actif
-    // + entrées archivées dans "Téléchargements — historique" (dates différentes, pas de doublon)
-    const sessionDates = new Set();
-    const audios = [];
-
-    doc.querySelectorAll('.audio-block').forEach(b => {
-      const lbl = b.querySelector('.audio-label');
-      if(!lbl) return;
-      const txt = lbl.textContent || '';
-      const m = txt.match(/Atelier du [^\n]+/i);
-      if(m){
-        sessionDates.add(m[0].trim().toLowerCase());
-        const src = b.querySelector('audio source');
-        if(src) audios.push(src.getAttribute('src'));
-      }
-    });
-
-    doc.querySelectorAll('.dl-archive-item .dl-archive-name').forEach(el => {
-      const txt = el.textContent || '';
-      const m = txt.match(/Atelier du [^\n]+/i);
-      if(m) sessionDates.add(m[0].trim().toLowerCase());
-    });
-
-    const sessions = sessionDates.size;
-    return { slug, name, sessions, audios };
+    const count = window.__sessionsData ? (window.__sessionsData[slug] || 0) : 0;
+    return { slug, name, sessions: count };
   } catch(e){
-    console.warn('Erreur fetch', slug, e);
-    return { slug, name, sessions: 0, audios: [] };
+    console.warn('Erreur fetchMorceauStats', slug, e);
+    return { slug, name, sessions: 0 };
   }
+}
+
+async function loadSessionsJson(){
+  if(window.__sessionsData) return window.__sessionsData;
+  try{
+    const r = await fetch('sessions.json', { cache: 'default' });
+    if(!r.ok) throw new Error('sessions.json introuvable');
+    window.__sessionsData = await r.json();
+  } catch(e){
+    console.warn('Erreur loadSessionsJson', e);
+    window.__sessionsData = {};
+  }
+  return window.__sessionsData;
 }
 
 /* Récupère les stats du planning depuis l'index */
@@ -664,7 +648,8 @@ async function loadChiffres(){
   }
 
   try {
-    // Lance fetch des 8 morceaux + planning en parallèle
+    // Charge sessions.json (1 requête) puis calcule les stats en local — au lieu de 12 requêtes
+    await loadSessionsJson();
     const [morceauxResults, planningStats] = await Promise.all([
       Promise.all(MORCEAUX_PAGES.map(p => fetchMorceauStats(p.slug, p.name))),
       fetchPlanningStats()

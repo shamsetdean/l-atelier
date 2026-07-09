@@ -1,0 +1,15 @@
+{
+  "_comment": "Nombre de sessions de répétition enregistrées et archivées, par morceau. À mettre à jour manuellement (juste le chiffre) à chaque fois qu'un nouvel enregistrement est ajouté sur une fiche morceau. Remplace 12 requêtes fetch par 1 seule sur membres.html.",
+  "worth-it": 5,
+  "still-a-friend": 5,
+  "easy-lover": 4,
+  "medley-jt": 3,
+  "say-say-say": 3,
+  "this-place-hotel": 2,
+  "heyoka-chelles": 1,
+  "medley-chaka": 0,
+  "boogie-nights-all-night": 0,
+  "yebba-distance": 0,
+  "trust-jordan-rakei": 0,
+  "midnight-train-to-georgia": 0
+}
