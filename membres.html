@@ -45,6 +45,8 @@
 .member-row:last-child{border-bottom:none;}
 .member-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;}
 .member-name{font-family:var(--serif);font-style:italic;font-size:1.4rem;color:var(--ink);line-height:1;}
+.member-avatar{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.6);background-size:cover;background-position:center;border:1px solid var(--glass-line);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);flex-shrink:0;}
+.member-name-group{display:flex;align-items:center;gap:.7rem;}
 .member-role{font-size:11px;letter-spacing:.03em;font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem;flex-shrink:0;padding:.35rem .7rem;border-radius:var(--r-pill);background:rgba(255,255,255,.65);border:1px solid var(--glass-line);}
 .member-role .ico{color:var(--accent);display:inline-flex;}
 .member-role .ico svg{width:14px;height:14px;}
@@ -129,7 +131,10 @@
         <span class="dot"></span>
         <span data-fr="Direction de l'atelier" data-es="Dirección del taller">Direction de l'atelier</span>
       </div>
-      <div class="direction-name">Cédric</div>
+      <div style="display:flex;align-items:center;gap:.8rem;">
+        <span class="member-avatar" data-avatar="Cédric" style="width:56px;height:56px;font-size:15px;flex-shrink:0;"></span>
+        <div class="direction-name">Cédric</div>
+      </div>
       <div class="direction-alias">
         <span data-fr="Alias" data-es="Alias">Alias</span> <b>· El Jefe ·</b>
       </div>
@@ -149,7 +154,7 @@
     <div class="members-list">
       <div class="member-row" data-member="Roselyne">
         <div class="member-top">
-          <span class="member-name">Roselyne</span>
+          <div class="member-name-group"><span class="member-avatar" data-avatar="Roselyne"></span><span class="member-name">Roselyne</span></div>
           <span class="member-role"><span class="ico" aria-hidden="true" data-lucide="mic-vocal"></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
         </div>
         <span class="member-lead"><span data-lucide="star"></span><span data-fr="Lead — Distance" data-es="Voz principal — Distance">Lead — Distance</span></span>
@@ -161,7 +166,7 @@
       </div>
       <div class="member-row" data-member="Marine">
         <div class="member-top">
-          <span class="member-name">Marine</span>
+          <div class="member-name-group"><span class="member-avatar" data-avatar="Marine"></span><span class="member-name">Marine</span></div>
           <span class="member-role"><span class="ico" aria-hidden="true" data-lucide="mic-vocal"></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
         </div>
         <span class="member-lead"><span data-lucide="star"></span><span data-fr="Lead — Boogie Nights / All Night" data-es="Voz principal — Boogie Nights / All Night">Lead — Boogie Nights / All Night</span></span>
@@ -173,7 +178,7 @@
       </div>
       <div class="member-row" data-member="Patricia">
         <div class="member-top">
-          <span class="member-name">Patricia</span>
+          <div class="member-name-group"><span class="member-avatar" data-avatar="Patricia"></span><span class="member-name">Patricia</span></div>
           <span class="member-role"><span class="ico" aria-hidden="true" data-lucide="mic-vocal"></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
         </div>
         <span class="member-lead"><span data-lucide="star"></span><span data-fr="Lead — Midnight Train to Georgia" data-es="Voz principal — Midnight Train to Georgia">Lead — Midnight Train to Georgia</span></span>
@@ -185,7 +190,7 @@
       </div>
       <div class="member-row" data-member="Théo">
         <div class="member-top">
-          <span class="member-name">Théo</span>
+          <div class="member-name-group"><span class="member-avatar" data-avatar="Théo"></span><span class="member-name">Théo</span></div>
           <span class="member-role"><span class="ico" aria-hidden="true" data-lucide="mic-vocal"></span><span data-fr="Chant" data-es="Voz">Chant</span></span>
         </div>
         <span class="member-lead"><span data-lucide="star"></span><span data-fr="Lead — Trust" data-es="Voz principal — Trust">Lead — Trust</span></span>
@@ -207,7 +212,7 @@
     <div class="members-list">
       <div class="member-row" data-member="Jean-Marc">
         <div class="member-top">
-          <span class="member-name">Jean-Marc</span>
+          <div class="member-name-group"><span class="member-avatar" data-avatar="Jean-Marc"></span><span class="member-name">Jean-Marc</span></div>
           <span class="member-role"><span class="ico" aria-hidden="true" data-lucide="wind"></span><span data-fr="Saxophone ténor" data-es="Saxofón tenor">Saxophone ténor</span></span>
         </div>
         <div class="member-stats">
@@ -228,7 +233,7 @@
     <div class="members-list">
       <div class="member-row" data-member="Patrice">
         <div class="member-top">
-          <span class="member-name">Patrice</span>
+          <div class="member-name-group"><span class="member-avatar" data-avatar="Patrice"></span><span class="member-name">Patrice</span></div>
           <span class="member-role"><span class="ico" aria-hidden="true" data-lucide="guitar"></span><span data-fr="Guitare" data-es="Guitarra">Guitare</span></span>
         </div>
         <div class="member-stats">
@@ -239,7 +244,7 @@
       </div>
       <div class="member-row" data-member="Nico">
         <div class="member-top">
-          <span class="member-name">Nico</span>
+          <div class="member-name-group"><span class="member-avatar" data-avatar="Nico"></span><span class="member-name">Nico</span></div>
           <span class="member-role"><span class="ico" aria-hidden="true" data-lucide="guitar"></span><span data-fr="Guitare" data-es="Guitarra">Guitare</span></span>
         </div>
         <div class="member-stats">
@@ -260,7 +265,7 @@
     <div class="members-list">
       <div class="member-row" data-member="Pablo">
         <div class="member-top">
-          <span class="member-name">Pablo</span>
+          <div class="member-name-group"><span class="member-avatar" data-avatar="Pablo"></span><span class="member-name">Pablo</span></div>
           <span class="member-role"><span class="ico" aria-hidden="true" data-lucide="piano"></span><span data-fr="Clavier" data-es="Teclado">Clavier</span></span>
         </div>
         <div class="member-stats">
@@ -281,7 +286,7 @@
     <div class="members-list">
       <div class="member-row" data-member="Nata">
         <div class="member-top">
-          <span class="member-name">Nata</span>
+          <div class="member-name-group"><span class="member-avatar" data-avatar="Nata"></span><span class="member-name">Nata</span></div>
           <span class="member-role"><span class="ico" aria-hidden="true" data-lucide="guitar"></span><span data-fr="Basse" data-es="Bajo">Basse</span></span>
         </div>
         <div class="member-stats">
@@ -302,7 +307,7 @@
     <div class="members-list">
       <div class="member-row" data-member="Shams">
         <div class="member-top">
-          <span class="member-name">Shams</span>
+          <div class="member-name-group"><span class="member-avatar" data-avatar="Shams"></span><span class="member-name">Shams</span></div>
           <span class="member-role"><span class="ico" aria-hidden="true" data-lucide="drum"></span><span data-fr="Batterie" data-es="Batería">Batterie</span></span>
         </div>
         <div class="member-stats">
@@ -712,6 +717,41 @@ function normalizeName(s){
   const n = (s || '').trim().toLowerCase();
   return NAME_ALIASES[n] || n;
 }
+
+/* ── PHOTOS DE PROFIL (avatars à côté des noms) ── */
+const INITIALS_OVERRIDE = { 'Pablo': 'Pab', 'Patrice': 'Ptr', 'Patricia': 'Pia' };
+function initials(name){
+  if(!name) return '?';
+  if(INITIALS_OVERRIDE[name]) return INITIALS_OVERRIDE[name];
+  return name.trim().slice(0,2).toUpperCase();
+}
+function isValidPhotoDataUri(str){
+  if(typeof str !== 'string') return false;
+  return /^data:image\/(png|jpe?g|webp|gif);base64,[A-Za-z0-9+/=]+$/.test(str);
+}
+
+async function loadMemberAvatars(){
+  document.querySelectorAll('[data-avatar]').forEach(el => {
+    el.textContent = initials(el.dataset.avatar);
+  });
+  if(!sb) return;
+  try{
+    const { data, error } = await sb.from('member_photos').select('name, photo_data');
+    if(error){ console.warn(error); return; }
+    const photos = {};
+    (data || []).forEach(row => {
+      if(isValidPhotoDataUri(row.photo_data)) photos[row.name] = row.photo_data;
+    });
+    document.querySelectorAll('[data-avatar]').forEach(el => {
+      const name = el.dataset.avatar;
+      if(photos[name]){
+        el.style.backgroundImage = `url('${photos[name]}')`;
+        el.textContent = '';
+      }
+    });
+  } catch(e){ console.warn('Erreur loadMemberAvatars', e); }
+}
+loadMemberAvatars();
 
 const PLAYLIST_STATS_CACHE_KEY = 'atelier-playlist-stats-cache';
 
