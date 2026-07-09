@@ -110,6 +110,10 @@ body.mood-original .aurora .b3{background:#9EE8D4;}
 
 /* ── BOTTOM NAV GLOBAL (desktop + mobile) ── */
 .bottom-nav{display:flex;position:fixed;bottom:calc(.7rem + var(--safe-b));left:50%;transform:translateX(-50%);width:calc(100% - 1.6rem);max-width:520px;z-index:200;padding:.35rem;border-radius:var(--r-pill);gap:.15rem;background:rgba(255,255,255,.75);backdrop-filter:blur(26px) saturate(165%);-webkit-backdrop-filter:blur(26px) saturate(165%);border:1px solid rgba(255,255,255,.7);box-shadow:0 10px 40px rgba(40,33,90,.12),inset 0 1px 0 rgba(255,255,255,.7);}
+
+.metro-fab{position:fixed;right:1rem;bottom:calc(5.2rem + var(--safe-b));z-index:199;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 10px 26px var(--accent-soft);text-decoration:none;transition:transform .15s;}
+.metro-fab:hover{transform:scale(1.06);}
+.metro-fab [data-lucide]{width:24px;height:24px;}
 .bottom-nav button{flex:1;background:none;border:none;color:var(--muted);cursor:pointer;font-family:var(--sans);font-size:10.5px;font-weight:600;padding:.55rem .3rem;border-radius:var(--r-pill);transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:.22rem;min-height:54px;}
 .bottom-nav button [data-lucide]{width:21px;height:21px;}
 .bottom-nav button.active{background:#fff;color:var(--accent-deep);box-shadow:0 4px 14px rgba(40,33,90,.16);}
@@ -376,7 +380,7 @@ header.app-header{position:sticky;top:calc(.8rem + env(safe-area-inset-top,0px))
 .event-seen-avatar .check{position:absolute;bottom:-3px;right:-3px;width:14px;height:14px;background:#3fbf6f;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff;}
 .event-seen-avatar .check svg{width:8px;height:8px;}
 @media(max-width:640px){.event-seen-row{padding-left:0;}}
-.event-export-btn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;border:1px solid var(--glass-line);background:rgba(255,255,255,.6);color:var(--muted);cursor:pointer;transition:all .18s;}
+.event-export-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--glass-line);background:rgba(255,255,255,.6);color:var(--muted);cursor:pointer;transition:all .18s;}
 .event-export-btn:hover{background:#fff;color:var(--accent-deep);border-color:var(--accent);transform:translateY(-1px);}
 .event-export-btn [data-lucide]{width:14px;height:14px;}
 .event-badge [data-lucide]{width:13px;height:13px;}
@@ -1314,6 +1318,10 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
   </footer>
 
   <!-- BOTTOM NAV (mobile) -->
+  <a class="metro-fab" href="metronome.html" aria-label="Métronome" title="Métronome">
+    <span data-lucide="gauge"></span>
+  </a>
+
   <nav class="bottom-nav glass">
     <button class="active" onclick="showSection('morceaux',this)" style="position:relative;"><span data-lucide="disc-3"></span><span data-fr="Morceaux" data-es="Canciones">Morceaux</span><span id="nav-new-dot" style="display:none;position:absolute;top:2px;right:14px;width:8px;height:8px;border-radius:50%;background:var(--accent-deep,#c0392b);box-shadow:0 0 0 2px #fff;"></span></button>
     <button onclick="showSection('agenda',this)"><span data-lucide="calendar-heart"></span><span data-fr="Agenda" data-es="Agenda">Agenda</span></button>
