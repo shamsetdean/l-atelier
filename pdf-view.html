@@ -7,20 +7,20 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#E8920A;--gold-h:#C87808;--gold-l:#FFF4DC;--gold-m:#FFD080;--cream:#FFFBF2;--ink:#1C1200;--muted:#9A7A40;--surface:#FFFFFF;--border:rgba(232,146,10,.22);--borders:rgba(232,146,10,.5);}
+:root{--accent:#6A5AE0;--accent-h:#4A3CB8;--accent-l:#ECEAF6;--accent-m:#8B7BFF;--cream:#F5F3FA;--ink:#1A1726;--muted:#736E86;--surface:#FFFFFF;--border:rgba(106,90,224,.22);--borders:rgba(106,90,224,.5);}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;}
-body{background:var(--cream);color:var(--ink);font-family:'Space Mono',monospace;display:flex;flex-direction:column;}
+body{background:var(--cream);color:var(--ink);font-family:'Geist',system-ui,sans-serif;display:flex;flex-direction:column;}
 
 /* HEADER */
-header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:0 1rem;padding-top:env(safe-area-inset-top);display:flex;align-items:center;gap:.75rem;min-height:calc(54px + env(safe-area-inset-top));flex-shrink:0;box-shadow:0 2px 12px rgba(232,146,10,.1);z-index:10;}
-.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:#fff;border:none;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:10px 14px;cursor:pointer;border-radius:6px;font-weight:700;text-decoration:none;transition:background .15s;min-height:40px;}
-.back-btn:hover,.back-btn:active{background:var(--gold-h);}
-.page-title{flex:1;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1rem;color:var(--gold);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.ext-btn{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;cursor:pointer;border-radius:6px;transition:all .15s;text-decoration:none;white-space:nowrap;min-height:40px;display:inline-flex;align-items:center;gap:4px;}
-.ext-btn:hover{border-color:var(--gold);color:var(--ink);}
+header{background:var(--surface);border-bottom:2px solid var(--accent-m);padding:0 1rem;padding-top:env(safe-area-inset-top);display:flex;align-items:center;gap:.75rem;min-height:calc(54px + env(safe-area-inset-top));flex-shrink:0;box-shadow:0 2px 12px rgba(106,90,224,.1);z-index:10;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:#fff;border:none;font-family:'Geist',system-ui,sans-serif;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:10px 14px;cursor:pointer;border-radius:6px;font-weight:700;text-decoration:none;transition:background .15s;min-height:40px;}
+.back-btn:hover,.back-btn:active{background:var(--accent-h);}
+.page-title{flex:1;font-family:'Instrument Serif',ui-serif,Georgia,serif;font-style:italic;font-weight:700;font-size:1rem;color:var(--accent);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ext-btn{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Geist',system-ui,sans-serif;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;cursor:pointer;border-radius:6px;transition:all .15s;text-decoration:none;white-space:nowrap;min-height:40px;display:inline-flex;align-items:center;gap:4px;}
+.ext-btn:hover{border-color:var(--accent);color:var(--ink);}
 
 /* ZONE PDF — scroll + overflow pour zoom */
 .pdf-wrap{flex:1;position:relative;background:#2a2a2a;overflow:auto;-webkit-overflow-scrolling:touch;}
@@ -28,25 +28,25 @@ header{background:var(--surface);border-bottom:2px solid var(--gold-m);padding:0
 
 /* CONTRÔLES ZOOM */
 .zoom-controls{position:fixed;right:14px;bottom:14px;bottom:calc(14px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px;z-index:20;}
-.zoom-btn{width:48px;height:48px;background:var(--surface);border:1.5px solid var(--borders);color:var(--gold);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.3);transition:all .15s;padding:0;}
-.zoom-btn:active{background:var(--gold);color:#fff;transform:scale(.95);}
+.zoom-btn{width:48px;height:48px;background:var(--surface);border:1.5px solid var(--borders);color:var(--accent);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.3);transition:all .15s;padding:0;}
+.zoom-btn:active{background:var(--accent);color:#fff;transform:scale(.95);}
 .zoom-btn svg{width:22px;height:22px;}
-.zoom-level{background:var(--surface);border:1.5px solid var(--borders);color:var(--ink);border-radius:20px;padding:6px 10px;font-size:.62rem;letter-spacing:.05em;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.3);font-weight:700;min-width:58px;font-family:'Space Mono',monospace;}
+.zoom-level{background:var(--surface);border:1.5px solid var(--borders);color:var(--ink);border-radius:20px;padding:6px 10px;font-size:.62rem;letter-spacing:.05em;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.3);font-weight:700;min-width:58px;font-family:'Geist',system-ui,sans-serif;}
 
 /* LOADER */
 .loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;color:var(--muted);background:var(--cream);z-index:5;pointer-events:none;transition:opacity .3s;}
 .loader.hidden{opacity:0;}
-.loader-spinner{width:40px;height:40px;border:3px solid var(--gold-m);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;}
+.loader-spinner{width:40px;height:40px;border:3px solid var(--accent-m);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.loader-text{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:1.1rem;}
+.loader-text{font-family:'Instrument Serif',ui-serif,Georgia,serif;font-style:italic;color:var(--accent);font-size:1.1rem;}
 .loader-hint{font-size:.65rem;color:var(--muted);letter-spacing:.08em;}
 
 /* FALLBACK */
 .fallback{display:none;position:absolute;inset:0;background:var(--cream);padding:2rem;text-align:center;align-items:center;justify-content:center;flex-direction:column;gap:1.25rem;z-index:6;}
 .fallback.visible{display:flex;}
-.fallback h2{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:1.5rem;}
+.fallback h2{font-family:'Instrument Serif',ui-serif,Georgia,serif;font-style:italic;color:var(--accent);font-size:1.5rem;}
 .fallback p{font-size:.8rem;line-height:1.7;color:var(--ink);max-width:420px;}
-.fallback .btn-open{display:inline-block;background:var(--gold);color:#fff;text-decoration:none;padding:.9rem 2rem;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.05rem;border-radius:8px;}
+.fallback .btn-open{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:.9rem 2rem;font-family:'Instrument Serif',ui-serif,Georgia,serif;font-style:italic;font-weight:700;font-size:1.05rem;border-radius:8px;}
 
 /* TIP */
 .zoom-tip{position:fixed;top:calc(70px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);background:rgba(28,18,0,.85);color:#FFD080;font-size:.65rem;letter-spacing:.08em;padding:10px 18px;border-radius:20px;z-index:15;opacity:0;pointer-events:none;transition:opacity .4s;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.25);}
@@ -167,7 +167,7 @@ const isMobile = window.matchMedia('(max-width:860px)').matches
 
 /* URL à charger */
 const directUrl = toDirectPdf(pdfUrl);
-const finalUrl = isMobile ? directUrl : pdfUrl;
+const finalUrl = directUrl;
 
 document.getElementById('ext-btn').href = directUrl;
 document.getElementById('fallback-open').href = directUrl;
