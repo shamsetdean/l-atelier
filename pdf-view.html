@@ -102,10 +102,6 @@ if(sessionStorage.getItem('atelier-auth')!=='1'){
     <span class="back-label-full">Retour</span>
   </a>
   <div class="page-title" id="page-title">Partition</div>
-  <a class="ext-btn" id="ext-btn" href="#" target="_blank" rel="noopener" aria-label="Ouvrir dans un nouvel onglet">
-    <span>↗</span>
-    <span class="ext-label-full">Ouvrir le fichier</span>
-  </a>
 </header>
 
 <div class="pdf-wrap" id="pdf-wrap">
@@ -119,8 +115,7 @@ if(sessionStorage.getItem('atelier-auth')!=='1'){
 
   <div class="fallback" id="fallback">
     <h2>Affichage non disponible</h2>
-    <p>Impossible d'afficher ce PDF directement ici. Clique ci-dessous pour l'ouvrir dans un nouvel onglet.</p>
-    <a class="btn-open" id="fallback-open" href="#" target="_blank" rel="noopener">Ouvrir le PDF ↗</a>
+    <p>Impossible d'afficher cette partition ici pour le moment. Reviens en arrière et réessaie.</p>
   </div>
 </div>
 
@@ -184,8 +179,6 @@ document.getElementById('back-btn').href = fromPage;
 document.title = pdfTitle + " — les Phénix";
 
 const directUrl = toDirectPdf(pdfUrl);
-document.getElementById('ext-btn').href = directUrl;
-document.getElementById('fallback-open').href = directUrl;
 
 const loader = document.getElementById('loader');
 const fallback = document.getElementById('fallback');
@@ -243,10 +236,17 @@ loadingTask.promise.then(async (pdf) => {
     canvas.style.height = (viewport.height / RENDER_SCALE) + 'px';
     pagesContainer.appendChild(canvas);
     await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+
+    // Dès que la 1ère page est réellement affichée à l'écran, on considère
+    // que ça a marché : on cache le chargement et on annule le filet de
+    // sécurité, pour ne plus jamais afficher "non disponible" par-dessus
+    // une partition qui s'affiche correctement (le bug vu sur Safari).
+    if(pageNum === 1 && !settled){
+      settled = true;
+      clearTimeout(safetyTimeout);
+      loader.classList.add('hidden');
+    }
   }
-  settled = true;
-  clearTimeout(safetyTimeout);
-  loader.classList.add('hidden');
 }).catch((err) => {
   console.error('Erreur de chargement du PDF', err);
   if(settled) return;
@@ -280,11 +280,17 @@ document.getElementById('zoom-reset').addEventListener('click', ()=>{
   wrap.scrollTo({top:0, left:0, behavior:'smooth'});
 });
 
-/* RETOUR */
+/* RETOUR — ferme la fenêtre popup si on est affiché dedans (cas normal
+   depuis une fiche morceau), sinon comportement classique de navigation. */
 document.getElementById('back-btn').addEventListener('click', (e)=>{
-  if(window.history.length > 1){
-    e.preventDefault();
+  e.preventDefault();
+  const isInIframe = window.self !== window.top;
+  if(isInIframe && window.parent && typeof window.parent.closePdfModal === 'function'){
+    window.parent.closePdfModal();
+  } else if(window.history.length > 1){
     window.history.back();
+  } else {
+    window.location.href = fromPage;
   }
 });
 </script>

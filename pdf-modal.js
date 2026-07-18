@@ -28,7 +28,6 @@
     overlay.setAttribute('onclick', "if(event.target===this)closePdfModal()");
     overlay.innerHTML = `
       <div class="pdf-modal">
-        <button class="pdf-modal-close" onclick="closePdfModal()" aria-label="Fermer"><span data-lucide="x"></span></button>
         <iframe id="pdf-modal-frame" class="pdf-modal-iframe" title="Partition PDF"></iframe>
       </div>
     `;
