@@ -205,16 +205,6 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs
 
 const RENDER_SCALE = 1.8; // netteté correcte sur écrans retina, ajustable
 
-// disableRange/disableStream : Dropbox ne gère pas toujours bien les requêtes
-// partielles (Range) que PDF.js utilise par défaut pour charger progressivement —
-// ça peut faire échouer le chargement silencieusement. On force un téléchargement
-// complet en un seul bloc, plus lent mais beaucoup plus fiable avec ce serveur.
-const loadingTask = pdfjsLib.getDocument({
-  url: directUrl,
-  disableRange: true,
-  disableStream: true
-});
-
 // Filet de sécurité : si rien ne s'est passé au bout de 12 secondes (ni succès,
 // ni échec détecté par PDF.js), on affiche quand même le message de secours
 // plutôt que de laisser "Chargement…" indéfiniment sans explication.
@@ -223,8 +213,7 @@ const safetyTimeout = setTimeout(() => {
   if(!settled){ settled = true; showFallback(); }
 }, 12000);
 
-loadingTask.promise.then(async (pdf) => {
-  if(settled) return; // le filet de sécurité s'est déjà déclenché entre-temps
+async function renderPdf(pdf){
   for(let pageNum = 1; pageNum <= pdf.numPages; pageNum++){
     const page = await pdf.getPage(pageNum);
     const viewport = page.getViewport({ scale: RENDER_SCALE });
@@ -240,20 +229,35 @@ loadingTask.promise.then(async (pdf) => {
     // Dès que la 1ère page est réellement affichée à l'écran, on considère
     // que ça a marché : on cache le chargement et on annule le filet de
     // sécurité, pour ne plus jamais afficher "non disponible" par-dessus
-    // une partition qui s'affiche correctement (le bug vu sur Safari).
+    // une partition qui s'affiche correctement.
     if(pageNum === 1 && !settled){
       settled = true;
       clearTimeout(safetyTimeout);
       loader.classList.add('hidden');
     }
   }
-}).catch((err) => {
-  console.error('Erreur de chargement du PDF', err);
-  if(settled) return;
-  settled = true;
-  clearTimeout(safetyTimeout);
-  showFallback();
-});
+}
+
+// Safari et Firefox ne se comportent pas pareil face aux requêtes Range de
+// Dropbox : l'un préfère le mode par défaut (chargement progressif), l'autre
+// a besoin qu'on le désactive. Plutôt que de figer un seul choix qui casse
+// l'autre navigateur, on essaie la 1ère méthode et, si elle échoue, on
+// retente automatiquement avec l'autre avant d'abandonner.
+pdfjsLib.getDocument({ url: directUrl }).promise
+  .then(renderPdf)
+  .catch((err1) => {
+    console.warn('1ère tentative de chargement échouée, nouvel essai…', err1);
+    pagesContainer.innerHTML = ''; // on repart de zéro pour la 2e tentative
+    return pdfjsLib.getDocument({ url: directUrl, disableRange: true, disableStream: true }).promise
+      .then(renderPdf)
+      .catch((err2) => {
+        console.error('Erreur de chargement du PDF (2 tentatives)', err1, err2);
+        if(settled) return;
+        settled = true;
+        clearTimeout(safetyTimeout);
+        showFallback();
+      });
+  });
 
 /* ZOOM — on agrandit tout le conteneur de pages via CSS transform (rapide,
    pas de re-rendu), la netteté reste bonne jusqu'à ~250% grâce à RENDER_SCALE. */
