@@ -152,35 +152,7 @@
 
 </main>
 
-<!-- ═══ MODALE POPUP : LECTEUR PDF (reste sur la page) ═══ -->
-<div id="pdf-modal-overlay" class="pdf-modal-overlay" onclick="if(event.target===this)closePdfModal()">
-  <div class="pdf-modal">
-    <button class="pdf-modal-close" onclick="closePdfModal()" aria-label="Fermer"><span data-lucide="x"></span></button>
-    <iframe id="pdf-modal-frame" class="pdf-modal-iframe" title="Partition PDF"></iframe>
-  </div>
-</div>
-
-<style>
-.pdf-modal-overlay{position:fixed;inset:0;background:rgba(11,7,16,.75);z-index:280;display:none;align-items:center;justify-content:center;padding:1rem;}
-.pdf-modal-overlay.open{display:flex;}
-.pdf-modal{position:relative;width:100%;max-width:900px;height:88vh;border-radius:16px;overflow:hidden;background:#2a2a2a;box-shadow:0 30px 80px rgba(0,0,0,.5);}
-.pdf-modal-iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
-.pdf-modal-close{position:absolute;top:.6rem;right:.6rem;z-index:2;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.25);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;}
-.pdf-modal-close:hover{background:rgba(0,0,0,.75);}
-.pdf-modal-close [data-lucide]{width:18px;height:18px;}
-</style>
-
-<script>
-function openPdfModal(encodedUrl, title){
-  const iframe = document.getElementById('pdf-modal-frame');
-  iframe.src = 'pdf-view.html?url=' + encodedUrl + '&title=' + encodeURIComponent(title) + '&embed=1';
-  document.getElementById('pdf-modal-overlay').classList.add('open');
-}
-function closePdfModal(){
-  document.getElementById('pdf-modal-overlay').classList.remove('open');
-  document.getElementById('pdf-modal-frame').src = '';
-}
-</script>
+<script src="pdf-modal.js"></script>
 
 <script>
 const PASSWORD_HASH="eafe984f0ef6b3614acc40e53dfe5f5814abd392f6e5f13cbb84a3f6bdda65f6";
