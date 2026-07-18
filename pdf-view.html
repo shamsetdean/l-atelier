@@ -8,6 +8,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.js"></script>
 <style>
 :root{--accent:#6A5AE0;--accent-h:#4A3CB8;--accent-l:#ECEAF6;--accent-m:#8B7BFF;--cream:#F5F3FA;--ink:#1A1726;--muted:#736E86;--surface:#FFFFFF;--border:rgba(106,90,224,.22);--borders:rgba(106,90,224,.5);}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -22,9 +23,10 @@ header{background:var(--surface);border-bottom:2px solid var(--accent-m);padding
 .ext-btn{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Geist',system-ui,sans-serif;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;cursor:pointer;border-radius:6px;transition:all .15s;text-decoration:none;white-space:nowrap;min-height:40px;display:inline-flex;align-items:center;gap:4px;}
 .ext-btn:hover{border-color:var(--accent);color:var(--ink);}
 
-/* ZONE PDF — scroll + overflow pour zoom */
+/* ZONE PDF — scroll, pages empilées, rendues en canvas */
 .pdf-wrap{flex:1;position:relative;background:#2a2a2a;overflow:auto;-webkit-overflow-scrolling:touch;}
-.pdf-frame{width:100%;height:100%;border:none;display:block;background:#2a2a2a;transform-origin:top left;transition:transform .1s ease-out,width .1s ease-out,height .1s ease-out;}
+.pdf-pages{display:flex;flex-direction:column;align-items:center;gap:14px;padding:14px;transform-origin:top center;transition:transform .12s ease-out;}
+.pdf-page-canvas{box-shadow:0 6px 24px rgba(0,0,0,.35);background:#fff;display:block;max-width:none;}
 
 /* CONTRÔLES ZOOM */
 .zoom-controls{position:fixed;right:14px;bottom:14px;bottom:calc(14px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px;z-index:20;}
@@ -76,9 +78,9 @@ if(sessionStorage.getItem('atelier-auth')!=='1'){
     <span class="back-label-full">Retour</span>
   </a>
   <div class="page-title" id="page-title">Partition</div>
-  <a class="ext-btn" id="ext-btn" href="#" target="_blank" rel="noopener" aria-label="Ouvrir en plein écran">
+  <a class="ext-btn" id="ext-btn" href="#" target="_blank" rel="noopener" aria-label="Ouvrir dans un nouvel onglet">
     <span>↗</span>
-    <span class="ext-label-full">Plein écran</span>
+    <span class="ext-label-full">Ouvrir le fichier</span>
   </a>
 </header>
 
@@ -89,11 +91,11 @@ if(sessionStorage.getItem('atelier-auth')!=='1'){
     <div class="loader-hint">Partition en cours d'affichage</div>
   </div>
 
-  <iframe class="pdf-frame" id="pdf-frame" title="Partition PDF" allow="fullscreen"></iframe>
+  <div class="pdf-pages" id="pdf-pages"></div>
 
   <div class="fallback" id="fallback">
     <h2>Affichage non disponible</h2>
-    <p>Ton navigateur ne peut pas afficher ce PDF directement. Clique ci-dessous pour l'ouvrir en plein écran.</p>
+    <p>Impossible d'afficher ce PDF directement ici. Clique ci-dessous pour l'ouvrir dans un nouvel onglet.</p>
     <a class="btn-open" id="fallback-open" href="#" target="_blank" rel="noopener">Ouvrir le PDF ↗</a>
   </div>
 </div>
@@ -124,13 +126,10 @@ if(sessionStorage.getItem('atelier-auth')!=='1'){
 const params = new URLSearchParams(window.location.search);
 const pdfUrl = params.get('url');
 const pdfTitle = params.get('title') || 'Partition';
-const pdfDl = params.get('dl') || pdfUrl;
 const fromPage = params.get('from') || 'index.html';
 
-/* Sécurité : on n'accepte que des URL pointant vers Dropbox — cette page
-   affiche le contenu dans une iframe sur le domaine de confiance du site,
-   donc n'importe quelle URL externe acceptée sans contrôle serait une porte
-   ouverte à un lien piégé (phishing affiché avec l'URL du site en barre d'adresse). */
+/* Sécurité : on n'accepte que des URL pointant vers Dropbox — n'importe quelle
+   URL externe acceptée sans contrôle serait une porte ouverte à un lien piégé. */
 const ALLOWED_HOSTS = ['dl.dropboxusercontent.com', 'www.dropbox.com', 'dropbox.com'];
 let urlOk = false;
 if(pdfUrl){
@@ -144,9 +143,8 @@ if(!urlOk){
   window.location.replace(fromPage);
 }
 
-/* Transforme une URL Dropbox en URL directe du PDF (via dl.dropboxusercontent.com)
-   ce qui permet au navigateur mobile d'afficher le PDF en natif avec pinch-zoom
-   et pagination complète, au lieu de la webapp Dropbox qui bloque ces interactions. */
+/* Transforme une URL Dropbox en URL de contenu direct (dl.dropboxusercontent.com + raw=1)
+   pour que le fetch() ci-dessous récupère les octets du PDF plutôt que la page web Dropbox. */
 function toDirectPdf(url){
   if(!url) return url;
   let out = url.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
@@ -161,70 +159,62 @@ document.getElementById('page-title').textContent = pdfTitle;
 document.getElementById('back-btn').href = fromPage;
 document.title = pdfTitle + " — les Phénix";
 
-/* DÉTECTION MOBILE */
-const isMobile = window.matchMedia('(max-width:860px)').matches
-              || window.matchMedia('(pointer:coarse) and (hover:none)').matches;
-
-/* URL à charger */
 const directUrl = toDirectPdf(pdfUrl);
-const finalUrl = directUrl;
-
 document.getElementById('ext-btn').href = directUrl;
 document.getElementById('fallback-open').href = directUrl;
 
-/* CHARGEMENT */
-const iframe = document.getElementById('pdf-frame');
 const loader = document.getElementById('loader');
 const fallback = document.getElementById('fallback');
 const tip = document.getElementById('zoom-tip');
+const pagesContainer = document.getElementById('pdf-pages');
 
-iframe.src = finalUrl;
+const isMobile = window.matchMedia('(max-width:860px)').matches
+              || window.matchMedia('(pointer:coarse) and (hover:none)').matches;
 
 if(isMobile){
   setTimeout(()=>tip.classList.add('visible'), 1500);
   setTimeout(()=>tip.classList.remove('visible'), 5500);
 }
 
-const timeout = setTimeout(()=>{
-  try{
-    if(!iframe.contentDocument || !iframe.contentDocument.body || iframe.contentDocument.body.innerHTML === ''){
-      showFallback();
-    }
-  }catch(e){}
-  loader.classList.add('hidden');
-}, 8000);
-
-iframe.addEventListener('load', ()=>{
-  clearTimeout(timeout);
-  setTimeout(()=>loader.classList.add('hidden'), 400);
-});
-
-iframe.addEventListener('error', ()=>{
-  clearTimeout(timeout);
-  showFallback();
-});
-
 function showFallback(){
-  iframe.style.display = 'none';
   loader.classList.add('hidden');
   fallback.classList.add('visible');
   document.getElementById('zoom-controls').style.display = 'none';
 }
 
-/* ZOOM
- * L'iframe est cross-origin, on ne peut pas injecter de JS dedans.
- * On applique un scale CSS + on compense width/height pour que le contenu
- * reste navigable à la souris/doigt. Le conteneur pdf-wrap a overflow:auto
- * donc on peut scroller dans le document zoomé. */
+/* ── RENDU PDF.js : on dessine chaque page en <canvas>, indépendamment
+   de la façon dont Dropbox sert le fichier (inline ou en téléchargement) ── */
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.js';
+
+const RENDER_SCALE = 1.8; // netteté correcte sur écrans retina, ajustable
+
+pdfjsLib.getDocument(directUrl).promise.then(async (pdf) => {
+  for(let pageNum = 1; pageNum <= pdf.numPages; pageNum++){
+    const page = await pdf.getPage(pageNum);
+    const viewport = page.getViewport({ scale: RENDER_SCALE });
+    const canvas = document.createElement('canvas');
+    canvas.className = 'pdf-page-canvas';
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    canvas.style.width = (viewport.width / RENDER_SCALE) + 'px';
+    canvas.style.height = (viewport.height / RENDER_SCALE) + 'px';
+    pagesContainer.appendChild(canvas);
+    await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+  }
+  loader.classList.add('hidden');
+}).catch((err) => {
+  console.error('Erreur de chargement du PDF', err);
+  showFallback();
+});
+
+/* ZOOM — on agrandit tout le conteneur de pages via CSS transform (rapide,
+   pas de re-rendu), la netteté reste bonne jusqu'à ~250% grâce à RENDER_SCALE. */
 let zoom = 1;
 const wrap = document.getElementById('pdf-wrap');
 const zoomLevel = document.getElementById('zoom-level');
 
 function applyZoom(){
-  iframe.style.transformOrigin = 'top left';
-  iframe.style.transform = `scale(${zoom})`;
-  iframe.style.width = (100 / zoom) + '%';
-  iframe.style.height = (100 / zoom) + '%';
+  pagesContainer.style.transform = `scale(${zoom})`;
   zoomLevel.textContent = Math.round(zoom * 100) + '%';
 }
 
