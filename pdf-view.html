@@ -8,20 +8,42 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
-:root{--accent:#6A5AE0;--accent-h:#4A3CB8;--accent-l:#ECEAF6;--accent-m:#8B7BFF;--cream:#F5F3FA;--ink:#1A1726;--muted:#736E86;--surface:#FFFFFF;--border:rgba(106,90,224,.22);--borders:rgba(106,90,224,.5);}
+:root{
+  --bg:#ECEAF6;--ink:#1A1726;--ink-2:#3A3550;--muted:#736E86;--muted-2:#9C97AC;
+  --accent:#6A5AE0;--accent-2:#8B7BFF;--accent-deep:#4A3CB8;--accent-soft:rgba(106,90,224,.12);--accent-blob:#9C8BFF;
+  --glass:rgba(255,255,255,.55);--glass-border:rgba(255,255,255,.6);--glass-line:rgba(255,255,255,.5);
+  --glass-shadow:0 8px 32px rgba(40,33,90,.08);--glass-inset:inset 0 1px 0 rgba(255,255,255,.6);
+  --r-pill:999px;--r-md:20px;
+  --serif:'Instrument Serif',ui-serif,Georgia,serif;--sans:'Geist',system-ui,sans-serif;
+  --accent-h:var(--accent-deep);--accent-m:var(--accent-2);--cream:var(--bg);--surface:#fff;
+  --border:var(--glass-line);--borders:rgba(106,90,224,.4);
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;}
-body{background:var(--cream);color:var(--ink);font-family:'Geist',system-ui,sans-serif;display:flex;flex-direction:column;}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);display:flex;flex-direction:column;}
 
-/* HEADER */
-header{background:var(--surface);border-bottom:2px solid var(--accent-m);padding:0 1rem;padding-top:env(safe-area-inset-top);display:flex;align-items:center;gap:.75rem;min-height:calc(54px + env(safe-area-inset-top));flex-shrink:0;box-shadow:0 2px 12px rgba(106,90,224,.1);z-index:10;}
-.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:#fff;border:none;font-family:'Geist',system-ui,sans-serif;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:10px 14px;cursor:pointer;border-radius:6px;font-weight:700;text-decoration:none;transition:background .15s;min-height:40px;}
-.back-btn:hover,.back-btn:active{background:var(--accent-h);}
-.page-title{flex:1;font-family:'Instrument Serif',ui-serif,Georgia,serif;font-style:italic;font-weight:700;font-size:1rem;color:var(--accent);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.ext-btn{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'Geist',system-ui,sans-serif;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;cursor:pointer;border-radius:6px;transition:all .15s;text-decoration:none;white-space:nowrap;min-height:40px;display:inline-flex;align-items:center;gap:4px;}
-.ext-btn:hover{border-color:var(--accent);color:var(--ink);}
+.aurora{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none;background:var(--bg);}
+.aurora span{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;}
+.aurora .b1{width:46vw;height:46vw;background:var(--accent-blob);top:-12vw;left:-8vw;}
+.aurora .b2{width:40vw;height:40vw;background:#FF9E7D;bottom:-14vw;right:-6vw;}
+.aurora .b3{width:32vw;height:32vw;background:#6FE0C6;top:34vh;right:16vw;opacity:.35;}
+
+/* HEADER — pilule flottante en verre, comme le reste du site */
+header{
+  position:sticky;top:1rem;z-index:10;margin:1rem auto 0;
+  max-width:1000px;width:calc(100% - 2rem);
+  background:var(--glass);backdrop-filter:blur(26px) saturate(165%);-webkit-backdrop-filter:blur(26px) saturate(165%);
+  border:1px solid var(--glass-border);box-shadow:var(--glass-shadow),var(--glass-inset);
+  padding:.6rem .7rem .6rem 1.1rem;border-radius:var(--r-pill);
+  display:flex;align-items:center;gap:.75rem;flex-shrink:0;
+}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border:none;font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:-.01em;padding:0 1rem;height:42px;cursor:pointer;border-radius:var(--r-pill);text-decoration:none;transition:all .2s;box-shadow:0 8px 22px var(--accent-soft);}
+.back-btn:hover,.back-btn:active{transform:translateY(-1px);}
+.page-title{flex:1;font-family:var(--serif);font-style:italic;font-weight:400;font-size:1.15rem;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ext-btn{background:rgba(255,255,255,.5);border:1px solid var(--glass-line);color:var(--ink-2);font-family:var(--sans);font-size:.72rem;font-weight:600;padding:0 1rem;height:42px;cursor:pointer;border-radius:var(--r-pill);transition:all .2s;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;}
+.ext-btn:hover{background:#fff;color:var(--accent-deep);transform:translateY(-1px);}
 
 /* ZONE PDF — scroll, pages empilées, rendues en canvas */
 .pdf-wrap{flex:1;position:relative;background:#2a2a2a;overflow:auto;-webkit-overflow-scrolling:touch;}
@@ -72,9 +94,11 @@ if(sessionStorage.getItem('atelier-auth')!=='1'){
 }
 </script>
 
+<div class="aurora"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
 <header>
   <a class="back-btn" href="#" id="back-btn" aria-label="Retour">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     <span class="back-label-full">Retour</span>
   </a>
   <div class="page-title" id="page-title">Partition</div>
@@ -184,11 +208,30 @@ function showFallback(){
 
 /* ── RENDU PDF.js : on dessine chaque page en <canvas>, indépendamment
    de la façon dont Dropbox sert le fichier (inline ou en téléchargement) ── */
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.js';
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
 const RENDER_SCALE = 1.8; // netteté correcte sur écrans retina, ajustable
 
-pdfjsLib.getDocument(directUrl).promise.then(async (pdf) => {
+// disableRange/disableStream : Dropbox ne gère pas toujours bien les requêtes
+// partielles (Range) que PDF.js utilise par défaut pour charger progressivement —
+// ça peut faire échouer le chargement silencieusement. On force un téléchargement
+// complet en un seul bloc, plus lent mais beaucoup plus fiable avec ce serveur.
+const loadingTask = pdfjsLib.getDocument({
+  url: directUrl,
+  disableRange: true,
+  disableStream: true
+});
+
+// Filet de sécurité : si rien ne s'est passé au bout de 12 secondes (ni succès,
+// ni échec détecté par PDF.js), on affiche quand même le message de secours
+// plutôt que de laisser "Chargement…" indéfiniment sans explication.
+let settled = false;
+const safetyTimeout = setTimeout(() => {
+  if(!settled){ settled = true; showFallback(); }
+}, 12000);
+
+loadingTask.promise.then(async (pdf) => {
+  if(settled) return; // le filet de sécurité s'est déjà déclenché entre-temps
   for(let pageNum = 1; pageNum <= pdf.numPages; pageNum++){
     const page = await pdf.getPage(pageNum);
     const viewport = page.getViewport({ scale: RENDER_SCALE });
@@ -201,9 +244,14 @@ pdfjsLib.getDocument(directUrl).promise.then(async (pdf) => {
     pagesContainer.appendChild(canvas);
     await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
   }
+  settled = true;
+  clearTimeout(safetyTimeout);
   loader.classList.add('hidden');
 }).catch((err) => {
   console.error('Erreur de chargement du PDF', err);
+  if(settled) return;
+  settled = true;
+  clearTimeout(safetyTimeout);
   showFallback();
 });
 
