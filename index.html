@@ -459,17 +459,6 @@ header.app-header{position:sticky;top:calc(.8rem + env(safe-area-inset-top,0px))
 .ab-btn svg{flex-shrink:0;}
 .ab-clear{padding:.45rem .6rem;}
 
-/* PDF MODAL */
-.pdf-overlay{position:fixed;inset:0;background:rgba(26,23,38,.45);z-index:600;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px);padding:1.5rem;}
-.pdf-overlay.open{display:flex;}
-.pdf-modal{border-radius:var(--r-lg);width:94vw;max-width:960px;height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--glass-shadow-lg);background:var(--glass-strong);backdrop-filter:blur(30px) saturate(160%);border:1px solid var(--glass-border);}
-.pdf-modal-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.3rem;border-bottom:1px solid var(--glass-line);flex-shrink:0;}
-.pdf-modal-title{font-family:var(--serif);font-style:italic;font-size:1.3rem;color:var(--ink);}
-.pdf-modal-close{display:flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.5);border:1px solid var(--glass-line);color:var(--ink-2);font-size:12px;font-weight:600;padding:.5rem .9rem;cursor:pointer;border-radius:var(--r-pill);}
-.pdf-modal-close [data-lucide]{width:14px;height:14px;}
-.pdf-modal-body{flex:1;overflow:hidden;background:#2A2535;}
-.pdf-modal-body iframe{width:100%;height:100%;border:none;display:block;}
-
 /* FOOTER */
 footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg);padding:2rem;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:2rem;}
 .footer-brand{display:flex;flex-direction:column;}
@@ -1286,17 +1275,6 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
 
   </div>
 
-  <!-- MODALE PDF -->
-  <div class="pdf-overlay" id="pdf-overlay" onclick="closePDF(event)">
-    <div class="pdf-modal">
-      <div class="pdf-modal-header">
-        <span class="pdf-modal-title" id="pdf-modal-title">Partition</span>
-        <button class="pdf-modal-close" onclick="closePDFBtn()"><span data-lucide="x"></span><span data-fr="Fermer" data-es="Cerrar">Fermer</span></button>
-      </div>
-      <div class="pdf-modal-body"><iframe id="pdf-frame" src="" title="Partition PDF"></iframe></div>
-    </div>
-  </div>
-
   <!-- FOOTER -->
   <footer class="app-footer glass">
     <div class="footer-brand">
@@ -1741,17 +1719,7 @@ function closeSheet(e){
   if(e&&e.target&&e.target.id!=='sheet-overlay')return;
   document.getElementById('sheet').classList.remove('open');document.getElementById('sheet-overlay').classList.remove('open');document.body.style.overflow='';
 }
-
-function openPDF(titre,rawUrl){
-  const viewerUrl='https://mozilla.github.io/pdf.js/web/viewer.html?file='+encodeURIComponent(rawUrl);
-  document.getElementById('pdf-modal-title').textContent=titre;
-  document.getElementById('pdf-frame').src=viewerUrl;
-  document.getElementById('pdf-overlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closePDF(e){if(e.target===document.getElementById('pdf-overlay'))closePDFBtn();}
-function closePDFBtn(){document.getElementById('pdf-overlay').classList.remove('open');document.getElementById('pdf-frame').src='';document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePDFBtn();closeSheet();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSheet();}});
 
 
 /* ── FILTRE PAR TAG / MOOD ── */
