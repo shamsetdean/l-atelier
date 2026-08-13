@@ -1,7 +1,75 @@
-All Rights Reserved
+Copyright © 2026 Shams Guettaf — Anthropotech Lab
+Projet : l-atelier (Les Phénix)
+Tous droits réservés.
 
-Copyright (c) 2026 Anthropotech Lab
+------------------------------------------------------------
+AVERTISSEMENT — DÉPÔT PUBLIC SUR GITHUB
+------------------------------------------------------------
 
-No part of this repository (source code, assets, design, or content) may be
-reproduced, distributed, modified, or used in any form without prior written
-permission from the copyright holder.
+Le fait que le code source de ce dépôt soit consultable
+publiquement sur GitHub ne constitue en aucun cas une
+autorisation de reproduction, de modification, de
+distribution ou d'exploitation, en tout ou partie.
+
+La visibilité publique du code répond uniquement à un usage
+de portfolio et de démonstration technique. Elle n'emporte
+aucune renonciation aux droits d'auteur de son créateur.
+
+------------------------------------------------------------
+FONDEMENT JURIDIQUE
+------------------------------------------------------------
+
+Cette œuvre (code source, interface, identité visuelle, nom
+du projet, logo et éléments graphiques associés) est protégée
+par le droit d'auteur français, notamment les articles
+L111-1 et suivants du Code de la propriété intellectuelle,
+dès sa création, sans formalité de dépôt.
+
+Shams Guettaf est l'auteur et le titulaire exclusif des
+droits patrimoniaux et moraux sur cette œuvre.
+
+------------------------------------------------------------
+CE QUI EST INTERDIT SANS AUTORISATION ÉCRITE PRÉALABLE
+------------------------------------------------------------
+
+- Toute reproduction totale ou partielle du code, du design,
+  de l'identité visuelle ou du concept applicatif
+- Toute modification, adaptation, traduction ou création
+  d'une œuvre dérivée
+- Toute distribution, publication, republication ou mise à
+  disposition de tiers, gratuite ou payante
+- Toute exploitation commerciale, directe ou indirecte
+- Toute réutilisation du nom, du logo ou de l'identité
+  visuelle associée à ce projet
+
+------------------------------------------------------------
+MATURITÉ DU PROJET ET ABSENCE DE GARANTIE
+------------------------------------------------------------
+
+Ce projet fait partie d'un ensemble de réalisations
+personnelles à des degrés d'aboutissement variables :
+certains sont des prototypes, des démonstrations techniques
+ou des travaux en cours, d'autres sont plus finalisés. Aucun
+n'est garanti exempt d'erreurs ni adapté à un usage
+particulier.
+
+Le logiciel est fourni "tel quel", sans garantie d'aucune
+sorte, explicite ou implicite. En aucun cas l'auteur ne
+pourra être tenu responsable de tout dommage direct,
+indirect, accidentel ou consécutif résultant de l'utilisation
+ou de l'impossibilité d'utiliser ce logiciel. Toute
+utilisation se fait aux risques et périls exclusifs de
+l'utilisateur.
+
+------------------------------------------------------------
+CONTACT
+------------------------------------------------------------
+
+Toute demande d'autorisation doit être adressée directement
+à l'auteur : shamsetdean@gmail.com
+
+------------------------------------------------------------
+
+Ce fichier LICENSE ne constitue pas une licence open-source
+au sens usuel du terme (MIT, GPL, Apache, etc.). Il s'agit
+d'une notice de réserve de droits ("all rights reserved").
