@@ -370,14 +370,14 @@ header.app-header{position:sticky;top:calc(.8rem + env(safe-area-inset-top,0px))
 
 .event-seen-row{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;padding:0 0 1rem 3.6rem;margin-top:-.3rem;}
 .event-seen-lbl{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-right:.3rem;}
-.event-seen-avatar{position:relative;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.5);background-size:cover;background-position:center;border:1px solid var(--glass-line);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);cursor:default;padding:0;flex-shrink:0;opacity:.45;transition:all .2s;line-height:1;gap:1px;}
+.event-seen-avatar{position:relative;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.5);background-size:cover;background-position:center;border:1px solid var(--glass-line);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);cursor:default;padding:0;flex-shrink:0;opacity:.45;transition:all .2s;line-height:1;margin-bottom:8px;}
 .event-seen-avatar.seen{opacity:1;border-color:#3fbf6f;}
 .event-seen-avatar.is-me{cursor:pointer;box-shadow:0 0 0 2px var(--accent-soft);}
 .event-seen-avatar.is-me:hover{transform:scale(1.08);}
-.event-seen-avatar .instrument-ico{width:12px;height:12px;color:var(--accent);}
-.event-seen-avatar[style*="background-image"] .instrument-ico{color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6));}
+.event-seen-avatar .instrument-ico{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);width:14px;height:14px;padding:2px;color:var(--accent);background:#fff;border-radius:50%;border:1px solid var(--glass-line);}
+.event-seen-avatar[style*="background-image"] .instrument-ico{color:var(--accent);filter:none;}
 .event-seen-avatar[style*="background-image"]{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6);}
-.event-seen-avatar .check{position:absolute;bottom:-3px;right:-3px;width:14px;height:14px;background:#3fbf6f;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff;}
+.event-seen-avatar .check{position:absolute;top:-3px;right:-3px;width:14px;height:14px;background:#3fbf6f;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff;}
 .event-seen-avatar .check svg{width:8px;height:8px;}
 @media(max-width:640px){.event-seen-row{padding-left:0;}}
 .event-export-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--glass-line);background:rgba(255,255,255,.6);color:var(--muted);cursor:pointer;transition:all .18s;}
@@ -862,12 +862,25 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
 
       <div class="planning-list">
 
+        <div class="event-row glass" data-date="2026-09-10">
+          <div class="event-grid">
+            <div class="event-icon" style="background:rgba(115,110,134,.12);color:var(--muted);"><span data-lucide="presentation"></span></div>
+            <div>
+              <div class="event-date-line"><span class="event-day">10</span><span class="event-month">Septembre 2026</span></div>
+              <div class="event-name"><span data-fr="Réunion pédagogique" data-es="Reunión pedagógica">Réunion pédagogique</span></div>
+              <div class="event-lieu"><span data-lucide="map-pin"></span><span data-fr="Chez Mistinguett · 20h30" data-es="En Mistinguett · 20:30">Chez Mistinguett · 20h30</span></div>
+            </div>
+            <div class="event-badge-col"><span class="event-badge archive"><span data-lucide="presentation"></span><span data-fr="Réunion" data-es="Reunión">Réunion</span></span><button class="event-export-btn" onclick="exportSingleEvent(this)" title="Ajouter au calendrier" aria-label="Ajouter au calendrier"><span data-lucide="calendar-plus"></span></button></div>
+          </div>
+        </div>
+
         <div class="event-row glass" data-date="2026-09-24">
           <div class="event-grid">
             <div class="event-icon" style="background:rgba(115,110,134,.12);color:var(--muted);"><span data-lucide="user-x"></span></div>
             <div>
               <div class="event-date-line"><span class="event-day">24</span><span class="event-month">Septembre 2026</span></div>
               <div class="event-name"><span data-fr="Absence de Cédric" data-es="Ausencia de Cédric">Absence de Cédric</span></div>
+              <div class="event-lieu"><span data-lucide="calendar-x"></span><span data-fr="Cours annulé · report possible au 25/09 (à confirmer)" data-es="Clase cancelada · posible aplazamiento al 25/09 (por confirmar)">Cours annulé · report possible au 25/09 (à confirmer)</span></div>
             </div>
             <div class="event-badge-col"><span class="event-badge archive"><span data-lucide="user-x"></span><span data-fr="Absence" data-es="Ausencia">Absence</span></span><button class="event-export-btn" onclick="exportSingleEvent(this)" title="Ajouter au calendrier" aria-label="Ajouter au calendrier"><span data-lucide="calendar-plus"></span></button></div>
           </div>
