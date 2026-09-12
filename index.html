@@ -388,6 +388,11 @@ header.app-header{position:sticky;top:calc(.8rem + env(safe-area-inset-top,0px))
 .event-badge.repetition{background:rgba(34,184,155,.14);color:#0F7A63;}
 .event-badge.nouveau{background:var(--accent);color:#fff;}
 .event-badge.archive{background:rgba(115,110,134,.1);color:var(--muted);}
+#agenda .event-row.passed{opacity:.5;padding:.7rem 1.1rem;}
+#agenda .event-row.passed .event-icon{width:38px;height:38px;}
+#agenda .event-row.passed .event-icon [data-lucide]{width:16px;height:16px;}
+#agenda .event-row.passed .event-day{font-size:1.3rem;}
+#agenda .event-row.passed .event-seen-row{display:none;}
 .event-time{font-size:.78rem;color:var(--muted);margin-top:.08rem;}
 .event-extra{margin-top:1.1rem;padding-top:1.1rem;border-top:1px solid var(--glass-line);}
 .event-extra-lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem;}
@@ -874,15 +879,15 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
           </div>
         </div>
 
-        <div class="event-row glass" data-date="2026-09-17">
+        <div class="event-row repetition glass" data-date="2026-09-17">
           <div class="event-grid">
-            <div class="event-icon" style="background:rgba(115,110,134,.12);color:var(--muted);"><span data-lucide="presentation"></span></div>
+            <div class="event-icon"><span data-lucide="mic-vocal"></span></div>
             <div>
               <div class="event-date-line"><span class="event-day">17</span><span class="event-month">Septembre 2026</span></div>
-              <div class="event-name"><span data-fr="Réunion pédagogique" data-es="Reunión pedagógica">Réunion pédagogique</span></div>
+              <div class="event-name"><span data-fr="Répétition" data-es="Ensayo">Répétition</span></div>
               <div class="event-lieu"><span data-lucide="map-pin"></span><span data-fr="Conservatoire Jacques-Higelin de Chelles · 19h30-21h" data-es="Conservatorio Jacques-Higelin de Chelles · 19:30-21h">Conservatoire Jacques-Higelin de Chelles · 19h30-21h</span></div>
             </div>
-            <div class="event-badge-col"><span class="event-badge archive"><span data-lucide="presentation"></span><span data-fr="Réunion" data-es="Reunión">Réunion</span></span><button class="event-export-btn" onclick="exportSingleEvent(this)" title="Ajouter au calendrier" aria-label="Ajouter au calendrier"><span data-lucide="calendar-plus"></span></button></div>
+            <div class="event-badge-col"><span class="event-badge repetition"><span data-lucide="mic-vocal"></span><span data-fr="Répétition" data-es="Ensayo">Répétition</span></span><button class="event-export-btn" onclick="exportSingleEvent(this)" title="Ajouter au calendrier" aria-label="Ajouter au calendrier"><span data-lucide="calendar-plus"></span></button></div>
           </div>
         </div>
 
@@ -1894,7 +1899,19 @@ function postLoginInit(){
   try{maybeShowA2hsTutorial();}catch(e){}
   try{insertThursdayCounters();}catch(e){}
   try{loadAgendaSeen();}catch(e){}
+  try{markPastAgendaEvents();}catch(e){}
   refreshIcons();
+}
+
+/* ── AGENDA : événements passés affichés plus compacts et transparents ── */
+function markPastAgendaEvents(){
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  document.querySelectorAll('#agenda .event-row[data-date]').forEach(row => {
+    const end = row.getAttribute('data-end') || row.getAttribute('data-date');
+    const endDate = new Date(end + 'T00:00:00');
+    row.classList.toggle('passed', endDate < today);
+  });
 }
 
 /* ── AGENDA : nombre de jeudis (répétitions) entre deux dates consécutives ── */
