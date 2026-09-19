@@ -19,6 +19,7 @@
   --accent-blob:#D98CAE;
 }
 .audio-block:has(.audio-placeholder) { display: none; }
+.video-duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1rem;}
 </style>
 </head>
 <body>
@@ -70,9 +71,14 @@
 
   <!-- VIDEO YOUTUBE -->
   <section class="section-block">
-    <h2 class="section-title"><span data-lucide="youtube"></span><span data-fr="Vidéo de référence" data-es="Vídeo de referencia">Vidéo de référence</span></h2>
-    <div class="video-wrapper">
+    <h2 class="section-title"><span data-lucide="youtube"></span><span data-fr="Vidéos de référence" data-es="Vídeos de referencia">Vidéos de référence</span></h2>
+    <div class="video-duo">
+      <div class="video-wrapper">
       <iframe src="https://www.youtube-nocookie.com/embed/A0F9lh8TiSM" title="Gladys Knight & The Pips - Midnight Train to Georgia" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube-nocookie.com/embed/McIAAS25Wq0" title="Midnight Train to Georgia (vidéo 2)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
     </div>
   </section>
 
