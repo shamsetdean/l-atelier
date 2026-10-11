@@ -535,6 +535,66 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
   .footer-brand .word{font-size:2rem;}
   .login-logo{font-size:3rem;}
 }
+
+/* ── AGENDA : vue calendrier mensuelle + fenêtre de détail ── */
+#agenda-list{display:none;}
+.agenda-cal{border-radius:var(--r-md);padding:1.2rem 1.2rem 1.1rem;}
+.cal-head{display:flex;align-items:center;justify-content:space-between;gap:.8rem;margin-bottom:1rem;flex-wrap:wrap;}
+.cal-title{font-family:var(--serif);font-style:italic;font-size:clamp(1.7rem,4vw,2.3rem);line-height:1;letter-spacing:-.02em;color:var(--ink);text-transform:capitalize;}
+.cal-nav{display:flex;align-items:center;gap:.4rem;}
+.cal-nav button{display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.55);border:1px solid var(--glass-line);color:var(--ink-2);height:38px;min-width:38px;padding:0 .8rem;border-radius:var(--r-pill);cursor:pointer;font-family:var(--sans);font-size:12.5px;font-weight:600;transition:all .2s;}
+.cal-nav button:hover{color:var(--accent-deep);border-color:var(--accent);}
+.cal-nav button [data-lucide]{width:17px;height:17px;}
+.cal-dow,.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));}
+.cal-dow div{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center;padding:.3rem 0 .5rem;}
+.cal-grid{border-top:1px solid var(--glass-line);border-left:1px solid var(--glass-line);}
+.cal-cell{border:0;border-right:1px solid var(--glass-line);border-bottom:1px solid var(--glass-line);min-height:104px;padding:.3rem .35rem .4rem;display:flex;flex-direction:column;gap:3px;background:none;font:inherit;color:inherit;text-align:left;min-width:0;}
+.cal-cell.weekend{background:rgba(26,23,38,.03);}
+.cal-cell.out{opacity:.38;}
+button.cal-cell{cursor:pointer;transition:background .15s;}
+button.cal-cell:hover{background:var(--accent-soft);}
+button.cal-cell:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
+.cal-num{align-self:flex-end;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:12.5px;font-weight:600;color:var(--ink-2);}
+.cal-cell.today .cal-num{background:var(--accent);color:#fff;}
+.cal-evs{display:flex;flex-direction:column;gap:3px;min-width:0;}
+.cal-pill{font-size:11px;font-weight:600;line-height:1.25;min-height:18px;padding:2px 6px;border-radius:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cal-pill.concert{background:rgba(106,90,224,.16);color:var(--accent-deep);}
+.cal-pill.repetition{background:rgba(34,184,155,.16);color:#0F7A63;}
+.cal-pill.other{background:rgba(115,110,134,.14);color:var(--ink-2);}
+.cal-pill.passed{opacity:.55;}
+.cal-more{font-size:10.5px;font-weight:600;color:var(--muted);padding-left:4px;}
+.cal-legend{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;margin-top:.9rem;font-size:11.5px;color:var(--muted);font-weight:600;}
+.cal-legend span{display:inline-flex;align-items:center;gap:.4rem;}
+.cal-legend i{width:9px;height:9px;border-radius:50%;display:inline-block;}
+.cal-legend .c-concert{background:var(--accent);}
+.cal-legend .c-repetition{background:#22B89B;}
+.cal-legend .c-other{background:var(--muted);}
+.ag-modal{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:1rem;background:rgba(26,23,38,.4);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);}
+.ag-modal.open{display:flex;}
+.ag-modal-card{width:100%;max-width:560px;max-height:calc(100vh - 2rem);max-height:calc(100dvh - 2rem);overflow-y:auto;background:rgba(246,244,252,.96);border:1px solid var(--glass-line);border-radius:var(--r-md);padding:1.2rem 1.2rem 1.3rem;box-shadow:0 24px 60px rgba(26,23,38,.28);}
+.ag-modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1rem;}
+.ag-modal-title{font-family:var(--serif);font-style:italic;font-size:1.7rem;line-height:1.05;letter-spacing:-.02em;color:var(--ink);text-transform:capitalize;}
+.ag-modal-close{flex-shrink:0;width:38px;height:38px;border-radius:50%;border:1px solid var(--glass-line);background:rgba(255,255,255,.7);color:var(--ink-2);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.ag-modal-close [data-lucide]{width:18px;height:18px;}
+.ag-modal-body{display:flex;flex-direction:column;gap:.85rem;}
+#agenda .ag-modal-body .event-row.passed{opacity:1;padding:1.2rem 1.4rem;}
+#agenda .ag-modal-body .event-row.passed .event-icon{width:52px;height:52px;}
+#agenda .ag-modal-body .event-row.passed .event-icon [data-lucide]{width:23px;height:23px;}
+#agenda .ag-modal-body .event-row.passed .event-day{font-size:1.8rem;}
+#agenda .ag-modal-body .event-row.passed .event-seen-row{display:flex;}
+@media(max-width:640px){
+  .agenda-cal{padding:.9rem .5rem .9rem;}
+  .cal-cell{min-height:58px;padding:.25rem .15rem;align-items:center;gap:2px;}
+  .cal-num{align-self:center;}
+  .cal-evs{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:3px;}
+  .cal-pill{font-size:0;width:7px;height:7px;min-height:7px;padding:0;border-radius:50%;}
+  .cal-pill.concert{background:var(--accent);}
+  .cal-pill.repetition{background:#22B89B;}
+  .cal-pill.other{background:var(--muted);}
+  .cal-more{display:none;}
+  .cal-dow div{font-size:9.5px;letter-spacing:.02em;}
+  .ag-modal{align-items:flex-end;padding:.6rem;}
+}
 </style>
 </head>
 <body>
@@ -852,7 +912,9 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
         </div>
       </div>
 
-      <div class="planning-list">
+      <div id="agenda-cal" class="agenda-cal glass"></div>
+
+      <div class="planning-list" id="agenda-list">
 
         <div class="event-row glass" data-date="2026-09-10">
           <div class="event-grid">
@@ -1075,6 +1137,16 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
         </div>
 
       </div>
+    
+      <div id="ag-modal" class="ag-modal" aria-hidden="true" onclick="if(event.target===this)closeAgendaModal()">
+        <div class="ag-modal-card" role="dialog" aria-modal="true" aria-labelledby="ag-modal-title">
+          <div class="ag-modal-head">
+            <div id="ag-modal-title" class="ag-modal-title"></div>
+            <button type="button" class="ag-modal-close" onclick="closeAgendaModal()" aria-label="Fermer"><span data-lucide="x"></span></button>
+          </div>
+          <div id="ag-modal-body" class="ag-modal-body"></div>
+        </div>
+      </div>
     </section>
 
     <!-- ═══ PLANNING ═══ -->
@@ -1091,6 +1163,28 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
       </div>
 
       <div class="planning-list">
+
+        <!-- Répétition 8 octobre (1 audio : Trust + Midnight Train to Georgia) -->
+        <div class="event-row repetition glass" data-date="2026-10-08">
+          <div class="event-grid">
+            <div class="event-icon"><span data-lucide="mic-vocal"></span></div>
+            <div>
+              <div class="event-date-line"><span class="event-day">8</span><span class="event-month">Octobre 2026</span></div>
+              <div class="event-name"><span data-fr="Répétition" data-es="Ensayo">Répétition</span></div>
+              <div class="event-lieu"><span data-lucide="map-pin"></span>Conservatoire Jacques-Higelin de Chelles · 19h30</div>
+              <div class="event-lieu"><span data-lucide="music"></span><span data-fr="Morceaux travaillés : Trust et Midnight Train to Georgia" data-es="Canciones trabajadas : Trust y Midnight Train to Georgia">Morceaux travaillés : Trust et Midnight Train to Georgia</span></div>
+            </div>
+            <span class="event-badge nouveau"><span data-lucide="sparkle"></span><span data-fr="Nouveau" data-es="Nuevo">Nouveau</span></span>
+          </div>
+          <div class="event-extra">
+            <div class="event-extra-lbl"><span data-lucide="audio-lines"></span><span data-fr="2 morceaux · 1 enregistrement" data-es="2 canciones · 1 grabación">2 morceaux · 1 enregistrement</span></div>
+
+            <div class="audio-track">
+              <div class="t-name">Trust · Midnight Train to Georgia<span class="audio-source"></span></div>
+              <audio controls preload="none"><source src="https://www.dropbox.com/scl/fi/esx7g0j5eh6chy531s616/R-petition-du-8-Octobre.mp3?rlkey=suebwv2h8c908h6cu5uddp4t3&raw=1" type="audio/mpeg"></audio>
+            </div>
+          </div>
+        </div>
 
         <!-- Répétition 17 septembre (1 audio) -->
         <div class="event-row repetition glass" data-date="2026-09-17">
@@ -1912,6 +2006,7 @@ function postLoginInit(){
   try{insertThursdayCounters();}catch(e){}
   try{loadAgendaSeen();}catch(e){}
   try{markPastAgendaEvents();}catch(e){}
+  try{renderAgendaCalendar();}catch(e){}
   refreshIcons();
 }
 
@@ -1978,6 +2073,158 @@ function insertThursdayCounters(){
   }
   refreshIcons();
 }
+
+
+/* ── AGENDA : vue calendrier mensuelle (les fiches .event-row restent la source de données) ── */
+const CAL_MONTHS = {
+  fr:['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'],
+  es:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']
+};
+const CAL_DOW = {
+  fr:['lun.','mar.','mer.','jeu.','ven.','sam.','dim.'],
+  es:['lun.','mar.','mié.','jue.','vie.','sáb.','dom.']
+};
+const CAL_DAYS_LONG = {
+  fr:['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'],
+  es:['domingo','lunes','martes','miércoles','jueves','viernes','sábado']
+};
+let calYear = null, calMonth = null, calOpenKey = null;
+
+function calKey(d){
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function calEvents(){
+  const evs = [];
+  document.querySelectorAll('#agenda .event-row[data-date]').forEach(row => {
+    const start = row.getAttribute('data-date');
+    const end = row.getAttribute('data-end') || start;
+    const type = row.classList.contains('concert') ? 'concert' : (row.classList.contains('repetition') ? 'repetition' : 'other');
+    const name = row.querySelector('.event-name')?.textContent.trim() || '';
+    evs.push({ row, start, end, type, name, passed: row.classList.contains('passed') });
+  });
+  return evs;
+}
+function calEventsOn(evs, key){
+  return evs.filter(e => key >= e.start && key <= e.end);
+}
+function renderAgendaCalendar(){
+  const box = document.getElementById('agenda-cal');
+  if(!box) return;
+  const lang = (currentLang === 'es') ? 'es' : 'fr';
+  if(calYear === null){
+    const now = new Date();
+    calYear = now.getFullYear(); calMonth = now.getMonth();
+  }
+  const evs = calEvents();
+  const todayKey = calKey(new Date());
+  const first = new Date(calYear, calMonth, 1);
+  const offset = (first.getDay() + 6) % 7; // lundi = 0
+  const gridStart = new Date(calYear, calMonth, 1 - offset);
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  const weeks = Math.ceil((offset + daysInMonth) / 7);
+
+  let cells = '';
+  for(let i = 0; i < weeks * 7; i++){
+    const d = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + i);
+    const key = calKey(d);
+    const inMonth = d.getMonth() === calMonth;
+    const dow = (d.getDay() + 6) % 7;
+    const dayEvs = calEventsOn(evs, key);
+    const cls = ['cal-cell'];
+    if(!inMonth) cls.push('out');
+    if(dow >= 5) cls.push('weekend');
+    if(key === todayKey) cls.push('today');
+    let pills = '';
+    dayEvs.slice(0,3).forEach(e => {
+      const showText = (key === e.start) || dow === 0;
+      pills += `<div class="cal-pill ${e.type}${e.passed?' passed':''}" title="${e.name.replace(/"/g,'&quot;')}">${showText ? e.name : '&nbsp;'}</div>`;
+    });
+    if(dayEvs.length > 3) pills += `<div class="cal-more">+${dayEvs.length - 3}</div>`;
+    const inner = `<span class="cal-num">${d.getDate()}</span><div class="cal-evs">${pills}</div>`;
+    if(dayEvs.length){
+      const label = `${d.getDate()} ${CAL_MONTHS[lang][d.getMonth()]} : ${dayEvs.map(e => e.name).join(', ')}`;
+      cells += `<button type="button" class="${cls.join(' ')}" data-key="${key}" aria-label="${label.replace(/"/g,'&quot;')}" onclick="openAgendaDay('${key}')">${inner}</button>`;
+    } else {
+      cells += `<div class="${cls.join(' ')}">${inner}</div>`;
+    }
+  }
+
+  const todayLbl = lang === 'fr' ? "Aujourd'hui" : 'Hoy';
+  const lgConcert = lang === 'fr' ? 'Concert' : 'Concierto';
+  const lgRep = lang === 'fr' ? 'Répétition' : 'Ensayo';
+  const lgOther = lang === 'fr' ? 'Autre (vacances, réunion...)' : 'Otro (vacaciones, reunión...)';
+  box.innerHTML = `
+    <div class="cal-head">
+      <div class="cal-title">${CAL_MONTHS[lang][calMonth]} ${calYear}</div>
+      <div class="cal-nav">
+        <button type="button" onclick="calGoto(-1)" aria-label="${lang==='fr'?'Mois précédent':'Mes anterior'}"><span data-lucide="chevron-left"></span></button>
+        <button type="button" onclick="calGoto(0)">${todayLbl}</button>
+        <button type="button" onclick="calGoto(1)" aria-label="${lang==='fr'?'Mois suivant':'Mes siguiente'}"><span data-lucide="chevron-right"></span></button>
+      </div>
+    </div>
+    <div class="cal-dow">${CAL_DOW[lang].map(x => `<div>${x}</div>`).join('')}</div>
+    <div class="cal-grid">${cells}</div>
+    <div class="cal-legend">
+      <span><i class="c-concert"></i>${lgConcert}</span>
+      <span><i class="c-repetition"></i>${lgRep}</span>
+      <span><i class="c-other"></i>${lgOther}</span>
+    </div>`;
+  refreshIcons();
+}
+function calGoto(delta){
+  if(delta === 0){
+    const now = new Date();
+    calYear = now.getFullYear(); calMonth = now.getMonth();
+  } else {
+    const d = new Date(calYear, calMonth + delta, 1);
+    calYear = d.getFullYear(); calMonth = d.getMonth();
+  }
+  renderAgendaCalendar();
+}
+
+/* Fenêtre de détail : les vraies fiches sont déplacées dans la fenêtre puis remises à leur place */
+let agModalMoved = [];
+function openAgendaDay(key){
+  const modal = document.getElementById('ag-modal');
+  const body = document.getElementById('ag-modal-body');
+  if(!modal || !body) return;
+  closeAgendaModal(true);
+  const lang = (currentLang === 'es') ? 'es' : 'fr';
+  const d = new Date(key + 'T00:00:00');
+  document.getElementById('ag-modal-title').textContent =
+    `${CAL_DAYS_LONG[lang][d.getDay()]} ${d.getDate()} ${CAL_MONTHS[lang][d.getMonth()]} ${d.getFullYear()}`;
+  calEventsOn(calEvents(), key).forEach(e => {
+    const marker = document.createComment('agenda-home');
+    e.row.parentNode.insertBefore(marker, e.row);
+    agModalMoved.push({ row: e.row, marker });
+    body.appendChild(e.row);
+  });
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  calOpenKey = key;
+  refreshIcons();
+  try{ renderAgendaSeenUI(); }catch(err){}
+}
+function closeAgendaModal(silent){
+  const modal = document.getElementById('ag-modal');
+  agModalMoved.forEach(m => {
+    if(m.marker.parentNode){ m.marker.parentNode.insertBefore(m.row, m.marker); m.marker.remove(); }
+  });
+  agModalMoved = [];
+  if(modal && !silent){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+  calOpenKey = null;
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeAgendaModal(); });
+window.addEventListener('atelier-lang-change', () => {
+  try{
+    const reopen = calOpenKey;
+    renderAgendaCalendar();
+    if(reopen) openAgendaDay(reopen);
+  }catch(e){}
+});
 
 /* ── AGENDA : confirmation "vu" par membre, avec avatar/photo ── */
 const AGENDA_SEEN_TABLE = 'event_seen';

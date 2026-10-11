@@ -125,7 +125,23 @@
   <!-- AUDIOS -->
   <section class="section-block">
     <h2 class="section-title"><span data-lucide="audio-lines"></span><span data-fr="Audios" data-es="Audios">Audios</span></h2>
-    <div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Audio de répétition à venir — les premiers enregistrements seront ajoutés dès la rentrée de septembre" data-es="Audio de ensayo próximamente — las primeras grabaciones se añadirán en septiembre">Audio de répétition à venir — les premiers enregistrements seront ajoutés dès la rentrée de septembre</span></div>
+    <div class="audio-block">
+      <div class="audio-label">
+        <span class="audio-label-main"><span data-lucide="mic-vocal"></span><span data-fr="Atelier du 8 octobre" data-es="Ensayo del 8 de octubre">Atelier du 8 octobre</span></span>
+        <span class="audio-source" id="src-repet-8oct-trust-jordan-rakei"></span>
+      </div>
+      <audio id="audio-repet-8oct-trust-jordan-rakei" controls preload="none">
+        <source src="https://www.dropbox.com/scl/fi/esx7g0j5eh6chy531s616/R-petition-du-8-Octobre.mp3?rlkey=suebwv2h8c908h6cu5uddp4t3&raw=1" type="audio/mpeg">
+        <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+      </audio>
+      <div class="audio-controls">
+        <span class="speed-lbl"><span data-lucide="gauge"></span><span data-fr="Vitesse" data-es="Velocidad">Vitesse</span></span>
+        <button class="audio-speed" onclick="setSpeed('audio-repet-8oct-trust-jordan-rakei',0.75,this)">0.75×</button>
+        <button class="audio-speed active" onclick="setSpeed('audio-repet-8oct-trust-jordan-rakei',1,this)">1×</button>
+        <button class="audio-speed" onclick="setSpeed('audio-repet-8oct-trust-jordan-rakei',1.25,this)">1.25×</button>
+        <a href="https://www.dropbox.com/scl/fi/esx7g0j5eh6chy531s616/R-petition-du-8-Octobre.mp3?rlkey=suebwv2h8c908h6cu5uddp4t3&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+      </div>
+    </div>
   </section>
 
   <!-- PARTITIONS -->
