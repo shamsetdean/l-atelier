@@ -1,1 +1,18 @@
+name: Supabase keepalive
 
+# Interroge la base deux fois par semaine (lundi et jeudi) pour éviter
+# la mise en pause automatique d'un projet Supabase gratuit.
+on:
+  schedule:
+    - cron: '17 6 * * 1,4'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Interroger la table member_photos
+        run: |
+          curl --fail --silent --show-error \
+            "https://atsbhmvjungckpknkbxw.supabase.co/rest/v1/member_photos?select=name&limit=1" \
+            -H "apikey: sb_publishable_5NtVvQKSMnhQRijrWcW2hA_hwWKGW9j"
