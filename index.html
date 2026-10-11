@@ -953,6 +953,30 @@ button.cal-cell:focus-visible{outline:2px solid var(--accent);outline-offset:-2p
           </div>
         </div>
 
+        <div class="event-row repetition glass" data-date="2026-10-15">
+          <div class="event-grid">
+            <div class="event-icon"><span data-lucide="mic-vocal"></span></div>
+            <div>
+              <div class="event-date-line"><span class="event-day">15</span><span class="event-month">Octobre 2026</span></div>
+              <div class="event-name"><span data-fr="Répétition" data-es="Ensayo">Répétition</span></div>
+              <div class="event-lieu"><span data-lucide="map-pin"></span><span data-fr="Conservatoire Jacques-Higelin de Chelles · 19h30-21h" data-es="Conservatorio Jacques-Higelin de Chelles · 19:30-21h">Conservatoire Jacques-Higelin de Chelles · 19h30-21h</span></div>
+            </div>
+            <div class="event-badge-col"><span class="event-badge repetition"><span data-lucide="mic-vocal"></span><span data-fr="Répétition" data-es="Ensayo">Répétition</span></span><button class="event-export-btn" onclick="exportSingleEvent(this)" title="Ajouter au calendrier" aria-label="Ajouter au calendrier"><span data-lucide="calendar-plus"></span></button></div>
+          </div>
+        </div>
+
+        <div class="event-row glass" data-date="2026-10-15">
+          <div class="event-grid">
+            <div class="event-icon" style="background:rgba(115,110,134,.12);color:var(--muted);"><span data-lucide="presentation"></span></div>
+            <div>
+              <div class="event-date-line"><span class="event-day">15</span><span class="event-month">Octobre 2026</span></div>
+              <div class="event-name"><span data-fr="Réunion pédagogique" data-es="Reunión pedagógica">Réunion pédagogique</span></div>
+              <div class="event-lieu"><span data-lucide="clock"></span><span data-fr="À partir de 21h" data-es="A partir de las 21:00">À partir de 21h</span></div>
+            </div>
+            <div class="event-badge-col"><span class="event-badge archive"><span data-lucide="presentation"></span><span data-fr="Réunion" data-es="Reunión">Réunion</span></span><button class="event-export-btn" onclick="exportSingleEvent(this)" title="Ajouter au calendrier" aria-label="Ajouter au calendrier"><span data-lucide="calendar-plus"></span></button></div>
+          </div>
+        </div>
+
         <div class="event-row glass" data-date="2026-10-17" data-end="2026-11-02">
           <div class="event-grid">
             <div class="event-icon" style="background:rgba(115,110,134,.12);color:var(--muted);"><span data-lucide="palmtree"></span></div>
@@ -1999,6 +2023,7 @@ document.addEventListener('click', (e) => {
 }, true);
 
 function postLoginInit(){
+  try{generateRecurringRehearsals();}catch(e){}
   try{tagNouveauxMorceaux();}catch(e){}
   try{checkNewSinceVisit();}catch(e){}
   try{maybeShowA2hsTutorial();}catch(e){}
@@ -2007,6 +2032,50 @@ function postLoginInit(){
   try{markPastAgendaEvents();}catch(e){}
   try{renderAgendaCalendar();}catch(e){}
   refreshIcons();
+}
+
+/* ── AGENDA : répétitions récurrentes, tous les jeudis 19h30-21h, hors vacances ── */
+const RECURRING_REHEARSAL = { from:'2026-10-15', to:'2027-07-03' };
+function generateRecurringRehearsals(){
+  const list = document.getElementById('agenda-list');
+  if(!list) return;
+  list.querySelectorAll('.event-row.recurring-gen').forEach(r => r.remove());
+  const vac = getVacationRanges();
+  const skip = new Set();
+  list.querySelectorAll('.event-row[data-date]').forEach(r => {
+    const lieu = r.querySelector('.event-lieu')?.textContent || '';
+    // jour déjà renseigné à la main (répétition) ou jour férié : pas de doublon
+    if(r.classList.contains('repetition') || /férié/i.test(lieu)) skip.add(r.getAttribute('data-date'));
+  });
+  const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+  const d = new Date(RECURRING_REHEARSAL.from + 'T00:00:00');
+  const end = new Date(RECURRING_REHEARSAL.to + 'T00:00:00');
+  while(d.getDay() !== 4) d.setDate(d.getDate() + 1); // premier jeudi
+  while(d <= end){
+    const key = calKey(d);
+    if(!skip.has(key) && !isDuringVacation(d, vac)){
+      const row = document.createElement('div');
+      row.className = 'event-row repetition glass recurring-gen';
+      row.setAttribute('data-date', key);
+      row.innerHTML = `<div class="event-grid">
+            <div class="event-icon"><span data-lucide="mic-vocal"></span></div>
+            <div>
+              <div class="event-date-line"><span class="event-day">${d.getDate()}</span><span class="event-month">${months[d.getMonth()]} ${d.getFullYear()}</span></div>
+              <div class="event-name"><span data-fr="Répétition" data-es="Ensayo">Répétition</span></div>
+              <div class="event-lieu"><span data-lucide="map-pin"></span><span data-fr="Conservatoire Jacques-Higelin de Chelles · 19h30-21h" data-es="Conservatorio Jacques-Higelin de Chelles · 19:30-21h">Conservatoire Jacques-Higelin de Chelles · 19h30-21h</span></div>
+            </div>
+            <div class="event-badge-col"><span class="event-badge repetition"><span data-lucide="mic-vocal"></span><span data-fr="Répétition" data-es="Ensayo">Répétition</span></span><button class="event-export-btn" onclick="exportSingleEvent(this)" title="Ajouter au calendrier" aria-label="Ajouter au calendrier"><span data-lucide="calendar-plus"></span></button></div>
+          </div>`;
+      list.appendChild(row);
+    }
+    d.setDate(d.getDate() + 7);
+  }
+  // tri chronologique stable (à date égale, l'ordre d'origine est conservé)
+  Array.from(list.querySelectorAll('.event-row[data-date]'))
+    .map((r, i) => ({ r, i, k: r.getAttribute('data-date') }))
+    .sort((a, b) => a.k < b.k ? -1 : a.k > b.k ? 1 : a.i - b.i)
+    .forEach(o => list.appendChild(o.r));
+  if(typeof currentLang !== 'undefined' && currentLang === 'es') applyLang();
 }
 
 /* ── AGENDA : événements passés affichés plus compacts et transparents ── */
