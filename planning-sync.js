@@ -12,9 +12,10 @@
  *   "Easy Lover"             → easy-lover
  *   "Say Say Say"            → say-say-say
  *   "Medley Justin"          → medley-jt
- *   "Heyoka Chelles"         → heyoka-chelles
  *   "This Place Hotel"       → this-place-hotel
  *   "Medley Chaka"           → medley-chaka
+ *   "Midnight Train to Georgia" → midnight-train-to-georgia
+ *   "Don't You Worry 'Bout a Thing" → dont-you-worry-bout-a-thing
  */
 (function(){
   'use strict';
@@ -25,9 +26,10 @@
     'easy lover':             'easy-lover',
     'say say say':            'say-say-say',
     'medley justin':          'medley-jt',
-    'heyoka chelles':         'heyoka-chelles',
     'this place hotel':       'this-place-hotel',
     'medley chaka':           'medley-chaka',
+    'midnight train to georgia': 'midnight-train-to-georgia',
+    "don't you worry 'bout a thing": 'dont-you-worry-bout-a-thing',
   };
 
   function getSlug(){
@@ -77,8 +79,10 @@
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
 
-    // Trouver toutes les répétitions (event-row avec data-date)
-    const rows = Array.from(doc.querySelectorAll('.event-row[data-date]'));
+    // Trouver toutes les répétitions du Planning (event-row avec data-date).
+    // On se limite à #planning : les lignes de l'Agenda n'ont pas d'audio et
+    // masqueraient sinon la répétition du même jour.
+    const rows = Array.from(doc.querySelectorAll('#planning .event-row[data-date]'));
     // Filtrer: uniquement les répétitions (pas le concert) et <= aujourd'hui
     const today = new Date(); today.setHours(23,59,59,999);
     const repets = rows.filter(row => {
