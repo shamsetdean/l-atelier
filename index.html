@@ -319,12 +319,14 @@ header.app-header{position:sticky;top:calc(.8rem + env(safe-area-inset-top,0px))
 .concert-hero.passed{opacity:.6;}
 
 /* MORCEAUX */
+/* Grille d'origine (saison 2025-2026) */
+.morceaux-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
+@media(max-width:640px){.morceaux-grid:not(.grid-2col){grid-template-columns:1fr;}}
 .morceaux-slider{position:relative;}
-.morceaux-grid{display:flex;gap:1rem;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none;padding:.7rem .3rem 1.2rem;margin:-.7rem -.3rem 0;}
-.morceaux-grid::-webkit-scrollbar{display:none;}
-.morceaux-grid .morceau-card{flex:0 0 calc(50% - .5rem);min-width:0;scroll-snap-align:start;}
-@media(min-width:1000px){.morceaux-grid:not(.grid-2col) .morceau-card{flex-basis:calc(33.333% - .67rem);}}
-@media(max-width:640px){.morceaux-grid .morceau-card,.morceaux-grid:not(.grid-2col) .morceau-card{flex-basis:84%;}}
+.morceaux-grid.grid-2col{display:flex;gap:1rem;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none;padding:.7rem .3rem 1.2rem;margin:-.7rem -.3rem 0;}
+.morceaux-grid.grid-2col::-webkit-scrollbar{display:none;}
+.morceaux-grid.grid-2col .morceau-card{flex:0 0 calc(50% - .5rem);min-width:0;scroll-snap-align:start;}
+@media(max-width:640px){.morceaux-grid.grid-2col .morceau-card{flex-basis:84%;}}
 .slider-btn{position:absolute;top:30%;z-index:3;width:42px;height:42px;border-radius:50%;border:1px solid var(--glass-line);background:rgba(255,255,255,.9);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(26,23,38,.18);transition:opacity .2s,transform .2s;}
 .slider-btn:hover{transform:scale(1.07);}
 .slider-btn.prev{left:-.3rem;}
@@ -337,15 +339,15 @@ header.app-header{position:sticky;top:calc(.8rem + env(safe-area-inset-top,0px))
 .slider-dots i.on{width:18px;border-radius:6px;background:var(--accent);}
 @media(min-width:900px){
   .morceaux-slider{container-type:inline-size;}
-  .morceaux-grid{padding-inline:27cqw;scroll-snap-type:x mandatory;}
-  .morceaux-grid .morceau-card,.morceaux-grid:not(.grid-2col) .morceau-card{flex:0 0 46cqw;scroll-snap-align:center;scroll-snap-stop:always;opacity:.5;transform:scale(.9);transition:transform .35s cubic-bezier(.22,1,.36,1),opacity .35s,box-shadow .25s;}
-  .morceaux-grid .morceau-card.is-active{opacity:1;transform:scale(1);}
-  .morceaux-grid .morceau-card:hover{transform:translateY(-5px) scale(.9);opacity:.8;}
-  .morceaux-grid .morceau-card.is-active:hover{transform:translateY(-5px) scale(1);opacity:1;}
+  .morceaux-grid.grid-2col{padding-inline:27cqw;scroll-snap-type:x mandatory;}
+  .morceaux-grid.grid-2col .morceau-card{flex:0 0 46cqw;scroll-snap-align:center;scroll-snap-stop:always;opacity:.5;transform:scale(.9);transition:transform .35s cubic-bezier(.22,1,.36,1),opacity .35s,box-shadow .25s;}
+  .morceaux-grid.grid-2col .morceau-card.is-active{opacity:1;transform:scale(1);}
+  .morceaux-grid.grid-2col .morceau-card:hover{transform:translateY(-5px) scale(.9);opacity:.8;}
+  .morceaux-grid.grid-2col .morceau-card.is-active:hover{transform:translateY(-5px) scale(1);opacity:1;}
   .slider-btn.prev{left:1rem;}
   .slider-btn.next{right:1rem;}
 }
-@media(prefers-reduced-motion:reduce){.morceaux-grid{scroll-behavior:auto;}}
+@media(prefers-reduced-motion:reduce){.morceaux-grid.grid-2col{scroll-behavior:auto;}}
 .morceau-card{border-radius:var(--r-md);overflow:hidden;cursor:pointer;display:flex;flex-direction:column;position:relative;transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s;}
 .morceau-card:active{transform:scale(.99);}
 @media(hover:hover){.morceau-card:hover{transform:translateY(-5px);box-shadow:var(--glass-shadow-lg),var(--glass-inset);}.morceau-card:hover .morceau-name{color:var(--accent);}.morceau-card:hover .morceau-play{transform:scale(1.08);background:#fff;color:var(--accent);}}
@@ -1970,14 +1972,13 @@ function filterByTag(tag, btn){
     if(!countEl) return;
     const visible = grid.querySelectorAll('.morceau-card:not(.tag-hidden)').length;
     countEl.textContent = String(visible).padStart(2,'0');
-    grid.scrollTo({left:0,behavior:'auto'});
-    grid.dispatchEvent(new Event('scroll'));
+    if(grid.classList.contains('grid-2col')){grid.scrollTo({left:0,behavior:'auto'});grid.dispatchEvent(new Event('scroll'));}
   });
 }
 
 /* ── CARROUSEL DES MORCEAUX (défilement horizontal, flèches sur ordinateur) ── */
 function initMorceauxSliders(){
-  document.querySelectorAll('.morceaux-grid').forEach(grid=>{
+  document.querySelectorAll('.morceaux-grid.grid-2col').forEach(grid=>{
     if(grid.parentElement.classList.contains('morceaux-slider')) return;
     const wrap=document.createElement('div');
     wrap.className='morceaux-slider';
