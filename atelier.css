@@ -217,3 +217,7 @@ audio{width:100%;height:44px;outline:none;border-radius:var(--r-pill);}
   .hero-side .num{font-size:3rem;}
   .section-block{padding:1.4rem 1.2rem 1.5rem;}
 }
+
+/* Légendes sous les vidéos de référence */
+.video-item{min-width:0;}
+.video-caption{text-align:center;font-size:14px;font-weight:600;line-height:1.4;color:var(--ink);margin-top:.65rem;}
