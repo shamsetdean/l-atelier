@@ -1982,16 +1982,17 @@ function initMorceauxSliders(){
     wrap.className='morceaux-slider';
     grid.parentNode.insertBefore(wrap,grid);
     wrap.appendChild(grid);
+    const go=(dir)=>{
+      const c=grid.querySelector('.morceau-card:not(.tag-hidden)');
+      const center=window.matchMedia('(min-width:900px)').matches;
+      const step=center&&c?c.offsetWidth+16:grid.clientWidth*0.9;
+      grid.scrollBy({left:(dir==='next'?1:-1)*step,behavior:'smooth'});
+    };
     const mk=(dir,icon,label)=>{
       const b=document.createElement('button');
       b.type='button';b.className='slider-btn '+dir;b.setAttribute('aria-label',label);
       b.innerHTML='<span data-lucide="'+icon+'"></span>';
-      b.addEventListener('click',()=>{
-        const c=grid.querySelector('.morceau-card:not(.tag-hidden)');
-        const center=window.matchMedia('(min-width:900px)').matches;
-        const step=center&&c?c.offsetWidth+16:grid.clientWidth*0.9;
-        grid.scrollBy({left:(dir==='next'?1:-1)*step,behavior:'smooth'});
-      });
+      b.addEventListener('click',()=>go(dir));
       return b;
     };
     const prev=mk('prev','chevron-left','Précédent');
@@ -2026,6 +2027,29 @@ function initMorceauxSliders(){
     window.addEventListener('resize',update);
     if(window.ResizeObserver) new ResizeObserver(update).observe(grid);
     update();
+
+    /* Défilement automatique : pause au survol, au toucher, au clavier, onglet masqué ou carrousel hors écran */
+    const AUTO_MS=5000, HOLD_MS=12000;
+    const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let hover=false, holdUntil=0, inView=true;
+    const hold=()=>{holdUntil=Date.now()+HOLD_MS;};
+    [wrap,nav].forEach(el=>{
+      el.addEventListener('mouseenter',()=>{hover=true;});
+      el.addEventListener('mouseleave',()=>{hover=false;});
+      ['pointerdown','touchstart','wheel','keydown','focusin'].forEach(ev=>el.addEventListener(ev,hold,{passive:true}));
+    });
+    if(window.IntersectionObserver){
+      new IntersectionObserver(es=>{inView=es[0].isIntersecting;},{threshold:0.4}).observe(wrap);
+    }
+    if(!reduce){
+      setInterval(()=>{
+        if(document.hidden||hover||!inView||Date.now()<holdUntil||!grid.offsetParent) return;
+        const max=grid.scrollWidth-grid.clientWidth;
+        if(max<=2) return;
+        if(grid.scrollLeft>=max-2) grid.scrollTo({left:0,behavior:'smooth'});
+        else go('next');
+      },AUTO_MS);
+    }
   });
   refreshIcons();
 }
