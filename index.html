@@ -319,9 +319,33 @@ header.app-header{position:sticky;top:calc(.8rem + env(safe-area-inset-top,0px))
 .concert-hero.passed{opacity:.6;}
 
 /* MORCEAUX */
-.morceaux-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
-.morceaux-grid.grid-2col{grid-template-columns:repeat(2,1fr);}
-@media(max-width:640px){.morceaux-grid.grid-2col{grid-template-columns:1fr;}}
+.morceaux-slider{position:relative;}
+.morceaux-grid{display:flex;gap:1rem;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none;padding:.7rem .3rem 1.2rem;margin:-.7rem -.3rem 0;}
+.morceaux-grid::-webkit-scrollbar{display:none;}
+.morceaux-grid .morceau-card{flex:0 0 calc(50% - .5rem);min-width:0;scroll-snap-align:start;}
+@media(min-width:1000px){.morceaux-grid:not(.grid-2col) .morceau-card{flex-basis:calc(33.333% - .67rem);}}
+@media(max-width:640px){.morceaux-grid .morceau-card,.morceaux-grid:not(.grid-2col) .morceau-card{flex-basis:84%;}}
+.slider-btn{position:absolute;top:30%;z-index:3;width:42px;height:42px;border-radius:50%;border:1px solid var(--glass-line);background:rgba(255,255,255,.9);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(26,23,38,.18);transition:opacity .2s,transform .2s;}
+.slider-btn:hover{transform:scale(1.07);}
+.slider-btn.prev{left:-.3rem;}
+.slider-btn.next{right:-.3rem;}
+.slider-btn[disabled]{opacity:0;pointer-events:none;}
+.slider-btn [data-lucide],.slider-btn svg{width:20px;height:20px;}
+@media(hover:none){.slider-btn{display:none;}}
+.slider-dots{display:flex;justify-content:center;gap:.4rem;margin:-.2rem 0 1.6rem;}
+.slider-dots i{width:6px;height:6px;border-radius:50%;background:rgba(26,23,38,.22);transition:all .2s;}
+.slider-dots i.on{width:18px;border-radius:6px;background:var(--accent);}
+@media(min-width:900px){
+  .morceaux-slider{container-type:inline-size;}
+  .morceaux-grid{padding-inline:27cqw;scroll-snap-type:x mandatory;}
+  .morceaux-grid .morceau-card,.morceaux-grid:not(.grid-2col) .morceau-card{flex:0 0 46cqw;scroll-snap-align:center;scroll-snap-stop:always;opacity:.5;transform:scale(.9);transition:transform .35s cubic-bezier(.22,1,.36,1),opacity .35s,box-shadow .25s;}
+  .morceaux-grid .morceau-card.is-active{opacity:1;transform:scale(1);}
+  .morceaux-grid .morceau-card:hover{transform:translateY(-5px) scale(.9);opacity:.8;}
+  .morceaux-grid .morceau-card.is-active:hover{transform:translateY(-5px) scale(1);opacity:1;}
+  .slider-btn.prev{left:1rem;}
+  .slider-btn.next{right:1rem;}
+}
+@media(prefers-reduced-motion:reduce){.morceaux-grid{scroll-behavior:auto;}}
 .morceau-card{border-radius:var(--r-md);overflow:hidden;cursor:pointer;display:flex;flex-direction:column;position:relative;transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s;}
 .morceau-card:active{transform:scale(.99);}
 @media(hover:hover){.morceau-card:hover{transform:translateY(-5px);box-shadow:var(--glass-shadow-lg),var(--glass-inset);}.morceau-card:hover .morceau-name{color:var(--accent);}.morceau-card:hover .morceau-play{transform:scale(1.08);background:#fff;color:var(--accent);}}
@@ -523,7 +547,6 @@ footer.app-footer{max-width:1180px;margin:2.5rem auto 0;border-radius:var(--r-lg
   .cc-actions{flex-direction:column;}
   .cc-stat{display:flex;align-items:baseline;justify-content:center;gap:.6rem;border-top:1px solid var(--glass-line);padding-top:.9rem;}
   .cc-stat .lbl,.cc-jminus-label{margin-top:0;}
-  .morceaux-grid{grid-template-columns:1fr;}
   .videos-grid{grid-template-columns:1fr;}
   .event-grid{grid-template-columns:auto 1fr;gap:.9rem;}
   .event-badge{display:none;}
@@ -1941,14 +1964,71 @@ function filterByTag(tag, btn){
 
   // Met à jour les compteurs visibles de chaque saison
   document.querySelectorAll('.morceaux-grid').forEach(grid => {
-    const sub = grid.previousElementSibling;
+    const sub = (grid.closest('.morceaux-slider') || grid).previousElementSibling;
     if(!sub || !sub.classList.contains('videos-sub')) return;
     const countEl = sub.querySelector('.count');
     if(!countEl) return;
     const visible = grid.querySelectorAll('.morceau-card:not(.tag-hidden)').length;
     countEl.textContent = String(visible).padStart(2,'0');
+    grid.scrollTo({left:0,behavior:'auto'});
+    grid.dispatchEvent(new Event('scroll'));
   });
 }
+
+/* ── CARROUSEL DES MORCEAUX (défilement horizontal, flèches sur ordinateur) ── */
+function initMorceauxSliders(){
+  document.querySelectorAll('.morceaux-grid').forEach(grid=>{
+    if(grid.parentElement.classList.contains('morceaux-slider')) return;
+    const wrap=document.createElement('div');
+    wrap.className='morceaux-slider';
+    grid.parentNode.insertBefore(wrap,grid);
+    wrap.appendChild(grid);
+    const mk=(dir,icon,label)=>{
+      const b=document.createElement('button');
+      b.type='button';b.className='slider-btn '+dir;b.setAttribute('aria-label',label);
+      b.innerHTML='<span data-lucide="'+icon+'"></span>';
+      b.addEventListener('click',()=>{
+        const c=grid.querySelector('.morceau-card:not(.tag-hidden)');
+        const center=window.matchMedia('(min-width:900px)').matches;
+        const step=center&&c?c.offsetWidth+16:grid.clientWidth*0.9;
+        grid.scrollBy({left:(dir==='next'?1:-1)*step,behavior:'smooth'});
+      });
+      wrap.appendChild(b);return b;
+    };
+    const prev=mk('prev','chevron-left','Précédent');
+    const next=mk('next','chevron-right','Suivant');
+    const dots=document.createElement('div');dots.className='slider-dots';
+    wrap.after(dots);
+    const update=()=>{
+      const max=grid.scrollWidth-grid.clientWidth;
+      prev.disabled=grid.scrollLeft<=2;
+      next.disabled=grid.scrollLeft>=max-2;
+      const cards=[...grid.querySelectorAll('.morceau-card:not(.tag-hidden)')];
+      const gr=grid.getBoundingClientRect(),mid=gr.left+gr.width/2;
+      let best=-1,bd=1e9;
+      cards.forEach((c,i)=>{const r=c.getBoundingClientRect();const d=Math.abs(r.left+r.width/2-mid);if(d<bd){bd=d;best=i;}});
+      grid.querySelectorAll('.morceau-card').forEach(c=>c.classList.remove('is-active'));
+      if(best>=0)cards[best].classList.add('is-active');
+      const center=window.matchMedia('(min-width:900px)').matches;
+      let pages,idx;
+      if(center){pages=cards.length;idx=Math.max(0,best);}
+      else{
+        const perView=Math.max(1,Math.round(grid.clientWidth/((cards[0]&&cards[0].offsetWidth)||grid.clientWidth)));
+        pages=Math.max(1,Math.ceil(cards.length/perView));
+        idx=max<=0?0:Math.round(grid.scrollLeft/max*(pages-1));
+      }
+      if(dots.children.length!==pages){dots.innerHTML='<i></i>'.repeat(pages);}
+      dots.style.display=pages>1?'flex':'none';
+      [...dots.children].forEach((d,i)=>d.classList.toggle('on',i===idx));
+    };
+    grid.addEventListener('scroll',update,{passive:true});
+    window.addEventListener('resize',update);
+    if(window.ResizeObserver) new ResizeObserver(update).observe(grid);
+    update();
+  });
+  refreshIcons();
+}
+document.addEventListener('DOMContentLoaded',initMorceauxSliders);
 
 function tagNouveauxMorceaux(){
   const seuil=5,now=new Date();
