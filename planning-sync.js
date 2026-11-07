@@ -16,6 +16,8 @@
  *   "Medley Chaka"           → medley-chaka
  *   "Midnight Train to Georgia" → midnight-train-to-georgia
  *   "Don't You Worry 'Bout a Thing" → dont-you-worry-bout-a-thing
+ *   "Boogie Nights / All Night" → boogie-nights-all-night
+ *   "Distance (Yebba)"          → yebba-distance
  */
 (function(){
   'use strict';
@@ -30,6 +32,8 @@
     'medley chaka':           'medley-chaka',
     'midnight train to georgia': 'midnight-train-to-georgia',
     "don't you worry 'bout a thing": 'dont-you-worry-bout-a-thing',
+    'boogie nights':          'boogie-nights-all-night',
+    'distance':               'yebba-distance',
   };
 
   function getSlug(){

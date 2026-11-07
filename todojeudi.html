@@ -36,6 +36,7 @@
 .todo-label{font-family:var(--serif);font-style:italic;font-size:1.3rem;line-height:1.2;color:var(--ink);}
 .todo-sub{font-size:13px;color:var(--muted);line-height:1.5;}
 .todo-tag{display:inline-flex;align-items:center;gap:.3rem;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .55rem;margin-top:.4rem;width:fit-content;border-radius:var(--r-pill);border:1px solid var(--accent);color:var(--accent-deep);background:var(--accent-soft);font-weight:600;}
+a.todo-tag{text-decoration:none;}
 .todo-reset-row{text-align:right;}
 .btn-reset{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.55);border:1px solid var(--glass-line);border-radius:var(--r-pill);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:.6rem 1rem;cursor:pointer;transition:all .15s;font-weight:600;min-height:42px;}
 .btn-reset:hover{color:#E0455E;border-color:#E0455E;}
@@ -72,11 +73,22 @@
 
   <div class="todo-list" id="todo-list">
 
-    <div style="padding:2rem 1.2rem;text-align:center;background:var(--glass);backdrop-filter:blur(26px) saturate(165%);-webkit-backdrop-filter:blur(26px) saturate(165%);border:1px solid var(--glass-border);border-radius:var(--r-md);box-shadow:var(--glass-shadow),var(--glass-inset);">
-      <div style="color:var(--muted);margin-bottom:.75rem;">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12h6M9 8h6M9 16h4"/></svg>
+    <div class="todo-item" data-id="concert-1212-midnight-train" onclick="toggleTodo(this.dataset.id)">
+      <div class="todo-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="todo-body">
+        <div class="todo-label">Midnight Train to Georgia</div>
+        <div class="todo-sub"><span data-fr="Un des deux morceaux les plus aboutis, retenu pour le concert du 12 décembre." data-es="Una de las dos canciones más logradas, elegida para el concierto del 12 de diciembre.">Un des deux morceaux les plus aboutis, retenu pour le concert du 12 décembre.</span></div>
+        <a class="todo-tag" href="midnight-train-to-georgia.html" onclick="event.stopPropagation()"><span data-fr="Concert du 12 décembre · voir la fiche" data-es="Concierto del 12 de diciembre · ver la ficha">Concert du 12 décembre · voir la fiche</span></a>
       </div>
-      <p style="font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--muted);margin:0;" data-fr="Aucune information disponible pour le moment." data-es="Ninguna información disponible por el momento.">Aucune information disponible pour le moment.</p>
+    </div>
+
+    <div class="todo-item" data-id="concert-1212-boogie-nights" onclick="toggleTodo(this.dataset.id)">
+      <div class="todo-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="todo-body">
+        <div class="todo-label">Boogie Nights / All Night</div>
+        <div class="todo-sub"><span data-fr="Un des deux morceaux les plus aboutis, retenu pour le concert du 12 décembre." data-es="Una de las dos canciones más logradas, elegida para el concierto del 12 de diciembre.">Un des deux morceaux les plus aboutis, retenu pour le concert du 12 décembre.</span></div>
+        <a class="todo-tag" href="boogie-nights-all-night.html" onclick="event.stopPropagation()"><span data-fr="Concert du 12 décembre · voir la fiche" data-es="Concierto del 12 de diciembre · ver la ficha">Concert du 12 décembre · voir la fiche</span></a>
+      </div>
     </div>
 
   </div>

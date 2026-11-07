@@ -127,7 +127,23 @@
   <!-- AUDIOS -->
   <section class="section-block">
     <h2 class="section-title"><span data-lucide="audio-lines"></span><span data-fr="Audios" data-es="Audios">Audios</span></h2>
-    <div class="pdf-empty"><span data-lucide="clock"></span><span data-fr="Audio de répétition à venir — les premiers enregistrements seront ajoutés dès la rentrée de septembre" data-es="Audio de ensayo próximamente — las primeras grabaciones se añadirán en septiembre">Audio de répétition à venir — les premiers enregistrements seront ajoutés dès la rentrée de septembre</span></div>
+    <div class="audio-block">
+      <div class="audio-label">
+        <span class="audio-label-main"><span data-lucide="mic-vocal"></span><span data-fr="Atelier du 5 novembre" data-es="Ensayo del 5 de noviembre">Atelier du 5 novembre</span></span>
+        <span class="audio-source" id="src-repet-boogie-nights-all-night"></span>
+      </div>
+      <audio id="audio-repet-boogie-nights-all-night" controls preload="none">
+        <source src="https://www.dropbox.com/scl/fi/xrxvhx0unwyvedxvt6vss/atelier-funk-05-11-2026-Boogie-Nights-All-Night.mp3?rlkey=giqhgug2kbde7ueycdkc0ly4u&raw=1" type="audio/mpeg">
+        <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+      </audio>
+      <div class="audio-controls">
+        <span class="speed-lbl"><span data-lucide="gauge"></span><span data-fr="Vitesse" data-es="Velocidad">Vitesse</span></span>
+        <button class="audio-speed" onclick="setSpeed('audio-repet-boogie-nights-all-night',0.75,this)">0.75×</button>
+        <button class="audio-speed active" onclick="setSpeed('audio-repet-boogie-nights-all-night',1,this)">1×</button>
+        <button class="audio-speed" onclick="setSpeed('audio-repet-boogie-nights-all-night',1.25,this)">1.25×</button>
+        <a href="https://www.dropbox.com/scl/fi/xrxvhx0unwyvedxvt6vss/atelier-funk-05-11-2026-Boogie-Nights-All-Night.mp3?rlkey=giqhgug2kbde7ueycdkc0ly4u&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+      </div>
+    </div>
   </section>
 
   <!-- PARTITIONS -->

@@ -389,7 +389,7 @@
       </div>
       <div class="bilan-row">
         <span class="bilan-lbl" data-fr="Prochaine répétition" data-es="Próximo ensayo">Prochaine répétition</span>
-        <span class="bilan-val"><span data-fr="Septembre 2026 (jour à préciser)" data-es="Septiembre 2026 (día por precisar)">Septembre 2026 (jour à préciser)</span></span>
+        <span class="bilan-val" id="stat-prochaine-repet">—</span>
       </div>
       <div class="bilan-row">
         <span class="bilan-lbl" data-fr="Prochain concert" data-es="Próximo concierto">Prochain concert</span>
@@ -523,7 +523,8 @@ async function fetchPlanningStats(){
     // Compte UNIQUEMENT les concerts passés (le futur ne compte pas, il n'a pas été joué)
     return {
       concertsPasses: concertsPassesConnus.length,
-      prochainConcert
+      prochainConcert,
+      prochaineRepet: computeProchaineRepet(doc, txt)
     };
   } catch(e){
     console.warn('Erreur fetch planning', e);
@@ -532,6 +533,51 @@ async function fetchPlanningStats(){
       prochainConcert: null
     };
   }
+}
+
+/* Prochaine répétition, lue dans l'Agenda de l'index :
+   tous les jeudis de la période RECURRING_REHEARSAL (hors vacances, jours fériés et annulations)
+   + les répétitions ajoutées à la main dans l'Agenda. Renvoie "AAAA-MM-JJ" ou null. */
+function computeProchaineRepet(doc, txt){
+  const key = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  const rows = Array.from(doc.querySelectorAll('#agenda .event-row[data-date]'));
+  const vac = [], skip = new Set(), manual = [];
+  rows.forEach(r => {
+    const start = r.getAttribute('data-date');
+    const end = r.getAttribute('data-end') || start;
+    const badge = (r.querySelector('.event-badge')?.textContent || '').toLowerCase();
+    const info = (r.textContent || '').toLowerCase();
+    if(badge.includes('vacances') || badge.includes('vacaciones')) vac.push([start, end]);
+    else if(/férié|annul/.test(info)) skip.add(start);
+    else if(r.classList.contains('repetition')) manual.push(start);
+  });
+  const inVac = k => vac.some(([a,b]) => k >= a && k <= b);
+  const now = new Date();
+  // le jour même, la répétition reste "prochaine" jusqu'à 21h
+  const ref = new Date(now.getFullYear(), now.getMonth(), now.getDate() + (now.getHours() >= 21 ? 1 : 0));
+  const refKey = key(ref);
+  const cands = manual.filter(k => k >= refKey && !skip.has(k));
+  const m = txt.match(/RECURRING_REHEARSAL\s*=\s*\{\s*from:\s*'([\d-]+)'\s*,\s*to:\s*'([\d-]+)'/);
+  const from = m ? m[1] : '2026-10-15', to = m ? m[2] : '2027-07-03';
+  const d = new Date(Math.max(ref, new Date(from + 'T00:00:00')));
+  while(d.getDay() !== 4) d.setDate(d.getDate() + 1);
+  const end = new Date(to + 'T00:00:00');
+  while(d <= end){
+    const k = key(d);
+    if(!inVac(k) && !skip.has(k)){ cands.push(k); break; }
+    d.setDate(d.getDate() + 7);
+  }
+  cands.sort();
+  return cands[0] || null;
+}
+
+function formatProchaineRepet(k){
+  if(!k) return (currentLang==='fr') ? 'aucune programmée' : 'ninguno programado';
+  const d = new Date(k + 'T00:00:00');
+  const jours = (currentLang==='es')
+    ? ['domingo','lunes','martes','miércoles','jueves','viernes','sábado']
+    : ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+  return jours[d.getDay()] + ' ' + formatDate(d) + ((currentLang==='es') ? ' · 19:30' : ' · 19h30');
 }
 
 /* Récupère la durée d'un audio sans le télécharger (juste métadonnées) */
@@ -566,6 +612,7 @@ function formatDuration(seconds){
 /* Formate une date vers "JJ mois AAAA" en FR/ES */
 function formatDate(d){
   if(!d) return '—';
+  if(!(d instanceof Date)) d = new Date(d); // valeur relue depuis le cache local (chaîne)
   const moisFr = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
   const moisEs = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   const mois = (currentLang==='es') ? moisEs : moisFr;
@@ -621,6 +668,8 @@ function renderChiffres(data){
   document.getElementById('stat-prochain').textContent = data.prochainConcert
     ? formatDate(data.prochainConcert)
     : ((currentLang==='fr') ? 'aucun programmé' : 'ninguno programado');
+  const repEl = document.getElementById('stat-prochaine-repet');
+  if(repEl && data.prochaineRepet !== undefined) repEl.textContent = formatProchaineRepet(data.prochaineRepet);
 }
 
 /* Orchestration : charge tout en parallèle, puis rend */
@@ -663,7 +712,8 @@ async function loadChiffres(){
       morceauxList: morceauxResults,
       enregistrements,
       concerts: planningStats.concertsPasses,
-      prochainConcert: planningStats.prochainConcert
+      prochainConcert: planningStats.prochainConcert,
+      prochaineRepet: planningStats.prochaineRepet || null
     };
     window.__chiffresData = data;
     saveChiffresToCache(data);
