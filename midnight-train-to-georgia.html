@@ -20,6 +20,15 @@
 }
 .audio-block:has(.audio-placeholder) { display: none; }
 .video-duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1rem;}
+.ab-loop-panel{display:flex;gap:.35rem;margin-top:.55rem;flex-wrap:wrap;align-items:stretch;}
+.ab-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .7rem;background:rgba(255,255,255,.55);border:1px solid var(--glass-line);font-family:var(--sans);font-size:11px;color:var(--ink-2);font-weight:600;cursor:pointer;transition:all .15s;border-radius:var(--r-pill);min-height:40px;}
+.ab-btn:hover:not(:disabled){background:#fff;}
+.ab-btn:disabled{opacity:.4;cursor:not-allowed;}
+.ab-btn .ab-label{letter-spacing:.06em;text-transform:uppercase;font-weight:700;font-size:10px;}
+.ab-btn .ab-time{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;}
+.ab-btn.set{background:var(--accent-soft);border-color:var(--accent-2);}
+.ab-btn.set .ab-time,.ab-btn.set .ab-label{color:var(--accent-deep);}
+.ab-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
 </style>
 </head>
 <body>
@@ -110,6 +119,19 @@
   <!-- AUDIOS -->
   <section class="section-block">
     <h2 class="section-title"><span data-lucide="audio-lines"></span><span data-fr="Audios" data-es="Audios">Audios</span></h2>
+    <div class="audio-block" data-repet-date="2026-11-12">
+      <div class="audio-label">
+        <span class="audio-label-main"><span data-lucide="mic-vocal"></span><span data-fr="Atelier du 12 novembre" data-es="Ensayo del 12 de noviembre">Atelier du 12 novembre</span></span>
+        <span class="audio-source"></span>
+      </div>
+      <audio id="audio-repet-mtg-1211" controls preload="none">
+        <source src="https://www.dropbox.com/scl/fi/ayfd6amsd4k63kovbpaj8/Midnight-Train-to-Georgia-repetition-du-12-11.mp3?rlkey=4hcbp9rngifiukscxmmyvexih&raw=1" type="audio/mpeg">
+        <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+      </audio>
+      <div class="audio-controls">
+        <a href="https://www.dropbox.com/scl/fi/ayfd6amsd4k63kovbpaj8/Midnight-Train-to-Georgia-repetition-du-12-11.mp3?rlkey=4hcbp9rngifiukscxmmyvexih&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+      </div>
+    </div>
     <div class="audio-block">
       <div class="audio-label">
         <span class="audio-label-main"><span data-lucide="mic-vocal"></span><span data-fr="Atelier du 17 septembre" data-es="Ensayo del 17 de septiembre">Atelier du 17 septembre</span></span>
@@ -120,10 +142,6 @@
         <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
       </audio>
       <div class="audio-controls">
-        <span class="speed-lbl"><span data-lucide="gauge"></span><span data-fr="Vitesse" data-es="Velocidad">Vitesse</span></span>
-        <button class="audio-speed" onclick="setSpeed('audio-repet-midnight-train-to-georgia',0.75,this)">0.75×</button>
-        <button class="audio-speed active" onclick="setSpeed('audio-repet-midnight-train-to-georgia',1,this)">1×</button>
-        <button class="audio-speed" onclick="setSpeed('audio-repet-midnight-train-to-georgia',1.25,this)">1.25×</button>
         <a href="https://www.dropbox.com/scl/fi/7jwglfm7tbja5bn82pzka/Midnight-Train-to-Georgia-17-Septembre.mp3?rlkey=pt02nsmj7z0sn4vorqsez800m&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
       </div>
     </div>
@@ -206,5 +224,6 @@ applyLang();
 <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
 <script>if(window.lucide&&lucide.createIcons)lucide.createIcons();</script>
 <script src="planning-sync.js" defer></script>
+<script src="loop-ab.js" defer></script>
 </body>
 </html>

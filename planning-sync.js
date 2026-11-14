@@ -153,6 +153,10 @@
       ?.closest('section');
     if(!audioSection) return;
 
+    // Si la fiche contient déjà un groupe d'audios statique pour cette répétition
+    // (data-repet-date), on ne touche à rien : évite d'écraser les pistes par musicien.
+    if(audioSection.querySelector('[data-repet-date="' + latestDate + '"]')) return;
+
     let targetBlock = null;
     for(const block of audioSection.querySelectorAll('.audio-block')){
       const lbl = block.querySelector('.audio-label-main');

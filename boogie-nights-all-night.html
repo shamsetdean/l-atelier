@@ -20,6 +20,20 @@
 }
 .audio-block:has(.audio-placeholder) { display: none; }
 .video-trio{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1rem;}
+.repet-group{margin-bottom:1.5rem;}
+.repet-group-head{display:flex;align-items:center;gap:.5rem;font-weight:600;margin:0 0 .75rem;}
+.repet-group-head .cnt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400;}
+.repet-cat{display:flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:1rem 0 .5rem;}
+.repet-cat svg{width:14px;height:14px;}
+.ab-loop-panel{display:flex;gap:.35rem;margin-top:.55rem;flex-wrap:wrap;align-items:stretch;}
+.ab-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .7rem;background:rgba(255,255,255,.55);border:1px solid var(--glass-line);font-family:var(--sans);font-size:11px;color:var(--ink-2);font-weight:600;cursor:pointer;transition:all .15s;border-radius:var(--r-pill);min-height:40px;}
+.ab-btn:hover:not(:disabled){background:#fff;}
+.ab-btn:disabled{opacity:.4;cursor:not-allowed;}
+.ab-btn .ab-label{letter-spacing:.06em;text-transform:uppercase;font-weight:700;font-size:10px;}
+.ab-btn .ab-time{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;}
+.ab-btn.set{background:var(--accent-soft);border-color:var(--accent-2);}
+.ab-btn.set .ab-time,.ab-btn.set .ab-label{color:var(--accent-deep);}
+.ab-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
 </style>
 </head>
 <body>
@@ -127,6 +141,268 @@
   <!-- AUDIOS -->
   <section class="section-block">
     <h2 class="section-title"><span data-lucide="audio-lines"></span><span data-fr="Audios" data-es="Audios">Audios</span></h2>
+    <div class="repet-group" data-repet-date="2026-11-12">
+      <div class="repet-group-head"><span data-lucide="mic-vocal"></span><span data-fr="Atelier du 12 novembre" data-es="Ensayo del 12 de noviembre">Atelier du 12 novembre</span><span class="cnt" data-fr="21 enregistrements" data-es="21 grabaciones">21 enregistrements</span></div>
+      <div class="repet-cat"><span data-lucide="users"></span><span data-fr="Tous ensemble" data-es="Todos juntos">Tous ensemble</span></div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Tous · morceau complet" data-es="Todos · canción completa">Tous · morceau complet</span></span>
+        </div>
+        <audio id="audio-1211-01" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/dblxpaw02sgvj2cy1rw0a/12-11-Boogie-Nights-TOUS-COMPLET.mp3?rlkey=zz1xqlz6m0cwxo8k43zmyosdl&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/dblxpaw02sgvj2cy1rw0a/12-11-Boogie-Nights-TOUS-COMPLET.mp3?rlkey=zz1xqlz6m0cwxo8k43zmyosdl&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Tous" data-es="Todos">Tous</span></span>
+        </div>
+        <audio id="audio-1211-02" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/c1y05evkexuah2jzdw464/12-11-Boogie-Nights-TOUS.mp3?rlkey=0bpqcnyu4ny3sbp134s9j8w8k&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/c1y05evkexuah2jzdw464/12-11-Boogie-Nights-TOUS.mp3?rlkey=0bpqcnyu4ny3sbp134s9j8w8k&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Tous 2" data-es="Todos 2">Tous 2</span></span>
+        </div>
+        <audio id="audio-1211-03" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/e3w828zn0hxtzhmugvar0/12-11-Boogie-Nights-TOUS-2.mp3?rlkey=fdbdfiopt937od8483hyf0e3u&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/e3w828zn0hxtzhmugvar0/12-11-Boogie-Nights-TOUS-2.mp3?rlkey=fdbdfiopt937od8483hyf0e3u&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Tous 3" data-es="Todos 3">Tous 3</span></span>
+        </div>
+        <audio id="audio-1211-04" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/uashrcb21l85z8afwumhh/12-11-Boogie-Nights-TOUS-3.mp3?rlkey=88gd51szndlepk7cbsnmqvq5g&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/uashrcb21l85z8afwumhh/12-11-Boogie-Nights-TOUS-3.mp3?rlkey=88gd51szndlepk7cbsnmqvq5g&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Tous 4" data-es="Todos 4">Tous 4</span></span>
+        </div>
+        <audio id="audio-1211-05" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/qzy1lj81v5kd5uaoqgfzx/12-11-Boogie-Nights-TOUS-4.mp3?rlkey=2ga2rafzbtshugn67eqlnrm6l&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/qzy1lj81v5kd5uaoqgfzx/12-11-Boogie-Nights-TOUS-4.mp3?rlkey=2ga2rafzbtshugn67eqlnrm6l&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Tous (N) 5" data-es="Todos (N) 5">Tous (N) 5</span></span>
+        </div>
+        <audio id="audio-1211-06" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/lxb0688s8ggy9cn1tuywh/12-11-Boogie-Nights-TOUS-N-5.mp3?rlkey=if5017oashvbeoiovli0qbegg&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/lxb0688s8ggy9cn1tuywh/12-11-Boogie-Nights-TOUS-N-5.mp3?rlkey=if5017oashvbeoiovli0qbegg&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Tous 6" data-es="Todos 6">Tous 6</span></span>
+        </div>
+        <audio id="audio-1211-07" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/xrgql2l1kxlfj9xjl64vl/12-11-Boogie-Nights-TOUS-6.mp3?rlkey=jrfqrjidpkf4d02zfgts1yt84&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/xrgql2l1kxlfj9xjl64vl/12-11-Boogie-Nights-TOUS-6.mp3?rlkey=jrfqrjidpkf4d02zfgts1yt84&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="repet-cat"><span data-lucide="drum"></span><span data-fr="Batterie" data-es="Batería">Batterie</span></div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Batterie" data-es="Batería">Batterie</span></span>
+        </div>
+        <audio id="audio-1211-08" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/y4o4kv0tm8cb7etzbovd0/12-11-Boogie-Nights-BATTERIE.mp3?rlkey=epw1iixloebuyqys4ll6uou3f&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/y4o4kv0tm8cb7etzbovd0/12-11-Boogie-Nights-BATTERIE.mp3?rlkey=epw1iixloebuyqys4ll6uou3f&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="repet-cat"><span data-lucide="guitar"></span><span data-fr="Guitares" data-es="Guitarras">Guitares</span></div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Guitare 1" data-es="Guitarra 1">Guitare 1</span></span>
+        </div>
+        <audio id="audio-1211-09" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/rdkial6cbvlhs9l40sqa0/12-11-Boogie-Nights-GUITARE-1.mp3?rlkey=nrpqp0hhilvymfo7wo2i7xbvg&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/rdkial6cbvlhs9l40sqa0/12-11-Boogie-Nights-GUITARE-1.mp3?rlkey=nrpqp0hhilvymfo7wo2i7xbvg&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Guitare 2" data-es="Guitarra 2">Guitare 2</span></span>
+        </div>
+        <audio id="audio-1211-10" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/1istc8eyezi9ax2qzjr2t/12-11-Boogie-Nights-GUITARE-2.mp3?rlkey=gm9xkhfnfymz1adfsa08zcx09&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/1istc8eyezi9ax2qzjr2t/12-11-Boogie-Nights-GUITARE-2.mp3?rlkey=gm9xkhfnfymz1adfsa08zcx09&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Guitare 3" data-es="Guitarra 3">Guitare 3</span></span>
+        </div>
+        <audio id="audio-1211-11" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/xmwc8yzj96o59k4cyjao1/12-11-Boogie-Nights-GUITARE-3.mp3?rlkey=4rjy9zyf6nsd02pspx2jswv10&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/xmwc8yzj96o59k4cyjao1/12-11-Boogie-Nights-GUITARE-3.mp3?rlkey=4rjy9zyf6nsd02pspx2jswv10&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Guitare 4" data-es="Guitarra 4">Guitare 4</span></span>
+        </div>
+        <audio id="audio-1211-12" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/tpaacokyiimkguzxe3ykz/12-11-Boogie-Nights-GUITARE-4.mp3?rlkey=htv8p6ltrli9yeflldn1y0ixr&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/tpaacokyiimkguzxe3ykz/12-11-Boogie-Nights-GUITARE-4.mp3?rlkey=htv8p6ltrli9yeflldn1y0ixr&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Guitare 5" data-es="Guitarra 5">Guitare 5</span></span>
+        </div>
+        <audio id="audio-1211-13" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/3f9mxn8ydv75dkwcy7sh3/12-11-Boogie-Nights-GUITARE-5.mp3?rlkey=2yb3jamimbmq2k0skztz2b1am&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/3f9mxn8ydv75dkwcy7sh3/12-11-Boogie-Nights-GUITARE-5.mp3?rlkey=2yb3jamimbmq2k0skztz2b1am&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="repet-cat"><span data-lucide="music-2"></span><span data-fr="Saxophone" data-es="Saxofón">Saxophone</span></div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Saxophone" data-es="Saxofón">Saxophone</span></span>
+        </div>
+        <audio id="audio-1211-14" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/25muucpuxwqbokupgukz4/12-11-Boogie-Nights-SAXOPHONE.mp3?rlkey=3lheeekpcowc747pmuyvdb5uu&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/25muucpuxwqbokupgukz4/12-11-Boogie-Nights-SAXOPHONE.mp3?rlkey=3lheeekpcowc747pmuyvdb5uu&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="repet-cat"><span data-lucide="mic-vocal"></span><span data-fr="Voix" data-es="Voces">Voix</span></div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Voix 1" data-es="Voz 1">Voix 1</span></span>
+        </div>
+        <audio id="audio-1211-15" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/bno0u7w7g7t4z8o092ryo/12-11-Boogie-Nights-VOIX.mp3?rlkey=cnjj69aur6hgrobp1unn8y0gy&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/bno0u7w7g7t4z8o092ryo/12-11-Boogie-Nights-VOIX.mp3?rlkey=cnjj69aur6hgrobp1unn8y0gy&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Voix 2" data-es="Voz 2">Voix 2</span></span>
+        </div>
+        <audio id="audio-1211-16" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/bc9icyjd0f3ort09r9par/12-11-Boogie-Nights-VOIX-2.mp3?rlkey=6y64l27fxhonbpvao1jnuef1p&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/bc9icyjd0f3ort09r9par/12-11-Boogie-Nights-VOIX-2.mp3?rlkey=6y64l27fxhonbpvao1jnuef1p&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Voix 3" data-es="Voz 3">Voix 3</span></span>
+        </div>
+        <audio id="audio-1211-17" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/7dvlv3sfkubww30hqi2w4/12-11-Boogie-Nights-VOIX-3.mp3?rlkey=65l33zlklnfiuazkclv7tynly&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/7dvlv3sfkubww30hqi2w4/12-11-Boogie-Nights-VOIX-3.mp3?rlkey=65l33zlklnfiuazkclv7tynly&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Voix 4" data-es="Voz 4">Voix 4</span></span>
+        </div>
+        <audio id="audio-1211-18" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/617rn226m371eff4mdhab/12-11-Boogie-Nights-VOIX-4.mp3?rlkey=0jcqden3cer6mmprqh48euoxu&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/617rn226m371eff4mdhab/12-11-Boogie-Nights-VOIX-4.mp3?rlkey=0jcqden3cer6mmprqh48euoxu&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Voix 5" data-es="Voz 5">Voix 5</span></span>
+        </div>
+        <audio id="audio-1211-19" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/2twk922gp0gsbm4bwls69/12-11-Boogie-Nights-VOIX-5.mp3?rlkey=mkqgvoxx9j51he7x2yhagfz46&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/2twk922gp0gsbm4bwls69/12-11-Boogie-Nights-VOIX-5.mp3?rlkey=mkqgvoxx9j51he7x2yhagfz46&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="repet-cat"><span data-lucide="layers"></span><span data-fr="Combinaisons" data-es="Combinaciones">Combinaisons</span></div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Saxophone et guitare" data-es="Saxofón y guitarra">Saxophone et guitare</span></span>
+        </div>
+        <audio id="audio-1211-20" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/23s8zunqlicqit975syhk/12-11-Boogie-Nights-SAX-GUITARE.mp3?rlkey=a5pliagdtrkzadlaejcsk0g5n&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/23s8zunqlicqit975syhk/12-11-Boogie-Nights-SAX-GUITARE.mp3?rlkey=a5pliagdtrkzadlaejcsk0g5n&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+      <div class="audio-block">
+        <div class="audio-label">
+          <span class="audio-label-main"><span data-lucide="audio-lines"></span><span data-fr="Guitare et voix" data-es="Guitarra y voz">Guitare et voix</span></span>
+        </div>
+        <audio id="audio-1211-21" controls preload="none">
+          <source src="https://www.dropbox.com/scl/fi/eui91bryaq58ovdyacrve/12-11-Boogie-Nights-GUITARE-VOIX.mp3?rlkey=ws8qxgxqiszd08gntn1wqyhu9&raw=1" type="audio/mpeg">
+          <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
+        </audio>
+        <div class="audio-controls">
+          <a href="https://www.dropbox.com/scl/fi/eui91bryaq58ovdyacrve/12-11-Boogie-Nights-GUITARE-VOIX.mp3?rlkey=ws8qxgxqiszd08gntn1wqyhu9&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
+        </div>
+      </div>
+    </div>
+
     <div class="audio-block">
       <div class="audio-label">
         <span class="audio-label-main"><span data-lucide="mic-vocal"></span><span data-fr="Atelier du 5 novembre" data-es="Ensayo del 5 de noviembre">Atelier du 5 novembre</span></span>
@@ -137,10 +413,6 @@
         <span data-fr="Lecture impossible" data-es="Reproducción imposible">Lecture impossible</span>
       </audio>
       <div class="audio-controls">
-        <span class="speed-lbl"><span data-lucide="gauge"></span><span data-fr="Vitesse" data-es="Velocidad">Vitesse</span></span>
-        <button class="audio-speed" onclick="setSpeed('audio-repet-boogie-nights-all-night',0.75,this)">0.75×</button>
-        <button class="audio-speed active" onclick="setSpeed('audio-repet-boogie-nights-all-night',1,this)">1×</button>
-        <button class="audio-speed" onclick="setSpeed('audio-repet-boogie-nights-all-night',1.25,this)">1.25×</button>
         <a href="https://www.dropbox.com/scl/fi/xrxvhx0unwyvedxvt6vss/atelier-funk-05-11-2026-Boogie-Nights-All-Night.mp3?rlkey=giqhgug2kbde7ueycdkc0ly4u&dl=1" class="audio-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a>
       </div>
     </div>
@@ -218,5 +490,6 @@ applyLang();
 <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
 <script>if(window.lucide&&lucide.createIcons)lucide.createIcons();</script>
 <script src="planning-sync.js" defer></script>
+<script src="loop-ab.js" defer></script>
 </body>
 </html>
