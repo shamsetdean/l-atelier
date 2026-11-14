@@ -3,7 +3,7 @@
    et une tolérance aux coupures réseau ponctuelles. Pas de vraie synchro
    hors-ligne (les données Supabase restent en ligne uniquement). */
 
-const CACHE_NAME = 'phenix-shell-v1';
+const CACHE_NAME = 'phenix-shell-v2';
 
 const SHELL_FILES = [
   './index.html',
@@ -13,7 +13,13 @@ const SHELL_FILES = [
   './favicon.svg',
   './apple-touch-icon.png',
   './android-chrome-192.png',
-  './android-chrome-512.png'
+  './android-chrome-512.png',
+  './phenix-logo.png',
+  './custom-audio.js',
+  './loop-ab.js',
+  './pdf-modal.js',
+  './vendor/lucide.min.js',
+  './vendor/supabase.min.js'
 ];
 
 self.addEventListener('install', (event) => {
@@ -41,6 +47,24 @@ self.addEventListener('fetch', (event) => {
   // uniquement les fichiers du site lui-même, en mode "réseau d'abord, cache en secours".
   if (url.origin !== self.location.origin) return;
   if (event.request.method !== 'GET') return;
+
+  // Fichiers statiques (scripts, styles, images, polices) : réponse immédiate depuis le cache,
+  // mise à jour en arrière-plan (stale-while-revalidate). Pages HTML et JSON : réseau d'abord.
+  const dest = event.request.destination;
+  if (['script', 'style', 'image', 'font'].includes(dest)) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then((cache) =>
+        cache.match(event.request).then((cached) => {
+          const network = fetch(event.request).then((response) => {
+            if (response && response.ok) cache.put(event.request, response.clone()).catch(() => {});
+            return response;
+          }).catch(() => cached);
+          return cached || network;
+        })
+      )
+    );
+    return;
+  }
 
   event.respondWith(
     fetch(event.request)

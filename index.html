@@ -2,6 +2,9 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; media-src 'self' blob: https://www.dropbox.com https://*.dropboxusercontent.com; connect-src 'self' https://atsbhmvjungckpknkbxw.supabase.co wss://atsbhmvjungckpknkbxw.supabase.co https://www.dropbox.com https://*.dropboxusercontent.com https://www.youtube.com; frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com https://www.dropbox.com https://*.dropboxusercontent.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script>/* anti-iframe : le site ne peut pas être affiché dans un cadre d'un autre site */try{if(window.top!==window.self&&window.top.location.origin!==window.location.origin)throw 0;}catch(e){window.top.location=window.location.href;}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -32,8 +35,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="vendor/lucide.min.js"></script>
+<script src="vendor/supabase.min.js"></script>
 <style>
 :root{
   --bg:#ECEAF6;
@@ -204,7 +207,7 @@ body.mood-original .aurora .b3{background:#9EE8D4;}
 @media(prefers-reduced-motion: reduce){
   #phoenix-intro{display:none;}
 }
-#login-screen::before{content:"";position:absolute;inset:0;z-index:0;background:url('og-image.png') center/cover no-repeat;opacity:.6;}
+#login-screen::before{content:"";position:absolute;inset:0;z-index:0;background:url('login-bg.webp') center/cover no-repeat;opacity:.6;}
 #login-screen::after{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse at center,rgba(11,7,16,.2) 0%,rgba(11,7,16,.72) 78%,rgba(11,7,16,.92) 100%);}
 @media(max-width:640px){
   #login-screen::before{background-size:contain;background-position:center 18%;}
@@ -1587,7 +1590,7 @@ button.cal-cell:focus-visible{outline:2px solid var(--accent);outline-offset:-2p
       </div>
       <div class="videos-grid">
         <div class="video-card glass">
-          <video class="video-native" controls preload="none" poster="poster-live-03.png">
+          <video class="video-native" controls preload="none" poster="poster-live-03.webp">
             <source src="https://www.dropbox.com/scl/fi/2fzb0hm9fqompc1zo77b2/concert-du-20-mai.mov?rlkey=bnhtzartx8bsrlu2i71he0k33&raw=1" type="video/quicktime">
             <source src="https://www.dropbox.com/scl/fi/2fzb0hm9fqompc1zo77b2/concert-du-20-mai.mov?rlkey=bnhtzartx8bsrlu2i71he0k33&raw=1" type="video/mp4">
           </video>
@@ -1595,14 +1598,14 @@ button.cal-cell:focus-visible{outline:2px solid var(--accent);outline-offset:-2p
           <div class="video-actions"><a href="https://www.dropbox.com/scl/fi/2fzb0hm9fqompc1zo77b2/concert-du-20-mai.mov?rlkey=bnhtzartx8bsrlu2i71he0k33&dl=1" class="video-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a></div>
         </div>
         <div class="video-card glass">
-          <video class="video-native" controls preload="none" poster="poster-live-02.png">
+          <video class="video-native" controls preload="none" poster="poster-live-02.webp">
             <source src="https://www.dropbox.com/scl/fi/cp63o33qednwlc4f6kdj6/9d213374-893f-4e80-946e-237d6b55f31d.MP4?rlkey=qqx6hnocmf759n980noacnvi8&raw=1" type="video/mp4">
           </video>
           <div class="video-info"><div><div class="video-title">Live · les Phénix #02</div><div class="video-subtitle">Medley Chaka Khan</div></div><span class="video-tag live"><span class="dot"></span>Live</span></div>
           <div class="video-actions"><a href="https://www.dropbox.com/scl/fi/cp63o33qednwlc4f6kdj6/9d213374-893f-4e80-946e-237d6b55f31d.MP4?rlkey=qqx6hnocmf759n980noacnvi8&dl=1" class="video-dl"><span data-lucide="download"></span><span data-fr="Télécharger" data-es="Descargar">Télécharger</span></a></div>
         </div>
         <div class="video-card glass">
-          <video class="video-native" controls preload="none" poster="poster-live-01.png">
+          <video class="video-native" controls preload="none" poster="poster-live-01.webp">
             <source src="https://www.dropbox.com/scl/fi/93mt8e36zv24agyisneqj/ae8c3b56-692e-4795-9318-697efeec674c.MP4?rlkey=0huavlqdd1256gark1xjq9s05&raw=1" type="video/mp4">
           </video>
           <div class="video-info"><div><div class="video-title">Live · les Phénix #01</div><div class="video-subtitle">Say Say Say</div></div><span class="video-tag live"><span class="dot"></span>Live</span></div>
@@ -2046,8 +2049,16 @@ document.getElementById('pwd').addEventListener('keydown',e=>{if(e.key==='Enter'
 async function checkPassword(){
   if(!selectedMember) return;
   const v=document.getElementById('pwd').value; if(!v)return;
+  /* Anti force brute : après 5 essais ratés, attente qui double à chaque nouvel échec (30 s, 60 s, 120 s...) */
+  let lock={n:0,until:0}; try{lock=JSON.parse(localStorage.getItem('atelier-lock'))||lock;}catch(e){}
+  if(Date.now()<lock.until){
+    const sec=Math.ceil((lock.until-Date.now())/1000), errL=document.getElementById('login-error');
+    errL.textContent=(currentLang==='fr')?('Trop d\'essais. Réessaie dans '+sec+' s.'):('Demasiados intentos. Reintenta en '+sec+' s.');
+    document.getElementById('pwd').value=''; setTimeout(()=>{errL.textContent='';},3000); return;
+  }
   const h=await sha256(v);
   if(h===PASSWORD_HASH){
+    try{localStorage.removeItem('atelier-lock');}catch(e){}
     sessionStorage.setItem('atelier-auth','1');
     if(bioAvailable()&&!localStorage.getItem('atelier-bio-cred')){
       PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().then(ok=>{
@@ -2055,6 +2066,8 @@ async function checkPassword(){
       });
     }else{openApp();}
   }else{
+    lock.n=(lock.n||0)+1; if(lock.n>=5){lock.until=Date.now()+30000*Math.pow(2,lock.n-5);}
+    try{localStorage.setItem('atelier-lock',JSON.stringify(lock));}catch(e){}
     const err=document.getElementById('login-error');
     err.innerHTML='<span data-lucide="alert-triangle" style="width:15px;height:15px;"></span> '+((currentLang==='fr')?'Mot de passe incorrect.':'Contraseña incorrecta.');
     refreshIcons(); document.getElementById('pwd').value=''; setTimeout(()=>{err.textContent='';},3000);
