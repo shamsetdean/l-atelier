@@ -131,5 +131,6 @@ applyLang();
 (function(){function markTabs(){var tabs=document.querySelectorAll('.tab');tabs.forEach(function(tab){var onclick=tab.getAttribute('onclick')||'';var match=onclick.match(/switchTab\(['"]([^'"]+)['"]/);if(!match)return;var name=match[1];var content=document.getElementById('tab-'+name);if(!content)return;var isEmpty=content.querySelector('.pdf-empty')!==null;if(!isEmpty){tab.classList.add('has-pdf');}else{tab.classList.remove('has-pdf');}});}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',markTabs);}else{markTabs();}})();
 </script>
 <script src="planning-sync.js" defer></script>
+<script src="custom-audio.js"></script>
 </body>
 </html>
